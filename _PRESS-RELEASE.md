@@ -17,28 +17,38 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Pokemon Master Trainer Board Game
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > An online recreation of the popular Pokemon Master Trainer board game that is no longer in production.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  To provide the world wide Pokemon fan base with an on-line version of a discontinued game.  A quick and fun way to pass time with your friends wherever they may be.
+
 
 ## Problem ##
   > Describe the problem your product solves.
+  This board game is no longer manufactured and the current video game version takes on average 20 hours to play.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  We provide an application that is freely available to all world wide and is a less time intensive version than the current video game.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "Gotta catch em all!!"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Log in with your facebook account; start or join a game and play!
+
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Oh this is so fun! It reminds me of my childhood!!"
+  "Thanks for letting my kids experience something from my childhood!"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  visit www.pokemonboardgame.com and start playing.
