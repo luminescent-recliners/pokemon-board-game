@@ -1,6 +1,6 @@
 # Pokemon Master Trainer
 
-> A recreation of the Pokemon Master Trainer Board game
+> A re-creation of the Pokemon Master Trainer Board game
 
 ## Team
 
