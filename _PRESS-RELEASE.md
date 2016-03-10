@@ -1,5 +1,5 @@
 # Pokemon Master Trainer #
-  > An online recreation of the popular Pokemon Master Trainer board game that is no longer in production.
+  > An online re-creation of the popular Pokemon Master Trainer board game that is no longer in production.
 
 ## Summary ##
   To provide the world wide Pokemon fan base with an on-line version of a discontinued game.  A quick and fun way to pass time with your friends wherever they may be.
@@ -8,7 +8,7 @@
   This board game is no longer manufactured and the current video game version takes on average 20 hours to play.
 
 ### Solution ###
-  We provide an application that is freely available to all world wide and is a less time intensive version than the current video game.
+  We provide an application that is freely available to all and is a less time intensive version than the current video game.
 
 ### Quote from Developers ###
   "Gotta catch em all!!"
