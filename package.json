@@ -1,0 +1,37 @@
+{
+  "name": "pokemon-board-game",
+  "version": "1.0.0",
+  "description": "Pokemon Master Trainer",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luminescent-recliners/pokemon-board-game.git"
+  },
+  "keywords": [
+    "Pokemon",
+    "Hack",
+    "Reactor",
+    "Thesis"
+  ],
+  "author": "Arthi, Alex, Hitesh, Linda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luminescent-recliners/pokemon-board-game/issues"
+  },
+  "homepage": "https://github.com/luminescent-recliners/pokemon-board-game#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "express-routes": "0.0.2",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.4.6",
+    "morgan": "^1.7.0",
+    "q": "^1.4.1"
+  }
+}
