@@ -11,8 +11,8 @@ var gymLeaderSchema = mongoose.Schema({
     4: Number,
     5: Number,
     6: Number
-  }
-  imageURL: String,
+  },
+  imageURL: String
 });
 
 var gymLeader = mongoose.model('gymLeader', gymLeaderSchema);
