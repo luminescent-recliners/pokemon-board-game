@@ -12,7 +12,7 @@ var gymLeaderSchema = mongoose.Schema({
     5: Number,
     6: Number
   }
-  imageURL: String
+  imageURL: String,
 });
 
 var gymLeader = mongoose.model('gymLeader', gymLeaderSchema);
