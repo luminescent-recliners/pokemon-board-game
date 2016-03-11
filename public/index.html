@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app='pokemon'>
+  <head>
+    <title>Pokemon Board Game</title>
+    <!-- <link rel="stylesheet" type="text/css" src="css/style.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-route.js"></script>
+    
+    <!-- app files -->
+    <script src="home/home.js"></script>
+    <script src="board/board.js"></script>
+    <script src="app.js"></script>
+
+    <!-- other libraries -->
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Pokemon Board Game</h1>
+      <p></p>
+    </header>
+
+    <div ng-view></div>
+  
+  </body>
+</html>
