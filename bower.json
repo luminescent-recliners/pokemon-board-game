@@ -1,0 +1,28 @@
+{
+  "name": "pokemon-master-trainer",
+  "description": "Pokemon Master Trainer Board Game",
+  "main": "server/server.js",
+  "authors": [
+    "Alex Chou",
+    "Arthi Palaniappam",
+    "Linda Zou",
+    "Hitesh Lala"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "pokemon",
+    "board",
+    "game"
+  ],
+  "homepage": "https://github.com/luminescent-recliners/pokemon-board-game.git",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
