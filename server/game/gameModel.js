@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var gameSchema = mongoose.Schema({
   gameID: Number,
+  name: String,
   users: {},
   gameBoard: {},
   AvailablePokemon: {},

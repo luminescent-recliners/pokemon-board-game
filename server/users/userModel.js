@@ -4,7 +4,7 @@ var pokemonSchema = mongoose.Schema({
   facebookId: String,
   displayName: String,
   gamesParticipating: [],
-  numGameWon: Number,
+  numGameWon: Number
 });
 
 var pokemon = mongoose.model('pokemon', pokemonSchema);
