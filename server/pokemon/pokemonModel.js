@@ -7,11 +7,11 @@ var pokemonSchema = mongoose.Schema({
   description: String,
   hidden: {
     type: Boolean,
-    default: True
+    default: true
   },
   alive: {
     type: Boolean,
-    default: True
+    default: true
   },
   imageURL: String,
   specs: {}
