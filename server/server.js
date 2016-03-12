@@ -1,18 +1,20 @@
 var express = require('express');
-var session = require('express-session');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var morgan = require('morgan');
 
+
+mongoose.connect('mongodb://localhost/testDB');
+
+//var db = require('./gymLeader/gymLeaderModel');
 var router = require('./routes.js');
 var app = express();
+app.use(router);
 
 var port = 3000;
-app.use(morgan('dev'));
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 
-app.use('/api', router);
-app.use(express.static(_dirname + '/../client'));
+// app.use(express.static(_dirname + '/../client'));
 
 app.listen(port);
 console.log('Server listening on..', port);
