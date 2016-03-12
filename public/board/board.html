@@ -1,10 +1,35 @@
 <body>
+<!--   /*<style type="text/css">
+        .chart {
+        background: #eee;
+        padding: 3px;
+    }
+
+    .chart div {
+      width: 0;
+      transition: all 1s ease-out;
+      -moz-transition: all 1s ease-out;
+      -webkit-transition: all 1s ease-out;
+    }
+
+    .chart div {
+      font: 10px sans-serif;
+      background-color: steelblue;
+      text-align: right;
+      padding: 3px;
+      margin: 5px;
+      color: white;
+      box-shadow: 2px 2px 2px #666;
+    }
+  </style>*/ -->
 <div>
   <div>Testing Board</div>
   <p>Create an svg tag and add d3 map in there</p>
-  <div class='board' ng-controller='boardController'>
-    
-  {{hello}}
+  <div ng-controller='boardController'>
+    <input type='number' ng-keypress='inputValue($event)' ng-model='input'>
+    <draw-board board-data='boardData'></draw-board>
+    <!-- <draw-board ng-model='myData'></draw-board> -->
+  {{boardData}}
   </div>
   <div class="game-status">
   	<h3>Current Turn: Player Name</h3>
