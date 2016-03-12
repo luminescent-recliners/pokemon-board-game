@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/testDB');
 
-//var db = require('./gymLeader/gymLeaderModel');
 var router = require('./routes.js');
 var app = express();
 app.use(router);
