@@ -1,89 +1,6 @@
-var app = angular.module('pokemon.board',[])
+var app = angular.module('pokemon.board',[]);
 
-var fakeboard = [
-{typeOfSpot:"pokemon",colorOfSpot:"pink",users:[],gymLeader:4,row:0,col:1},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:0,row:0,col:2},
-{typeOfSpot:"pokemon",colorOfSpot:"pink",users:[],gymLeader:4,row:0,col:3},
-{typeOfSpot:"pokemon",colorOfSpot:"pink",users:[],gymLeader:1,row:0,col:4},
-{typeOfSpot:"event",colorOfSpot:"pink",users:[],gymLeader:1,row:0,col:5},
-{typeOfSpot:"event",colorOfSpot:"pink",users:[],gymLeader:4,row:0,col:6},
-{typeOfSpot:"pokemon",colorOfSpot:"pink",users:[],gymLeader:5,row:0,col:7},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:1,row:0,col:8},
-{typeOfSpot:"event",colorOfSpot:"pink",users:[],gymLeader:5,row:0,col:9},
-{typeOfSpot:"pokemon",colorOfSpot:"pink",users:[],gymLeader:4,row:0,col:10},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:7,row:0,col:11},
-{typeOfSpot:"event",colorOfSpot:"pink",users:[],gymLeader:7,row:0,col:12},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:3,row:0,col:13},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:5,row:0,col:14},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:6,row:0,col:15},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:5,row:0,col:16},
-{typeOfSpot:"city",colorOfSpot:"pink",users:[],gymLeader:1,row:0,col:17},
-{typeOfSpot:"event",colorOfSpot:"green",users:[],gymLeader:7,row:1,col:18},
-{typeOfSpot:"event",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:19},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:0,row:1,col:0},
-{typeOfSpot:"event",colorOfSpot:"green",users:[],gymLeader:1,row:1,col:1},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:3,row:1,col:2},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:4,row:1,col:3},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:0,row:1,col:4},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:5},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:4,row:1,col:6},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:7},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:3,row:1,col:8},
-{typeOfSpot:"city",colorOfSpot:"green",users:[],gymLeader:5,row:1,col:9},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:1,row:1,col:10},
-{typeOfSpot:"city",colorOfSpot:"green",users:[],gymLeader:7,row:1,col:11},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:12},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:13},
-{typeOfSpot:"pokemon",colorOfSpot:"green",users:[],gymLeader:2,row:1,col:14},
-{typeOfSpot:"city",colorOfSpot:"green",users:[],gymLeader:3,row:1,col:15},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:0,row:2,col:16},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:6,row:2,col:17},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:1,row:2,col:18},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:19},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:0},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:3,row:2,col:1},
-{typeOfSpot:"event",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:2},
-{typeOfSpot:"event",colorOfSpot:"blue",users:[],gymLeader:2,row:2,col:3},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:0,row:2,col:4},
-{typeOfSpot:"event",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:5},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:1,row:2,col:6},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:7},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:3,row:2,col:8},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:4,row:2,col:9},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:7,row:2,col:10},
-{typeOfSpot:"pokemon",colorOfSpot:"blue",users:[],gymLeader:2,row:2,col:11},
-{typeOfSpot:"event",colorOfSpot:"blue",users:[],gymLeader:7,row:2,col:12},
-{typeOfSpot:"city",colorOfSpot:"blue",users:[],gymLeader:0,row:2,col:13},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:3,row:3,col:14},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:4,row:3,col:15},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:7,row:3,col:16},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:4,row:3,col:17},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:6,row:3,col:18},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:2,row:3,col:19},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:3,row:3,col:0},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:4,row:3,col:1},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:2,row:3,col:2},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:0,row:3,col:3},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:6,row:3,col:4},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:3,row:3,col:5},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:7,row:3,col:6},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:4,row:3,col:7},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:7,row:3,col:8},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:5,row:3,col:9},
-{typeOfSpot:"city",colorOfSpot:"red",users:[],gymLeader:1,row:3,col:10},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:4,row:3,col:11},
-{typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:7,row:3,col:12},
-{typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:2,row:3,col:13},
-];
-
-
-
-
-
-
-
-
-.controller('boardController', function($scope, gameDashboardFactory) {
+app.controller('boardController', function($scope, gameDashboardFactory) {
   $scope.hello = 'hello testing testing';
   $scope.playerOptions = [[1,2,3],[1,2,3,4]];
   $scope.gameId = 1;
@@ -104,9 +21,6 @@ var fakeboard = [
     console.log('This is the gameboard spot object', arg);
   };
 
-
-
-app.controller('boardController', function($scope, boardFactory) {
   $scope.init = function() {
     $scope.boardData = boardFactory.getBoard();
     // .then(function (resp) {
@@ -116,18 +30,19 @@ app.controller('boardController', function($scope, boardFactory) {
     // });
   };
   
-
-
+ $scope.doublea =[[10,20,30,60,80,20,50],[30,20,30,60,80,20,50],[50,20,30,60,80,20,50]];
+ $scope.boardData = gameBoard;
   // $scope.boardData = [10,20,30,60,80,20,50];
-  // $scope.input;
-  // $scope.inputValue = function($event) {
-  //   if($event.which === 13) {
-  //     $scope.boardData[3] = $scope.input;
-  //   console.log('Iget here', $scope.input, $scope.boardData);
-  //   }
-  // };
+  // $scope.test = {1:1,2:2,3:3,4:4};
+  $scope.input;
+  $scope.inputValue = function($event) {
+    if($event.which === 13) {
+      $scope.boardData[3] = $scope.input;
+    console.log('Iget here', $scope.input, $scope.boardData);
+    }
+  };
 
-  $scope.init();
+  // $scope.init();
 
 })
 
@@ -182,3 +97,52 @@ app.controller('boardController', function($scope, boardFactory) {
 });
 
 
+// this derective is to just draw a singe node on the board
+// given the single node object
+app.directive('drawNode', function() {
+
+  // this draws the node on the canvas
+  var drawNode = function(scope, element, attrs) {
+    // decide on dimensions of svg canvas and figure out
+    // multipliers
+    // have to figure out how to get his info from the
+    // document itself to allow resizing
+    var width = 1200;
+    var height= 800;
+    var wfactor = width/20;
+    var hfactor = height/4.3;
+    // select node on html where we will be adding board 
+    // using d3
+    var board = d3.select(element[0]);
+
+    board.selectAll('.dontexistyet')
+      .append('circle')
+      .data(scope.data)
+      .enter()
+      .append('circle')
+      .transition().ease('elastic')
+      .attr('r', 15)
+      .attr('fill', 'pink')
+      .attr('cx', function(d){console.log(d);return 50 + d.row * wfactor;})
+      .attr('cy', function(d){return 50 + d.col * hfactor;});
+
+
+  };
+
+  var directiveObject = {
+    restrict: 'E',
+    replace: false,
+    scope: {data: '=nodeData'},
+    link: function(scope, element, attrs) {
+      drawNode(scope, element, attrs);
+      scope.$watch('data', function(newValue, oldValue) {
+        if(newValue) {
+          drawNode(scope, element, attrs);
+          console.log("A data change", attrs);
+        }
+      },true);
+    }
+  };
+  return directiveObject;
+
+});

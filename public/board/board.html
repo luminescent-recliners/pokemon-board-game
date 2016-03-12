@@ -1,5 +1,5 @@
 <body>
-<!--   /*<style type="text/css">
+<!--  <style type="text/css">
         .chart {
         background: #eee;
         padding: 3px;
@@ -21,15 +21,24 @@
       color: white;
       box-shadow: 2px 2px 2px #666;
     }
-  </style>*/ -->
+  </style>  -->
 <div>
   <div>Testing Board</div>
   <p>Create an svg tag and add d3 map in there</p>
   <div ng-controller='boardController'>
     <input type='number' ng-keypress='inputValue($event)' ng-model='input'>
-    <draw-board board-data='boardData'></draw-board>
+   <!--  <draw-board board-data='boardData'></draw-board> -->
     <!-- <draw-board ng-model='myData'></draw-board> -->
-  {{boardData}}
+  
+    <!-- <li ng-repeat="item in test">{{item}}</li> -->
+    
+      <draw-node ng-repeat="data in gameBoard" board-data='data'></draw-node>
+  
+
+    <!-- <div ng-repeat ="data in doublea">
+      <draw-board board-data="data"></draw-board>
+    </div> -->
+
   </div>
   <div class="game-status">
   	<h3>Current Turn: Player Name</h3>
