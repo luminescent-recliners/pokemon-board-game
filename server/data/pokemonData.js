@@ -1,4 +1,4 @@
-{
+module.exports = {
   '1': {
     name: 'Bulbasaur',
     pokemonID: 1,

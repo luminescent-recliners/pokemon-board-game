@@ -1,6 +1,6 @@
-{
+module.exports = {
   '1': {
-	name: 'Brock/Onyx',
+	  name: 'Brock/Onyx',
   	city: 'Pewter',
   	attackStrength: 4,
   	attackBonus: {
@@ -14,7 +14,7 @@
   	imageURL: "String"
   },
   '2': {
-	name: 'Misty/Starmie',
+	  name: 'Misty/Starmie',
   	city: 'Cerulean',
   	attackStrength: 4,
   	attackBonus: {
