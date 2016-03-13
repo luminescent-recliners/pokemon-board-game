@@ -1,6 +1,6 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory) {
   $scope.hello = 'hello testing testing';
   $scope.playerOptions = [[1,2,3],[1,2,3,4]];
   $scope.gameId = 1;
@@ -21,6 +21,7 @@ app.controller('boardController', function($scope, gameDashboardFactory) {
     console.log('This is the gameboard spot object', arg);
   };
 
+
   $scope.init = function() {
     $scope.boardData = boardFactory.getBoard();
     // .then(function (resp) {
@@ -31,43 +32,31 @@ app.controller('boardController', function($scope, gameDashboardFactory) {
   };
   
  $scope.doublea =[[10,20,30,60,80,20,50],[30,20,30,60,80,20,50],[50,20,30,60,80,20,50]];
+ // boardData will have to be preprocessed to be an array or change how
+ // we store it.  Might be easier to just store as an array
  $scope.boardData = gameBoard;
+ $scope.pathData = path;
   // $scope.boardData = [10,20,30,60,80,20,50];
   // $scope.test = {1:1,2:2,3:3,4:4};
   $scope.input;
   $scope.inputValue = function($event) {
     if($event.which === 13) {
-      $scope.boardData[3] = $scope.input;
-    console.log('Iget here', $scope.input, $scope.boardData);
+      // $scope.boardData[3] = $scope.input;
+      // $scope.doublea[1][3] = $scope.input;
+      $scope.boardData[3]['colorOfSpot'] = $scope.input;
+      $scope.input = '';
     }
   };
 
   // $scope.init();
+  $scope.testing = d3.select('svg');
+  console.log('from testing', $scope.testing);
+});
 
-})
 
-.factory('boardFactory', function($http) {
 
-  // assume that this function retuns only the
-  // game board
-  var getBoard = function() {
-    return fakeboard;
-      // return $http({
-    //   method: 'GET',
-    //   url: '/games/' + gameId
-    // })
-    // .then(function(resp) {
-    //   return resp.data;
-    // });
-
-  };
-
-  return {
-    getBoard: getBoard
-  };
-})
-
-.directive('drawBoard',function() {
+// was first iteration using an example given
+app.directive('drawBoard',function() {
   var drawd3 = function(scope, element, attrs){
     var chart = d3.select(element[0]);
       chart.selectAll('*').remove();
@@ -97,8 +86,7 @@ app.controller('boardController', function($scope, gameDashboardFactory) {
 });
 
 
-// this derective is to just draw a singe node on the board
-// given the single node object
+// this was second iteration
 app.directive('drawNode', function() {
 
   // this draws the node on the canvas
@@ -113,7 +101,10 @@ app.directive('drawNode', function() {
     var hfactor = height/4.3;
     // select node on html where we will be adding board 
     // using d3
-    var board = d3.select(element[0]);
+    var board = d3.select(element[0])
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
 
     board.selectAll('.dontexistyet')
       .append('circle')
@@ -122,11 +113,9 @@ app.directive('drawNode', function() {
       .append('circle')
       .transition().ease('elastic')
       .attr('r', 15)
-      .attr('fill', 'pink')
-      .attr('cx', function(d){console.log(d);return 50 + d.row * wfactor;})
-      .attr('cy', function(d){return 50 + d.col * hfactor;});
-
-
+      .attr('fill', function(d){return d.colorOfSpot;})
+      .attr('cx', function(d){return 50 + d.col * wfactor;})
+      .attr('cy', function(d){return 50 + d.row * hfactor;});
   };
 
   var directiveObject = {
@@ -135,14 +124,97 @@ app.directive('drawNode', function() {
     scope: {data: '=nodeData'},
     link: function(scope, element, attrs) {
       drawNode(scope, element, attrs);
+      console.log('from link function scope=',scope.data);
+
       scope.$watch('data', function(newValue, oldValue) {
         if(newValue) {
           drawNode(scope, element, attrs);
-          console.log("A data change", attrs);
+          console.log("A data change", newValue, oldValue);
         }
-      },true);
+      }, true);
+
     }
   };
   return directiveObject;
 
+});
+
+app.factory('boardFactory', function($http) {
+
+  // assume that this function retuns only the
+  // game board
+  var getBoard = function() {
+    return fakeboard;
+      // return $http({
+    //   method: 'GET',
+    //   url: '/games/' + gameId
+    // })
+    // .then(function(resp) {
+    //   return resp.data;
+    // });
+
+  };
+
+  return {
+    getBoard: getBoard
+  };
+});
+
+// third iteration using template
+// most functionality we need done in this example
+app.directive('drawTest', function() {
+  var directiveObject = {
+    restrict: 'E',
+    replace: true,
+    scope: {data: '=nodeData'},
+    template: '<circle cx={{50+data.col*70}} cy={{50+data.row*50}} r=12 fill={{data.colorOfSpot}} data-node={{data}}/>',
+    link: function(scope, element, attrs) {
+
+      element.on('mouseenter', function(event) {
+        console.log('from mousenter scope.data:', scope.data.colorOfSpot );
+        console.log('from mousenter attrs.fill:', attrs.fill );
+        // figure out angular pop up box populate with data
+        // 
+        // 
+        element.attr('fill', 'pink');
+      });
+
+      element.on('mouseleave', function(event) {
+        // do other stuff
+        element.attr('fill', scope.data.colorOfSpot);
+      });
+
+      // since populating through angular do not need to set watch
+      // scope.$watch('data', function(newValue, oldValue) {
+      //   if(newValue) {
+      //     console.log("A data change", attrs);
+      //   }
+      // },true);
+
+    }
+  };
+  return directiveObject;
+
+});
+
+// first attempt at drawing path
+app.directive('drawPath', function() {
+  var directiveObject = {
+    restrict: 'E',
+    replace: true,
+    scope: {path: '=pathArray'},
+    template: function(){
+      // have to convert an array of pairs of numbers to
+      // a string of numbers separated by ,  
+      // then attatch M in front of the first pair
+      // and L between all pairs after
+      var coords = path.map(function(xypair){
+        return xypair[0] + ',' + xypair[1];
+      });
+      var out = '<path d="M' + coords.join('L') + '" stroke="orange" stroke-width=3 fill="none"></path>';
+      console.log('from drawPath', out);
+      return out;
+    }()
+  };
+  return directiveObject;
 });
