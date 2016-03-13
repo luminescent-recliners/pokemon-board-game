@@ -1,6 +1,7 @@
 angular.module('pokemon', [
   'pokemon.board',
   'pokemon.home',
+  'services',
   'pokemon.starter',
   'ngRoute'
 ])
