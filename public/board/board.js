@@ -21,7 +21,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     console.log('This is the gameboard spot object', arg);
   };
 
-
   $scope.init = function() {
     $scope.boardData = boardFactory.getBoard();
     // .then(function (resp) {
@@ -155,6 +154,16 @@ app.factory('boardFactory', function($http) {
 
   };
 
+  // draw player on board
+  var drawPlayer = function() {
+
+  };
+
+  // move player
+  var movePlayer = function() {
+
+  };
+
   return {
     getBoard: getBoard
   };
@@ -164,24 +173,49 @@ app.factory('boardFactory', function($http) {
 // most functionality we need done in this example
 app.directive('drawTest', function() {
   var directiveObject = {
+    templateNamespace: 'svg',
     restrict: 'E',
     replace: true,
     scope: {data: '=nodeData'},
-    template: '<circle cx={{50+data.col*70}} cy={{50+data.row*50}} r=12 fill={{data.colorOfSpot}} data-node={{data}}/>',
-    link: function(scope, element, attrs) {
+    template: function() {
+        return '<circle ng-attr-cx="{{50+data.col*70}}" ng-attr-cy="{{50+data.row*50}}"'+
+          ' r=12 fill={{data.colorOfSpot}} data-node={{data}}/>';
+    },
 
-      element.on('mouseenter', function(event) {
+    link: function(scope, element1, attrs) {
+      if(scope.data.users.length > 0) {
+
+        console.log('have players', element1);
+        var domElementToAdd = '<text ng-attr-x="300" ng-attr-y="100" fill="red">angular append</text>';
+
+        // '<svg xmlns="http://www.w3.org/2000/svg"><text fill="green" x="4" y="20" font-weight="bolder" font-size="2" font-family="Arial">89</text></svg>',
+
+        var textTag = angular.element(domElementToAdd);
+        console.log('have players textTag', textTag);
+        angular.element(element1[0]).after(textTag);
+
+
+      //   $(element1[0]).empty();
+      //   var something = $(element1[0]).after(domElementToAdd);
+      //     // .data(scope.data.users).enter().append('text')
+      //     // .text(scope.data.users[i]);
+
+      //   // <text x="0" y="15" fill="red">I love SVG!</text>
+      // console.log("from if in link", something);
+      }
+
+      element1.on('mouseenter', function(event) {
         console.log('from mousenter scope.data:', scope.data.colorOfSpot );
         console.log('from mousenter attrs.fill:', attrs.fill );
         // figure out angular pop up box populate with data
         // 
         // 
-        element.attr('fill', 'pink');
+        element1.attr('fill', 'pink');
       });
 
-      element.on('mouseleave', function(event) {
+      element1.on('mouseleave', function(event) {
         // do other stuff
-        element.attr('fill', scope.data.colorOfSpot);
+        element1.attr('fill', scope.data.colorOfSpot);
       });
 
       // since populating through angular do not need to set watch
@@ -200,6 +234,7 @@ app.directive('drawTest', function() {
 // first attempt at drawing path
 app.directive('drawPath', function() {
   var directiveObject = {
+    templateNamespace: 'svg',
     restrict: 'E',
     replace: true,
     scope: {path: '=pathArray'},
@@ -211,10 +246,10 @@ app.directive('drawPath', function() {
       var coords = path.map(function(xypair){
         return xypair[0] + ',' + xypair[1];
       });
-      var out = '<path d="M' + coords.join('L') + '" stroke="orange" stroke-width=3 fill="none"></path>';
+      var out = '<path d="M' + coords.join('L') + '" stroke="blue" stroke-width=3 fill="none"></path>';
       console.log('from drawPath', out);
       return out;
-    }()
+    }
   };
   return directiveObject;
 });
