@@ -1,0 +1,14 @@
+<div>
+  <p> Starter Pokemons </p>
+  {{startertest}}
+  <div>
+    <ul>
+      <li ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
+        <img src={{pokemon.imageURL}} >
+        <br />
+        {{ pokemon.name }}
+      </li>
+    </ul>
+    <button ng-click = "addStarter()"> Select </button>
+  </div>
+</div>
