@@ -1,4 +1,4 @@
-{
+module.exports = {
   '1': {
   facebookId: "Facebook123",
     displayName: "Henry",
