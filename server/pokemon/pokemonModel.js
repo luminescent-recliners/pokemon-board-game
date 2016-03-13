@@ -5,7 +5,7 @@ var pokemonSchema = mongoose.Schema({
   pokemonID: Number,
   color: String,
   description: String,
-  hidden: {
+  visible: {
     type: Boolean,
     default: true
   },
