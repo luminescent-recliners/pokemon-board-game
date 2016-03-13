@@ -8,24 +8,9 @@ var pokemonData = require('../data/pokemonData.js');
 var Games = require('../game/gameModel.js');
 var GymLeaders = require('../gymLeader/gymLeaderModel.js');
 var Pokemons = require('../pokemon/pokemonModel.js');
-var Users = require('../users/userModel.js');
+// var Users = require('../users/userModel.js');
 
 //===========Create Table functions===========
-
-// var createGymLeader = function() {
-//   GymLeaders.find({}, function(err, gymLeader) {
-//     if (!gymLeader.length){
-//       var newGymLeader = new GymLeaders({
-// 		gameData: {gymLeaderData}
-//        });
-//       newGymLeader.save(function(err) {
-//         if (!err) {
-//           console.log('createGymLeader WORKS')
-//         }
-//       });
-//     }
-//   });
-// };
 
 var createGymLeader = function() {
   GymLeaders.find({}, function(err, gymLeader) {
