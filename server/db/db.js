@@ -3,14 +3,32 @@ var mongoose = require('mongoose');
 var gameBoardData = require('../data/gameBoardData.js');
 var gymLeaderData = require('../data/gymLeaderData.js');
 var pokemonData = require('../data/pokemonData.js');
-// var usersData = require('../data/usersData.js');
+var usersData = require('../data/usersData.js');
 
 var Games = require('../game/gameModel.js');
 var GymLeaders = require('../gymLeader/gymLeaderModel.js');
 var Pokemons = require('../pokemon/pokemonModel.js');
-// var Users = require('../users/userModel.js');
+var Users = require('../users/userModel.js');
 
 //===========Create Table functions===========
+
+var createUsers = function() {
+  Users.find({}, function(err, users) {
+    if (!users.length){
+      var newUsers = new Users({
+		  facebookId: 'Facebook123',
+		  displayName: 'Henry',
+		  gamesParticipating: [1],
+		  numGameWon: 0
+       });
+      newUsers.save(function(err) {
+        if (!err) {
+          console.log('createUser WORKS')
+        }
+      });
+    }
+  });
+};
 
 var createGymLeader = function() {
   GymLeaders.find({}, function(err, gymLeader) {
@@ -48,7 +66,7 @@ var createGame = function() {
       var newGame = new Games({ 
         gameID: 1,
         name: 'hoooli Dungeon',
-        users: {3 : {
+        users: {1 : {
           playerIndex: 0,
           badges: [],
           party: [],
@@ -79,6 +97,7 @@ var createGame = function() {
 createGame();  
 createGymLeader();
 createPokemons();
+createUsers();
 
 
 
@@ -92,5 +111,9 @@ GymLeaders.remove({}, function(err) {
 });
 
 Pokemons.remove({}, function(err) { 
-   console.log('GymLeaders collection removed') 
+   console.log('Pokemons collection removed') 
+});
+
+Users.remove({}, function(err) { 
+   console.log('Users collection removed') 
 });
