@@ -44,15 +44,12 @@ var createGymLeader = function() {
 
 var createPokemons = function() {
   Pokemons.find({}, function(err, pokemon) {
-    if (!pokemon.length){
-      var newPokemon = new Pokemons({
-      	gameData: pokemonData
-      });
-      newPokemon.save(function(err) {
+    if (!pokemon.length) {
+      Pokemons.create(pokemonData, function (err) {
         if (!err) {
-          console.log('createPokemon WORKS')
+          console.log('createPokemon WORKS');
         }
-      });
+      })
     }
   });
 };
