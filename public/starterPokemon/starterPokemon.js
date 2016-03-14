@@ -18,7 +18,6 @@ angular.module('pokemon.starter', [])
   };
 
   $scope.addStarter = function () {
-    $location.path('/board');
     userFactory.addStarterPokemon($scope.selectedPokemon)
     .then(function (resp) {
       $location.path('/board');

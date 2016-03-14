@@ -4,7 +4,12 @@ angular.module('services', [])
   var addStarterPokemon = function (pokemon) {
     return $http({
       method: 'PUT',
-      url: 'api/game/addpokemon'
+      url: 'api/games/addpokemon',
+      data: {
+        gameId: 1,
+        userId: "choumander",
+        pokemon: pokemon
+      }
     })
     .then(function (resp) {
       return resp.data;
