@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 var gameBoardData = require('../data/gameBoardData.js');
 var gymLeaderData = require('../data/gymLeaderData.js');
 var pokemonData = require('../data/pokemonData.js');
@@ -11,10 +10,11 @@ var Pokemons = require('../pokemon/pokemonModel.js');
 var Users = require('../users/userModel.js');
 
 //===========Create Table functions===========
+console.log(usersData);
 
 var createUsers = function() {
   Users.find({}, function(err, users) {
-    if (!users.length){
+    if (!users.length) {
       var newUsers = new Users({
 		  facebookId: 'Facebook123',
 		  displayName: 'Henry',
@@ -32,15 +32,12 @@ var createUsers = function() {
 
 var createGymLeader = function() {
   GymLeaders.find({}, function(err, gymLeader) {
-    if (!gymLeader.length){
-      var newGymLeader = new GymLeaders({
-		gameData: {gymLeaderData}
-       });
-      newGymLeader.save(function(err) {
-        if (!err) {
-          console.log('createGymLeader WORKS')
-        }
-      });
+    if (!gymLeader.length) {
+      GymLeaders.create(gymLeaderData, function (err) {
+      	if (!err) {
+      	  console.log('createPokemon WORKS');
+      	}
+      })
     }
   });
 };
@@ -49,7 +46,7 @@ var createPokemons = function() {
   Pokemons.find({}, function(err, pokemon) {
     if (!pokemon.length){
       var newPokemon = new Pokemons({
-      	gameData: {pokemonData}
+      	gameData: pokemonData
       });
       newPokemon.save(function(err) {
         if (!err) {
@@ -76,8 +73,8 @@ var createGame = function() {
           citiesVisited: [0],
           lastCity: 0
         }},
-        gameBoard: {gameBoardData},
-        AvailablePokemon: {pokemonData},
+        gameBoard: gameBoardData,
+        AvailablePokemon: pokemonData,
         AvailableItemCards: [],
         gameCreator: 1,
         gameTurn: 'Alex',
