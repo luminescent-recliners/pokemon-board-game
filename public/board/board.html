@@ -1,55 +1,17 @@
-<body>
-<!--  <style type="text/css">
-        .chart {
-        background: #eee;
-        padding: 3px;
-    }
-
-    .chart div {
-      width: 0;
-      transition: all 1s ease-out;
-      -moz-transition: all 1s ease-out;
-      -webkit-transition: all 1s ease-out;
-    }
-
-    .chart div {
-      font: 10px sans-serif;
-      background-color: steelblue;
-      text-align: right;
-      padding: 3px;
-      margin: 5px;
-      color: white;
-      box-shadow: 2px 2px 2px #666;
-    }
-  </style>  -->
-<div>
-  <div>Testing Board</div>
-  <p>Create an svg tag and add d3 map in there</p>
-  <div ng-controller='boardController'>
-    <input type='text' ng-keypress='inputValue($event)' ng-model='input'>
-   <!--  <draw-board board-data='boardData'></draw-board> -->
-    <!-- <draw-board ng-model='myData'></draw-board> -->
-  
-    <!-- <li ng-repeat="item in test">{{item}}</li> -->
+<hr>
+<!  this section for drawing the board ->
+<div ng-controller='boardController'>
+  <input type='text' ng-keypress='inputValue($event)' ng-model='input'>
+  <svg width='100%' height='400' >    
+    <draw-path pathArray='pathData'></draw-path>    
+    <draw-spot ng-repeat='point in boardData' node-data='point'></draw-spot> 
     
-      <!-- <draw-node node-data='boardData'></draw-node>  -->
-  
-  <!-- <svg width='100%' height='800' >
-    <circle ng-repeat='point in boardData track by $index' cx={{50+point.col+$index*50}} cy={{50}} r=10 fill='red'/>
-  </svg> -->
-  
-  <svg width='100%' height='400' >
-     <!-- <path d="M120,250L190,50L260,100L330,150L400,200L470,50" stroke="pink" stroke-width="3" fill="none" class="ng-isolate-scope" pathArray="pathData" someshit='fucks it up?'></path> -->
-    
-    <draw-path pathArray='pathData'></draw-path>
-    
-    <!-- <circle cx="300" cy="100" r=12 fill="black"></circle><text x="300" y="100" fill="red">hello</text> -->
-    <draw-test ng-repeat='point in boardData' node-data='point'></draw-test> 
+    <! testing tags below ->
+    <!-- <write-name data='boardData[0]'></write-data> -->
+    <draw-player player='playerName' position='playerPosition' board='boardData' class='player'></draw-player>
   </svg>
 
-   <!--  <div ng-repeat ="data in doublea">
-      <draw-board board-data="data"></draw-board>
-    </div> -->
+</div>
 
   </div>
   <div class="game-status">
@@ -66,6 +28,10 @@
   	</div>
   	
   </div>
-
-
+<hr>
+<! this section for the control panel ->
+<div>
+  controll panel will go here
 </div>
+
+
