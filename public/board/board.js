@@ -22,37 +22,32 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.init = function() {
-    $scope.boardData = boardFactory.getBoard();
-    // .then(function (resp) {
-    //   $scope.boardData = resp;
-    // }).catch(function(err) {
-    //   console.error(err);
-    // });
+    // $scope.boardData = boardFactory.getBoard();
   };
   
- $scope.doublea =[[10,20,30,60,80,20,50],[30,20,30,60,80,20,50],[50,20,30,60,80,20,50]];
  // boardData will have to be preprocessed to be an array or change how
  // we store it.  Might be easier to just store as an array
  $scope.boardData = gameBoard;
  $scope.pathData = path;
-  // $scope.boardData = [10,20,30,60,80,20,50];
-  // $scope.test = {1:1,2:2,3:3,4:4};
+ $scope.playerPosition = 3;
+ $scope.playerList = [];
+ $scope.turn = 'player name or player index number';
+ $scope.playerName = 'get after log in get this for board view?'
+
   $scope.input;
   $scope.inputValue = function($event) {
     if($event.which === 13) {
       // $scope.boardData[3] = $scope.input;
       // $scope.doublea[1][3] = $scope.input;
-      $scope.boardData[3]['colorOfSpot'] = $scope.input;
+      // $scope.boardData[3]['colorOfSpot'] = $scope.input;
+      // $scope.boardData[0].users.push($scope.input);
+      $scope.playerPosition = $scope.input;
       $scope.input = '';
     }
   };
 
   // $scope.init();
-  $scope.testing = d3.select('svg');
-  console.log('from testing', $scope.testing);
 });
-
-
 
 // was first iteration using an example given
 app.directive('drawBoard',function() {
@@ -83,7 +78,6 @@ app.directive('drawBoard',function() {
   };
   return directiveObject;
 });
-
 
 // this was second iteration
 app.directive('drawNode', function() {
@@ -171,7 +165,7 @@ app.factory('boardFactory', function($http) {
 
 // third iteration using template
 // most functionality we need done in this example
-app.directive('drawTest', function() {
+app.directive('drawSpot', function() {
   var directiveObject = {
     templateNamespace: 'svg',
     restrict: 'E',
@@ -183,22 +177,35 @@ app.directive('drawTest', function() {
     },
 
     link: function(scope, element1, attrs) {
+
       if(scope.data.users.length > 0) {
-
-        console.log('have players', element1);
-        var domElementToAdd = '<text ng-attr-x="300" ng-attr-y="100" fill="red">angular append</text>';
-
-        // '<svg xmlns="http://www.w3.org/2000/svg"><text fill="green" x="4" y="20" font-weight="bolder" font-size="2" font-family="Arial">89</text></svg>',
-
-        var textTag = angular.element(domElementToAdd);
-        console.log('have players textTag', textTag);
-        angular.element(element1[0]).after(textTag);
+        for (var i = 0; i < scope.data.users.length; i++) {
+          var newTag = angular.element('<write-name data='+scope.data.users[i]+'>'+scope.data.users[i]+'</write-name>');
+          angular.element(element1[0]).after(newTag);
+        }
 
 
-      //   $(element1[0]).empty();
-      //   var something = $(element1[0]).after(domElementToAdd);
-      //     // .data(scope.data.users).enter().append('text')
-      //     // .text(scope.data.users[i]);
+
+        // var domElementToAdd = '<text xmlns="http://www.w3.org/2000/svg" ng-attr-x="300" ng-attr-y="120" fill="red">angular append</text>';
+
+        // // '<svg xmlns="http://www.w3.org/2000/svg"><text fill="green" x="4" y="20" font-weight="bolder" font-size="2" font-family="Arial">89</text></svg>',
+
+        // var textTag = angular.element(domElementToAdd);
+        // console.log('have players textTag', textTag);
+        // angular.element(element1[0]).after(textTag);
+
+
+        // $(element1[0]).empty();
+        // var newText = document.createElementNS('http://www.w3.org/2000/svg','text');
+        // newText.setAttribute('id','line2');
+        // newText.setAttribute('ng-attr-x','300');
+        // newText.setAttribute('ng-attr-y','120');
+        // newText.setAttribute('fill','red');
+        // newText.setAttribute('value','say something different');
+
+        // var something = $(element1[0]).after(newText);
+          // .data(scope.data.users).enter().append('text')
+          // .text(scope.data.users[i]);
 
       //   // <text x="0" y="15" fill="red">I love SVG!</text>
       // console.log("from if in link", something);
@@ -231,7 +238,6 @@ app.directive('drawTest', function() {
 
 });
 
-// first attempt at drawing path
 app.directive('drawPath', function() {
   var directiveObject = {
     templateNamespace: 'svg',
@@ -239,17 +245,60 @@ app.directive('drawPath', function() {
     replace: true,
     scope: {path: '=pathArray'},
     template: function(){
-      // have to convert an array of pairs of numbers to
-      // a string of numbers separated by ,  
-      // then attatch M in front of the first pair
-      // and L between all pairs after
       var coords = path.map(function(xypair){
         return xypair[0] + ',' + xypair[1];
       });
-      var out = '<path d="M' + coords.join('L') + '" stroke="blue" stroke-width=3 fill="none"></path>';
-      console.log('from drawPath', out);
+      var out = '<path d="M' + coords.join('L') + '" stroke="#795548" stroke-width=3 fill="none"></path>';
       return out;
     }
   };
   return directiveObject;
+});
+
+app.directive('writeName', function() {
+  return {
+    templateNamespace: 'svg',
+    restrict: 'E',
+    replace: true,
+    scope: {data: '=data'},
+    template: '<text ng-attr-x="{{50+data.col*70}}" '+
+      'ng-attr-y="{{50+data.col*50}}" fill="#00BCD4">{{data.users}}</text>'
+  };
+});
+
+app.directive('drawPlayer', function($animate) {
+  return {
+    templateNamespace: 'svg',
+    restrict: 'E',
+    replace: true,
+    scope: {
+      player: '=player',
+      position: '=position',
+      board: '=board'
+    },
+    template: function() {
+      var x = '{{50+board[position].col*70}}';
+      var y = '{{70+board[position].row*50}}';
+      var r = '18';
+      var fillOpacity = '.9';
+      var fillColor = 'beige';
+      var stroke = 'black';
+      var strokeWidth = '1';
+      return '<circle ng-attr-cx="'+ x +'" ng-attr-cy="'+ y +'"'+
+                ' r="'+r+'" fill="'+ fillColor+'" fill-opacity="'+
+                fillOpacity +'" stroke="'+ stroke +
+                '" stroke-width="'+ strokeWidth +'"/>';
+                
+    },
+    link: function(scope, element1, attrs) {
+      element1.on('mouseover', function(event) {
+        // do stuff
+        console.log('mouse on player');
+      });
+      element1.on('mouseleave', function(event) {
+        // do stuff
+        console.log("mouse not on player");
+      });
+    }
+  };
 });
