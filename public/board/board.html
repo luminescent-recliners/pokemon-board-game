@@ -8,13 +8,10 @@
   </div>
   <div class="game-status">
   	<h3>Current Turn: Player Name</h3>
-  	<span>Roll Dice: </span><button>Roll Dice</button>
+  	<span>Roll Dice: </span><button ng-click="rollDice()">Roll Dice</button>
   	<div class="player-options">
   		<ul>
-  			<li>hi</li>
-  			<li>hi</li>
-  			<li>hi</li>
-  			<li>hi</li>
+  			<li ng-repeat="playerOption in playerOptions">{{playerOption}}</li>
   		</ul>
   	</div>
   	
