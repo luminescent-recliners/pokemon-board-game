@@ -10,20 +10,19 @@ var Pokemons = require('../pokemon/pokemonModel.js');
 var Users = require('../users/userModel.js');
 
 //===========Create Table functions===========
-console.log(usersData);
 
 var createUsers = function() {
   Users.find({}, function(err, users) {
     if (!users.length) {
       var newUsers = new Users({
-		  facebookId: 'Facebook123',
-		  displayName: 'Henry',
-		  gamesParticipating: [1],
-		  numGameWon: 0
-       });
+        facebookId: 'Facebook123',
+        displayName: 'Henry',
+        gamesParticipating: [1],
+        numGameWon: 0
+      });
       newUsers.save(function(err) {
         if (!err) {
-          console.log('createUser WORKS')
+          console.log('createUser WORKS');
         }
       });
     }
@@ -34,10 +33,10 @@ var createGymLeader = function() {
   GymLeaders.find({}, function(err, gymLeader) {
     if (!gymLeader.length) {
       GymLeaders.create(gymLeaderData, function (err) {
-      	if (!err) {
-      	  console.log('createPokemon WORKS');
-      	}
-      })
+        if (!err) {
+          console.log('createPokemon WORKS');
+        }
+      });
     }
   });
 };
@@ -49,7 +48,7 @@ var createPokemons = function() {
         if (!err) {
           console.log('createPokemon WORKS');
         }
-      })
+      });
     }
   });
 };
@@ -57,7 +56,7 @@ var createPokemons = function() {
 var createGame = function() {
   Games.find({}, function(err, games) {
     if (!games.length){
-      var newGame = new Games({ 
+      var newGame = new Games({
         gameID: 1,
         name: 'hoooli Dungeon',
         users: {1 : {
@@ -79,7 +78,7 @@ var createGame = function() {
       });
       newGame.save(function(err) {
         if (!err) {
-          console.log('createGames WORKS')
+          console.log('createGames WORKS');
         }
       });
     }
@@ -87,27 +86,35 @@ var createGame = function() {
 };
 
 
-//===========Calling the Create Table functions===========
-createGame();  
-createGymLeader();
-createPokemons();
-createUsers();
 
 
 
 //===========Remove contents of the tables in the database===========
-Games.remove({}, function(err) { 
-   console.log('Games collection removed') 
+//===========Then Run Populate Table functions===========
+Games.remove({}, function(err) {
+   console.log('Games collection removed');
+})
+.then(function(){
+  createGame();
 });
 
-GymLeaders.remove({}, function(err) { 
-   console.log('GymLeaders collection removed') 
+GymLeaders.remove({}, function(err) {
+   console.log('GymLeaders collection removed');
+})
+.then(function(){
+  createGymLeader();
 });
 
-Pokemons.remove({}, function(err) { 
-   console.log('Pokemons collection removed') 
+Pokemons.remove({}, function(err) {
+   console.log('Pokemons collection removed');
+})
+.then(function(){
+  createPokemons();
 });
 
-Users.remove({}, function(err) { 
-   console.log('Users collection removed') 
+Users.remove({}, function(err) {
+   console.log('Users collection removed');
+})
+.then(function(){
+  createUsers();
 });
