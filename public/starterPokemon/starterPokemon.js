@@ -18,7 +18,9 @@ angular.module('pokemon.starter', [])
   };
 
   $scope.addStarter = function () {
-    userFactory.addStarterPokemon($scope.selectedPokemon)
+    var gameId = 1;
+    var userId = "choumander";
+    userFactory.addStarterPokemon(gameId, userId, $scope.selectedPokemon)
     .then(function (resp) {
       $location.path('/board');
     }).catch(function (error) {
