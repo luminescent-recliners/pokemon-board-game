@@ -15,7 +15,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/1/',
     specs: {
       attackName: 'Leech Seed',
-      attachStrength: 4
+      attackStrength: 4
     }
   },
   {
@@ -34,7 +34,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/4/',
     specs: {
       attackName: 'Ember',
-      attachStrength: 4
+      attackStrength: 4
     }
   },
   {
@@ -53,7 +53,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/7/',
     specs: {
       attackName: 'Water Gun',
-      attachStrength: 4
+      attackStrength: 4
     }
   },
   {
@@ -72,7 +72,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/25/',
     specs: {
       attackName: 'ThunderShock',
-      attachStrength: 3
+      attackStrength: 3
     }
   },
   {
@@ -91,7 +91,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/35/',
     specs: {
       attackName: 'Pound',
-      attachStrength: 3
+      attackStrength: 3
     }
   },
   {
@@ -110,7 +110,7 @@ module.exports = [
     imageURL: '/api/v1/pokemon/52/',
     specs: {
       attackName: 'Bite',
-      attachStrength: 3
+      attackStrength: 3
     }
   }
 ]
