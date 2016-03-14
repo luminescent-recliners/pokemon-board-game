@@ -6,10 +6,11 @@ angular.module('pokemon.board',[])
   $scope.playerOptions = [1, 2, 3];
   $scope.gameId = 1;
   $scope.userId = 1;
+  $scope.userPosition = 1;
 
   $scope.rollDice = function() {
     var roll = Math.ceil(Math.random() * 6);
-    gameDashboardFactory.getPlayerOptions(roll, $scope.gameId, $scope.userId);
+    gameDashboardFactory.getPlayerOptions(roll, $scope.userPosition, $scope.gameId, $scope.userId);
 
 
   };
