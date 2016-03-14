@@ -1,8 +1,18 @@
 
 angular.module('pokemon.board',[])
 
-.controller('boardController', function($scope) {
+.controller('boardController', function($scope, gameDashboardFactory) {
   $scope.hello = 'hello testing testing';
+  $scope.playerOptions = [1, 2, 3];
+  $scope.gameId = 1;
+  $scope.userId = 1;
+
+  $scope.rollDice = function() {
+    var roll = Math.ceil(Math.random() * 6);
+    gameDashboardFactory.getPlayerOptions(roll, $scope.gameId, $scope.userId);
+
+
+  };
 
 })
 
