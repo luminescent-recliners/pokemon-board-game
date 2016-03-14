@@ -4,4 +4,6 @@ var gameController = require('./game/gameController.js');
 
 router.put('/api/games/addPokemon', gameController.addPokemon);
 
+router.get('/api/games/playerOptions', gameController.getPlayerOptions);
+
 module.exports = router;
