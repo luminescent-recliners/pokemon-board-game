@@ -1,7 +1,7 @@
-module.exports = {
-  '1': {
+module.exports = [
+  {
 	  name: 'Brock/Onyx',
-  	city: 'Pewter',
+  	city: 'Pewter City',
   	attackStrength: 4,
   	attackBonus: {
   		'1': 1,
@@ -13,9 +13,9 @@ module.exports = {
   	},
   	imageURL: "String"
   },
-  '2': {
+  {
 	  name: 'Misty/Starmie',
-  	city: 'Cerulean',
+  	city: 'Cerulean City',
   	attackStrength: 4,
   	attackBonus: {
   		'1': 2,
@@ -27,4 +27,4 @@ module.exports = {
   	},
   	imageURL: "String"
   }
-}
+]
