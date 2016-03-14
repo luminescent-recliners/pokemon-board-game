@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var eventsSchema = mongoose.Schema({
-  eventsID: Number,
+  eventsId: Number,
   name: String,
   type: String,
   description: String,

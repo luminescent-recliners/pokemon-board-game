@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 
-var pokemonSchema = mongoose.Schema({
+var usersSchema = mongoose.Schema({
   facebookId: String,
   displayName: String,
   gamesParticipating: [],
   numGameWon: Number
 });
 
-var pokemon = mongoose.model('pokemon', pokemonSchema);
+var users = mongoose.model('users', usersSchema);
 
-module.exports = pokemon;
+module.exports = users;
