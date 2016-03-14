@@ -16,8 +16,23 @@ angular.module('services', [])
     });
   };
 
+  var addGame = function (gameName, gameCreator) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/addgame',
+      data: {
+        gameName: gameName,
+        facebookId: gameCreator,
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   return {
-    addStarterPokemon: addStarterPokemon
+    addStarterPokemon: addStarterPokemon,
+    addGame: addGame
   };
   
 })

@@ -1,8 +1,26 @@
-<div>
-  <p>Home Controller</p>
+  <div class='home' ng-controller='homeController'>
+  <p>Logged in as {{user.displayName}}</p>
   {{test}}
-  <a href='#/board'>Go To Board</a>
+  <div class='newGame'>
+	<td>
+	  <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="example: Red" ng-keypress="hitEnter($event, input)"></input>
+	</td>     
+	<td>
+	  <input type="button" value="Create Game" ng-click="makeNewGame()" ></input>
+	</td> 
+	  <p class="note col-md-9">{{gameList}}</p>
+	  <p class="note col-md-9">{{gameId}}</p>
+  </div>
   <br />
-  <br />
+  <h2><b>{{user.displayName}}'s Games</b></h2>
+    <li ng-repeat = "game in gameList track by $index">
+    <a href='#/lobby'>{{ game }}</a>
+    </li>
+  <br />  
+  <h2><b>All Available Games</b></h2>
+    <li ng-repeat = "game in gameList track by $index">
+      <a href='#/lobby'>{{ game }}</a>
+    </li>
+  <br /> 
   <a href='#/starter'>Go To StarterPokemons</a>
 </div>
