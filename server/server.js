@@ -1,9 +1,9 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var dbConfig = require('./db/db.js');
 
-
-mongoose.connect('mongodb://localhost/testDB');
+mongoose.connect('mongodb://localhost/pokemon');
 
 var router = require('./routes.js');
 var app = express();
