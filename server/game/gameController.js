@@ -24,6 +24,7 @@ module.exports = {
       });
   },
 
+
   getPlayerOptions: function(req, res, next) {
     var gameId = req.query.gameId;
     var userPosition = Number(req.query.userPosition);
@@ -60,6 +61,32 @@ module.exports = {
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
       });
+  },
+
+  findName: function (req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+    .then(function (game) {
+      res.send(game.name);
+    })
+    .fail(function (error) {
+      next(error);
+    });
+  },
+
+  addUser: function (req, res, next) {
+    var gameId = req.body.gameId;
+    var users = req.body.users;
+    console.log("inside addUser function in gameController!", gameId, users);
+
+    findGame({gameId: gameId})
+    .then(function (game) {
+      console.log("response from database for adduser function ", game);
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   // quick test function to get board data
@@ -128,4 +155,3 @@ module.exports = {
       });
   }
 };
-
