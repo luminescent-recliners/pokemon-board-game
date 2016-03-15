@@ -12,12 +12,17 @@ module.exports = {
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
 
+    console.log("inside addPokemon function ", userId);
     findGame({ gameId: gameId })
       .then(function(game) {
-        game.users[userId].party.push(pokemon);
-        game.markModified('users');
-        game.save();
-        res.send(game.users[userId].party);
+        for(var i=0;i<game.users.length;i++) {
+          if(game.users[i].playerName === userId) {
+            game.users[i].party.push(pokemon);
+            game.markModified('users');
+            game.save();
+            res.send(game.users[i].party);
+          }
+        }
       })
       .fail(function(error) {
         next(error);
@@ -83,7 +88,7 @@ module.exports = {
       .then(function (game) {
         for(var i=0;i<users.length;i++) {
           game.users.push({
-            faceboolId: users[i].facebookId,
+            facebookId: users[i].facebookId,
             playerName: users[i].userId,
             playerIndex: 0,
             badges: [],
@@ -109,7 +114,6 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
-        game.gameCounter = 0;
         game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
         res.send(game.gameTurn);
       })
@@ -117,7 +121,7 @@ module.exports = {
         next(error);
       });
   },
-  
+
   // quick test function to get board data
   // to play with
   getBoard: function(req, res, next) {
