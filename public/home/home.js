@@ -22,14 +22,13 @@ angular.module('pokemon.home', [])
     console.log($scope.newGameName)
   	userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
   	.then(function (resp) {
-      $location.path('/board');
+      $location.path('/game');
     }).catch(function (error) {
       console.error(error);
     });
   	$scope.newGameName = '';
   	$scope.gameId++;
+    window.localStorage.setItem('pokemon.gameId', $scope.gameId);
   	}
 });
-// window.localStorage.setItem('gameId', $scope.gameId);
-// if(window.localStorage.getItem('gameId') === null) {
-// 	console.log('null');
+
