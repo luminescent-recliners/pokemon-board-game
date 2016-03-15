@@ -116,10 +116,8 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
-  }
+  },
   
-};
-
   // quick test function to get board data
   // to play with
   getBoard: function(req, res, next) {
