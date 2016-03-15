@@ -18,7 +18,6 @@ angular.module('pokemon.lobby', [])
   };
 
   $scope.getStarterView = function () {
-    // $location.path('/starter');
     gameFactory.addUsers($scope.gameId, $scope.users)
     .then(function (resp) {
       $location.path('/starter');
