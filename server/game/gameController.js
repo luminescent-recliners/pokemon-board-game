@@ -77,39 +77,36 @@ module.exports = {
   addGame: function(req, res, next) {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
-    var gameId = req.body.gameId;
-    console.log(gameName, facebookId);
-    var createGame = function() {
-      console.log('createGame runs')
-      var newGame = new Games({ 
-        name: gameName,
-        users: {
-          facebookId: facebookId, 
-          playerIndex: 0,
-          badges: [],
-          party: [],
-          box: [],
-          itemCards: [],
-          positionOnBoard: 0,
-          citiesVisited: [0],
-          lastCity: 0
-        },
-        gameBoard: gameBoardData,
-        AvailablePokemon: {},
-        AvailableItemCards: [],
-        gameCreator: 1,
-        gameTurn: 'Alex',
-        gameStarted: true
-      });
-      newGame.save(function(err) {
-        if (!err) {
-          console.log('CREATEGAME WORKS')
-        } else {
-          console.error(err);
-        }
+      var createGame = function() {
+        var newGame = new Games({ 
+          name: gameName,
+          users: {
+            facebookId: facebookId, 
+            playerIndex: 0,
+            badges: [],
+            party: [],
+            box: [],
+            itemCards: [],
+            positionOnBoard: 0,
+            citiesVisited: [0],
+            lastCity: 0
+          },
+          gameBoard: gameBoardData,
+          AvailablePokemon: {},
+          AvailableItemCards: [],
+          gameCreator: 1,
+          gameTurn: 'Alex',
+          gameStarted: true
+        });
+        newGame.save(function(err) {
+          if (!err) {
+            console.log('CREATEGAME WORKS')
+          } else {
+            console.error(err);
+          }
       });
     };
-  createGame();  
+  createGame();
   },
 
   getGames: function(req, res, next) {
