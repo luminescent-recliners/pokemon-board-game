@@ -78,12 +78,12 @@ module.exports = {
   addUser: function (req, res, next) {
     var gameId = req.body.gameId;
     var users = req.body.users;
-
     findGame({gameId: gameId})
     .then(function (game) {
       for(var i=0;i<users.length;i++) {
-        var userId = users[i].userId;
-        game.users[userId] = {
+        game.users.push({
+          faceboolId: users[i].facebookId,
+          playerName: users[i].userId,
           playerIndex: 0,
           badges: [],
           party: [],
@@ -92,17 +92,33 @@ module.exports = {
           positionOnBoard: 0,
           citiesVisited: [0],
           lastCity: 0
-        }
-        game.gameTurn = users[game.gameCounter%users.length].userId;
+        })
         game.markModified('users');
         game.save();
-        res.send(game.gameTurn);
       }
+      res.send(game.gameTurn);
     })
     .fail(function (error) {
       next(error);
     });
   },
+
+  findTurn: function (req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+    .then(function (game) {
+      console.log("response from database ", game.gameCounter);
+      game.gameCounter = 0;
+      game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
+      res.send(game.gameTurn);
+    })
+    .fail(function (error) {
+      next(error);
+    });
+
+  };
+};
 
   // quick test function to get board data
   // to play with

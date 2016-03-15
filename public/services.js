@@ -104,9 +104,23 @@ angular.module('services', [])
     })
   };
 
+  var getGameTurn = function (gameId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/gameturn',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  }
+
   return {
     getGameName: getGameName,
-    addUsers: addUsers
+    addUsers: addUsers,
+    getGameTurn: getGameTurn
   };
 
 });

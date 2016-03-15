@@ -1,6 +1,8 @@
 <div>
   <p> Starter Pokemons </p>
   {{startertest}}
+  <br />
+  <p>Game Turn: {{ gameTurn}} </p>
   <div>
     <ul>
       <li ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
