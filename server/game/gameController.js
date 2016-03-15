@@ -57,6 +57,8 @@ module.exports = {
 
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
+      });
+  },
 
   // quick test function to get board data
   // to play with
@@ -71,4 +73,3 @@ module.exports = {
       });
   }
 };
-
