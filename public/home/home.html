@@ -14,12 +14,12 @@
   <br />
   <h2><b>{{user.displayName}}'s Games</b></h2>
     <li ng-repeat = "game in gameList track by $index">
-    <a href='#/lobby'>{{ game }}</a>
+    <a href='#/lobby' ng-click='localStorage()'>{{ game }} </a>
     </li>
   <br />  
   <h2><b>All Available Games</b></h2>
     <li ng-repeat = "game in gameList track by $index">
-      <a href='#/lobby'>{{ game }}</a>
+      <a href='#/lobby' ng-click='localStorage()'>{{ game }}</a>
     </li>
   <br /> 
   <a href='#/starter'>Go To StarterPokemons</a>
