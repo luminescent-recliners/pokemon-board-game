@@ -1,8 +1,26 @@
 
 angular.module('pokemon.board',[])
 
-.controller('boardController', function($scope) {
+.controller('boardController', function($scope, gameDashboardFactory) {
   $scope.hello = 'hello testing testing';
+  $scope.playerOptions = [[1,2,3],[1,2,3,4]];
+  $scope.gameId = 1;
+  $scope.userId = 1;
+  $scope.userPosition = 6;
+  $scope.roll;
+
+  $scope.rollDice = function() {
+    $scope.roll = Math.ceil(Math.random() * 6);
+    gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.userId)
+      .then(function(options){
+        $scope.playerOptions[0] = options.forwardOptions;
+        $scope.playerOptions[1] = options.backwardOptions;
+      });
+  };
+
+  $scope.testPass = function(arg) {
+    console.log('This is the gameboard spot object', arg);
+  };
 
 })
 

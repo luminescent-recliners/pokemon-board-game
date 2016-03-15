@@ -20,4 +20,28 @@ angular.module('services', [])
     addStarterPokemon: addStarterPokemon
   };
   
+})
+.factory('gameDashboardFactory', function ($http) {
+  //Input: Receives dice roll, userId, and gameId
+  //Output: Retrieves an array of possible game spots to move
+  var getPlayerOptions = function (roll, userPosition, gameId, userId) {
+    return $http({
+      method: 'GET',
+      url: '/api/games/playerOptions',
+      params: {
+        roll: roll,
+        gameId: gameId,
+        userId: userId,
+        userPosition: userPosition
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+
+  };
+
+  return {
+    getPlayerOptions: getPlayerOptions
+  };
 });
