@@ -77,7 +77,7 @@ var createGame = function() {
         gameCreator: 1,
         gameTurn: 'Alex',
         gameStarted: true,
-        // gameCounter: 0
+        gameCounter: 0
       });
       newGame.save(function(err) {
         if (!err) {
