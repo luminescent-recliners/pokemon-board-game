@@ -18,7 +18,7 @@ angular.module('pokemon.home', [])
   };
 
   $scope.makeNewGame = function(newGameName) {
-  	$scope.gameList.push($scope.newGameName);
+  	// $scope.gameList.push($scope.newGameName);
     console.log($scope.newGameName)
   	userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
   	.then(function (resp) {
@@ -28,13 +28,17 @@ angular.module('pokemon.home', [])
     });
   	$scope.newGameName = '';
   	$scope.gameId++;
+    $scope.userGames();
+  };
+
+  $scope.localStorage = function( ) {
     window.localStorage.setItem('pokemon.gameId', $scope.gameId);
   };
 
   $scope.userGames = function() {
     userFactory.getGames()
     .then(function(games){
-      $scope.gameList = games.name;
+      $scope.gameList = games;
       console.log('Got all games');
     })
     .catch(function(error) {

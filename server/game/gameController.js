@@ -4,6 +4,7 @@ var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 
 var findGame = Q.nbind(Games.findOne, Games);
+var findGames = Q.nbind(Games.find, Games);
 
 module.exports = {
   addPokemon: function(req, res, next) {
@@ -79,42 +80,45 @@ module.exports = {
     var gameId = req.body.gameId;
     console.log(gameName, facebookId)
     var createGame = function() {
-      Games.find({}, function(err, games) {
-          var newGame = new Games({ 
-            gameId: gameId,
-            name: gameName,
-            users: {
-              facebookId: facebookId,
-              playerIndex: 0,
-              badges: [],
-              party: [],
-              box: [],
-              itemCards: [],
-              positionOnBoard: 0,
-              citiesVisited: [0],
-              lastCity: 0
-            },
-            gameBoard: gameBoardData,
-            AvailablePokemon: {},
-            AvailableItemCards: [],
-            gameCreator: 1,
-            gameTurn: 'Alex',
-            gameStarted: true
-          });
-          newGame.save(function(err) {
-            if (!err) {
-              console.log('CREATEGAME WORKS')
-            }
-          });
+      var newGame = new Games({ 
+        gameId: gameId,
+        name: gameName,
+        users: {
+          facebookId: facebookId,
+          playerIndex: 0,
+          badges: [],
+          party: [],
+          box: [],
+          itemCards: [],
+          positionOnBoard: 0,
+          citiesVisited: [0],
+          lastCity: 0
+        },
+        gameBoard: gameBoardData,
+        AvailablePokemon: {},
+        AvailableItemCards: [],
+        gameCreator: 1,
+        gameTurn: 'Alex',
+        gameStarted: true
+      });
+      newGame.save(function(err) {
+        if (!err) {
+          console.log('CREATEGAME WORKS')
+        }
       });
     };
   createGame();  
   },
-  
+
   getGames: function(req, res, next) {
-    findGame()
-      .then(function(game){
-        res.send(game);
+    findGames({})
+      .then(function(games){
+        var results = [];
+        for(var i = 0; i < games.length; i++) {
+          console.log("game name", games[i].name)
+          results.push(games[i].name);
+        }
+          res.send(results);
       })
       .fail(function(error){
         next(error);  
