@@ -1,18 +1,17 @@
 <hr>
 <!  this section for drawing the board ->
 <div ng-controller='boardController'>
-  <input type='text' ng-keypress='inputValue($event)' ng-model='input'>
-  <svg width='100%' height='400' >    
-    <draw-path pathArray='pathData'></draw-path>    
+  <p>Enter Spot To Move To: <input type='number' ng-keypress='inputValue($event)' ng-model='input'></p>
+  <svg width='100%' height='600' >    
+    <draw-path pathString='pathString'></draw-path>    
+    
     <draw-spot ng-repeat='point in boardData' node-data='point'></draw-spot> 
+
+    <draw-player player='playerName' position='playerPosition' board='boardData' class='player'></draw-player>
     
     <! testing tags below ->
-    <draw-player player='playerName' position='playerPosition' board='boardData' class='player'></draw-player>
-    <write-name data='boardData[0]'></write-data>
+<!--     <write-name data='boardData[0]'></write-data> -->
   </svg>
-  <p>
-    <test-entry ng-click='testDirective(input2)' ng-model='input2'></test-entry>
-  </p>
 </div>
 
   </div>
@@ -34,7 +33,6 @@
 <! this section for the control panel ->
 <div>
   controll panel will go here
-  <p>{{playerPosition}}</p>
 </div>
 
 
