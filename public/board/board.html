@@ -12,10 +12,10 @@
   	<p>your roll is {{roll}}</p>
   	<div class="player-options">
   		<ul>
-  			<li ng-repeat="forwardOption in playerOptions[0]">{{forwardOption}}</li>
+  			<li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)">{{forwardOption.description}}</a></li>
   		</ul>
   		<ul>
-  			<li ng-repeat="backwardOption in playerOptions[1]">{{backwardOption}}</li>
+  			<li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="testPass(backwardOption)">{{backwardOption.description}}</a></li>
   		</ul>
   	</div>
   	
