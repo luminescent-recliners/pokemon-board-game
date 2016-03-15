@@ -7,10 +7,12 @@
     <draw-spot ng-repeat='point in boardData' node-data='point'></draw-spot> 
     
     <! testing tags below ->
-    <!-- <write-name data='boardData[0]'></write-data> -->
     <draw-player player='playerName' position='playerPosition' board='boardData' class='player'></draw-player>
+    <write-name data='boardData[0]'></write-data>
   </svg>
-
+  <p>
+    <test-entry ng-click='testDirective(input2)' ng-model='input2'></test-entry>
+  </p>
 </div>
 
   </div>
@@ -32,6 +34,7 @@
 <! this section for the control panel ->
 <div>
   controll panel will go here
+  <p>{{playerPosition}}</p>
 </div>
 
 
