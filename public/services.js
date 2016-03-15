@@ -16,11 +16,12 @@ angular.module('services', [])
     });
   };
 
-  var addGame = function (gameName, gameCreator) {
+  var addGame = function (gameId, gameName, gameCreator) {
     return $http({
-      method: 'PUT',
+      method: 'POST',
       url: 'api/games/addgame',
       data: {
+        gameId: gameId,
         gameName: gameName,
         facebookId: gameCreator,
       }
