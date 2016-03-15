@@ -9,7 +9,8 @@ var gameSchema = mongoose.Schema({
   availableItemCards: [],
   gameCreator: String,
   gameTurn: String,
-  gameStarted: Boolean
+  gameStarted: Boolean,
+  gameCounter: Number
 });
 
 var Games = mongoose.model('games', gameSchema);

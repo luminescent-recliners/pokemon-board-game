@@ -78,11 +78,26 @@ module.exports = {
   addUser: function (req, res, next) {
     var gameId = req.body.gameId;
     var users = req.body.users;
-    console.log("inside addUser function in gameController!", gameId, users);
 
     findGame({gameId: gameId})
     .then(function (game) {
-      console.log("response from database for adduser function ", game);
+      for(var i=0;i<users.length;i++) {
+        var userId = users[i].userId;
+        game.users[userId] = {
+          playerIndex: 0,
+          badges: [],
+          party: [],
+          box: [],
+          itemCards: [],
+          positionOnBoard: 0,
+          citiesVisited: [0],
+          lastCity: 0
+        }
+        game.gameTurn = users[game.gameCounter%users.length].userId;
+        game.markModified('users');
+        game.save();
+        res.send(game.gameTurn);
+      }
     })
     .fail(function (error) {
       next(error);
