@@ -10,20 +10,20 @@ angular.module('pokemon.lobby', [])
 
   $scope.initialize = function () {
     gameFactory.getGameName($scope.gameId)
-    .then(function (resp) {
-      $scope.gameName = resp;
-    }).catch(function (error) {
-      console.error(error);
-    });
+      .then(function (resp) {
+        $scope.gameName = resp;
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 
   $scope.getStarterView = function () {
     gameFactory.addUsers($scope.gameId, $scope.users)
-    .then(function (resp) {
-      $location.path('/starter');
-    }).catch(function (error) {
-      console.error(error);
-    });
+      .then(function (resp) {
+        $location.path('/starter');
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 
   $scope.initialize();

@@ -67,57 +67,57 @@ module.exports = {
     var gameId = req.query.gameId;
 
     findGame({gameId: gameId})
-    .then(function (game) {
-      res.send(game.name);
-    })
-    .fail(function (error) {
-      next(error);
-    });
+      .then(function (game) {
+        res.send(game.name);
+      })
+      .fail(function (error) {
+        next(error);
+      });
   },
 
   addUser: function (req, res, next) {
     var gameId = req.body.gameId;
     var users = req.body.users;
+
     findGame({gameId: gameId})
-    .then(function (game) {
-      for(var i=0;i<users.length;i++) {
-        game.users.push({
-          faceboolId: users[i].facebookId,
-          playerName: users[i].userId,
-          playerIndex: 0,
-          badges: [],
-          party: [],
-          box: [],
-          itemCards: [],
-          positionOnBoard: 0,
-          citiesVisited: [0],
-          lastCity: 0
-        })
-        game.markModified('users');
-        game.save();
-      }
+      .then(function (game) {
+        for(var i=0;i<users.length;i++) {
+          game.users.push({
+            faceboolId: users[i].facebookId,
+            playerName: users[i].userId,
+            playerIndex: 0,
+            badges: [],
+            party: [],
+            box: [],
+            itemCards: [],
+            positionOnBoard: 0,
+            citiesVisited: [0],
+            lastCity: 0
+          })
+          game.markModified('users');
+          game.save();
+        }
       res.send(game.gameTurn);
-    })
-    .fail(function (error) {
-      next(error);
-    });
+      })
+      .fail(function (error) {
+        next(error);
+      });
   },
 
   findTurn: function (req, res, next) {
     var gameId = req.query.gameId;
 
     findGame({gameId: gameId})
-    .then(function (game) {
-      console.log("response from database ", game.gameCounter);
-      game.gameCounter = 0;
-      game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
-      res.send(game.gameTurn);
-    })
-    .fail(function (error) {
-      next(error);
-    });
-
-  };
+      .then(function (game) {
+        game.gameCounter = 0;
+        game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
+        res.send(game.gameTurn);
+      })
+      .fail(function (error) {
+        next(error);
+      });
+  }
+  
 };
 
   // quick test function to get board data

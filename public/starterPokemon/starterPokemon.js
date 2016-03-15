@@ -17,11 +17,11 @@ angular.module('pokemon.starter', [])
 
   $scope.initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
-    .then(function (resp) {
-      $scope.gameTurn = resp;
-    }).catch(function (error) {
-      console.error(error);
-    });
+      .then(function (resp) {
+        $scope.gameTurn = resp;
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 
   $scope.getStarter = function (currpokemon) {
@@ -31,11 +31,11 @@ angular.module('pokemon.starter', [])
 
   $scope.addStarter = function () {
     userFactory.addStarterPokemon($scope.gameId, $scope.userId, $scope.selectedPokemon)
-    .then(function (resp) {
-      $location.path('/board');
-    }).catch(function (error) {
-      console.error(error);
-    });
+      .then(function (resp) {
+        $location.path('/board');
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 
   $scope.initialize();
