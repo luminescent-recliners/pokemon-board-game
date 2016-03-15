@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 var gameSchema = mongoose.Schema({
-  gameId: Number,
   name: String,
   users: {},
   gameBoard: {},
