@@ -5,11 +5,11 @@ angular.module('pokemon.lobby', [])
   $scope.gameId = 1;
   $scope.gamename;
   $scope.users = [
-    {"Facebook123": "choumander"}
+    {facebookId: "Facebook123", userId: "choumander"}
   ];
 
-  $scope.initialize = function (gameId) {
-    gameFactory.getGameName(gameId)
+  $scope.initialize = function () {
+    gameFactory.getGameName($scope.gameId)
     .then(function (resp) {
       $scope.gameName = resp;
     }).catch(function (error) {
@@ -17,9 +17,9 @@ angular.module('pokemon.lobby', [])
     });
   };
 
-  $scope.getStarterView = function (gameId) {
+  $scope.getStarterView = function () {
     $location.path('/starter');
-    gameFactory.addUsers(gameId)
+    gameFactory.addUsers($scope.gameId, $scope.users)
     .then(function (resp) {
       $location.path('/starter');
     }).catch(function (error) {

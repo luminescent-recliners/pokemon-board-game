@@ -90,12 +90,13 @@ angular.module('services', [])
     });
   };
 
-  var addUsers = function (gameId) {
+  var addUsers = function (gameId, users) {
     return $http({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/games/user',
-      params: {
-        gameId: gameId
+      data: {
+        gameId: gameId,
+        users: users
       }
     })
     .then(function (resp) {
