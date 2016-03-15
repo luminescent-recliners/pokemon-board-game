@@ -303,5 +303,4 @@ module.exports = [
       attackStrength: 5
     }
   }
-  ==========
 ]
