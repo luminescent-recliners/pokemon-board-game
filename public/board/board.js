@@ -46,6 +46,16 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
+  $scope.input2;
+  $scope.testDirective = function(data) {
+    console.log('testDirective', data, $scope.pathData);
+    // if($event.which === 13) {
+    //   console.log('test directive',$scope.input2);
+    //   // $scope.playerPosition = $scope.input2;
+    //   $scope.input2 = "";
+    // }
+  };
+
   // $scope.init();
 });
 
@@ -299,6 +309,28 @@ app.directive('drawPlayer', function($animate) {
         // do stuff
         console.log("mouse not on player");
       });
+    }
+  };
+});
+
+// for testing if a directive can change scope variables
+app.directive('testEntry', function() {
+  return {
+    // templateNamespace: 'svg',
+    restrict: 'E',
+    replace: true,
+    scope: {
+      // player: '=player',
+      // position: '=position',
+      data: '=input2',
+      eventHandler: '&ngClick'
+    },
+
+    template: function(scope, two, three, four) {
+      console.log('from directive', scope, two, three, four);
+      return '<div>'+'<input type="text"/>'+
+        '<input type="button" data-ng-click="eventHandler(data)">hello</input>'+
+        '</div>';
     }
   };
 });
