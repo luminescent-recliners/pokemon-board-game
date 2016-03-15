@@ -6,6 +6,20 @@
     
   {{hello}}
   </div>
+  <div class="game-status">
+  	<h3>Current Turn: Player Name</h3>
+  	<span>Roll Dice: </span><button ng-click="rollDice()">Roll Dice</button>
+  	<p>your roll is {{roll}}</p>
+  	<div class="player-options">
+  		<ul>
+  			<li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)">{{forwardOption.description}}</a></li>
+  		</ul>
+  		<ul>
+  			<li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="testPass(backwardOption)">{{backwardOption.description}}</a></li>
+  		</ul>
+  	</div>
+  	
+  </div>
 
 
 </div>
