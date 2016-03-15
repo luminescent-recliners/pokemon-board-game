@@ -46,9 +46,11 @@ module.exports = {
         var rolledForwardSpot = game.gameBoard[forwardOptionEndPoint];
         playerOptions.forwardOptions.push(gameHelperFn.addOptionDescription(rolledForwardSpot, roll, 'forward'));
 
+        var counter = 0;
         for (var j = userPosition - 1; j > backwardOptionEndPoint; j--) {
+          counter ++;
           var spot = game.gameBoard[j];
-          gameHelperFn.checkOption(spot, playerOptions.backwardOptions, j, 'backward');
+          gameHelperFn.checkOption(spot, playerOptions.backwardOptions, counter, 'backward');
         }
         var rolledBackwardSpot = game.gameBoard[backwardOptionEndPoint];
         playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
