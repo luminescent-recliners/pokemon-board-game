@@ -25,11 +25,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.boardData = boardFactory.getBoard();
   };
   
- // boardData will have to be preprocessed to be an array or change how
- // we store it.  
- $scope.boardData = boardFactory.createBoardArray(gameBoardData);
- $scope.pathData = boardFactory.createPath($scope.boardData);
- $scope.pathString = boardFactory.createPathString($scope.pathData);
+
   // get board data from database
   // preprocessed to be an array 
   // calculate path data and path string

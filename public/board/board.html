@@ -2,7 +2,7 @@
 <!  this section for drawing the board ->
 <div ng-controller='boardController'>
   <p>Enter Spot To Move To: <input type='number' ng-keypress='inputValue($event)' ng-model='input'></p>
-  <svg width='100%' height='600' >    
+  <svg width='100%' height='500' >    
     <draw-path pathString='pathString'></draw-path>    
     
     <draw-spot ng-repeat='point in boardData' node-data='point'></draw-spot> 
