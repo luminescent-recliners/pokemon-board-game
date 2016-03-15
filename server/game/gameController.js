@@ -77,12 +77,14 @@ module.exports = {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
     var gameId = req.body.gameId;
+    console.log(gameName, facebookId)
     var createGame = function() {
       Games.find({}, function(err, games) {
           var newGame = new Games({ 
             gameId: gameId,
             name: gameName,
-            users: {facebookId : {
+            users: {
+              facebookId: facebookId,
               playerIndex: 0,
               badges: [],
               party: [],
@@ -91,7 +93,7 @@ module.exports = {
               positionOnBoard: 0,
               citiesVisited: [0],
               lastCity: 0
-            }},
+            },
             gameBoard: gameBoardData,
             AvailablePokemon: {},
             AvailableItemCards: [],
