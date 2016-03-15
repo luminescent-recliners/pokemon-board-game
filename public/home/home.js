@@ -2,32 +2,28 @@ angular.module('pokemon.home', [])
 
 .controller('homeController',function($scope, userFactory) {
   $scope.user =  
-  	{ 
-	facebookId: 'Facebook123',
-	displayName: 'Henry',
-	gamesParticipating: [1],
-	numGameWon: 0
-	}
-  $scope.gameId = 1;
+    { 
+      facebookId: 'Facebook123',
+      displayName: 'Henry',
+      gamesParticipating: [1],
+      numGameWon: 0
+    }
   $scope.gameList = [];
 
   $scope.hitEnter = function($event, input) {
     if($event.which === 13) {
     $scope.makeNewGame(input);
-  	}
+    }
   };
 
   $scope.makeNewGame = function(newGameName) {
-  	// $scope.gameList.push($scope.newGameName);
-    console.log($scope.newGameName)
-  	userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
-  	.then(function (resp) {
-      $location.path('/');
-    }).catch(function (error) {
+     console.log($scope.newGameName)
+    userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
+    .then(function (resp) {
+     }).catch(function (error) {
       console.error(error);
     });
-  	$scope.newGameName = '';
-  	$scope.gameId++;
+    $scope.newGameName = '';
     $scope.userGames();
   };
 
@@ -37,13 +33,17 @@ angular.module('pokemon.home', [])
 
   $scope.userGames = function() {
     userFactory.getGames()
-    .then(function(games){
-      $scope.gameList = games;
-      console.log('Got all games');
+    .then(function(games) {
+      $scope.gameList = [];
+      $scope.gameId = [];
+      for(var i = 0; i < games.length; i++) {
+        $scope.gameList.push(games[i].gameName);
+        $scope.gameId.push(games[i].gameId);
+      console.log('Got all games:', games);
+      }
     })
     .catch(function(error) {
-      console.log('Uhh... I could not get the games. Something exploded', error);
-      window.alert('Oops, something went wrong with the GAMES D=');
+      console.log(error);
     });
   }
   $scope.userGames();
