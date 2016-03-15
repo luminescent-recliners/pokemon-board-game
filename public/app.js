@@ -3,7 +3,8 @@ angular.module('pokemon', [
   'pokemon.home',
   'services',
   'pokemon.starter',
-  'ngRoute'
+  'ngRoute',
+  'ngAnimate'
 ])
 .config(function($routeProvider) {
   $routeProvider
