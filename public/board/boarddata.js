@@ -73,3 +73,12 @@ module.exports = [
 {typeOfSpot:"event",colorOfSpot:"red",users:[],gymLeader:7,row:3,col:12},
 {typeOfSpot:"pokemon",colorOfSpot:"red",users:[],gymLeader:2,row:3,col:13},
 ];
+
+var gameBoard = [
+  {id:1, typeOfSpot:"city",colorOfSpot:"blue",users:['Hitesh','Alex'],gymLeader:0,row:4,col:1},
+  {id:2, typeOfSpot:"city",colorOfSpot:"green",users:['Arthi','Linda'],gymLeader:5,row:0,col:2},
+  {id:3, typeOfSpot:"pokemon",colorOfSpot:"yellow",users:[],gymLeader:6,row:1,col:3},
+  {id:4, typeOfSpot:"pokemon",colorOfSpot:"grey",users:[],gymLeader:7,row:2,col:4},
+  {id:5, typeOfSpot:"city",colorOfSpot:"brown",users:[],gymLeader:7,row:3,col:5},
+  {id:6, typeOfSpot:"city",colorOfSpot:"purple",users:[],gymLeader:4,row:0,col:6}
+];
