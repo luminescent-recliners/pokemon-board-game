@@ -30,10 +30,22 @@ angular.module('services', [])
       return resp.data;
     });
   };
+ 
+  var getGames = function () {
+    return $http({
+      method: 'GET',
+      url: 'api/games/getGames',
+    })
+    .then(function (resp) {
+      console.log('All games:', resp.data);
+      return resp.data;
+    });
+  };
 
   return {
     addStarterPokemon: addStarterPokemon,
-    addGame: addGame
+    addGame: addGame,
+    getGames: getGames
   };
   
 })

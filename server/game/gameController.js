@@ -73,7 +73,7 @@ module.exports = {
         next(error);
       });
   },
-    addGame: function(req, res, next) {
+  addGame: function(req, res, next) {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
     var gameId = req.body.gameId;
@@ -109,6 +109,16 @@ module.exports = {
       });
     };
   createGame();  
+  },
+  
+  getGames: function(req, res, next) {
+    findGame()
+      .then(function(game){
+        res.send(game);
+      })
+      .fail(function(error){
+        next(error);  
+      });
   }
 };
 
