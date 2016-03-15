@@ -1,11 +1,11 @@
 angular.module('pokemon.lobby', [])
 .controller('lobbyController', function ($scope, $location, gameFactory) {
   $scope.lobbytest = "Welcome to the Lobby!";
-  $scope.userId = "choumander";
+  $scope.userId = "arthicuno";
   $scope.gameId = 1;
   $scope.gamename;
   $scope.users = [
-    {facebookId: "Facebook123", userId: "choumander"}
+    {facebookId: "Facebook123", userId: "arthicuno"}, {facebookId: "Facebook456", userId: "choumander"}
   ];
 
   $scope.initialize = function () {
@@ -18,7 +18,7 @@ angular.module('pokemon.lobby', [])
   };
 
   $scope.getStarterView = function () {
-    $location.path('/starter');
+    // $location.path('/starter');
     gameFactory.addUsers($scope.gameId, $scope.users)
     .then(function (resp) {
       $location.path('/starter');

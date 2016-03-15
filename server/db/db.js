@@ -74,7 +74,8 @@ var createGame = function() {
         AvailableItemCards: [],
         gameCreator: 1,
         gameTurn: 'Alex',
-        gameStarted: true
+        gameStarted: true,
+        gameCounter: 0
       });
       newGame.save(function(err) {
         if (!err) {
