@@ -16,8 +16,10 @@ angular.module('pokemon.board',[])
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
       });
+  };
 
-
+  $scope.testPass = function(arg) {
+    console.log('This is the gameboard spot object', arg);
   };
 
 })
