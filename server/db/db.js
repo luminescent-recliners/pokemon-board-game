@@ -57,7 +57,7 @@ var createGame = function() {
   Games.find({}, function(err, games) {
     if (!games.length){
       var newGame = new Games({
-        gameID: 1,
+        gameId: 1,
         name: 'hoooli Dungeon',
         users: {1 : {
           playerIndex: 0,
