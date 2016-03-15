@@ -22,13 +22,27 @@ angular.module('pokemon.home', [])
     console.log($scope.newGameName)
   	userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
   	.then(function (resp) {
-      $location.path('/game');
+      $location.path('/');
     }).catch(function (error) {
       console.error(error);
     });
   	$scope.newGameName = '';
   	$scope.gameId++;
     window.localStorage.setItem('pokemon.gameId', $scope.gameId);
-  	}
+  };
+
+  $scope.userGames = function() {
+    userFactory.getGames()
+    .then(function(games){
+      $scope.gameList = games.name;
+      console.log('Got all games');
+    })
+    .catch(function(error) {
+      console.log('Uhh... I could not get the games. Something exploded', error);
+      window.alert('Oops, something went wrong with the GAMES D=');
+    });
+  }
+  $scope.userGames();
 });
 
+ 
