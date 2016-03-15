@@ -30,25 +30,36 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
  $scope.boardData = boardFactory.createBoardArray(gameBoardData);
  $scope.pathData = boardFactory.createPath($scope.boardData);
  $scope.pathString = boardFactory.createPathString($scope.pathData);
+  // get board data from database
+  // preprocessed to be an array 
+  // calculate path data and path string
+  boardFactory.getBoard(1)
+    .then(function(data){
+      $scope.boardData = boardFactory.createBoardArray(data);
+      $scope.pathData = boardFactory.createPath($scope.boardData);
+      $scope.pathString = boardFactory.createPathString($scope.pathData);
+      $scope.playerPosition = 1;
 
- $scope.playerPosition = 3;
- $scope.playerList = [];
- $scope.turn = 'player name or player index number';
- $scope.playerName = 'get after log in get this for board view?';
+    });
+  // these should probably be initialized at the same time as board above
+  $scope.playerList = [];
+  $scope.turn = 'player name or player index number';
+  $scope.playerName = 'get after log in get this for board view?';
 
   $scope.input ='';
   $scope.inputValue = function($event) {
     if($event.which === 13) {
-      $scope.playerPosition = $scope.input;
+      $scope.playerPosition = ($scope.input - 1);
       $scope.input = '';
     }
   };
-
 });
 
 app.factory('boardFactory', function($http) {
 
   var createBoardArray = function(board) {
+    // this section adds rows and columns onto data from
+    // database
     var xRatio = 6; // total length 120
     var yRatio = 12; // total length 60
     for(var i = 1; i <= 73; i++) {
@@ -69,8 +80,9 @@ app.factory('boardFactory', function($http) {
         board[i].col = (xRatio * 19) - (i % 18) * xRatio;
       }
     }
+
     var boardArray = [];
-    for(key in board) {
+    for(var key in board) {
       boardArray.push(board[key]);
     }
     return boardArray;
@@ -98,16 +110,15 @@ app.factory('boardFactory', function($http) {
 
   // assume that this function retuns only the
   // game board could not get data extracted
-  var getBoard = function() {
+  var getBoard = function(gameId) {
     return $http({
       method: 'GET',
-      url: '/api/games/getBoard/?gameId=1',
-      // data: {
-      //   gameId: gameId
-      // }
+      url: '/api/games/getBoard',
+      params: {
+        gameId: gameId
+      }
     })
     .then(function(resp) {
-      console.log(resp.data);
       return resp.data;
     });
   };
