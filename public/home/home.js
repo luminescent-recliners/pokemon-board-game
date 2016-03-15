@@ -1,6 +1,6 @@
 angular.module('pokemon.home', [])
 
-.controller('homeController',function($scope, userFactory) {
+.controller('homeController',function($scope, userFactory, $window) {
   $scope.user =  
     { 
       facebookId: 'Facebook123',
@@ -9,6 +9,7 @@ angular.module('pokemon.home', [])
       numGameWon: 0
     }
   $scope.gameList = [];
+  $scope.id = null;
 
   $scope.hitEnter = function($event, input) {
     if($event.which === 13) {
@@ -27,19 +28,21 @@ angular.module('pokemon.home', [])
     $scope.userGames();
   };
 
-  $scope.localStorage = function( ) {
-    window.localStorage.setItem('pokemon.gameId', $scope.gameId);
+  $scope.localStorage = function(id) {
+    console.log('pokemon.gameId', id)
+    $window.localStorage.setItem('pokemon.gameId', id);
   };
 
   $scope.userGames = function() {
     userFactory.getGames()
     .then(function(games) {
+      $scope.games = [];
       $scope.gameList = [];
       $scope.gameId = [];
       for(var i = 0; i < games.length; i++) {
+        $scope.games.push(games[i])
         $scope.gameList.push(games[i].gameName);
         $scope.gameId.push(games[i].gameId);
-      console.log('Got all games:', games);
       }
     })
     .catch(function(error) {
