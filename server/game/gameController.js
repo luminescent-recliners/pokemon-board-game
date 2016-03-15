@@ -58,6 +58,18 @@ module.exports = {
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
       });
+  },
+
+  // quick test function to get board data
+  // to play with
+  getBoard: function(req, res, next) {
+    var gameId = req.query.gameId;
+    findGame({ gameId: gameId })
+      .then(function(game) {
+        res.send(game.gameBoard);
+      })
+      .fail(function(error) {
+        next(error);
+      });
   }
 };
-

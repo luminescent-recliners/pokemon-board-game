@@ -5,8 +5,8 @@ var gameSchema = mongoose.Schema({
   name: String,
   users: {},
   gameBoard: {},
-  AvailablePokemon: {},
-  AvailableItemCards: [],
+  availablePokemon: {},
+  availableItemCards: [],
   gameCreator: String,
   gameTurn: String,
   gameStarted: Boolean
@@ -15,4 +15,3 @@ var gameSchema = mongoose.Schema({
 var Games = mongoose.model('games', gameSchema);
 
 module.exports = Games;
-
