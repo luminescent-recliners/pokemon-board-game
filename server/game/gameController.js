@@ -1,6 +1,7 @@
 var Games = require('./gameModel.js');
 var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
+var gameBoardData = require('../data/gameBoardData.js');
 
 var findGame = Q.nbind(Games.findOne, Games);
 
@@ -71,5 +72,41 @@ module.exports = {
       .fail(function(error) {
         next(error);
       });
+  },
+    addGame: function(req, res, next) {
+    var gameName = req.body.gameName;
+    var facebookId = req.body.facebookId;
+    var gameId = req.body.gameId;
+    var createGame = function() {
+      Games.find({}, function(err, games) {
+          var newGame = new Games({ 
+            gameId: gameId,
+            name: gameName,
+            users: {facebookId : {
+              playerIndex: 0,
+              badges: [],
+              party: [],
+              box: [],
+              itemCards: [],
+              positionOnBoard: 0,
+              citiesVisited: [0],
+              lastCity: 0
+            }},
+            gameBoard: gameBoardData,
+            AvailablePokemon: {},
+            AvailableItemCards: [],
+            gameCreator: 1,
+            gameTurn: 'Alex',
+            gameStarted: true
+          });
+          newGame.save(function(err) {
+            if (!err) {
+              console.log('CREATEGAME WORKS')
+            }
+          });
+      });
+    };
+  createGame();  
   }
 };
+
