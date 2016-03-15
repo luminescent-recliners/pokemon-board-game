@@ -16,8 +16,36 @@ angular.module('services', [])
     });
   };
 
+  var addGame = function (gameId, gameName, gameCreator) {
+    return $http({
+      method: 'POST',
+      url: 'api/games/addgame',
+      data: {
+        gameId: gameId,
+        gameName: gameName,
+        facebookId: gameCreator,
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+ 
+  var getGames = function () {
+    return $http({
+      method: 'GET',
+      url: 'api/games/getGames',
+    })
+    .then(function (resp) {
+      console.log('All games:', resp.data);
+      return resp.data;
+    });
+  };
+
   return {
-    addStarterPokemon: addStarterPokemon
+    addStarterPokemon: addStarterPokemon,
+    addGame: addGame,
+    getGames: getGames
   };
   
 })
