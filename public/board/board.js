@@ -2,10 +2,10 @@ var app = angular.module('pokemon.board',[]);
 
 app.controller('boardController', function($scope, gameDashboardFactory, boardFactory) {
   $scope.hello = 'hello testing testing';
+  $scope.userId = 'Facebook123';
   $scope.playerOptions = [[],[]];
   $scope.gameId = 1;
-  $scope.userId = 1;
-  $scope.userPosition = 1;
+  $scope.userPosition;
   $scope.roll;
 
   $scope.counter = 0;
@@ -14,7 +14,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
     // $scope.roll = Math.ceil(Math.random() * 6);
     $scope.roll = arr[$scope.counter % 6];
-    $scope.counter ++
+    $scope.counter ++;
+
+    console.log($scope.userPosition);
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.userId)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
@@ -22,31 +24,26 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
-  $scope.movePlayer = function(newSpot) {
-    // console.log('This is the gameboard spot object', newSpot);
-    // $scope.playerPosition = arg.id;
-    // console.log('typeo f spot', typeof newSpot.id)
-    console.log('this is scope current', $scope.playerPosition);
-    $scope.playerPosition = newSpot.id - 1;
-    console.log('this is updated', $scope.playerPosition);
+  $scope.movePlayer = function(newSpot, userId) {
+    $scope.userPosition = newSpot.id;
+    $scope.playerPosition = $scope.userPosition - 1;
   };
 
   $scope.init = function() {
-    // $scope.boardData = boardFactory.getBoard();
+    boardFactory.getBoard($scope.gameId, $scope.userId)
+      .then(function(data){
+        $scope.boardData = boardFactory.createBoardArray(data.board);
+        // get board data from database
+        // preprocessed to be an array 
+        // calculate path data and path string
+        $scope.pathData = boardFactory.createPath($scope.boardData);
+        $scope.pathString = boardFactory.createPathString($scope.pathData);
+
+        $scope.userPosition = data.user.positionOnBoard;
+        $scope.playerPosition = $scope.userPosition - 1;
+      });
   };
-  
 
-  // get board data from database
-  // preprocessed to be an array 
-  // calculate path data and path string
-  boardFactory.getBoard(1)
-    .then(function(data){
-      $scope.boardData = boardFactory.createBoardArray(data);
-      $scope.pathData = boardFactory.createPath($scope.boardData);
-      $scope.pathString = boardFactory.createPathString($scope.pathData);
-      $scope.playerPosition = 0;
-
-    });
   // these should probably be initialized at the same time as board above
   $scope.playerList = [];
   $scope.turn = 'player name or player index number';
@@ -57,8 +54,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     if($event.which === 13) {
       $scope.playerPosition = ($scope.input - 1);
       $scope.input = '';
+      $scope.userPosition = $scope.playerPosition + 1;
     }
   };
+
+  $scope.init();
 });
 
 app.factory('boardFactory', function($http) {
@@ -116,12 +116,13 @@ app.factory('boardFactory', function($http) {
 
   // assume that this function retuns only the
   // game board could not get data extracted
-  var getBoard = function(gameId) {
+  var getBoard = function(gameId, userId) {
     return $http({
       method: 'GET',
       url: '/api/games/getBoard',
       params: {
-        gameId: gameId
+        gameId: gameId,
+        userId: userId
       }
     })
     .then(function(resp) {
@@ -190,14 +191,7 @@ app.directive('drawPath', function() {
     replace: true,
     scope: {path1: '=pathString'},
     template: function(){
-      // var coords = path.map(function(xypair){
-      //   return xypair[0] + ',' + xypair[1];
-      // });
-      // var out = '<path d="M' + coords.join('L') + '" stroke="#795548" stroke-width=3 fill="none"></path>';
-      // return out;
       // return '<path d="{{path1}}" stroke="#795548" stroke-width=3 fill="none"></path>';
-      // return '<path></path>';
-
       return '<path d="M60,120L120,120L180,120L240,120L300,120L360,120L420,120L480,120L540,120L600,120L660,120L720,120L780,120L840,120L900,120L960,120L1020,120L1080,120L1140,240L1080,240L1020,240L960,240L900,240L840,240L780,240L720,240L660,240L600,240L540,240L480,240L420,240L360,240L300,240L240,240L180,240L120,240L60,240L0,360L60,360L120,360L180,360L240,360L300,360L360,360L420,360L480,360L540,360L600,360L660,360L720,360L780,360L840,360L900,360L960,360L1020,360L1080,360L960,480L900,480L840,480L780,480L720,480L660,480L600,480L540,480L480,480L420,480L360,480L300,480L240,480L180,480L120,480L1140,480L1080,480" stroke="#795548" stroke-width=3 fill="none"></path>';
 
     }
