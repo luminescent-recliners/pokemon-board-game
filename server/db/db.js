@@ -67,7 +67,7 @@ var createGame = function() {
           party: [],
           box: [],
           itemCards: [],
-          positionOnBoard: 0,
+          positionOnBoard: 1,
           citiesVisited: [0],
           lastCity: 0
         }],
