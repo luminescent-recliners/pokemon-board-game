@@ -12,7 +12,6 @@ module.exports = {
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
 
-    console.log("inside addPokemon function ", userId);
     findGame({ gameId: gameId })
       .then(function(game) {
         for(var i=0;i<game.users.length;i++) {
