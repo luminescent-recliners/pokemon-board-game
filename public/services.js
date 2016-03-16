@@ -42,10 +42,27 @@ angular.module('services', [])
     });
   };
 
+  var movePlayer = function (position, userId, gameId) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/user/movePlayer',
+      data: {
+        position: position,
+        userId: userId,
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      console.log('Player Updated:', resp.data);
+      return resp.data;
+    });
+  };
+
   return {
     addStarterPokemon: addStarterPokemon,
     addGame: addGame,
-    getGames: getGames
+    getGames: getGames,
+    movePlayer: movePlayer
   };
   
 })
