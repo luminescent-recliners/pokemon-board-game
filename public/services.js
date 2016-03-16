@@ -162,13 +162,14 @@ angular.module('services', [])
     .then(function(resp) {
       return resp.data;
     });
-  }
+  };
 
   return {
     getGameName: getGameName,
     addUsers: addUsers,
     getGameTurn: getGameTurn,
-    catchPokemon: catchPokemon
+    catchPokemon: catchPokemon,
+    getAvailablePokemon: getAvailablePokemon
   };
 
 });
