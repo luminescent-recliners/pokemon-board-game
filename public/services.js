@@ -132,12 +132,29 @@ angular.module('services', [])
     .then(function (resp) {
       return resp.data;
     });
-  }
+  };
+
+  var catchPokemon = function (gameId, userId, roll, pokemonColor) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/user/catchPokemon',
+      params: {
+        gameId: gameId,
+        userId: userId,
+        roll: roll,
+        pokemonColor: pokemonColor
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
 
   return {
     getGameName: getGameName,
     addUsers: addUsers,
-    getGameTurn: getGameTurn
+    getGameTurn: getGameTurn,
+    catchPokemon: catchPokemon
   };
 
 });
