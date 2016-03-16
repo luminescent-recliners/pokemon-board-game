@@ -149,6 +149,12 @@ module.exports = {
       });
   },
 
+  movePlayer: function(req, res, next) {
+    var user = req.body.userId;
+    var position = req.body.position;
+    res.send('movedPlayer');
+  },
+
   addGame: function(req, res, next) {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
