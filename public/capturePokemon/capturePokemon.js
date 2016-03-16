@@ -20,6 +20,7 @@ angular.module('pokemon.capture', [])
         $scope.imageUrl = pokemon.imageUrl;
         $scope.pokemonColor = pokemon.color;
         $scope.pokemon = pokemon;
+
       });
   };
   
