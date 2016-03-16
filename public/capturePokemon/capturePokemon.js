@@ -1,10 +1,28 @@
 angular.module('pokemon.capture', [])
-.controller('captureController', function ($scope, gameFactory) {
+.controller('captureController', function ($scope, gameFactory, $window) {
   $scope.capturetest = "Get ready to capture a Pokemon!";
+
+  // Post Dev values
+  // $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+  // $scope.userId = $window.localStorage.getItem('pokemon.userId');
+  
+  // Dev values
   $scope.gameId = 1;
   $scope.userId = "Facebook123";
-  $scope.pokemonColor = 'pink';
-  $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
+
+  // $scope.pokemonColor = 'pink';
+  // $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
+
+  var initialize = function() {
+  
+    gameFactory.getAvailablePokemon($scope.gameId, $scope.userId)
+      .then(function(pokemon) {
+        $scope.imageUrl = pokemon.imageUrl;
+        $scope.pokemonColor = pokemon.color;
+        $scope.pokemon = pokemon;
+      });
+  };
+  
   $scope.rollvalue;
   $scope.result;
 
@@ -17,5 +35,7 @@ angular.module('pokemon.capture', [])
         console.error(error);
       });
   };
+
+  initialize();
 
 });
