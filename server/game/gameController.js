@@ -2,6 +2,8 @@ var Games = require('./gameModel.js');
 var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
+var availablePokemonData = require('../data/availablePokemonData.js');
+
 
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
@@ -151,7 +153,7 @@ module.exports = {
             lastCity: 0
           },
           gameBoard: gameBoardData,
-          AvailablePokemon: {},
+          AvailablePokemon: availablePokemonData,
           AvailableItemCards: [],
           gameCreator: 1,
           gameTurn: 'Alex',
