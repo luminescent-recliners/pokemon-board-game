@@ -132,14 +132,23 @@ module.exports = {
   // to play with
   getBoard: function(req, res, next) {
     var gameId = req.query.gameId;
+    var userId = req.query.userId;
+
     findGame({ gameId: gameId })
       .then(function(game) {
-        res.send(game.gameBoard);
+
+        var gameData = {
+          board: game.gameBoard,
+          user: gameHelperFn.findUser(game, userId)
+        };
+
+        res.send(gameData);
       })
       .fail(function(error) {
         next(error);
       });
   },
+
   addGame: function(req, res, next) {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
