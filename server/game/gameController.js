@@ -11,6 +11,7 @@ module.exports = {
     var gameId = req.body.gameId;
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
+    var result;
 
     findGame({ gameId: gameId })
       .then(function(game) {
@@ -19,9 +20,10 @@ module.exports = {
             game.users[i].party.push(pokemon);
             game.markModified('users');
             game.save();
-            res.send(game.users[i].party);
+            result = game.users[i].party;
           }
         }
+        res.send(result);
       })
       .fail(function(error) {
         next(error);
