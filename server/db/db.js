@@ -73,8 +73,8 @@ var createGame = function() {
           lastCity: 0
         }],
         gameBoard: gameBoardData,
-        AvailablePokemon: availablePokemonData,
-        AvailableItemCards: [],
+        availablePokemon: availablePokemonData,
+        availableItemCards: [],
         gameCreator: 1,
         gameTurn: 'Alex',
         gameStarted: true,
@@ -82,7 +82,7 @@ var createGame = function() {
       });
       newGame.save(function(err) {
         if (!err) {
-          console.log('createGames WORKS');
+          console.log('createGames WORKS in db.js');
         }
       });
     }

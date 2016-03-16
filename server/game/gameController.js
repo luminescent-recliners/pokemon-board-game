@@ -153,15 +153,15 @@ module.exports = {
             lastCity: 0
           },
           gameBoard: gameBoardData,
-          AvailablePokemon: availablePokemonData,
-          AvailableItemCards: [],
-          gameCreator: 1,
+          availablePokemon: availablePokemonData,
+          availableItemCards: [],
+          gameCreator: facebookId,
           gameTurn: 'Alex',
           gameStarted: true
         });
         newGame.save(function(err) {
           if (!err) {
-            console.log('CREATEGAME WORKS')
+            console.log('CREATEGAME WORKS', newGame)
           } else {
             console.error(err);
           }

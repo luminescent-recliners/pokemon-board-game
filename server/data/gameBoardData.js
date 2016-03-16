@@ -4,6 +4,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '2': { 
@@ -11,6 +12,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: ['joy', 'hitesh'],
+     pokemon: null,
      gymLeader: false 
   },
   '3': { 
@@ -18,6 +20,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
      users: ['arti'],
+     pokemon: null,
      gymLeader: false 
   },
   '4': { 
@@ -25,6 +28,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '5': { 
@@ -32,6 +36,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '6': { 
@@ -39,6 +44,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '7': { 
@@ -46,6 +52,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '8': { 
@@ -53,6 +60,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '9': { 
@@ -60,6 +68,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '10': { 
@@ -67,6 +76,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '11': { 
@@ -74,6 +84,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '12': { 
@@ -81,6 +92,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '13': { 
@@ -88,6 +100,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '14': { 
@@ -95,6 +108,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: 'Brock/Onyx' 
   },
   '15': { 
@@ -102,6 +116,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '16': { 
@@ -109,6 +124,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '17': { 
@@ -116,6 +132,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '18': { 
@@ -123,6 +140,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '19': { 
@@ -130,6 +148,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '20': { 
@@ -137,6 +156,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '21': { 
@@ -144,6 +164,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: 'Misty/Starmie' 
   },
   '22': { 
@@ -151,6 +172,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '23': { 
@@ -158,6 +180,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '24': { 
@@ -165,6 +188,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '25': { 
@@ -172,6 +196,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '26': { 
@@ -179,6 +204,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: 'Erica/Vileplume' 
   },
   '27': { 
@@ -186,6 +212,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '28': { 
@@ -193,6 +220,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '29': { 
@@ -200,6 +228,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '30': { 
@@ -207,6 +236,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '31': { 
@@ -214,6 +244,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '32': { 
@@ -221,6 +252,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '33': { 
@@ -228,6 +260,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '34': { 
@@ -235,6 +268,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '35': { 
@@ -242,6 +276,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '36': { 
@@ -249,6 +284,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: 'Sabrina/Alakazam' 
   },
   '37': { 
@@ -256,6 +292,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '38': { 
@@ -263,6 +300,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '39': { 
@@ -270,6 +308,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'green',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '40': { 
@@ -277,6 +316,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '41': { 
@@ -284,6 +324,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '42': { 
@@ -291,6 +332,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '43': { 
@@ -298,6 +340,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '44': { 
@@ -305,6 +348,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '45': { 
@@ -312,6 +356,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '46': { 
@@ -319,6 +364,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '47': { 
@@ -326,6 +372,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: 'Lt. Surge/Raichu' 
   },
   '48': { 
@@ -333,6 +380,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '49': { 
@@ -340,6 +388,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '50': { 
@@ -347,6 +396,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '51': { 
@@ -354,6 +404,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '52': { 
@@ -361,6 +412,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '53': { 
@@ -368,6 +420,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '54': { 
@@ -375,6 +428,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '55': { 
@@ -382,6 +436,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '56': { 
@@ -389,6 +444,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '57': { 
@@ -396,6 +452,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '58': { 
@@ -403,6 +460,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'blue',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '59': { 
@@ -410,6 +468,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '60': { 
@@ -417,6 +476,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '61': { 
@@ -424,6 +484,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '62': { 
@@ -431,6 +492,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '63': { 
@@ -438,6 +500,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: 'Koga/Weezing' 
   },
   '64': { 
@@ -445,6 +508,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '65': { 
@@ -452,6 +516,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '66': { 
@@ -459,6 +524,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '67': { 
@@ -466,6 +532,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '68': { 
@@ -473,6 +540,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '69': { 
@@ -480,6 +548,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '70': { 
@@ -487,6 +556,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '71': { 
@@ -494,6 +564,7 @@ module.exports = {
      typeOfSpot: 'event',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '72': { 
@@ -501,6 +572,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: false 
   },
   '73': { 
@@ -508,6 +580,7 @@ module.exports = {
      typeOfSpot: 'city',
      colorOfSpot: 'red',
      users: [],
+     pokemon: null,
      gymLeader: 'Blaine/Rapidash' 
   } 
 }
