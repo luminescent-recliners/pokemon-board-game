@@ -12,17 +12,23 @@ module.exports = {
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
 
+    console.log("inside addPokemon function ", userId);
     findGame({ gameId: gameId })
       .then(function(game) {
-        game.users[userId].party.push(pokemon);
-        game.markModified('users');
-        game.save();
-        res.send(game.users[userId].party);
+        for(var i=0;i<game.users.length;i++) {
+          if(game.users[i].playerName === userId) {
+            game.users[i].party.push(pokemon);
+            game.markModified('users');
+            game.save();
+            res.send(game.users[i].party);
+          }
+        }
       })
       .fail(function(error) {
         next(error);
       });
   },
+
 
   getPlayerOptions: function(req, res, next) {
     var gameId = req.query.gameId;
@@ -59,6 +65,60 @@ module.exports = {
 
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
+      });
+  },
+
+  findName: function (req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+      .then(function (game) {
+        res.send(game.name);
+      })
+      .fail(function (error) {
+        next(error);
+      });
+  },
+
+  addUser: function (req, res, next) {
+    var gameId = req.body.gameId;
+    var users = req.body.users;
+
+    findGame({gameId: gameId})
+      .then(function (game) {
+        for(var i=0;i<users.length;i++) {
+          game.users.push({
+            facebookId: users[i].facebookId,
+            playerName: users[i].userId,
+            playerIndex: 0,
+            badges: [],
+            party: [],
+            box: [],
+            itemCards: [],
+            positionOnBoard: 0,
+            citiesVisited: [0],
+            lastCity: 0
+          })
+          game.markModified('users');
+          game.save();
+        }
+      res.send(game.gameTurn);
+      })
+      .fail(function (error) {
+        next(error);
+      });
+  },
+
+  findTurn: function (req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+      .then(function (game) {
+        game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
+        res.send(game.gameTurn);
+      })
+      .fail(function (error) {
+        next(error);
       });
   },
 
@@ -128,4 +188,3 @@ module.exports = {
       });
   }
 };
-
