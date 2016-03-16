@@ -4,12 +4,13 @@ angular.module('pokemon.capture', [])
   $scope.gameId = 1;
   $scope.userId = "choumander";
   $scope.pokemonColor = 'pink';
+  $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
   $scope.rollvalue;
   $scope.result;
 
   $scope.rollDice = function () {
     $scope.rollvalue = Math.floor(Math.random() * 6);
-    gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor)
+    gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
       .then(function (resp) {
         $scope.result = resp;
       }).catch(function (error) {
