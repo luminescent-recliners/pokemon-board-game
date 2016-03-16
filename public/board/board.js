@@ -1,6 +1,6 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory) {
   $scope.hello = 'hello testing testing';
   $scope.userId = 'Facebook123';
   $scope.playerOptions = [[],[]];
@@ -27,6 +27,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.movePlayer = function(newSpot, userId) {
     $scope.userPosition = newSpot.id;
     $scope.playerPosition = $scope.userPosition - 1;
+    userFactory.movePlayer(newSpot.id, $scope.userId, $scope.gameId);
+
   };
 
   $scope.init = function() {
