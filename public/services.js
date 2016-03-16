@@ -134,15 +134,16 @@ angular.module('services', [])
     });
   };
 
-  var catchPokemon = function (gameId, userId, roll, pokemonColor) {
+  var catchPokemon = function (gameId, userId, roll, pokemonColor, pokemon) {
     return $http({
       method: 'PUT',
       url: 'api/games/user/catchPokemon',
-      params: {
+      data: {
         gameId: gameId,
         userId: userId,
         roll: roll,
-        pokemonColor: pokemonColor
+        pokemonColor: pokemonColor,
+        pokemon: pokemon
       }
     })
     .then(function (resp) {
