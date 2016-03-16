@@ -2,7 +2,7 @@ angular.module('pokemon.capture', [])
 .controller('captureController', function ($scope, gameFactory) {
   $scope.capturetest = "Get ready to capture a Pokemon!";
   $scope.gameId = 1;
-  $scope.userId = "choumander";
+  $scope.userId = "Facebook123";
   $scope.pokemonColor = 'pink';
   $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
   $scope.rollvalue;

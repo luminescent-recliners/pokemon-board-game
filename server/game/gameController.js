@@ -223,7 +223,7 @@ module.exports = {
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
           result = "success";
           for(var i=0;i<game.users.length;i++) {
-            if(game.users[i].playerName === userId) {
+            if(game.users[i].facebookId === userId) {
               game.users[i].party.push(pokemon);
               game.markModified('users');
               game.save();
