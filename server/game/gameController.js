@@ -161,7 +161,7 @@ module.exports = {
         });
         newGame.save(function(err) {
           if (!err) {
-            console.log('CREATEGAME WORKS', newGame)
+            console.log('CREATEGAME WORKS')
           } else {
             console.error(err);
           }
