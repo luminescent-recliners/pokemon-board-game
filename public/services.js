@@ -49,6 +49,7 @@ angular.module('services', [])
   };
   
 })
+
 .factory('gameDashboardFactory', function ($http) {
   //Input: Receives dice roll, userId, and gameId
   //Output: Retrieves an array of possible game spots to move
@@ -66,10 +67,60 @@ angular.module('services', [])
     .then(function (resp) {
       return resp.data;
     });
-
   };
 
   return {
     getPlayerOptions: getPlayerOptions
   };
+
+})
+
+.factory('gameFactory', function ($http) {
+
+  var getGameName = function (gameId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/name',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
+  var addUsers = function (gameId, users) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/user',
+      data: {
+        gameId: gameId,
+        users: users
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    })
+  };
+
+  var getGameTurn = function (gameId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/gameturn',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  }
+
+  return {
+    getGameName: getGameName,
+    addUsers: addUsers,
+    getGameTurn: getGameTurn
+  };
+
 });

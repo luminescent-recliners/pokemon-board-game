@@ -3,13 +3,14 @@ var mongoose = require('mongoose');
 var gameSchema = mongoose.Schema({
   gameId: Number,
   name: String,
-  users: {},
+  users: [],
   gameBoard: {},
   availablePokemon: {},
   availableItemCards: [],
   gameCreator: String,
   gameTurn: String,
-  gameStarted: Boolean
+  gameStarted: Boolean,
+  gameCounter: Number
 });
 
 var Games = mongoose.model('games', gameSchema);

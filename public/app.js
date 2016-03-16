@@ -4,7 +4,9 @@ angular.module('pokemon', [
   'services',
   'pokemon.starter',
   'ngRoute',
-  'ngAnimate'
+  'ngAnimate',
+  'pokemon.lobby',
+  'ngRoute'
 ])
 .config(function($routeProvider) {
   $routeProvider
@@ -19,6 +21,9 @@ angular.module('pokemon', [
     .when('/starter', {
       templateUrl: 'starterPokemon/starterPokemon.html',
       controller: 'starterController'
+    })
+    .when('/lobby', {
+      templateUrl: 'lobby/lobby.html',
+      controller: 'lobbyController'
     });
-
 });

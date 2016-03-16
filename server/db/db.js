@@ -59,7 +59,9 @@ var createGame = function() {
       var newGame = new Games({
         gameId: 1,
         name: 'hoooli Dungeon',
-        users: {1 : {
+        users: [{
+          facebookId: 'Facebook123',
+          playerName: 'choumander',
           playerIndex: 0,
           badges: [],
           party: [],
@@ -68,13 +70,14 @@ var createGame = function() {
           positionOnBoard: 0,
           citiesVisited: [0],
           lastCity: 0
-        }},
+        }],
         gameBoard: gameBoardData,
         AvailablePokemon: pokemonData,
         AvailableItemCards: [],
         gameCreator: 1,
         gameTurn: 'Alex',
-        gameStarted: true
+        gameStarted: true,
+        gameCounter: 0
       });
       newGame.save(function(err) {
         if (!err) {

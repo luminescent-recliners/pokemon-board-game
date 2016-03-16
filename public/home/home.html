@@ -1,24 +1,24 @@
   <div class='home' ng-controller='homeController'>
-  <p>Logged in as {{user.displayName}}</p>
-  {{test}}
-  <div class='newGame'>
-	<td>
-	  <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="example: Red" ng-keypress="hitEnter($event, input)"></input>
-	</td>     
-	<td>
-	  <input type="button" value="Create Game" ng-click="makeNewGame()" ></input>
-	</td> 
-  </div>
-  <br />
-  <h2><b>{{user.displayName}}'s Games</b></h2>
-    <li ng-repeat = "game in games track by $index">
-      <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-    </li>
-  <br />  
-  <h2><b>All Available Games</b></h2>
-    <li ng-repeat = "game in games track by $index">
-      <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-    </li>
-  <br /> 
-  <a href='#/starter'>Go To StarterPokemons</a>
+    <p>Logged in as {{user.displayName}}</p>
+    {{test}}
+    <div class='newGame'>
+    	<td>
+    	  <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="example: Red" ng-keypress="hitEnter($event, input)"></input>
+    	</td>     
+    	<td>
+    	  <input type="button" value="Create Game" ng-click="makeNewGame()" ></input>
+    	</td> 
+    </div>
+    <br />
+    <h2><b>{{user.displayName}}'s Games</b></h2>
+      <li ng-repeat = "game in games track by $index">
+        <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+      </li>
+    <br />  
+    <h2><b>All Available Games</b></h2>
+      <li ng-repeat = "game in games track by $index">
+        <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+      </li>
+    <br /> 
+    <a href='#/lobby'>Go To Lobby</a>
 </div>

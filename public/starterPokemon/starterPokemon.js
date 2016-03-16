@@ -1,7 +1,10 @@
 angular.module('pokemon.starter', [])
-.controller('starterController', function($scope, $location, userFactory){
+.controller('starterController', function($scope, $location, userFactory, gameFactory){
   $scope.startertest = "I am a starter pokemon!";
+  $scope.gameId = 1;
+  $scope.userId = "choumander";
   $scope.selectedPokemon = {};
+  $scope.gameTurn = {};
 
   $scope.list = [ 
     {id: 52, name: 'Meowth', specs: { diceRoll: null, attackname: 'Bite' , strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/52.png'},
@@ -12,20 +15,28 @@ angular.module('pokemon.starter', [])
     {id: 04, name: 'Charmander', specs: { diceRoll: null, attackname: 'Ember', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/4.png'}
   ];
 
+  $scope.initialize = function () {
+    gameFactory.getGameTurn($scope.gameId)
+      .then(function (resp) {
+        $scope.gameTurn = resp;
+      }).catch(function (error) {
+        console.error(error);
+      });
+  };
+
   $scope.getStarter = function (currpokemon) {
     $scope.selectedPokemon = currpokemon;
     console.log($scope.selectedPokemon);
   };
 
   $scope.addStarter = function () {
-    var gameId = 1;
-    var userId = "choumander";
-    userFactory.addStarterPokemon(gameId, userId, $scope.selectedPokemon)
-    .then(function (resp) {
-      $location.path('/board');
-    }).catch(function (error) {
-      console.error(error);
-    });
+    userFactory.addStarterPokemon($scope.gameId, $scope.userId, $scope.selectedPokemon)
+      .then(function (resp) {
+        $location.path('/board');
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 
+  $scope.initialize();
 });
