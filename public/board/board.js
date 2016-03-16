@@ -2,14 +2,19 @@ var app = angular.module('pokemon.board',[]);
 
 app.controller('boardController', function($scope, gameDashboardFactory, boardFactory) {
   $scope.hello = 'hello testing testing';
-  $scope.playerOptions = [[1,2,3],[1,2,3,4]];
+  $scope.playerOptions = [[],[]];
   $scope.gameId = 1;
   $scope.userId = 1;
-  $scope.userPosition = 6;
+  $scope.userPosition = 1;
   $scope.roll;
 
+  $scope.counter = 0;
   $scope.rollDice = function() {
-    $scope.roll = Math.ceil(Math.random() * 6);
+    var arr = [1,2,3,4,5,6];
+
+    // $scope.roll = Math.ceil(Math.random() * 6);
+    $scope.roll = arr[$scope.counter % 6];
+    $scope.counter ++
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.userId)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
@@ -17,8 +22,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
-  $scope.testPass = function(arg) {
-    console.log('This is the gameboard spot object', arg);
+  $scope.movePlayer = function(newSpot) {
+    // console.log('This is the gameboard spot object', newSpot);
+    // $scope.playerPosition = arg.id;
+    // console.log('typeo f spot', typeof newSpot.id)
+    console.log('this is scope current', $scope.playerPosition);
+    $scope.playerPosition = newSpot.id - 1;
+    console.log('this is updated', $scope.playerPosition);
   };
 
   $scope.init = function() {
@@ -34,7 +44,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       $scope.boardData = boardFactory.createBoardArray(data);
       $scope.pathData = boardFactory.createPath($scope.boardData);
       $scope.pathString = boardFactory.createPathString($scope.pathData);
-      $scope.playerPosition = 1;
+      $scope.playerPosition = 0;
 
     });
   // these should probably be initialized at the same time as board above
