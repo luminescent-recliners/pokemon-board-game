@@ -9,15 +9,23 @@ module.exports = {
 
   addOptionDescription: function(spot, roll, direction) {
     if (spot.typeOfSpot === 'city') {
-      spot.description = "Move " + roll + " " + direction + " and land on a city"; 
+      spot.description = "Move " + roll + " " + direction + " and land on a city";
     } else if (spot.users.length) {
       spot.description = "Move " + roll + " " + direction + " and say hi to trainer";
     } else if (spot.typeOfSpot === 'pokemon') {
       spot.description = "Move " + roll + " " + direction + " and catch a " + spot.colorOfSpot + " Pokemon";
-    }else if (spot.typeOfSpot === 'event') {
-      spot.description = "Move " + roll + " " + direction + " and grab an event card"; 
+    } else if (spot.typeOfSpot === 'event') {
+      spot.description = "Move " + roll + " " + direction + " and grab an event card";
     }
     return spot;
+  },
+
+  findUser: function(game, userId) {
+    for (var i = 0; i < game.users.length; i++) {
+      if (game.users[i].facebookId === userId) {
+        return game.users[i];
+      }
+    }
   }
 
 
