@@ -1,7 +1,7 @@
 <hr>
 <!  this section for drawing the board ->
 <div ng-controller='boardController'>
-  <!-- <p>Enter Spot To Move To: <input type='number' ng-keypress='inputValue($event)' ng-model='input'></p> -->
+  <p>Enter Spot To Move To: <input type='number' ng-keypress='inputValue($event)' ng-model='input'></p>
   <svg width='100%' height='500' >    
     <draw-path pathString='pathString'></draw-path>    
     
@@ -13,8 +13,6 @@
 <!--     <write-name data='boardData[0]'></write-data> -->
   </svg>
 
-  </div>
-<hr>
   <div class="game-status">
     <h3>Current Turn: Player Name</h3>
     <span>Roll Dice: </span><button ng-click="rollDice()">Roll Dice</button>
@@ -29,11 +27,11 @@
     </div>
     
   </div>
+<hr>
+<! this section for the control panel ->
+<div>
+  controll panel will go here
 </div>
-<style type="text/css">
-.player {
-  transition: cx 0.7s, cy 0.7s;
-}
-</style>
+
 
 </div>
