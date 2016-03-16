@@ -47,21 +47,27 @@ module.exports = {
     console.log('player is at position', userPosition);
     findGame({ gameId: gameId })
       .then(function(game) {
-        for (var i = userPosition + 1; i < forwardOptionEndPoint; i++) {
-          var spot = game.gameBoard[i];
-          gameHelperFn.checkOption(spot, playerOptions.forwardOptions, i, 'forward');
-        }
-        var rolledForwardSpot = game.gameBoard[forwardOptionEndPoint];
-        playerOptions.forwardOptions.push(gameHelperFn.addOptionDescription(rolledForwardSpot, roll, 'forward'));
-
         var counter = 0;
+        for (var i = userPosition + 1; i < forwardOptionEndPoint; i++) {
+          counter ++
+          var spot = game.gameBoard[i];
+          gameHelperFn.checkOption(spot, playerOptions.forwardOptions, counter, 'forward');
+        }
+        if (userPosition !== 73) {
+          var rolledForwardSpot = game.gameBoard[forwardOptionEndPoint];
+          playerOptions.forwardOptions.push(gameHelperFn.addOptionDescription(rolledForwardSpot, roll, 'forward'));
+        }
+
+        counter = 0;
         for (var j = userPosition - 1; j > backwardOptionEndPoint; j--) {
           counter ++;
           var spot = game.gameBoard[j];
           gameHelperFn.checkOption(spot, playerOptions.backwardOptions, counter, 'backward');
         }
-        var rolledBackwardSpot = game.gameBoard[backwardOptionEndPoint];
-        playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
+        if (userPosition !== 1){
+          var rolledBackwardSpot = game.gameBoard[backwardOptionEndPoint];
+          playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
+        } 
 
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
