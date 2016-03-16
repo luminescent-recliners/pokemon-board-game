@@ -21,10 +21,10 @@
     <p>your roll is {{roll}}</p>
     <div class="player-options">
       <ul>
-        <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)">{{forwardOption.description}}</a></li>
+        <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption}}</a></li>
       </ul>
       <ul>
-        <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="testPass(backwardOption)">{{backwardOption.description}}</a></li>
+        <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption}}</a></li>
       </ul>
     </div>
     
@@ -36,3 +36,4 @@
 }
 </style>
 
+</div>
