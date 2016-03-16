@@ -118,7 +118,7 @@ angular.module('services', [])
     })
     .then(function (resp) {
       return resp.data;
-    })
+    });
   };
 
   var getGameTurn = function (gameId) {
@@ -150,6 +150,19 @@ angular.module('services', [])
       return resp.data;
     });
   };
+  var getAvailablePokemon = function(gameId, userId) {
+    return $http({
+      method: 'GET',
+      url: '/api/games/availablePokemon',
+      paramd: {
+        gamId: gameId,
+        userId: userId
+      }
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  }
 
   return {
     getGameName: getGameName,
