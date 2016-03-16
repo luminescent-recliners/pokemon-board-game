@@ -206,5 +206,35 @@ module.exports = {
       .fail(function(error){
         next(error);  
       });
+  },
+
+  catchPokemon: function (req, res, next) {
+    var gameId = req.body.gameId;
+    var userId = req.body.userId;
+    var pokemonColor = req.body.pokemonColor;
+    var pokemon = req.body.pokemon;
+    var roll = req.body.roll;
+    var result;
+
+    findGame({ gameId: gameId })
+      .then(function (game) {
+        if(gameHelperFn.checkRoll(roll, pokemonColor)) {
+          result = "success";
+          for(var i=0;i<game.users.length;i++) {
+            if(game.users[i].playerName === userId) {
+              game.users[i].party.push(pokemon);
+              game.markModified('users');
+              game.save();
+            }
+          }
+        } else {
+          result = "Sorry!";
+        }
+        res.send(result);
+      })
+      .fail(function (error) {
+        next(error);
+      });
   }
+
 };
