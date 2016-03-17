@@ -26,7 +26,24 @@ module.exports = {
         return game.users[i];
       }
     }
-  }
+  },
 
+  checkRoll: function (roll,pokemonColor) {
+    var gamematrix = {
+      blue: [3,4],
+      green: [4,5],
+      pink: [3,4,5],
+      gold: [6],
+      red: [5]
+    };
+    var rollneeded = gamematrix[pokemonColor];
+    
+    for(var i=0;i<rollneeded.length;i++) {
+      if(rollneeded[i] === roll) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 };
