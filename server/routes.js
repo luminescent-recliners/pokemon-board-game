@@ -4,7 +4,7 @@ var gameController = require('./game/gameController.js');
 
 
 router.put('/api/games/addPokemon', gameController.addPokemon);
-router.put('api/games/user/movePlayer', gameController.movePlayer);
+router.put('/api/games/user/movePlayer', gameController.movePlayer);
 router.post('/api/games/addGame', gameController.addGame);
 router.get('/api/games/getGames', gameController.getGames);
 router.get('/api/games/name', gameController.findName);
