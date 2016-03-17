@@ -42,18 +42,19 @@ angular.module('services', [])
     });
   };
 
-  var movePlayer = function (position, userId, gameId) {
+  var movePlayer = function (nextPosition, userId, currentPosition, gameId) {
+    console.log('this is currentPosition', currentPosition, 'this is next', nextPosition)
     return $http({
       method: 'PUT',
       url: 'api/games/user/movePlayer',
       data: {
-        position: position,
+        nextPosition: nextPosition,
+        currentPosition: currentPosition,
         userId: userId,
         gameId: gameId
       }
     })
     .then(function (resp) {
-      console.log('Player Updated:', resp.data);
       return resp.data;
     });
   };
