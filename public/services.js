@@ -94,10 +94,10 @@ angular.module('services', [])
 
 .factory('gameFactory', function ($http) {
 
-  var getGameName = function (gameId) {
+  var lobbyInit = function (gameId) {
     return $http({
       method: 'GET',
-      url: 'api/games/name',
+      url: 'api/games/lobbyinit',
       params: {
         gameId: gameId
       }
@@ -165,7 +165,7 @@ angular.module('services', [])
   };
 
   return {
-    getGameName: getGameName,
+    lobbyInit: lobbyInit,
     addUsers: addUsers,
     getGameTurn: getGameTurn,
     catchPokemon: catchPokemon,
