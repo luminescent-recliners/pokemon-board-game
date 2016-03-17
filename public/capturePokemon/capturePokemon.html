@@ -1,12 +1,14 @@
 <div>
   <p> {{capturetest}}</p>
   <div>
-    Name:<span>{{name}}</span>
-    Description:<span>{{description}}</span>
-    To capture you must Roll:<span>{{rollneeded}}</span>
-    <button> Roll Dice & Catch</button>
+    Name:<span> {{name}}</span>
     <br /><br />
-    Your Roll: <span>{{rolledvalue}}</span>
+    Description:<span> {{description}}</span>
+    <br /><br />
+    To capture you must Roll<span>{{rollneeded}}</span>
+    <button ng-click ="rollDice()"> Roll Dice & Catch</button>
+    <br /><br />
+    Your Roll: <span>{{rollvalue}}</span>
     <br /><br />
     Result: <span>{{result}}</span>
     <br /><br />

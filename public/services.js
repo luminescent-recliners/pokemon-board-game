@@ -118,7 +118,7 @@ angular.module('services', [])
     })
     .then(function (resp) {
       return resp.data;
-    })
+    });
   };
 
   var getGameTurn = function (gameId) {
@@ -132,12 +132,44 @@ angular.module('services', [])
     .then(function (resp) {
       return resp.data;
     });
-  }
+  };
+
+  var catchPokemon = function (gameId, userId, roll, pokemonColor, pokemon) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/user/catchPokemon',
+      data: {
+        gameId: gameId,
+        userId: userId,
+        roll: roll,
+        pokemonColor: pokemonColor,
+        pokemon: pokemon
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+  var getAvailablePokemon = function(gameId, userId) {
+    return $http({
+      method: 'GET',
+      url: '/api/games/availablePokemon',
+      params: {
+        gameId: gameId,
+        userId: userId
+      }
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  };
 
   return {
     getGameName: getGameName,
     addUsers: addUsers,
-    getGameTurn: getGameTurn
+    getGameTurn: getGameTurn,
+    catchPokemon: catchPokemon,
+    getAvailablePokemon: getAvailablePokemon
   };
 
 });
