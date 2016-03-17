@@ -154,8 +154,8 @@ angular.module('services', [])
     return $http({
       method: 'GET',
       url: '/api/games/availablePokemon',
-      paramd: {
-        gamId: gameId,
+      params: {
+        gameId: gameId,
         userId: userId
       }
     })
