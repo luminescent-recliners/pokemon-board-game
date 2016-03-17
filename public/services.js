@@ -108,7 +108,6 @@ angular.module('services', [])
   };
 
   var addUsers = function (gameId, users) {
-    console.log("add users function in game factory ", gameId, users);
     return $http({
       method: 'PUT',
       url: 'api/games/user',
