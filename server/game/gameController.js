@@ -132,7 +132,7 @@ module.exports = {
       });
   },
 
-  getBoard: function(req, res, next) {
+  boardInit: function(req, res, next) {
     var gameId = req.query.gameId;
     var userId = req.query.userId;
 
@@ -140,7 +140,8 @@ module.exports = {
       .then(function(game) {
         var gameData = {
           board: game.gameBoard,
-          user: gameHelperFn.findUser(game, userId)
+          user: gameHelperFn.findUser(game, userId),
+          currentTurn: game.gameTurn
         };
 
         res.send(gameData);
