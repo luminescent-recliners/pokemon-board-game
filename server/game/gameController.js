@@ -53,7 +53,7 @@ module.exports = {
       .then(function(game) {
         var counter = 0;
         for (var i = userPosition + 1; i < forwardOptionEndPoint; i++) {
-          counter ++
+          counter ++;
           var spot = game.gameBoard[i];
           gameHelperFn.checkOption(spot, playerOptions.forwardOptions, counter, 'forward');
         }
@@ -71,7 +71,7 @@ module.exports = {
         if (userPosition !== 1){
           var rolledBackwardSpot = game.gameBoard[backwardOptionEndPoint];
           playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
-        } 
+        }
 
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
@@ -108,7 +108,7 @@ module.exports = {
             positionOnBoard: 0,
             citiesVisited: [0],
             lastCity: 0
-          })
+          });
           game.markModified('users');
           game.save();
         }
