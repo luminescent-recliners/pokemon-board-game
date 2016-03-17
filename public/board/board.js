@@ -233,7 +233,7 @@ app.directive('drawPlayer', function($animate) {
       return '<circle ng-attr-cx="'+ x +'" ng-attr-cy="'+ y +'"'+
                 ' r="'+r+'" fill="'+ fillColor+'" fill-opacity="'+
                 fillOpacity +'" stroke="'+ stroke +
-                '" stroke-width="'+ strokeWidth +'"/>';
+                '" stroke-width="'+ strokeWidth +'" class="player"/>';
                 
     },
     link: function(scope, element1, attrs) {
