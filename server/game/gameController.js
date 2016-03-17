@@ -179,38 +179,44 @@ module.exports = {
   },
 
   addGame: function(req, res, next) {
-    var gameName = req.body.gameName;
-    var facebookId = req.body.facebookId;
-      var createGame = function() {
-        var newGame = new Games({
-          name: gameName,
-          users: {
-            facebookId: facebookId,
-            playerIndex: 0,
-            badges: [],
-            party: [],
-            box: [],
-            itemCards: [],
-            positionOnBoard: 0,
-            citiesVisited: [0],
-            lastCity: 0
-          },
-          gameBoard: gameBoardData,
-          availablePokemon: availablePokemonData,
-          availableItemCards: [],
-          gameCreator: facebookId,
-          gameTurn: 'Alex',
-          gameStarted: true
-        });
-        newGame.save(function(err) {
-          if (!err) {
-            console.log('CREATEGAME WORKS');
-          } else {
-            console.error(err);
-          }
-      });
-    };
-  createGame();
+    findGames()
+    .then(function(games) {
+      var gameName = req.body.gameName;
+      var facebookId = req.body.facebookId;
+      var id = games.length + 1;
+      console.log('GAME ID IS: ', id)
+        var createGame = function() {
+          var newGame = new Games({
+            gameId: id, 
+            name: gameName,
+            users: {
+              facebookId: facebookId,
+              playerIndex: 0,
+              badges: [],
+              party: [],
+              box: [],
+              itemCards: [],
+              positionOnBoard: 0,
+              citiesVisited: [0],
+              lastCity: 0
+            },
+            gameBoard: gameBoardData,
+            availablePokemon: availablePokemonData,
+            availableItemCards: [],
+            gameCreator: facebookId,
+            gameTurn: 'Alex',
+            gameStarted: true
+          });
+          newGame.save(function(err, res) {
+            if (res) {
+               console.log('CREATEGAME WORKS', res);
+            } else {
+              console.error(err);
+            }
+          });
+        };
+    createGame(); 
+    })
   },
 
   getGames: function(req, res, next) {
@@ -219,7 +225,7 @@ module.exports = {
         var results = [];
         for(var i = 0; i < games.length; i++) {
           var resObj = {
-            gameId: games[i]._id,
+            gameId: games[i].gameId,
             gameName: games[i].name
           };
           results.push(resObj);
