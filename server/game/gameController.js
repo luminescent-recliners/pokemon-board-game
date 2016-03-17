@@ -15,19 +15,25 @@ module.exports = {
     var gameId = req.body.gameId;
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
-    var result;
 
     findGame({ gameId: gameId })
       .then(function(game) {
         for(var i=0;i<game.users.length;i++) {
           if(game.users[i].facebookId === userId) {
             game.users[i].party.push(pokemon);
-            result = game.users[i].party;
           }
         }
+        game.gameCounter = game.gameCounter + 1;
+        var gameTurnFacebookId = game.users[game.gameCounter % game.users.length ].facebookId;
+        var gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].playerName;
+        game.gameTurn = {
+          facebookId: gameTurnFacebookId,
+          playerName: gameTurnPlayerName
+        }
         game.markModified('users');
+        game.markModified('gameTurn');
         game.save();
-        res.send(result);
+        res.send(game.gameTurn);
       })
       .fail(function(error) {
         next(error);
