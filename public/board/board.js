@@ -15,7 +15,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.roll = Math.ceil(Math.random() * 6);
     $scope.roll = arr[$scope.counter % 6];
     $scope.counter ++;
-
     console.log($scope.userPosition);
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.userId)
       .then(function(options){
@@ -25,19 +24,21 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.movePlayer = function(newSpot, userId) {
-    $scope.userPosition = newSpot.id;
-    $scope.playerPosition = $scope.userPosition - 1;
-    userFactory.movePlayer(newSpot.id, $scope.userId, $scope.gameId);
-
+    userFactory.movePlayer(newSpot.id, $scope.userId, $scope.userPosition, $scope.gameId)
+      .then(function(position){
+        $scope.userPosition = position.id;
+        $scope.playerPosition = $scope.userPosition - 1;
+        //EXECUTE ACTION HERE
+      });
   };
 
   $scope.init = function() {
     boardFactory.getBoard($scope.gameId, $scope.userId)
       .then(function(data){
-        $scope.boardData = boardFactory.createBoardArray(data.board);
         // get board data from database
         // preprocessed to be an array 
         // calculate path data and path string
+        $scope.boardData = boardFactory.createBoardArray(data.board);
         $scope.pathData = boardFactory.createPath($scope.boardData);
         $scope.pathString = boardFactory.createPathString($scope.pathData);
 
