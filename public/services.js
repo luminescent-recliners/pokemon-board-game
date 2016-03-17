@@ -173,7 +173,6 @@ angular.module('services', [])
       }
     })
     .then(function (resp) {
-      console.log("response from server to update turn ", resp);
       return resp.data;
     });
   };

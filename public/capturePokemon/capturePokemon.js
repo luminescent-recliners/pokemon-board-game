@@ -16,7 +16,6 @@ angular.module('pokemon.capture', [])
   // $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
 
   var initialize = function() {
-  
     gameFactory.getAvailablePokemon($scope.gameId, $scope.userId)
       .then(function(pokemon) {
         $scope.imageUrl = pokemon.imageUrl;
@@ -30,7 +29,6 @@ angular.module('pokemon.capture', [])
   };
   
   $scope.dicerolled = false;
-
   $scope.rollDice = function () {
     $scope.rollvalue = Math.ceil(Math.random() * 6);
     gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
@@ -40,15 +38,15 @@ angular.module('pokemon.capture', [])
         console.error(error);
       });
     $scope.message = "";
-    $scope.rolled = true;
+    $scope.dicerolled = true;
   };
 
   $scope.updateTurn = function () {
     gameFactory.updateTurn($scope.gameId)
       .then(function (resp) {
-        console.log("response from gamefactory to updateturn ",resp);
         $location.path('/board');
-      }).catch(function (error) {
+      })
+      .catch(function (error) {
         console.error(error);
       });
   };
