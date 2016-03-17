@@ -325,5 +325,22 @@ module.exports = {
             });
         }
       });
+  },
+
+  updateTurn: function (req, res, next) {
+    var gameId = req.body.gameId;
+
+    findGame({ gameId: gameId })
+      .then(function (game) {
+        game.gameCounter = game.gameCounter + 1;
+        game.gameTurn = game.users[ game.gameCounter % game.users.length ].playerName;
+        game.markModified('gameCounter');
+        game.save();
+        res.send(game.gameTurn);
+      })
+      .fail(function (error) {
+        next(error);
+      });
   }
+
 };
