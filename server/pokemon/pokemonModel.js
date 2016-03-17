@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var pokemonSchema = mongoose.Schema({
   name: String,
-  pokemonID: Number,
+  pokemonId: Number,
   color: String,
   description: String,
   visible: {
