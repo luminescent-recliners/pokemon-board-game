@@ -1,6 +1,8 @@
 angular.module('pokemon.capture', [])
-.controller('captureController', function ($scope, gameFactory, $window) {
+.controller('captureController', function ($scope, gameFactory, $window, $location) {
   $scope.capturetest = "Get ready to capture a Pokemon!";
+  $scope.rollvalue;
+  $scope.result;
 
   // Post Dev values
   // $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
@@ -27,9 +29,6 @@ angular.module('pokemon.capture', [])
       });
   };
   
-  $scope.rollvalue;
-  $scope.result;
-
   $scope.rollDice = function () {
     $scope.rollvalue = Math.ceil(Math.random() * 6);
     gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
@@ -41,6 +40,16 @@ angular.module('pokemon.capture', [])
     $scope.message = "";
   };
 
-  initialize();
+  $scope.updateTurn = function () {
+    gameFactory.updateTurn($scope.gameId)
+      .then(function (resp) {
+        console.log("response from gamefactory to updateturn ",resp);
+        $location.path('/board');
+      }).catch(function (error) {
+        console.error(error);
+      });
+  };
+
+initialize();
 
 });
