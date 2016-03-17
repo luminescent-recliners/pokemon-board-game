@@ -1,6 +1,6 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location) {
   $scope.hello = 'hello testing testing';
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
@@ -8,11 +8,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
   $scope.roll;
+  $scope.actionDisplay = false;
+  $scope.actionDescription = '';
 
   $scope.counter = 0;
   $scope.rollDice = function() {
     var arr = [1,2,3,4,5,6];
-
     // $scope.roll = Math.ceil(Math.random() * 6);
     $scope.roll = arr[$scope.counter % 6];
     $scope.counter ++;
@@ -29,8 +30,17 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       .then(function(position){
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
-        //EXECUTE ACTION HERE
+        if (newSpot.typeOfSpot === 'pokemon') {
+          $scope.actionDisplay = true;
+          $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
+          $scope.playerOptions = [[], []]; 
+        }
       });
+  };
+
+  $scope.redirect = function() {
+    $location.path('/capture');
+
   };
 
   $scope.init = function() {
@@ -42,6 +52,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.boardData = boardFactory.createBoardArray(data.board);
         $scope.pathData = boardFactory.createPath($scope.boardData);
         $scope.pathString = boardFactory.createPathString($scope.pathData);
+
+        $scope.currentTurnPlayerName = data.currentTurn.playerName;
+        $scope.currentTurnFacebookId = data.currentTurn.facebookId;
 
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
@@ -117,12 +130,13 @@ app.factory('boardFactory', function($http) {
       return coords;
   };
 
-  // assume that this function retuns only the
-  // game board could not get data extracted
-  var getBoard = function(gameId, userId) {
+  //Output Returns data to initialize the board 
+  //**********Should Be Renamed Later to Initialize Board View
+  //Returns data object with board, current user data, and Current Turn
+  var boardInit = function(gameId, userId) {
     return $http({
       method: 'GET',
-      url: '/api/games/getBoard',
+      url: '/api/games/boardInit',
       params: {
         gameId: gameId,
         userId: userId
@@ -134,7 +148,7 @@ app.factory('boardFactory', function($http) {
   };
 
   return {
-    getBoard: getBoard,
+    boardInit: boardInit,
     createPath: createPath,
     createBoardArray: createBoardArray,
     createPathString: createPathString
