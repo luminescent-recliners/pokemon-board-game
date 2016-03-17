@@ -253,20 +253,33 @@ module.exports = {
     var pokemon = req.body.pokemon;
     var roll = req.body.roll;
     var result;
+    var currentPosition;
 
     findGame({ gameId: gameId })
       .then(function (game) {
+        // check if roll captures poekmon
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
-          result = "success";
-          for(var i=0;i<game.users.length;i++) {
+          result = "Success!! Pokemon Captured";
+          for(var i = 0; i < game.users.length; i++) {
             if(game.users[i].facebookId === userId) {
               game.users[i].party.push(pokemon);
               game.markModified('users');
               game.save();
             }
           }
+        // if not change visibility of pokemon on game board  
         } else {
-          result = "Sorry!";
+          result = "Sorry!! Pokemon Got Away";
+          // figure out board spot
+          for(var i = 0; i < game.users.length; i++) {
+            if(game.users[i].facebookId === userId) {
+              currentPosition = game.users[i].positionOnBoard;
+            }
+          }
+          // unhide pokemon on that spot on board
+          game.gameBoard[currentPosition].pokemon.visible = true;
+          game.markModified('gameBoard');
+          game.save();
         }
         res.send(result);
       })
