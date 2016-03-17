@@ -230,10 +230,10 @@ app.directive('drawPlayer', function($animate) {
       var fillColor = 'beige';
       var stroke = 'black';
       var strokeWidth = '1';
-      return '<circle ng-attr-cx="'+ x +'" ng-attr-cy="'+ y +'"'+
+      return '<circle  class="player" ng-attr-cx="'+ x +'" ng-attr-cy="'+ y +'"'+
                 ' r="'+r+'" fill="'+ fillColor+'" fill-opacity="'+
                 fillOpacity +'" stroke="'+ stroke +
-                '" stroke-width="'+ strokeWidth +'"/>';
+                '" stroke-width="'+ strokeWidth +'" />';
                 
     },
     link: function(scope, element1, attrs) {
