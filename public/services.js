@@ -43,7 +43,6 @@ angular.module('services', [])
   };
 
   var movePlayer = function (nextPosition, userId, currentPosition, gameId) {
-    console.log('this is currentPosition', currentPosition, 'this is next', nextPosition)
     return $http({
       method: 'PUT',
       url: 'api/games/user/movePlayer',
