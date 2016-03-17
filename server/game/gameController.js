@@ -185,37 +185,35 @@ module.exports = {
       var facebookId = req.body.facebookId;
       var id = games.length + 1;
       console.log('GAME ID IS: ', id)
-        var createGame = function() {
-          var newGame = new Games({
-            gameId: id, 
-            name: gameName,
-            users: {
-              facebookId: facebookId,
-              playerIndex: 0,
-              badges: [],
-              party: [],
-              box: [],
-              itemCards: [],
-              positionOnBoard: 0,
-              citiesVisited: [0],
-              lastCity: 0
-            },
-            gameBoard: gameBoardData,
-            availablePokemon: availablePokemonData,
-            availableItemCards: [],
-            gameCreator: facebookId,
-            gameTurn: 'Alex',
-            gameStarted: true
-          });
-          newGame.save(function(err, res) {
-            if (res) {
-               console.log('CREATEGAME WORKS', res);
-            } else {
-              console.error(err);
-            }
-          });
-        };
-    createGame(); 
+        var newGame = new Games({
+          gameId: id, 
+          name: gameName,
+          users: {
+            facebookId: facebookId,
+            playerIndex: 0,
+            badges: [],
+            party: [],
+            box: [],
+            itemCards: [],
+            positionOnBoard: 0,
+            citiesVisited: [0],
+            lastCity: 0
+          },
+          gameBoard: gameBoardData,
+          availablePokemon: availablePokemonData,
+          availableItemCards: [],
+          gameCreator: facebookId,
+          gameTurn: 'Alex',
+          gameStarted: true
+        });
+        newGame.save(function (err, res) {
+          if (res) {
+            console.log('CREATEGAME WORKS', res);
+          } else {
+            console.error(err);
+          }
+        });
+    res.send(newGame);
     })
   },
 
