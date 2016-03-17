@@ -29,6 +29,8 @@ angular.module('pokemon.capture', [])
       });
   };
   
+  $scope.dicerolled = false;
+
   $scope.rollDice = function () {
     $scope.rollvalue = Math.ceil(Math.random() * 6);
     gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
@@ -38,6 +40,7 @@ angular.module('pokemon.capture', [])
         console.error(error);
       });
     $scope.message = "";
+    $scope.rolled = true;
   };
 
   $scope.updateTurn = function () {
