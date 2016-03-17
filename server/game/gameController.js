@@ -84,9 +84,12 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
+        var gameCreator = game.gameCreator;
+        var creator = gameHelperFn.findUser(game, gameCreator);
         result = {
           gameName: game.name,
-          gameCreator: game.gameCreator
+          gameCreator: game.gameCreator,
+          creatorName: creator.playerName
         }
         res.send(result);
       })
