@@ -3,8 +3,8 @@ module.exports = {
    id: 1,
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
-     users: [],
      pokemon: null,
+     users: ['Facebook123'],
      gymLeader: false 
   },
   '2': { 
