@@ -107,7 +107,7 @@ module.exports = {
         for(var i=0;i<users.length;i++) {
           game.users.push({
             facebookId: users[i].facebookId,
-            playerName: users[i].userId,
+            playerName: users[i].displayName,
             playerIndex: 0,
             badges: [],
             party: [],
@@ -117,10 +117,11 @@ module.exports = {
             citiesVisited: [0],
             lastCity: 0
           });
-          game.markModified('users');
-          game.save();
         }
-      res.send(game.gameTurn);
+        game.markModified('users');
+        game.save();
+        console.log(game.users);
+        res.send(game.gameTurn);
       })
       .fail(function (error) {
         next(error);
