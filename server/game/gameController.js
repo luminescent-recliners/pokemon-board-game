@@ -78,12 +78,17 @@ module.exports = {
       });
   },
 
-  findName: function (req, res, next) {
+  lobbyInit: function (req, res, next) {
     var gameId = req.query.gameId;
+    var result;
 
     findGame({gameId: gameId})
       .then(function (game) {
-        res.send(game.name);
+        result = {
+          gameName: game.name,
+          gameCreator: game.gameCreator
+        }
+        res.send(result);
       })
       .fail(function (error) {
         next(error);
