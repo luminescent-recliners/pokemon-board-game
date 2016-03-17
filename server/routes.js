@@ -14,6 +14,8 @@ router.get('/api/games/playerOptions', gameController.getPlayerOptions);
 router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
 router.get('/api/games/getAvailablePokemon', gameController.getAvailablePokemon);
+router.put('/api/games/updateturn', gameController.updateTurn);
+
 
 
 
