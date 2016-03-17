@@ -132,7 +132,7 @@ module.exports = {
       });
   },
 
-  getBoard: function(req, res, next) {
+  boardInit: function(req, res, next) {
     var gameId = req.query.gameId;
     var userId = req.query.userId;
 

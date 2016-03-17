@@ -20,6 +20,6 @@ router.get('/api/games/getAvailablePokemon', gameController.getAvailablePokemon)
 
 
 // a quick add to play with board object
-router.get('/api/games/getBoard', gameController.getBoard);
+router.get('/api/games/boardInit', gameController.boardInit);
 
 module.exports = router;
