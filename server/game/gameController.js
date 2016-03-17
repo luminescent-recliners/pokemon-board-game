@@ -20,13 +20,13 @@ module.exports = {
     findGame({ gameId: gameId })
       .then(function(game) {
         for(var i=0;i<game.users.length;i++) {
-          if(game.users[i].playerName === userId) {
+          if(game.users[i].facebookId === userId) {
             game.users[i].party.push(pokemon);
-            game.markModified('users');
-            game.save();
             result = game.users[i].party;
           }
         }
+        game.markModified('users');
+        game.save();
         res.send(result);
       })
       .fail(function(error) {
