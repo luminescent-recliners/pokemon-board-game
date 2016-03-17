@@ -8,7 +8,7 @@ var gameSchema = mongoose.Schema({
   availablePokemon: {},
   availableItemCards: [],
   gameCreator: String,
-  gameTurn: String,
+  gameTurn: {},
   gameStarted: Boolean,
   gameCounter: Number
 });
