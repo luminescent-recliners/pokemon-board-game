@@ -8,6 +8,8 @@ var availablePokemonData = require('../data/availablePokemonData.js');
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
 
+var pokemonController = require('../pokemon/pokemonController');
+
 module.exports = {
   addPokemon: function(req, res, next) {
     var gameId = req.body.gameId;
@@ -32,7 +34,6 @@ module.exports = {
       });
   },
 
-
   getPlayerOptions: function(req, res, next) {
     var gameId = req.query.gameId;
     var userPosition = Number(req.query.userPosition);
@@ -52,7 +53,7 @@ module.exports = {
       .then(function(game) {
         var counter = 0;
         for (var i = userPosition + 1; i < forwardOptionEndPoint; i++) {
-          counter ++
+          counter ++;
           var spot = game.gameBoard[i];
           gameHelperFn.checkOption(spot, playerOptions.forwardOptions, counter, 'forward');
         }
@@ -70,7 +71,7 @@ module.exports = {
         if (userPosition !== 1){
           var rolledBackwardSpot = game.gameBoard[backwardOptionEndPoint];
           playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
-        } 
+        }
 
         console.log('this is the options', playerOptions);
         res.send(playerOptions);
@@ -107,7 +108,7 @@ module.exports = {
             positionOnBoard: 0,
             citiesVisited: [0],
             lastCity: 0
-          })
+          });
           game.markModified('users');
           game.save();
         }
@@ -123,7 +124,7 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
-        game.gameTurn = game.users[game.gameCounter%game.users.length].playerName;
+        game.gameTurn = game.users[ game.gameCounter % game.users.length ].playerName;
         res.send(game.gameTurn);
       })
       .fail(function (error) {
@@ -131,8 +132,6 @@ module.exports = {
       });
   },
 
-  // quick test function to get board data
-  // to play with
   getBoard: function(req, res, next) {
     var gameId = req.query.gameId;
     var userId = req.query.userId;
@@ -183,10 +182,10 @@ module.exports = {
     var gameName = req.body.gameName;
     var facebookId = req.body.facebookId;
       var createGame = function() {
-        var newGame = new Games({ 
+        var newGame = new Games({
           name: gameName,
           users: {
-            facebookId: facebookId, 
+            facebookId: facebookId,
             playerIndex: 0,
             badges: [],
             party: [],
@@ -205,7 +204,7 @@ module.exports = {
         });
         newGame.save(function(err) {
           if (!err) {
-            console.log('CREATEGAME WORKS')
+            console.log('CREATEGAME WORKS');
           } else {
             console.error(err);
           }
@@ -220,7 +219,7 @@ module.exports = {
         var results = [];
         for(var i = 0; i < games.length; i++) {
           var resObj = {
-            gameId: games[i]._id, 
+            gameId: games[i]._id,
             gameName: games[i].name
           };
           results.push(resObj);
@@ -229,7 +228,7 @@ module.exports = {
           res.send(results);
       })
       .fail(function(error){
-        next(error);  
+        next(error);
       });
   },
 
@@ -260,6 +259,57 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
-  }
+  },
 
+  getAvailablePokemon: function(req, res, next) {
+    var gameId = req.query.gameId;
+    var userId = req.query.userId;
+
+    var getRandomId = function(length) {
+      return Math.floor(Math.random()*length);
+    };
+
+    findGame({ gameId: gameId })
+      .then(function(game){
+        // find player and look for position
+        var player = game.users.filter(function(user){
+          return user.facebookId === userId;
+        })[0];
+        var playerPosition = player.positionOnBoard;
+
+        var pokemonPresent = game.gameBoard[playerPosition].pokemon;
+        // if pokemon on board spot send pokemon back to board
+        if(pokemonPresent) {
+          res.send(pokemonPresent);
+
+        } else {
+          // look at gameboard at user position and find type of spot
+          var color = game.gameBoard[playerPosition].colorOfSpot;
+          // get color array of avail pokemon ids
+          var pokemons = game.availablePokemon[color];
+          var randomPokemonsId = getRandomId(pokemons.length);
+          
+          // pop id off avail pokemon array
+          var pokemonId = pokemons.splice(randomPokemonsId, 1)[0];
+
+          // save modified pokemons array to game
+          game.availablePokemon[color] = pokemons;
+          game.markModified('availablePokemon');
+          game.save();
+
+          // query pokemon table to get pokemon data
+          pokemonController.findPokemon({pokemonId: pokemonId})
+            .then(function(pokemonObject){
+
+              // add pokemon to the spot on game board
+              game.gameBoard[playerPosition].pokemon = pokemonObject;
+              game.markModified('gameBoard');
+              game.save();
+
+              // send pokemon client
+              res.send(pokemonObject);
+            });
+        }
+      });
+  }
 };

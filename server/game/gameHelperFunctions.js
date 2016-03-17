@@ -36,9 +36,9 @@ module.exports = {
       gold: [6],
       red: [5]
     };
-    var rollneeded = gamematrix[pokemonColor];
+    var rollneeded = gamematrix[ pokemonColor ];
     
-    for(var i=0;i<rollneeded.length;i++) {
+    for(var i = 0; i < rollneeded.length; i++) {
       if(rollneeded[i] === roll) {
         return true;
       }
