@@ -1,13 +1,20 @@
 angular.module('pokemon.home', [])
 
 .controller('homeController',function($scope, userFactory, $window) {
+  // $window.localStorage.setItem('pokemon.userId', $scope.user.facebookId);
+  // $window.localStorage.setItem('pokemon.displayName', $scope.user.facebookId);
+
+  $scope.facebookId = $window.localStorage.setItem('pokemon.userId', "Facebook123");
+  $scope.displayName = $window.localStorage.setItem('pokemon.displayName', "bob");
+
   $scope.user =  
     { 
       facebookId: 'Facebook123',
-      displayName: 'Henry',
+      displayName: 'Bob',
       gamesParticipating: [1],
       numGameWon: 0
     }
+
   $scope.gameList = [];
   $scope.id = null;
 
