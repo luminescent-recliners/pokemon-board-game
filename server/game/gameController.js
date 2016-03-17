@@ -160,7 +160,7 @@ module.exports = {
     findGame({gameId: gameId})
     .then(function(game) {
       //Removes and adds user from the current board spot to the next one
-      game.gameBoard[currentPosition].users.splice(user, 1);
+      game.gameBoard[currentPosition].users.splice(userId, 1);
       game.gameBoard[nextPosition].users.push(userId);
       game.markModified('gameBoard');
       game.save();
