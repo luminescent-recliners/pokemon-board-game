@@ -62,7 +62,7 @@ var createGame = function() {
         name: 'hoooli Dungeon',
         users: [{
           facebookId: 'Facebook123',
-          playerName: 'choumander',
+          playerName: 'Bob',
           playerIndex: 0,
           badges: [],
           party: [],
@@ -76,7 +76,10 @@ var createGame = function() {
         availablePokemon: availablePokemonData,
         availableItemCards: [],
         gameCreator: 1,
-        gameTurn: 'Alex',
+        gameTurn: {
+          facebookId: 'Facebook123',
+          playerName: 'Bob'
+        },
         gameStarted: true,
         gameCounter: 0
       });
