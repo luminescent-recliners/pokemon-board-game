@@ -158,7 +158,8 @@ module.exports = {
       .then(function(game) {
         var gameData = {
           board: game.gameBoard,
-          user: gameHelperFn.findUser(game, userId)
+          user: gameHelperFn.findUser(game, userId),
+          currentTurn: game.gameTurn
         };
 
         res.send(gameData);
