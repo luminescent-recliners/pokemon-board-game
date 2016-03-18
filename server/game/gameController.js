@@ -263,6 +263,8 @@ module.exports = {
           for(var i = 0; i < game.users.length; i++) {
             if(game.users[i].facebookId === userId) {
               game.users[i].party.push(pokemon);
+              currentPosition = game.users[i].positionOnBoard;
+              game.gameBoard[currentPosition].pokemon = null;
               game.markModified('users');
               game.save();
             }
