@@ -265,6 +265,7 @@ module.exports = {
               game.users[i].party.push(pokemon);
               currentPosition = game.users[i].positionOnBoard;
               game.gameBoard[currentPosition].pokemon = null;
+              game.markModified('gameBoard');
               game.markModified('users');
               game.save();
             }
@@ -348,7 +349,13 @@ module.exports = {
     findGame({ gameId: gameId })
       .then(function (game) {
         game.gameCounter = game.gameCounter + 1;
-        game.gameTurn = game.users[ game.gameCounter % game.users.length ].playerName;
+        var userObject = game.users[ game.gameCounter % game.users.length ];
+
+        game.gameTurn = {
+          facebookId: userObject.facebookId,
+          playerName: userObject.playerName
+        };
+        game.markModified('gameTurn');
         game.markModified('gameCounter');
         game.save();
         res.send(game.gameTurn);
