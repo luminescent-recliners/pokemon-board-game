@@ -1,22 +1,13 @@
 angular.module('pokemon.home', [])
 
 .controller('homeController',function($scope, userFactory, $window) {
-
-  $scope.facebookId = $window.localStorage.setItem('pokemon.userId', "Facebook123");
-  $scope.displayName = $window.localStorage.setItem('pokemon.displayName', "bob");
+  //happen after face book auth
+  $window.localStorage.setItem('pokemon.facebookId', "Facebook123");
+  $window.localStorage.setItem('pokemon.playerName', "Bob");
+  
+  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
+  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.games;
-
-
-  $scope.user =  
-    { 
-      facebookId: 'Facebook123',
-      displayName: 'Bob',
-      gamesParticipating: [1],
-      numGameWon: 0
-    }
-
-  // $scope.gameList = [];
-  // $scope.id = null;
 
   $scope.hitEnter = function($event, input) {
     if($event.which === 13) {
@@ -25,7 +16,7 @@ angular.module('pokemon.home', [])
   };
 
   $scope.makeNewGame = function(newGameName) {
-     userFactory.addGame($scope.gameId, $scope.newGameName, $scope.user.facebookId)
+     userFactory.addGame($scope.gameId, $scope.newGameName, $scope.facebookId)
     .then(function (resp) {
       var userGame = {
         gameId: resp.gameId,
@@ -40,7 +31,6 @@ angular.module('pokemon.home', [])
   };
 
   $scope.localStorage = function(id) {
-    console.log('pokemon.gameId', id)
     $window.localStorage.setItem('pokemon.gameId', id);
   };
 

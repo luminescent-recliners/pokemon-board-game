@@ -1,10 +1,11 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window) {
   $scope.hello = 'hello testing testing';
-  $scope.userId = 'Facebook123';
+  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
+  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.playerOptions = [[],[]];
-  $scope.gameId = 1;
   $scope.userPosition;
   $scope.roll;
 
@@ -16,7 +17,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $scope.roll = arr[$scope.counter % 6];
     $scope.counter ++;
     console.log($scope.userPosition);
-    gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.userId)
+    gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
@@ -24,7 +25,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.movePlayer = function(newSpot, userId) {
-    userFactory.movePlayer(newSpot.id, $scope.userId, $scope.userPosition, $scope.gameId)
+    userFactory.movePlayer(newSpot.id, $scope.facebookId, $scope.userPosition, $scope.gameId)
       .then(function(position){
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
@@ -33,7 +34,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.init = function() {
-    boardFactory.getBoard($scope.gameId, $scope.userId)
+    boardFactory.getBoard($scope.gameId, $scope.facebookId)
       .then(function(data){
         // get board data from database
         // preprocessed to be an array 
@@ -48,9 +49,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   // these should probably be initialized at the same time as board above
-  $scope.playerList = [];
+  $scope.playerList = []; // what is this used for???
   $scope.turn = 'player name or player index number';
-  $scope.playerName = 'get after log in get this for board view?';
 
   $scope.input ='';
   $scope.inputValue = function($event) {

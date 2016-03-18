@@ -1,25 +1,20 @@
 angular.module('pokemon.lobby', [])
-.controller('lobbyController', function ($scope, $location, gameFactory) {
+.controller('lobbyController', function ($scope, $location, gameFactory, $window) {
 
   $scope.lobbytest = "Welcome to the Lobby!";
   $scope.gamename;
   $scope.gameCreator;
   $scope.myGameCreator = false;
 
-  // Post Dev values
-  // $scope.gameId = $window.loaclStorage.getItem('pokemon.gameId');
-  // $scope.userId = $window.localStorage.getItem('pokemon.userId');
-  // $scope.displayName = $window.localStorage.getItem('pokemon.displayName');
-
-  //Dev values
-  $scope.gameId = 1;
-  $scope.userId = "Facebook123";
-  $scope.displayName = "Bob";
   
-  //Todo: $scope.users has to be got from database in user table
-  $scope.users = [
-    {facebookId: "Facebook123", playerName: "arthicuno"}, 
-    {facebookId: "Facebook456", playerName: "choumander"}
+  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
+  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+  
+  
+  // DEV Todo: $scope.users has to be got from sockets
+  $scope.users = [ 
+    {facebookId: "Facebook123", playerName: "Bob"}
   ];
 
   var initialize = function () {
@@ -28,8 +23,8 @@ angular.module('pokemon.lobby', [])
         $scope.gameName = resp.gameName;
         $scope.gameCreator = resp.gameCreator;
         $scope.gameCreatorName = resp.creatorName;
-        if($scope.gameCreator !== $scope.userId) {
-          $scope.myGameCreator = true 
+        if($scope.gameCreator !== $scope.facebookId) {
+          $scope.myGameCreator = true;
         } 
       }).catch(function (error) {
         console.error(error);
