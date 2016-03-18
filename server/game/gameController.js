@@ -90,13 +90,13 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
-        var gameCreator = game.gameCreator;
-        var creator = gameHelperFn.findUser(game, gameCreator);
+        // var gameCreator = game.gameCreator;
+        // var creator = gameHelperFn.findUser(game, gameCreator);
         result = {
           gameName: game.name,
-          gameCreator: game.gameCreator,
-          creatorName: creator.playerName
-        }
+          gameCreator: game.gameCreator.facebookId,
+          creatorName: game.gameCreator.playerName
+        };
         res.send(result);
       })
       .fail(function (error) {
