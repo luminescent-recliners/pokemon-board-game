@@ -1,15 +1,23 @@
 <div>
-  <p> Starter Pokemons </p>
-  <br />
-  <p>Game Turn: {{ gameTurnName }} </p>
-  <div>
+   <br />
+    <h2>Hey {{ gameTurnName }}! Choose Your Starter Pokemon! </h2>
+    <div class="col-lg-2 text-center">
+    </div>
+  <div class="col-lg-8 text-center">
     <ul>
-      <li ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
-        <img src={{pokemon.imageURL}} >
-        <br />
-        {{ pokemon.name }}
-      </li>
+      <ul ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
+        <div class="col-lg-4 text-center">
+          <div class="panel panel-primary" toggle-class="red" info='pokemon'>
+            <p class='panel-heading'><b>{{ pokemon.name }}</b></p>
+            <img src={{pokemon.imageURL}} >
+          </div>
+        </div>    
+      </ul>
     </ul>
-    <button ng-hide = 'select' ng-click = "playerInit()"> Select </button>
   </div>
+    <div class="col-lg-12 text-center">
+      <button class="text-center" ng-hide = 'select' ng-click = "playerInit()"> Select </button>
+    </div>
 </div>
+
+
