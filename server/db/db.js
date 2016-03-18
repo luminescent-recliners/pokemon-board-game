@@ -10,6 +10,7 @@ var GymLeaders = require('../gymLeader/gymLeaderModel.js');
 var Pokemons = require('../pokemon/pokemonModel.js');
 var Users = require('../users/userModel.js');
 
+//All these functions are only for testing purposes
 //===========Create Table functions===========
 
 var createUsers = function() {
@@ -75,10 +76,10 @@ var createGame = function() {
         gameBoard: gameBoardData,
         availablePokemon: availablePokemonData,
         availableItemCards: [],
-        gameCreator: 1,
+        gameCreator: 'Facebook123',
         gameTurn: {
           facebookId: 'Facebook123',
-          playerName: 'Bob'
+          playerName: 'choumander'
         },
         gameStarted: true,
         gameCounter: 0
