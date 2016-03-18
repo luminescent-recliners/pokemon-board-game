@@ -164,12 +164,26 @@ angular.module('services', [])
     });
   };
 
+  var updateTurn = function (gameId) {
+    return $http({
+      method: 'PUT',
+      url: 'api/games/updateturn',
+      data: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   return {
     lobbyInit: lobbyInit,
     addUsers: addUsers,
     getGameTurn: getGameTurn,
     catchPokemon: catchPokemon,
-    getAvailablePokemon: getAvailablePokemon
+    getAvailablePokemon: getAvailablePokemon,
+    updateTurn: updateTurn
   };
 
 });

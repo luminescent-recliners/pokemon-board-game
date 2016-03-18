@@ -253,20 +253,36 @@ module.exports = {
     var pokemon = req.body.pokemon;
     var roll = req.body.roll;
     var result;
+    var currentPosition;
 
     findGame({ gameId: gameId })
       .then(function (game) {
+        // check if roll captures poekmon
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
-          result = "success";
-          for(var i=0;i<game.users.length;i++) {
+          result = "Success!! Pokemon Captured";
+          for(var i = 0; i < game.users.length; i++) {
             if(game.users[i].facebookId === userId) {
               game.users[i].party.push(pokemon);
+              currentPosition = game.users[i].positionOnBoard;
+              game.gameBoard[currentPosition].pokemon = null;
+              game.markModified('gameBoard');
               game.markModified('users');
               game.save();
             }
           }
+        // if not change visibility of pokemon on game board  
         } else {
-          result = "Sorry!";
+          result = "Sorry!! Pokemon Got Away";
+          // figure out board spot
+          for(var i = 0; i < game.users.length; i++) {
+            if(game.users[i].facebookId === userId) {
+              currentPosition = game.users[i].positionOnBoard;
+            }
+          }
+          // unhide pokemon on that spot on board
+          game.gameBoard[currentPosition].pokemon.visible = true;
+          game.markModified('gameBoard');
+          game.save();
         }
         res.send(result);
       })
@@ -325,5 +341,28 @@ module.exports = {
             });
         }
       });
+  },
+
+  updateTurn: function (req, res, next) {
+    var gameId = req.body.gameId;
+
+    findGame({ gameId: gameId })
+      .then(function (game) {
+        game.gameCounter = game.gameCounter + 1;
+        var userObject = game.users[ game.gameCounter % game.users.length ];
+
+        game.gameTurn = {
+          facebookId: userObject.facebookId,
+          playerName: userObject.playerName
+        };
+        game.markModified('gameTurn');
+        game.markModified('gameCounter');
+        game.save();
+        res.send(game.gameTurn);
+      })
+      .fail(function (error) {
+        next(error);
+      });
   }
+
 };
