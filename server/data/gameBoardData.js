@@ -4,7 +4,7 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      pokemon: null,
-     users: ['Facebook123'],
+     users: [],
      gymLeader: false 
   },
   '2': { 

@@ -123,10 +123,11 @@ module.exports = {
             citiesVisited: [0],
             lastCity: 0
           });
+          game.gameBoard[1].users.push(users[i]);
         }
         game.markModified('users');
+        game.markModified('gameBoard');
         game.save();
-        console.log(game.users);
         res.send(game.gameTurn);
       })
       .fail(function (error) {
