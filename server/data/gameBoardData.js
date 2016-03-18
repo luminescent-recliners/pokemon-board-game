@@ -4,14 +4,14 @@ module.exports = {
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
      pokemon: null,
-     users: ['Facebook123'],
+     users: [],
      gymLeader: false 
   },
   '2': { 
      id: 2,
      typeOfSpot: 'pokemon',
      colorOfSpot: 'pink',
-     users: ['joy', 'hitesh'],
+     users: [],
      pokemon: null,
      gymLeader: false 
   },
@@ -19,7 +19,7 @@ module.exports = {
      id: 3,
      typeOfSpot: 'event',
      colorOfSpot: 'pink',
-     users: ['arti'],
+     users: [],
      pokemon: null,
      gymLeader: false 
   },
