@@ -169,7 +169,7 @@ module.exports = {
   //Output Sends a Board Spot Back to the client with Current User On the new board spot 
   //and updates the new user position in the database
   movePlayer: function(req, res, next) {
-    var userId = req.body.userId;
+    var userObject = req.body.user;
     var currentPosition = req.body.currentPosition;
     var nextPosition = req.body.nextPosition;
     var gameId = req.body.gameId;
@@ -177,13 +177,13 @@ module.exports = {
     findGame({gameId: gameId})
     .then(function(game) {
       //Removes and adds user from the current board spot to the next one
-      game.gameBoard[currentPosition].users.splice(userId, 1);
-      game.gameBoard[nextPosition].users.push(userId);
+      game.gameBoard[currentPosition].users.splice(userObject, 1);
+      game.gameBoard[nextPosition].users.push(userObject);
       game.markModified('gameBoard');
       game.save();
 
       //Updates new user position
-      var user = gameHelperFn.findUser(game, userId);
+      var user = gameHelperFn.findUser(game, userObject.facebookId);
       user.positionOnBoard = nextPosition;
       game.markModified('users');
       game.save();
