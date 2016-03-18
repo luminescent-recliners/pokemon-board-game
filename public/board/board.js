@@ -44,7 +44,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.init = function() {
-    boardFactory.getBoard($scope.gameId, $scope.facebookId)
+    boardFactory.boardInit($scope.gameId, $scope.facebookId)
       .then(function(data){
         // get board data from database
         // preprocessed to be an array 
@@ -56,14 +56,17 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.currentTurnPlayerName = data.currentTurn.playerName;
         $scope.currentTurnFacebookId = data.currentTurn.facebookId;
 
-        $scope.userPosition = data.user.positionOnBoard;
+
+        //Needs to be changed from starter!!!!!!!!!!!!!!!!!! ====== should not be plus 1
+        //below is correct
+        // $scope.userPosition = data.user.positionOnBoard;  
+        $scope.userPosition = data.user.positionOnBoard + 1;
         $scope.playerPosition = $scope.userPosition - 1;
       });
   };
 
   // these should probably be initialized at the same time as board above
   $scope.playerList = []; // what is this used for???
-  $scope.turn = 'player name or player index number';
 
   $scope.input ='';
   $scope.inputValue = function($event) {
