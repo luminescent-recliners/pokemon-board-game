@@ -109,6 +109,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
+  $scope.inputValue2 = function($event) {
+    if($event.which === 13) {
+      $scope.boardData[0].row = $scope.input;
+      $scope.input = '';
+    }
+  };
+
   $scope.init();
 });
 
