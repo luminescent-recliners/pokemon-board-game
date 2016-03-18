@@ -1,17 +1,36 @@
 angular.module('pokemon.lobby', [])
 .controller('lobbyController', function ($scope, $location, gameFactory) {
+
   $scope.lobbytest = "Welcome to the Lobby!";
-  $scope.userId = "arthicuno";
-  $scope.gameId = 1;
   $scope.gamename;
+  $scope.gameCreator;
+  $scope.myGameCreator = false;
+
+  // Post Dev values
+  // $scope.gameId = $window.loaclStorage.getItem('pokemon.gameId');
+  // $scope.userId = $window.localStorage.getItem('pokemon.userId');
+  // $scope.displayName = $window.localStorage.getItem('pokemon.displayName');
+
+  //Dev values
+  $scope.gameId = 1;
+  $scope.userId = "Facebook123";
+  $scope.displayName = "Bob";
+  
+  //Todo: $scope.users has to be got from database in user table
   $scope.users = [
-    {facebookId: "Facebook123", userId: "arthicuno"}, {facebookId: "Facebook456", userId: "choumander"}
+    {facebookId: "Facebook123", playerName: "arthicuno"}, 
+    {facebookId: "Facebook456", playerName: "choumander"}
   ];
 
-  $scope.initialize = function () {
-    gameFactory.getGameName($scope.gameId)
+  var initialize = function () {
+    gameFactory.lobbyInit($scope.gameId)
       .then(function (resp) {
-        $scope.gameName = resp;
+        $scope.gameName = resp.gameName;
+        $scope.gameCreator = resp.gameCreator;
+        $scope.gameCreatorName = resp.creatorName;
+        if($scope.gameCreator !== $scope.userId) {
+          $scope.myGameCreator = true 
+        } 
       }).catch(function (error) {
         console.error(error);
       });
@@ -26,5 +45,5 @@ angular.module('pokemon.lobby', [])
       });
   };
 
-  $scope.initialize();
+  initialize();
 });

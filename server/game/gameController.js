@@ -78,12 +78,20 @@ module.exports = {
       });
   },
 
-  findName: function (req, res, next) {
+  lobbyInit: function (req, res, next) {
     var gameId = req.query.gameId;
+    var result;
 
     findGame({gameId: gameId})
       .then(function (game) {
-        res.send(game.name);
+        var gameCreator = game.gameCreator;
+        var creator = gameHelperFn.findUser(game, gameCreator);
+        result = {
+          gameName: game.name,
+          gameCreator: game.gameCreator,
+          creatorName: creator.playerName
+        }
+        res.send(result);
       })
       .fail(function (error) {
         next(error);
@@ -99,7 +107,7 @@ module.exports = {
         for(var i=0;i<users.length;i++) {
           game.users.push({
             facebookId: users[i].facebookId,
-            playerName: users[i].userId,
+            playerName: users[i].displayName,
             playerIndex: 0,
             badges: [],
             party: [],
@@ -109,10 +117,11 @@ module.exports = {
             citiesVisited: [0],
             lastCity: 0
           });
-          game.markModified('users');
-          game.save();
         }
-      res.send(game.gameTurn);
+        game.markModified('users');
+        game.save();
+        console.log(game.users);
+        res.send(game.gameTurn);
       })
       .fail(function (error) {
         next(error);

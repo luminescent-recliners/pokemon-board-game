@@ -1,11 +1,13 @@
 <div>
   {{ lobbytest }}
   <br /><br />
-  <span> Logged in As: {{ userId }}</span>
+  <span> Logged in As: {{ displayName }}</span>
   <br /><br />
   <span> Game Name: {{ gameId }} {{ gameName }}</span>
   <br /><br />
-  <span> People in Room: <div ng-repeat = "user in users">{{ user.userId }}</div></span>
+  <span> Game Creator: {{ gameCreatorName }}</span>
   <br /><br />
-  <button ng-click = "getStarterView()">Start Game</button>
+  <span> People in Room: <ul ng-repeat = "user in users"><li>{{ user.playerName }}</li></ul></span>
+  <br /><br />
+  <button ng-hide = "myGameCreator" ng-click = "getStarterView()">Start Game</button>
 </div>
