@@ -1,10 +1,20 @@
 angular.module('pokemon.starter', [])
 .controller('starterController', function($scope, $location, userFactory, gameFactory){
   $scope.startertest = "I am a starter pokemon!";
+  $scope.select = false;
+
+  // post dev values
+  // $scope.gameId = $window.loaclStorage.getItem('pokemon.gameId');
+  // $scope.userId = $window.localStorage.getItem('pokemon.userId');
+  // $scope.displayName = $window.localStorage.getItem('pokemon.displayName');
+
+  // dev values
   $scope.gameId = 1;
-  $scope.userId = "choumander";
+  $scope.userId = "Facebook123";
+
   $scope.selectedPokemon = {};
-  $scope.gameTurn = {};
+  $scope.gameTurnName = {};
+  $scope.gameTurnFacebookId;
 
   $scope.list = [ 
     {id: 52, name: 'Meowth', specs: { diceRoll: null, attackname: 'Bite' , strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/52.png'},
@@ -18,7 +28,11 @@ angular.module('pokemon.starter', [])
   $scope.initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.gameTurn = resp;
+        $scope.gameTurn = resp.playerName;
+        $scope.gameTurnFacebookId = resp.facebookId;
+        if($scope.userId !== $scope.gameTurnFacebookId) {
+          $scope.select = true;
+        }
       }).catch(function (error) {
         console.error(error);
       });

@@ -2,7 +2,7 @@
   <p> Starter Pokemons </p>
   {{startertest}}
   <br />
-  <p>Game Turn: {{ gameTurn}} </p>
+  <p>Game Turn: {{ gameTurnName }} </p>
   <div>
     <ul>
       <li ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
@@ -11,6 +11,6 @@
         {{ pokemon.name }}
       </li>
     </ul>
-    <button ng-click = "addStarter()"> Select </button>
+    <button ng-hide = 'select' ng-click = "addStarter()"> Select </button>
   </div>
 </div>
