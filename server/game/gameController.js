@@ -206,12 +206,8 @@ module.exports = {
           gameTurn: 'Alex',
           gameStarted: true
         });
-        newGame.save(function (err, res) {
-          if (res) {
-            console.log('CREATEGAME WORKS', res);
-          } else {
-            console.error(err);
-          }
+        newGame.save(function (err) {
+          if (err) throw err;
         });
     res.send(newGame);
     })
