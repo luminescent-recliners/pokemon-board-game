@@ -38,8 +38,8 @@ angular.module('pokemon.starter', [])
     console.log($scope.selectedPokemon);
   };
 
-  $scope.addStarter = function () {
-    userFactory.addStarterPokemon($scope.gameId, $scope.facebookId, $scope.selectedPokemon)
+  $scope.playerInit = function () {
+    userFactory.playerInit($scope.gameId, $scope.facebookId, $scope.selectedPokemon)
       .then(function (resp) {
         $location.path('/board');
       }).catch(function (error) {

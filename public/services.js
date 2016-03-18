@@ -1,7 +1,7 @@
 angular.module('services', [])
 .factory('userFactory', function ($http) {
 
-  var addStarterPokemon = function (gameId, userId, pokemon) {
+  var playerInit = function (gameId, userId, pokemon) {
     return $http({
       method: 'PUT',
       url: 'api/games/addpokemon',
@@ -59,7 +59,7 @@ angular.module('services', [])
   };
 
   return {
-    addStarterPokemon: addStarterPokemon,
+    playerInit: playerInit,
     addGame: addGame,
     getGames: getGames,
     movePlayer: movePlayer

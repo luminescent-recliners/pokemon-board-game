@@ -3,7 +3,7 @@ var gymLeader = require('./gymLeader/gymLeaderController.js');
 var gameController = require('./game/gameController.js');
 
 
-router.put('/api/games/addPokemon', gameController.addPokemon);
+router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
 router.post('/api/games/addGame', gameController.addGame);
 router.get('/api/games/getGames', gameController.getGames);
