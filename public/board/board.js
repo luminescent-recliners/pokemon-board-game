@@ -61,11 +61,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.currentTurnPlayerName = data.currentTurn.playerName;
         $scope.currentTurnFacebookId = data.currentTurn.facebookId;
 
-
-        //Needs to be changed from starter!!!!!!!!!!!!!!!!!! ====== should not be plus 1
-        //below is correct
-        // $scope.userPosition = data.user.positionOnBoard;  
-        $scope.userPosition = data.user.positionOnBoard + 1;
+        $scope.userPosition = data.user.positionOnBoard;  
         $scope.playerPosition = $scope.userPosition - 1;
       });
   };
