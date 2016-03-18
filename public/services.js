@@ -42,14 +42,14 @@ angular.module('services', [])
     });
   };
 
-  var movePlayer = function (nextPosition, userId, currentPosition, gameId) {
+  var movePlayer = function (nextPosition, user, currentPosition, gameId) {
     return $http({
       method: 'PUT',
       url: 'api/games/user/movePlayer',
       data: {
         nextPosition: nextPosition,
         currentPosition: currentPosition,
-        userId: userId,
+        user: user,
         gameId: gameId
       }
     })

@@ -26,7 +26,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.movePlayer = function(newSpot, userId) {
-    userFactory.movePlayer(newSpot.id, $scope.facebookId, $scope.userPosition, $scope.gameId)
+    var userObject = {
+      facebookId: $scope.facebookId,
+      playerName: $scope.playerName
+    };
+
+    userFactory.movePlayer(newSpot.id, userObject, $scope.userPosition, $scope.gameId)
       .then(function(position){
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
