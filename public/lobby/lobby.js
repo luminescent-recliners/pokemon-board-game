@@ -18,8 +18,8 @@ angular.module('pokemon.lobby', [])
   
   //Todo: $scope.users has to be got from database in user table
   $scope.users = [
-    {facebookId: "Facebook123", displayName: "arthicuno"}, 
-    {facebookId: "Facebook456", displayName: "choumander"}
+    {facebookId: "Facebook123", playerName: "arthicuno"}, 
+    {facebookId: "Facebook456", playerName: "choumander"}
   ];
 
   var initialize = function () {
