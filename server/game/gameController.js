@@ -53,8 +53,6 @@ module.exports = {
       backwardOptions: []
     };
 
-    console.log('here is the roll', roll);
-    console.log('player is at position', userPosition);
     findGame({ gameId: gameId })
       .then(function(game) {
         var counter = 0;
@@ -79,7 +77,6 @@ module.exports = {
           playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
         }
 
-        console.log('this is the options', playerOptions);
         res.send(playerOptions);
       });
   },
