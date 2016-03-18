@@ -53,8 +53,6 @@ module.exports = {
       backwardOptions: []
     };
 
-    console.log('here is the roll', roll);
-    console.log('player is at position', userPosition);
     findGame({ gameId: gameId })
       .then(function(game) {
         var counter = 0;
@@ -79,7 +77,6 @@ module.exports = {
           playerOptions.backwardOptions.push(gameHelperFn.addOptionDescription(rolledBackwardSpot, roll, 'backward'));
         }
 
-        console.log('this is the options', playerOptions);
         res.send(playerOptions);
       });
   },
@@ -150,7 +147,7 @@ module.exports = {
       });
   },
 
-  getBoard: function(req, res, next) {
+  boardInit: function(req, res, next) {
     var gameId = req.query.gameId;
     var userId = req.query.userId;
 
@@ -158,7 +155,8 @@ module.exports = {
       .then(function(game) {
         var gameData = {
           board: game.gameBoard,
-          user: gameHelperFn.findUser(game, userId)
+          user: gameHelperFn.findUser(game, userId),
+          currentTurn: game.gameTurn
         };
 
         res.send(gameData);
