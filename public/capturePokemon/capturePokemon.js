@@ -5,18 +5,19 @@ angular.module('pokemon.capture', [])
   $scope.result;
 
   // Post Dev values
-  // $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  // $scope.userId = $window.localStorage.getItem('pokemon.userId');
+  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
+  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   
   // Dev values
-  $scope.gameId = 1;
-  $scope.userId = "Facebook123";
+  // $scope.gameId = 1;
+  // $scope.facebookId = "Facebook123";
 
   // $scope.pokemonColor = 'pink';
   // $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
 
   var initialize = function() {
-    gameFactory.getAvailablePokemon($scope.gameId, $scope.userId)
+    gameFactory.getAvailablePokemon($scope.gameId, $scope.facebookId)
       .then(function(pokemon) {
         $scope.imageUrl = pokemon.imageUrl;
         $scope.pokemonColor = pokemon.color;
@@ -31,7 +32,7 @@ angular.module('pokemon.capture', [])
   $scope.dicerolled = false;
   $scope.rollDice = function () {
     $scope.rollvalue = Math.ceil(Math.random() * 6);
-    gameFactory.catchPokemon($scope.gameId, $scope.userId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
+    gameFactory.catchPokemon($scope.gameId, $scope.facebookId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
       .then(function (resp) {
         $scope.result = resp;
       }).catch(function (error) {
