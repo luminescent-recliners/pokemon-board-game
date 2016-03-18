@@ -139,7 +139,11 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
-        game.gameTurn = game.users[ game.gameCounter % game.users.length ].playerName;
+        var gameTurn = game.users[ game.gameCounter % game.users.length ]
+        game.gameTurn = {
+          facebookId: gameTurn.facebookId,
+          playerName: gameTurn.playerName
+        }
         res.send(game.gameTurn);
       })
       .fail(function (error) {
