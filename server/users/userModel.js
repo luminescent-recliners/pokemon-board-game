@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var usersSchema = mongoose.Schema({
   facebookId: String,
-  displayName: String,
+  playerName: String,
   gamesParticipating: [],
   numGameWon: Number
 });

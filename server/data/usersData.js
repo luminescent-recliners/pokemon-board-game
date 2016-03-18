@@ -1,8 +1,8 @@
 module.exports = [
   {
-  facebookId: "Facebook123",
-    displayName: "Henry",
+  facebookId: "Facebook123H",
+    playerName: "Henry",
     gamesParticipating: [1],
     numGameWon: 3
     }
-]
+];

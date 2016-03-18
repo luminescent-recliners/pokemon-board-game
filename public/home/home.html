@@ -1,6 +1,5 @@
   <div class='home' ng-controller='homeController'>
-    <p>Logged in as {{user.displayName}}</p>
-    {{test}}
+    <p>Logged in as {{playerName}}</p>
     <div class='newGame'>
     	<td>
       <form name="myform">
@@ -10,7 +9,7 @@
     	</td> 
     </div>
     <br />
-    <h2><b>{{user.displayName}}'s Games</b></h2>
+    <h2><b>{{playerName}}'s Games</b></h2>
       <li ng-repeat = "game in games track by $index">
         <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
       </li>

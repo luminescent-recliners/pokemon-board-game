@@ -113,7 +113,7 @@ module.exports = {
         for(var i=0;i<users.length;i++) {
           game.users.push({
             facebookId: users[i].facebookId,
-            playerName: users[i].displayName,
+            playerName: users[i].playerName,
             playerIndex: 0,
             badges: [],
             party: [],

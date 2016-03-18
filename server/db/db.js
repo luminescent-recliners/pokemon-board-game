@@ -18,7 +18,7 @@ var createUsers = function() {
     if (!users.length) {
       var newUsers = new Users({
         facebookId: 'Facebook123',
-        displayName: 'Henry',
+        playerName: 'Bob',
         gamesParticipating: [1],
         numGameWon: 0
       });
@@ -60,8 +60,9 @@ var createGame = function() {
     if (!games.length){
       var newGame = new Games({
         gameId: 1,
-        name: 'hoooli Dungeon',
-        users: [{
+        name: 'Hoooli Dungeon',
+        users: [
+        {
           facebookId: 'Facebook123',
           playerName: 'Bob',
           playerIndex: 0,
@@ -79,7 +80,7 @@ var createGame = function() {
         gameCreator: 'Facebook123',
         gameTurn: {
           facebookId: 'Facebook123',
-          playerName: 'choumander'
+          playerName: 'Bob'
         },
         gameStarted: true,
         gameCounter: 0
