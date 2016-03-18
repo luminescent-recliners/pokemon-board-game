@@ -27,6 +27,7 @@ angular.module('services', [])
       }
     })
     .then(function (resp) {
+      console.log(resp.data);
       return resp.data;
     });
   };
@@ -37,7 +38,6 @@ angular.module('services', [])
       url: 'api/games/getGames',
     })
     .then(function (resp) {
-      console.log('All games:', resp.data);
       return resp.data;
     });
   };

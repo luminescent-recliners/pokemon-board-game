@@ -3,10 +3,10 @@
     {{test}}
     <div class='newGame'>
     	<td>
-    	  <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="example: Red" ng-keypress="hitEnter($event, input)"></input>
-    	</td>     
-    	<td>
-    	  <input type="button" value="Create Game" ng-click="makeNewGame()" ></input>
+      <form name="myform">
+    	  <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="example: Red" ng-keypress="hitEnter($event, input)" required></input>
+         <input type="button" value="Create Game" ng-click="makeNewGame()" required></input>
+       </form>
     	</td> 
     </div>
     <br />

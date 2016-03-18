@@ -179,10 +179,14 @@ module.exports = {
   },
 
   addGame: function(req, res, next) {
-    var gameName = req.body.gameName;
-    var facebookId = req.body.facebookId;
-      var createGame = function() {
+    findGames()
+    .then(function(games) {
+      var gameName = req.body.gameName;
+      var facebookId = req.body.facebookId;
+      var id = games.length + 1;
+      console.log('GAME ID IS: ', id)
         var newGame = new Games({
+          gameId: id, 
           name: gameName,
           users: {
             facebookId: facebookId,
@@ -202,15 +206,11 @@ module.exports = {
           gameTurn: 'Alex',
           gameStarted: true
         });
-        newGame.save(function(err) {
-          if (!err) {
-            console.log('CREATEGAME WORKS');
-          } else {
-            console.error(err);
-          }
-      });
-    };
-  createGame();
+        newGame.save(function (err) {
+          if (err) throw err;
+        });
+    res.send(newGame);
+    })
   },
 
   getGames: function(req, res, next) {
@@ -219,7 +219,7 @@ module.exports = {
         var results = [];
         for(var i = 0; i < games.length; i++) {
           var resObj = {
-            gameId: games[i]._id,
+            gameId: games[i].gameId,
             gameName: games[i].name
           };
           results.push(resObj);
