@@ -23,7 +23,7 @@ angular.module('pokemon.lobby', [])
         $scope.gameName = resp.gameName;
         $scope.gameCreator = resp.gameCreator;
         $scope.gameCreatorName = resp.creatorName;
-        if($scope.gameCreator === $scope.facebookId) {
+        if($scope.gameCreator !== $scope.facebookId) {
           $scope.myGameCreator = true;
         } 
       }).catch(function (error) {

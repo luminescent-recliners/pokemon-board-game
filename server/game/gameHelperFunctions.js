@@ -21,8 +21,6 @@ module.exports = {
   },
 
   findUser: function(game, userId) {
-    console.log('userId finduser helper funciont', userId);
-    console.log('game.users finduser helper',game.users);
     for (var i = 0; i < game.users.length; i++) {
       if (game.users[i].facebookId === userId) {
         return game.users[i];

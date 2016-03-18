@@ -18,7 +18,7 @@ module.exports = {
 
     findGame({ gameId: gameId })
       .then(function(game) {
-        for(var i=0;i<game.users.length;i++) {
+        for(var i = 0; i < game.users.length; i++) {
           if(game.users[i].facebookId === userId) {
             game.users[i].party.push(pokemon);
           }
@@ -126,7 +126,6 @@ module.exports = {
         }
         game.markModified('users');
         game.save();
-        console.log(game.users);
         res.send(game.gameTurn);
       })
       .fail(function (error) {
@@ -139,11 +138,11 @@ module.exports = {
 
     findGame({gameId: gameId})
       .then(function (game) {
-        var gameTurn = game.users[ game.gameCounter % game.users.length ]
+        var gameTurn = game.users[ game.gameCounter % game.users.length ];
         game.gameTurn = {
           facebookId: gameTurn.facebookId,
           playerName: gameTurn.playerName
-        }
+        };
         res.send(game.gameTurn);
       })
       .fail(function (error) {
@@ -203,7 +202,6 @@ module.exports = {
       var gameName = req.body.gameName;
       var facebookId = req.body.facebookId;
       var id = games.length + 1;
-      console.log('GAME ID IS: ', id)
         var newGame = new Games({
           gameId: id, 
           name: gameName,
@@ -242,7 +240,6 @@ module.exports = {
             gameName: games[i].name
           };
           results.push(resObj);
-          console.log('get games from database', resObj);
         }
           res.send(results);
       })

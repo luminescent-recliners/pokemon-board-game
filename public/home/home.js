@@ -2,7 +2,7 @@ angular.module('pokemon.home', [])
 
 .controller('homeController',function($scope, userFactory, $window) {
   //happen after face book auth
-  $window.localStorage.setItem('pokemon.userId', "Facebook123");
+  $window.localStorage.setItem('pokemon.facebookId', "Facebook123");
   $window.localStorage.setItem('pokemon.playerName', "Bob");
   
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
@@ -31,7 +31,6 @@ angular.module('pokemon.home', [])
   };
 
   $scope.localStorage = function(id) {
-    console.log('pokemon.gameId', id)
     $window.localStorage.setItem('pokemon.gameId', id);
   };
 
