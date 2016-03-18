@@ -5,13 +5,17 @@
     <br /><br />
     Description:<span> {{description}}</span>
     <br /><br />
+  </div>
+  <div ng-hide='dicerolled'>
     To capture you must Roll<span>{{rollneeded}}</span>
-    <button ng-click ="rollDice()"> Roll Dice & Catch</button>
+    <button ng-click ="rollDice()" > Roll Dice & Catch</button>
     <br /><br />
-    Your Roll: <span>{{rollvalue}}</span>
+  </div>
+    You Rolled: <span>{{rollvalue}}</span>
     <br /><br />
+  <div>
     Result: <span>{{result}}</span>
     <br /><br />
-    <button>Continue</button>
+    <button ng-click="updateTurn()">Continue</button>
   </div>
 </div>
