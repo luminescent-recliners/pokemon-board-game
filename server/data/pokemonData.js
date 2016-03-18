@@ -12,7 +12,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/1/',
+    imageURL: 'http://pokeapi.co/media/img/1.png',
     specs: {
       attackName: 'Leech Seed',
       attackStrength: 4
@@ -31,7 +31,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/4/',
+    imageURL: 'http://pokeapi.co/media/img/.png',
     specs: {
       attackName: 'Ember',
       attackStrength: 4
@@ -50,7 +50,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/7/',
+    imageURL: 'http://pokeapi.co/media/img/7.png',
     specs: {
       attackName: 'Water Gun',
       attackStrength: 4
@@ -69,7 +69,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/25/',
+    imageURL: 'http://pokeapi.co/media/img/25.png',
     specs: {
       attackName: 'ThunderShock',
       attackStrength: 3
@@ -88,7 +88,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/35/',
+    imageURL: 'http://pokeapi.co/media/img/35.png',
     specs: {
       attackName: 'Pound',
       attackStrength: 3
@@ -107,7 +107,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/52/',
+    imageURL: 'http://pokeapi.co/media/img/52.png',
     specs: {
       attackName: 'Bite',
       attackStrength: 3
@@ -126,7 +126,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/42/',
+    imageURL: 'http://pokeapi.co/media/img/42.png',
     specs: {
       attackName: 'Confuse Ray',
       attackStrength: 4
@@ -145,7 +145,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/117/',
+    imageURL: 'http://pokeapi.co/media/img/117.png',
     specs: {
       attackName: 'Hydro Pump',
       attackStrength: 5
@@ -164,7 +164,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/85/',
+    imageURL: 'http://pokeapi.co/media/img/85.png',
     specs: {
       attackName: 'Tri Attack',
       attackStrength: 5
@@ -183,7 +183,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/6/',
+    imageURL: 'http://pokeapi.co/media/img/6.png',
     specs: {
       attackName: 'Fire Spin',
       attackStrength: 8
@@ -202,7 +202,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/87/',
+    imageURL: 'http://pokeapi.co/media/img/87.png',
     specs: {
       attackName: 'Ice Beam',
       attackStrength: 7
@@ -221,7 +221,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/148/',
+    imageURL: 'http://pokeapi.co/media/img/148.png',
     specs: {
       attackName: 'Dragon Rage',
       attackStrength: 6
@@ -240,7 +240,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/136/',
+    imageURL: 'http://pokeapi.co/media/img/136.png',
     specs: {
       attackName: 'Flame Thrower',
       attackStrength: 6
@@ -259,7 +259,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/76/',
+    imageURL: 'http://pokeapi.co/media/img/76.png',
     specs: {
       attackName: 'Earthquake',
       attackStrength: 6
@@ -278,7 +278,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/105/',
+    imageURL: 'http://pokeapi.co/media/img/105.png',
     specs: {
       attackName: 'Bonemerang',
       attackStrength: 6
@@ -297,7 +297,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/138/',
+    imageURL: 'http://pokeapi.co/media/img/138.png',
     specs: {
       attackName: 'Horn Attach',
       attackStrength: 5
@@ -316,7 +316,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/129/',
+    imageURL: 'http://pokeapi.co/media/img/129.png',
     specs: {
       attackName: 'Tackle',
       attackStrength: 1
@@ -335,7 +335,7 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/46/',
+    imageURL: 'http://pokeapi.co/media/img/46.png',
     specs: {
       attackName: 'Scratch',
       attackStrength: 1
@@ -354,15 +354,10 @@ module.exports = [
       type: Boolean,
       default: true
     },
-    imageURL: '/api/v1/pokemon/100/',
+    imageURL: 'http://pokeapi.co/media/img/100.png',
     specs: {
       attackName: 'Sonic Boom',
       attackStrength: 3
     }
   }
-
-
-
-
-
-]
+];
