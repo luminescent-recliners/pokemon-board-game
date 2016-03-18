@@ -28,7 +28,7 @@ angular.module('pokemon.starter', [])
   $scope.initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.gameTurn = resp.playerName;
+        $scope.gameTurnName = resp.playerName;
         $scope.gameTurnFacebookId = resp.facebookId;
         if($scope.userId !== $scope.gameTurnFacebookId) {
           $scope.select = true;
