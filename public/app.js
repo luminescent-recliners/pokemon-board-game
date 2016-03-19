@@ -7,6 +7,8 @@ angular.module('pokemon', [
   'ngAnimate',
   'pokemon.lobby',
   'pokemon.capture',
+  'pokemon.event',
+  'pokemon.city',
   'ngRoute'
 ])
 .config(function($routeProvider) {
@@ -30,5 +32,13 @@ angular.module('pokemon', [
     .when('/capture', {
       templateUrl: 'capturePokemon/capturePokemon.html',
       controller: 'captureController'
+    })
+    .when('/city', {
+      templateUrl: 'city/city.html',
+      controller: 'cityController'
+    })
+    .when('/event', {
+      templateUrl: 'event/event.html',
+      controller: 'eventController'
     });
 });
