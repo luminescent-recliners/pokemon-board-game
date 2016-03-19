@@ -23,6 +23,10 @@ input {
   text-align: center;
 }
 
+.gameContent {
+  height: 100px;
+  overflow: scroll;
+}
 
 /* Lobby View  */
 .lobby {
