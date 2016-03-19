@@ -125,7 +125,7 @@ module.exports = {
             lastCity: 0
           });
         }
-        game.
+        game.gameStarted = true;
         game.markModified('users');
         game.save();
         res.send(game.gameTurn);
@@ -211,12 +211,16 @@ module.exports = {
           gameId: id, 
           name: gameName,
           gameBoard: gameBoardData,
+          users: [],
           availablePokemon: availablePokemonData,
           availableItemCards: [],
           gameCreator: {
             facebookId: facebookId,
             playerName: playerName
-          }
+          },
+          gameStarted: false,
+          gameTurn: {},
+          gameCounter: 0
         });
         newGame.save(function (err) {
           if (err) throw err;
