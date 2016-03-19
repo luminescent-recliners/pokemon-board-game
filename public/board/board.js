@@ -25,6 +25,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
+  var resetOptions = function () {
+    $scope.actionDisplay = true;
+    $scope.playerOptions = [[], []]; 
+  };
+
   $scope.movePlayer = function(newSpot, userId) {
     var userObject = {
       facebookId: $scope.facebookId,
@@ -36,9 +41,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
         if (newSpot.typeOfSpot === 'pokemon') {
-          $scope.actionDisplay = true;
           $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
-          $scope.playerOptions = [[], []]; 
+          resetOptions();
         }
       });
   };
