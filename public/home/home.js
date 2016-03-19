@@ -16,7 +16,7 @@ angular.module('pokemon.home', [])
   };
 
   $scope.makeNewGame = function(newGameName) {
-     userFactory.addGame($scope.gameId, $scope.newGameName, $scope.facebookId)
+     userFactory.addGame($scope.gameId, $scope.newGameName, $scope.facebookId, $scope.playerName)
     .then(function (resp) {
       var userGame = {
         gameId: resp.gameId,
