@@ -125,6 +125,7 @@ module.exports = {
             lastCity: 0
           });
         }
+        game.gameStarted = true;
         game.markModified('users');
         game.save();
         res.send(game.gameTurn);
@@ -198,32 +199,28 @@ module.exports = {
     });
   },
 
+// creates a new game with game name, game Id, gameCreator object and initial static data
   addGame: function(req, res, next) {
     findGames()
     .then(function(games) {
       var gameName = req.body.gameName;
       var facebookId = req.body.facebookId;
+      var playerName = req.body.playerName;
       var id = games.length + 1;
         var newGame = new Games({
           gameId: id, 
           name: gameName,
-          users: {
-            facebookId: facebookId,
-            playerIndex: 0,
-            badges: [],
-            party: [],
-            box: [],
-            itemCards: [],
-            positionOnBoard: 0,
-            citiesVisited: [0],
-            lastCity: 0
-          },
           gameBoard: gameBoardData,
+          users: [],
           availablePokemon: availablePokemonData,
           availableItemCards: [],
-          gameCreator: facebookId,
-          gameTurn: 'Alex',
-          gameStarted: true
+          gameCreator: {
+            facebookId: facebookId,
+            playerName: playerName
+          },
+          gameStarted: false,
+          gameTurn: {},
+          gameCounter: 0
         });
         newGame.save(function (err) {
           if (err) throw err;

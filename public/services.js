@@ -16,7 +16,7 @@ angular.module('services', [])
     });
   };
 
-  var addGame = function (gameId, gameName, gameCreator) {
+  var addGame = function (gameId, gameName, gameCreator, playerName) {
     return $http({
       method: 'POST',
       url: 'api/games/addgame',
@@ -24,6 +24,7 @@ angular.module('services', [])
         gameId: gameId,
         gameName: gameName,
         facebookId: gameCreator,
+        playerName: playerName
       }
     })
     .then(function (resp) {
