@@ -184,5 +184,3 @@ module.exports = [{
 //   var pokemon = module.exports[i];
 //   pokemon.imageURL = 'http://sprites.pokecheck.org/i/' + zeroConverter(pokemon.pokemonId) + '.gif';
 // }
-
-console.log(module.exports);
