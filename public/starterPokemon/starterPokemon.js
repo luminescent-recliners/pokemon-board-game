@@ -1,16 +1,5 @@
 angular.module('pokemon.starter', ['ui.bootstrap'])
 
-  .directive('toggleClass', function() {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.bind('click', function() {
-          element.toggleClass(attrs.toggleClass);
-        });
-      }
-    };
-  })
-
 .controller('starterController', function($scope, $location, userFactory, gameFactory, $window){
 
   $scope.select = false;
