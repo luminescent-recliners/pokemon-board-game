@@ -10,6 +10,10 @@ angular.module('pokemon.home', [])
   $scope.games;
 
   Socket.emit( 'test', { message: 'Testing Sockets Work' } );
+  Socket.on('receivedTest', function(data) {
+    console.log('Received message from server');
+    console.log('server responds by saying', data);
+  });
 
   $scope.hitEnter = function($event, input) {
     if($event.which === 13) {
