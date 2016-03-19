@@ -1,0 +1,22 @@
+{
+  "name": "pokemon-master-trainer-board-game",
+  "homepage": "https://github.com/chououtside/pokemon-board-game",
+  "authors": [
+    "chououtside <chouming3@gmail.com>"
+  ],
+  "description": "Pokemon Board Game Web Application",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-socket-io": "~0.7.0"
+  }
+}
