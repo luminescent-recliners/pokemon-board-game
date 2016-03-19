@@ -4,10 +4,13 @@
     </div>
   <div class="col-lg-8 text-center">
     <ul>
-      <ul ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
+      <ul ng-repeat = "pokemon in list" >
         <div class="col-lg-4 text-center">
-          <div class="panel panel-primary" toggle-class="red" info='pokemon' style="height: 174px">
-            <p class='panel-heading'><b>{{ pokemon.name }}</b></p>
+          <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 200px">
+          <p class='panel-heading'><b>{{ pokemon.name }}</b></p>
+          <div class="radio">
+            <label><input type="radio" name="optradio" ng-click = "getStarter(pokemon)">Choose me!</label>
+          </div>
             <img src={{pokemon.imageURL}} >
           </div>
         </div>    
