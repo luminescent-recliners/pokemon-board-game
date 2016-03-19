@@ -7,6 +7,7 @@ angular.module('pokemon', [
   'ngAnimate',
   'pokemon.lobby',
   'pokemon.capture',
+  'btford.socket-io',
   'ngRoute'
 ])
 .config(function($routeProvider) {

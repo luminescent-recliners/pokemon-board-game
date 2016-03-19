@@ -30,8 +30,10 @@
     "express": "^4.13.4",
     "express-routes": "0.0.2",
     "express-session": "^1.13.0",
+    "http": "0.0.0",
     "mongoose": "^4.4.6",
     "morgan": "^1.7.0",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "socket.io": "^1.4.5"
   }
 }
