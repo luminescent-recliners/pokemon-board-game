@@ -187,4 +187,7 @@ angular.module('services', [])
     updateTurn: updateTurn
   };
 
+})
+.factory( 'Socket', function(socketFactory){
+  return socketFactory();
 });
