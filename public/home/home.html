@@ -30,21 +30,25 @@
       <div class="col-lg-2 text-center">
       </div>
       <br />
-      <div class='panel panel-primary col-lg-5' style="height: 400px">
+        <div class='panel panel-primary col-lg-5' style="height: 400px">
           <h2 class='panel-heading'><b>{{playerName}}'s Games in Progess</b></h2>
-          <div class='gameContent' style="height: 400px">
-          <li ng-repeat = "game in games track by $index">
-            <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-          </li>
+          <div class='gameContent' style="height: 300px">
+            <li ng-repeat = "game in games track by $index">
+              <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+            </li>
+          </div>
         </div>
-      </div>
-      <div class='gameContent panel panel-primary col-lg-5' style="height: 400px">
-          <h2 class='panel-heading' ><b>All Available Games</b></h2>
-          <li ng-repeat = "game in games track by $index">
-            <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-          </li>
-        <br /> 
-        <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
-      <div>
+        <div class="col-lg-1 text-center">
+        </div>
+        <div class='panel panel-primary col-lg-5' style="height: 400px">
+            <h2 class='panel-heading' ><b>All Available Games</b></h2>
+            <div class='gameContent' style="height: 300px">
+              <li ng-repeat = "game in games track by $index">
+                <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+              </li>
+              <br /> 
+              <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
+            </div>  
+        <div>
     </div>  
 </div>
