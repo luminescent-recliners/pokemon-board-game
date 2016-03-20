@@ -1,5 +1,7 @@
-angular.module('pokemon.starter', [])
+angular.module('pokemon.starter', ['ui.bootstrap'])
+
 .controller('starterController', function($scope, $location, userFactory, gameFactory, $window){
+
   $scope.select = false;
 
   // post dev values
