@@ -20,15 +20,27 @@ app.use(router);
 app.use(express.static(__dirname + '/../public'));
 
 // for sockets
+var usersInGames = {};
 io.on('connection', function(socket){
   console.log('a user connected');
-  socket.on('disconnect', function(something) {
-    console.log('a user disconnected', something);
+  socket.on('disconnect', function() {
+    console.log('a user disconnected');
   });
 
   socket.on('newGame', function(newGame) {
-    console.log('server', newGame);
     io.emit('updateAvailGames', newGame);
+  });
+
+  socket.on('joinLobby', function(data) {
+    socket.join(data.gameId);
+    usersInGames[data.gameId] = usersInGames[data.gameId] || [];
+    usersInGames[data.gameId].push(data.user);
+    io.to(data.gameId).emit('joinLobby', usersInGames[data.gameId]);
+  });
+
+  socket.on('enteredLobby', function(data) {
+    var userArray = usersInGames[data.gameId];
+    io.to(data.gameId).emit('currentUsers', userArray);
   });
 
 });
