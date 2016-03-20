@@ -1,15 +1,27 @@
 <div>
-  <p> Starter Pokemons </p>
-  <br />
-  <p>Game Turn: {{ gameTurnName }} </p>
-  <div>
+    <div class="text-center">
+      <h3>Hey {{ playerName }}! Choose Your Starter Pokemon! </h3>
+    </div>
+    <div class="col-lg-2 text-center">
+    </div>
+  <div class="col-lg-8 text-center">
     <ul>
-      <li ng-repeat = "pokemon in list" ng-click = "getStarter(pokemon)">
-        <img src={{pokemon.imageURL}} >
-        <br />
-        {{ pokemon.name }}
-      </li>
+      <ul ng-repeat = "pokemon in list" >
+        <div class="col-lg-4 text-center">
+          <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 200px">
+          <p class='panel-heading'><b>{{ pokemon.name }}</b></p>
+          <div class="radio">
+            <label><input type="radio" name="optradio" ng-click = "getStarter(pokemon)">Choose me!</label>
+          </div>
+            <img src={{pokemon.imageURL}} >
+          </div>
+        </div>    
+      </ul>
     </ul>
-    <button ng-hide = 'select' ng-click = "playerInit()"> Select </button>
   </div>
+    <div class="col-lg-12 text-center">
+      <button class="btn-lg btn-primary text-center" ng-hide = 'select' ng-click = "playerInit()"> Select </button>
+    </div>
 </div>
+
+

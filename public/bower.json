@@ -1,0 +1,37 @@
+{
+  "name": "Pokemon Master Trainer",
+  "homepage": "https://github.com/luminescent-recliners/pokemon-board-game.git",
+  "description": "Online version of a classic pokemon boardgame",
+  "main": "server/server.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "pokemon",
+    "board",
+    "game"
+  ],
+  "authors": [
+    "Alex",
+    "Hitesh",
+    "Arthi",
+    "Linda"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.2",
+    "angular-bootstrap": "~1.2.4",
+    "angular": "~1.5.1",
+    "angular-cookies": "~1.5.1",
+    "angular-animate": "~1.5.1",
+    "angular-route": "~1.5.1"
+  }
+}
