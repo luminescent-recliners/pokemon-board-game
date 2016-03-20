@@ -10,6 +10,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.roll;
   $scope.actionDisplay = false;
   $scope.actionDescription = '';
+  var action;
 
   $scope.counter = 0;
   $scope.rollDice = function() {
@@ -25,6 +26,31 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
+  var resetOptions = function () {
+    $scope.actionDisplay = true;
+    $scope.playerOptions = [[], []]; 
+  };
+
+  var checkAction = function(typeOfAction) {
+    switch (typeOfAction) {
+      case 'pokemon':
+        action = 'pokemon';
+        $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
+        resetOptions();
+        break;
+      case 'city':
+        action = 'city';
+        $scope.actionDescription = $scope.currentTurnPlayerName + ' has arrived in a city. Rest up!';
+        resetOptions();
+        break;
+      case 'event':
+        action = 'event';
+        $scope.actionDescription = $scope.currentTurnPlayerName + ' landed on an event card!';
+        resetOptions();
+        break;
+    }
+  };
+
   $scope.movePlayer = function(newSpot, userId) {
     var userObject = {
       facebookId: $scope.facebookId,
@@ -35,17 +61,22 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       .then(function(position){
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
-        if (newSpot.typeOfSpot === 'pokemon') {
-          $scope.actionDisplay = true;
-          $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
-          $scope.playerOptions = [[], []]; 
-        }
+        checkAction(newSpot.typeOfSpot);
       });
   };
 
   $scope.redirect = function() {
-    $location.path('/capture');
-
+    switch (action) {
+      case 'pokemon':
+        $location.path('/capture')
+        break;
+      case 'city':
+        $location.path('/city')
+        break;
+      case 'event':
+        $location.path('/event')
+        break;
+    }
   };
 
   $scope.init = function() {
