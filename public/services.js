@@ -28,7 +28,6 @@ angular.module('services', [])
       }
     })
     .then(function (resp) {
-      console.log(resp.data);
       return resp.data;
     });
   };
@@ -186,5 +185,10 @@ angular.module('services', [])
     getAvailablePokemon: getAvailablePokemon,
     updateTurn: updateTurn
   };
+
+})
+
+.factory('pokemonSocket', function(socketFactory) {
+  return socketFactory();
 
 });

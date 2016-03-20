@@ -9,6 +9,7 @@ angular.module('pokemon', [
   'pokemon.capture',
   'pokemon.event',
   'pokemon.city',
+  'btford.socket-io',
   'ngRoute'
 ])
 .config(function($routeProvider) {
