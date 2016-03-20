@@ -20,7 +20,7 @@ angular.module('pokemon.capture', [])
     gameFactory.getAvailablePokemon($scope.gameId, $scope.facebookId)
       .then(function(pokemon) {
         console.log(" image from db ", pokemon.imageURL);
-        $scope.imageUrl = pokemon.imageURL;
+        $scope.imageUrl = pokemon.gifURL;
         $scope.pokemonColor = pokemon.color;
         $scope.pokemon = pokemon;
         $scope.message = "ready";
