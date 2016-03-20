@@ -28,8 +28,8 @@ var makeCall = function(count) {
       var dataToWrite = {
         "name": dat.pokemon.name,
         "description": dat.description,
-        "id": id,
-        "imageUrl": 'http://'
+        "pokemonId": id,
+        "imageURL": 'http://'
       };
       dataToWrite = JSON.stringify(dataToWrite);
       dataToWrite += '\n';
@@ -94,17 +94,17 @@ var makeUnique = function() {
     // console.log(i, entry);
     return JSON.parse(entry);
   });
-  data = _.groupBy(data, function(entry){return entry.id;});
+  data = _.groupBy(data, function(entry){return entry.pokemonId;});
   var result = [];
   for(var i = 1; i < 151; i++) {
-    var ID = parseInt(data[i][0].id);
+    var ID = parseInt(data[i][0]['pokemonId']);
     var URL = 'http://sprites.pokecheck.org/i/' + zeroConverter(ID) +'.gif';
 
     var color = whatColor(ID);
     name = data[i][0].name;
     name = name.charAt(0).toUpperCase() + name.slice(1);
     
-    data[i][0]['imageUrl'] = 'http://pokeapi.co/media/img/'+ID+'.png ';
+    data[i][0]['imageURL'] = 'http://pokeapi.co/media/img/'+ID+'.png ';
     data[i][0].name = name;
     data[i][0]['alive'] = true;
     data[i][0]['visible'] = false;
@@ -121,8 +121,8 @@ var makeUnique = function() {
   dataToWrite = JSON.stringify(result);
   fs.appendFileSync(__dirname + '/' + filename, dataToWrite, 'utf-8');
 
-  // console.log data
+  console.log(result);
   // return result;
 };
 // console.log(makeUnique());
-makeUnique();
+// makeUnique();
