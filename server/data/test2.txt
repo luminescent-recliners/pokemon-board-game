@@ -1,0 +1,255 @@
+{"name":"bulbasaur","description":"For some time after its birth, it grows by gaining nourishment from the seed on its back.","pokemonId":"1","imageURL":"http://"}
+{"name":"ivysaur","description":"When the bud on its back starts swelling, a sweet aroma wafts to indicate the flowers coming bloom.","pokemonId":"2","imageURL":"http://"}
+{"name":"venusaur","description":"It is able to con vert sunlight into energy. As a result, it is more powerful in the summertime.","pokemonId":"3","imageURL":"http://"}
+{"name":"venusaur","description":"After a rainy day, the flower on its back smells stronger. The scent attracts other Pokmon.","pokemonId":"3","imageURL":"http://"}
+{"name":"charmander","description":"From the time it is born, a flame burns at the tip of its tail. Its life would end if the flame were to go out.","pokemonId":"4","imageURL":"http://"}
+{"name":"charmeleon","description":"Tough fights could excite this POKMON. When excited, it may blow out bluish- white flames.","pokemonId":"5","imageURL":"http://"}
+{"name":"charmeleon","description":"It has a barbaric nature. In battle, it whips its fiery tail around and slashes away with sharp claws.","pokemonId":"5","imageURL":"http://"}
+{"name":"charizard","description":"CHARIZARD flies around the sky in search of powerful opponents. It breathes fire of such great heat that it melts anything. However, it never turns its fiery breath on any opponent weaker than itself.","pokemonId":"6","imageURL":"http://"}
+{"name":"charizard","description":"Its wings can carry this pokemon close to an altitude of 4,600 feet. It blows out fire at very high temperatures.","pokemonId":"6","imageURL":"http://"}
+{"name":"squirtle","description":"It shelters itself in its shell, then strikes back with spouts of water at every opportunity.","pokemonId":"7","imageURL":"http://"}
+{"name":"wartortle","description":"It cleverly con trols its furry ears and tail to maintain its balance while swimming.","pokemonId":"8","imageURL":"http://"}
+{"name":"wartortle","description":"It is said to live 10,000 years. Its furry tail is popular as a symbol of longevity.","pokemonId":"8","imageURL":"http://"}
+{"name":"blastoise","description":"It crushes its foe under its heavy body to cause fainting. In a pinch, it will withdraw inside its shell.","pokemonId":"9","imageURL":"http://"}
+{"name":"caterpie","description":"If you touch the feeler on top of its head, it will release a horrible stink to protect itself.","pokemonId":"10","imageURL":"http://"}
+{"name":"caterpie","description":"Its feet have suction cups designed to stick to any surface. It tenaciously climbs trees to forage.","pokemonId":"10","imageURL":"http://"}
+{"name":"metapod","description":"The shell covering this POKMONs body is as hard as an iron slab. METAPOD does not move very much. It stays still because it is preparing its soft innards for evolution inside the hard shell.","pokemonId":"11","imageURL":"http://"}
+{"name":"metapod","description":"This Pokmon is vulnerable to attack while its shell is soft, exposing its weak and tender body.","pokemonId":"11","imageURL":"http://"}
+{"name":"butterfree","description":"It loves the honey of flowers and can locate flower patches that have even tiny amounts of pollen.","pokemonId":"12","imageURL":"http://"}
+{"name":"weedle","description":"It attacks using a two-inch poison barb on its head. It can usually be found under the leaves it eats.","pokemonId":"13","imageURL":"http://"}
+{"name":"weedle","description":"It eats its weight in leaves every day. It fends off attackers with the needle on its head.","pokemonId":"13","imageURL":"http://"}
+{"name":"kakuna","description":"This POKMON is in a temporary stage while making its body. It is almost completely unable to move on its own.","pokemonId":"14","imageURL":"http://"}
+{"name":"beedrill","description":"It has 3 poisonous stingers on its forelegs and its tail. They are used to jab its enemy repeatedly.","pokemonId":"15","imageURL":"http://"}
+{"name":"beedrill","description":"It has three poison barbs. The barb on its tail secretes the most powerful poison.","pokemonId":"15","imageURL":"http://"}
+{"name":"pidgey","description":"PIDGEY has an extremely sharp sense of direction. It is capable of unerringly returning home to its nest, however far it may be removed from its familiar surroundings.","pokemonId":"16","imageURL":"http://"}
+{"name":"pidgey","description":"It is docile and prefers to avoid conflict. If disturbed, however, it can ferociously strike back.","pokemonId":"16","imageURL":"http://"}
+{"name":"pidgeotto","description":"It flies over its wide territory in search of prey, downing it with its highly developed claws.","pokemonId":"17","imageURL":"http://"}
+{"name":"pidgeot","description":"It spreads its beautiful wings wide to frighten its enemies. It can fly at Mach 2 speed.","pokemonId":"18","imageURL":"http://"}
+{"name":"pidgeot","description":"By flapping its wings with all its might, Pidgeot can make a gust of wind capable of bending tall trees.","pokemonId":"18","imageURL":"http://"}
+{"name":"rattata","description":"Its fangs are long and very sharp. They grow continuously, so it gnaws on hard things to whittle them down.","pokemonId":"19","imageURL":"http://"}
+{"name":"raticate","description":"Its whiskers help it to maintain balance. Its fangs never stop grow ing, so it gnaws to pare them down.","pokemonId":"20","imageURL":"http://"}
+{"name":"raticate","description":"With its long fangs, this surprisingly violent Pokmon can gnaw away even thick concrete with ease.","pokemonId":"20","imageURL":"http://"}
+{"name":"spearow","description":"It flaps its small wings busily to fly. Using its beak, it searches in grass for prey.","pokemonId":"21","imageURL":"http://"}
+{"name":"fearow","description":"It cleverly uses its thin, long beak to pluck and eat small insects that hide under the ground.","pokemonId":"22","imageURL":"http://"}
+{"name":"fearow","description":"It has the stamina to fly all day on its broad wings. It fights by using its sharp beak.","pokemonId":"22","imageURL":"http://"}
+{"name":"ekans","description":"An EKANS curls itself up in a spiral while it rests. This position allows it to quickly respond to an enemy from any direction with a threat from its upraised head.","pokemonId":"23","imageURL":"http://"}
+{"name":"arbok","description":"The frightening patterns on its belly have been studied. Six variations have been confirmed.","pokemonId":"24","imageURL":"http://"}
+{"name":"arbok","description":"With a very vengeful nature, it wont give up the chase, no matter how far, once it targets its prey.","pokemonId":"24","imageURL":"http://"}
+{"name":"pikachu","description":"This POKMON has electricity-storing pouches on its cheeks. These appear to become electrically charged during the night while PIKACHU sleeps. It occasionally discharges electricity when it is dozy after waking up.","pokemonId":"25","imageURL":"http://"}
+{"name":"pikachu","description":"It occasionally uses an electric shock to recharge a fellow Pikachu that is in a weakened state.","pokemonId":"25","imageURL":"http://"}
+{"name":"raichu","description":"If it stores too much electricity, its behavior turns aggressive. To avoid this, it occasionally discharges excess energy and calms itself down.","pokemonId":"26","imageURL":"http://"}
+{"name":"raichu","description":"When its electricity builds, its muscles are stimulated, and it becomes more aggressive than usual.","pokemonId":"26","imageURL":"http://"}
+{"name":"sandshrew","description":"It burrows and lives underground. If threatened, it curls itself up into a ball for protection.","pokemonId":"27","imageURL":"http://"}
+{"name":"sandslash","description":"In an attempt to hide itself, it will run around at top speed to kick up a blinding dust storm.","pokemonId":"28","imageURL":"http://"}
+{"name":"sandslash","description":"If it digs at an incredible pace, it may snap off its spikes and claws. They grow back in a day.","pokemonId":"28","imageURL":"http://"}
+{"name":"nidoran-f","description":"NIDORAN has barbs that secrete a powerful poison. They are thought to have developed as protection for this small-bodied POKMON. When enraged, it releases a horrible toxin from its horn.","pokemonId":"29","imageURL":"http://"}
+{"name":"nidoran-f","description":"Small and very docile, it protects itself with its small, poisonous horn when attacked.","pokemonId":"29","imageURL":"http://"}
+{"name":"nidorina","description":"When it senses danger, it raises all the barbs on its body. These barbs grow slower than NIDORINOs.","pokemonId":"30","imageURL":"http://"}
+{"name":"nidoqueen","description":"It uses its scaly, rugged body to seal the entrance of its nest and protect its young from predators.","pokemonId":"31","imageURL":"http://"}
+{"name":"nidoqueen","description":"Its entire body is armored with hard scales. It will protect the young in its burrow with its life.","pokemonId":"31","imageURL":"http://"}
+{"name":"nidoran-m","description":"It stiffens its ears to sense danger. The larger its horns, the more powerful its secreted venom.","pokemonId":"32","imageURL":"http://"}
+{"name":"nidorino","description":"Quick to anger, it stabs enemies with its horn to inject a powerful poison when it becomes agitated.","pokemonId":"33","imageURL":"http://"}
+{"name":"nidorino","description":"It has a violent disposition and stabs foes with its horn, which oozes poison upon impact.","pokemonId":"33","imageURL":"http://"}
+{"name":"nidoking","description":"It is recognized by its rock-hard hide and its extended horn. Be careful with the horn as it contains venom.","pokemonId":"34","imageURL":"http://"}
+{"name":"clefairy","description":"The moonlight that it stores in the wings on its back apparently gives it the ability to float in midair.","pokemonId":"35","imageURL":"http://"}
+{"name":"clefairy","description":"The moonlight that it stores in the wings on its back apparently gives it the ability to float in midair.","pokemonId":"35","imageURL":"http://"}
+{"name":"clefable","description":"CLEFABLE moves by skipping lightly as if it were flying using its wings. Its bouncy step lets it even walk on water. It is known to take strolls on lakes on quiet, moonlit nights.","pokemonId":"36","imageURL":"http://"}
+{"name":"clefable","description":"Their ears are sensitive enough to hear a pin drop from over a mile away, so theyre usually found in quiet places.","pokemonId":"36","imageURL":"http://"}
+{"name":"vulpix","description":"While young, it has six gorgeous tails. When it grows, several new tails are sprouted.","pokemonId":"37","imageURL":"http://"}
+{"name":"ninetales","description":"Some legends claim that each of its nine tails has its own unique type of special mystical power.","pokemonId":"38","imageURL":"http://"}
+{"name":"ninetales","description":"Its nine beautiful tails are filled with a wondrous energy that could keep it alive for 1,000 years.","pokemonId":"38","imageURL":"http://"}
+{"name":"jigglypuff","description":"JIGGLYPUFFs vocal chords can freely adjust the wavelength of its voice. This POKMON uses this ability to sing at precisely the right wavelength to make its foes most drowsy.","pokemonId":"39","imageURL":"http://"}
+{"name":"jigglypuff","description":"It captivates foes with its huge, round eyes, then lulls them to sleep by singing a soothing melody.","pokemonId":"39","imageURL":"http://"}
+{"name":"wigglytuff","description":"Its fur is extremely fine, dense, and supple. The exquisitely pleasant fur conveys an image of luxury.","pokemonId":"40","imageURL":"http://"}
+{"name":"zubat","description":"Emits ultrasonic cries while it flies. They act as a sonar used to check for ob jects in its way.","pokemonId":"41","imageURL":"http://"}
+{"name":"zubat","description":"Disliking sunlight, it sleeps deep in forests and caves until sundown.","pokemonId":"41","imageURL":"http://"}
+{"name":"golbat","description":"However hard its victim's hide may be, it punctures with sharp fangs and gorges itself with blood.","pokemonId":"42","imageURL":"http://"}
+{"name":"golbat","description":"Its sharp fangs puncture the toughest of hides and have small holes for greedily sucking blood.","pokemonId":"42","imageURL":"http://"}
+{"name":"oddish","description":"If exposed to moonlight, it starts to move. It roams far and wide at night to scatter its seeds.","pokemonId":"43","imageURL":"http://"}
+{"name":"oddish","description":"It often plants its root feet in the ground during the day and sows seeds as it walks about at night.","pokemonId":"43","imageURL":"http://"}
+{"name":"gloom","description":"From its mouth GLOOM drips honey that smells absolutely horrible. Apparently, it loves the horrid stench. It sniffs the noxious fumes and then drools even more of its honey.","pokemonId":"44","imageURL":"http://"}
+{"name":"gloom","description":"The honey it drools from its mouth smells so atrocious, it can curl noses more than a mile away.","pokemonId":"44","imageURL":"http://"}
+{"name":"vileplume","description":"The larger its petals, the more toxic pollen it contains. Its big head is heavy and hard to hold up.","pokemonId":"45","imageURL":"http://"}
+{"name":"paras","description":"It is doused with mushroom spores when it is born. As its body grows, mushrooms sprout from its back.","pokemonId":"46","imageURL":"http://"}
+{"name":"paras","description":"As its body grows, large mushrooms named tochukaso start sprouting out of its back.","pokemonId":"46","imageURL":"http://"}
+{"name":"parasect","description":"PARASECT is known to infest large trees en masse and drain nutrients from the lower trunk and roots. When an infested tree dies, they move onto another tree all at once.","pokemonId":"47","imageURL":"http://"}
+{"name":"parasect","description":"A mushroom grown larger than the hosts body controls Parasect. It scatters poisonous spores.","pokemonId":"47","imageURL":"http://"}
+{"name":"venonat","description":"Lives in the shadows of tall trees where it eats bugs. It is attracted by light at night.","pokemonId":"48","imageURL":"http://"}
+{"name":"venomoth","description":"The powder on its wings is poisonous if it is dark in color. If it is light, it causes paralysis.","pokemonId":"49","imageURL":"http://"}
+{"name":"venomoth","description":"It flutters its wings to scatter dustlike scales. The scales leach toxins if they contact skin.","pokemonId":"49","imageURL":"http://"}
+{"name":"diglett","description":"It burrows through the ground at a shallow depth. It leaves raised earth in its wake, making it easy to spot.","pokemonId":"50","imageURL":"http://"}
+{"name":"dugtrio","description":"A team of triplets that can burrow over 60 MPH. Due to this, some people think it's an earthquake.","pokemonId":"51","imageURL":"http://"}
+{"name":"dugtrio","description":"Extremely powerful, they can dig through even the hardest ground to a depth of over 60 miles.","pokemonId":"51","imageURL":"http://"}
+{"name":"meowth","description":"MEOWTH withdraws its sharp claws into its paws to slinkily sneak about without making any incriminating footsteps. For some reason, this POKMON loves shiny coins that glitter with light.","pokemonId":"52","imageURL":"http://"}
+{"name":"persian","description":"The gem in its forehead glows on its own! It walks with all the grace and elegance of a proud queen.","pokemonId":"53","imageURL":"http://"}
+{"name":"persian","description":"Its lithe muscles allow it to walk without making a sound. It attacks in an instant.","pokemonId":"53","imageURL":"http://"}
+{"name":"psyduck","description":"When its headache intensifies, it starts using strange powers. However, it has no recollection of its powers, so it always looks befuddled and bewildered.","pokemonId":"54","imageURL":"http://"}
+{"name":"psyduck","description":"It has mystical powers but doesnt recall that it has used them. That is why it always looks puzzled.","pokemonId":"54","imageURL":"http://"}
+{"name":"golduck","description":"Often seen swimming elegantly by lakeshores. It is often mistaken for the Japanese monster Kappa.","pokemonId":"55","imageURL":"http://"}
+{"name":"mankey","description":"An agile POKMON that lives in trees. It angers easily and will not hesitate to attack anything.","pokemonId":"56","imageURL":"http://"}
+{"name":"mankey","description":"Its unsafe to approach if it gets violently enraged for no reason and cant distinguish friends from foes.","pokemonId":"56","imageURL":"http://"}
+{"name":"primeape","description":"When PRIMEAPE becomes furious, its blood circulation is boosted. In turn, its muscles are made even stronger. However, it also becomes much less intelligent at the same time.","pokemonId":"57","imageURL":"http://"}
+{"name":"growlithe","description":"Very protective of its territory. It will bark and bite to repel intruders from its space.","pokemonId":"58","imageURL":"http://"}
+{"name":"growlithe","description":"It has a brave and trustworthy nature. It fearlessly stands up to bigger and stronger foes.","pokemonId":"58","imageURL":"http://"}
+{"name":"arcanine","description":"An ancient picture scroll shows that people were attracted to its movement as it ran through prairies.","pokemonId":"59","imageURL":"http://"}
+{"name":"arcanine","description":"Its magnifecent bark comveys a sense of majesty. Anyone hearing it cant help but grovel before it.","pokemonId":"59","imageURL":"http://"}
+{"name":"poliwag","description":"Its skin is so thin, its internal organs are visible. It has trouble walking on its newly grown feet.","pokemonId":"60","imageURL":"http://"}
+{"name":"poliwhirl","description":"The skin on most of its body is moist. However, the skin on its belly spiral feels smooth.","pokemonId":"61","imageURL":"http://"}
+{"name":"poliwhirl","description":"The spiral pattern on its belly subtly undulates. Staring at it gradually causes drowsiness.","pokemonId":"61","imageURL":"http://"}
+{"name":"poliwrath","description":"An adept swimmer, it knows the front crawl, butterfly, and more. It is faster than the best human swimmers.","pokemonId":"62","imageURL":"http://"}
+{"name":"abra","description":"Sleeps 18 hours a day. If it senses danger, it will teleport itself to safety even as it sleeps.","pokemonId":"63","imageURL":"http://"}
+{"name":"abra","description":"Even while asleep, it maintains a telepathic radar. It teleports when it is threatened.","pokemonId":"63","imageURL":"http://"}
+{"name":"kadabra","description":"It possesses strong spiritual power. The more danger it faces, the stronger its psychic power.","pokemonId":"64","imageURL":"http://"}
+{"name":"kadabra","description":"It stares at its silver spoon to focus its mind. It emits more alpha waves while doing so.","pokemonId":"64","imageURL":"http://"}
+{"name":"alakazam","description":"Its brain cells multiply continu ally until it dies. As a result, it remembers everything.","pokemonId":"65","imageURL":"http://"}
+{"name":"alakazam","description":"Closing both its eyes heightens all its other senses. This enables it to use its abilities to their extremes.","pokemonId":"65","imageURL":"http://"}
+{"name":"machop","description":"It trains by lifting rocks in the mountains. It can even pick up a GRAVELER with ease.","pokemonId":"66","imageURL":"http://"}
+{"name":"machop","description":"It loves to work out and build its muscles. It is never satisfied, even if it trains hard all day long.","pokemonId":"66","imageURL":"http://"}
+{"name":"machoke","description":"MACHOKEs thoroughly toned muscles possess the hardness of steel. This POKMON has so much strength, it can easily hold aloft a sumo wrestler on just one finger.","pokemonId":"67","imageURL":"http://"}
+{"name":"machoke","description":"It happily carries heavy cargo to toughen up. It willingly does hard work for people.","pokemonId":"67","imageURL":"http://"}
+{"name":"machamp","description":"MACHAMP is known as the POKMON that has mastered every kind of martial arts. If it grabs hold of the foe with its four arms, the battle is all but over. The hapless foe is thrown far over the horizon.","pokemonId":"68","imageURL":"http://"}
+{"name":"machamp","description":"Its four muscled arms slam foes with powerful punches and chops at blinding speed.","pokemonId":"68","imageURL":"http://"}
+{"name":"bellsprout","description":"Its bud looks like a human face. Because of the bud, it is rumored to be a type of legendary mandrake plant.","pokemonId":"69","imageURL":"http://"}
+{"name":"weepinbell","description":"Even though it is filled with ACID, it does not melt because it also oozes a neutral izing fluid.","pokemonId":"70","imageURL":"http://"}
+{"name":"weepinbell","description":"A Pokmon that appears to be a plant. It captures unwary prey by dousing them with a toxic powder.","pokemonId":"70","imageURL":"http://"}
+{"name":"victreebel","description":"The long vine extending from its head is waved about as if it were a living thing to attract prey. When an unsuspecting victim approaches, it is swallowed whole.","pokemonId":"71","imageURL":"http://"}
+{"name":"tentacool","description":"Drifts in shallow seas. Anglers who hook them by accident are often punished by its stinging acid.","pokemonId":"72","imageURL":"http://"}
+{"name":"tentacool","description":"Its body is virtually composed of water. It shoots strange beams from its crystal-like eyes.","pokemonId":"72","imageURL":"http://"}
+{"name":"tentacruel","description":"Its 80 tentacles can stretch and contract freely. They wrap around prey and weaken it with poison.","pokemonId":"73","imageURL":"http://"}
+{"name":"tentacruel","description":"It alerts others to danger by stridently flashing the red orbs on its head.","pokemonId":"73","imageURL":"http://"}
+{"name":"geodude","description":"It uses its arms to steadily climb steep mountain paths. It swings its fists around if angered.","pokemonId":"74","imageURL":"http://"}
+{"name":"geodude","description":"Most people may not notice, but a closer look should reveal that there are many GEODUDE around.","pokemonId":"74","imageURL":"http://"}
+{"name":"graveler","description":"It travels by rol ling on mountain paths. If it gains too much speed, it stops by running into huge rocks.","pokemonId":"75","imageURL":"http://"}
+{"name":"graveler","description":"A slow walker, it rolls to move. It pays no attention to any object that happens to be in its path.","pokemonId":"75","imageURL":"http://"}
+{"name":"golem","description":"GOLEM live up on mountains. If there is a large earthquake, these POKMON will come rolling down off the mountains en masse to the foothills below.","pokemonId":"76","imageURL":"http://"}
+{"name":"golem","description":"Even dynamite cant harm its hard, boulderlike body. It sheds its hide just once a year.","pokemonId":"76","imageURL":"http://"}
+{"name":"ponyta","description":"A PONYTA is very weak at birth. It can barely stand up. Its legs become stronger as it stumbles and falls while trying to keep up with its parent.","pokemonId":"77","imageURL":"http://"}
+{"name":"ponyta","description":"As a newborn, it can barely stand. However, through galloping, its legs are made tougher and faster.","pokemonId":"77","imageURL":"http://"}
+{"name":"rapidash","description":"Very competitive, this POKMON will chase anything that moves fast in the hopes of racing it.","pokemonId":"78","imageURL":"http://"}
+{"name":"slowpoke","description":"Incredibly slow and sluggish. It is quite content to loll about without worrying about the time.","pokemonId":"79","imageURL":"http://"}
+{"name":"slowpoke","description":"A sweet sap leaks from its tails tip. Although not nutritious, the tail is pleasant to chew on.","pokemonId":"79","imageURL":"http://"}
+{"name":"slowbro","description":"SLOWBROs tail has a SHELLDER firmly attached with a bite. As a result, the tail cant be used for fishing anymore. This causes SLOWBRO to grudgingly swim and catch prey instead.","pokemonId":"80","imageURL":"http://"}
+{"name":"magnemite","description":"Uses anti-gravity to stay suspended. Appears without warning and uses THUNDER WAVE and similar moves.","pokemonId":"81","imageURL":"http://"}
+{"name":"magnemite","description":"The units at its sides generate electromagnetic waves that keep it airborne. It feeds on electricity.","pokemonId":"81","imageURL":"http://"}
+{"name":"magneton","description":"The MAGNEMITE are united by a mag netism so power ful, it dries all moisture in its vicinities.","pokemonId":"82","imageURL":"http://"}
+{"name":"magneton","description":"The MAGNEMITE are united by a magnetism so powerful, it dries all moisture in its vicinity.","pokemonId":"82","imageURL":"http://"}
+{"name":"farfetchd","description":"FARFETCHD is always seen with a stick from a plant of some sort. Apparently, there are good sticks and bad sticks. This POKMON has been known to fight with others over sticks.","pokemonId":"83","imageURL":"http://"}
+{"name":"farfetchd","description":"It always walks about with a plant stalk clamped in its beak. The stalk is used for building its nest.","pokemonId":"83","imageURL":"http://"}
+{"name":"doduo","description":"A bird that makes up for its poor flying with its fast foot speed. Leaves giant footprints.","pokemonId":"84","imageURL":"http://"}
+{"name":"dodrio","description":"It collects data and plans three times as wisely, but it may think too much and be come immobilized.","pokemonId":"85","imageURL":"http://"}
+{"name":"dodrio","description":"If one of the heads gets to eat, the others will be satisfied, too, and they will stop squabbling.","pokemonId":"85","imageURL":"http://"}
+{"name":"seel","description":"SEEL hunts for prey in the frigid sea underneath sheets of ice. When it needs to breathe, it punches a hole through the ice with the sharply protruding section of its head.","pokemonId":"86","imageURL":"http://"}
+{"name":"dewgong","description":"Its entire body is a snowy-white. Unharmed by even intense cold, it swims powerfully in icy waters.","pokemonId":"87","imageURL":"http://"}
+{"name":"dewgong","description":"It loves frigid seas with ice floes. It uses its long tail to change swimming direction quickly.","pokemonId":"87","imageURL":"http://"}
+{"name":"grimer","description":"Born from polluted sludge in the sea, GRIMERs favorite food is anything filthy. They feed on wastewater pumped out from factories.","pokemonId":"88","imageURL":"http://"}
+{"name":"muk","description":"They love to gath er in smelly areas where sludge ac cumulates, making the stench around them worse.","pokemonId":"89","imageURL":"http://"}
+{"name":"muk","description":"Its body is made of a powerful poison. Touching it accidentally will cause a fever that requires bed rest.","pokemonId":"89","imageURL":"http://"}
+{"name":"shellder","description":"At night, it burrows a hole in the seafloor with its broad tongue to make a place to sleep. While asleep, it closes its shell, but leaves its tongue hanging out.","pokemonId":"90","imageURL":"http://"}
+{"name":"cloyster","description":"For protection, it uses its harder- than-diamonds shell. It also shoots spikes from the shell.","pokemonId":"91","imageURL":"http://"}
+{"name":"cloyster","description":"CLOYSTER that live in seas with harsh tidal currents grow large, sharp spikes on their shells.","pokemonId":"91","imageURL":"http://"}
+{"name":"gastly","description":"GASTLY is largely composed of gaseous matter. When exposed to a strong wind, the gaseous body quickly dwindles away. Groups of this POKMON cluster under the eaves of houses to escape the ravages of wind.","pokemonId":"92","imageURL":"http://"}
+{"name":"gastly","description":"Born from gases, anyone would faint if engulfed by its gaseous body, which contains poison.","pokemonId":"92","imageURL":"http://"}
+{"name":"haunter","description":"Because of its ability to slip through block walls, it is said to be from another dimension.","pokemonId":"93","imageURL":"http://"}
+{"name":"gengar","description":"Under a full moon, this POKMON likes to mimic the shadows of people and laugh at their fright.","pokemonId":"94","imageURL":"http://"}
+{"name":"gengar","description":"Lurking in the shadowy corners of rooms, it awaits chances to steal its preys life force.","pokemonId":"94","imageURL":"http://"}
+{"name":"onix","description":"It twists and squirms through the ground. The thunderous roar of its tunneling echoes a long way.","pokemonId":"95","imageURL":"http://"}
+{"name":"onix","description":"It twists and squirms through the ground. The thunderous roar of its tunneling echoes a long way.","pokemonId":"95","imageURL":"http://"}
+{"name":"drowzee","description":"When it twitches its nose, it can tell where someone is sleeping and what that person is dreaming about.","pokemonId":"96","imageURL":"http://"}
+{"name":"drowzee","description":"Puts enemies to sleep, then eats their dreams. Occasionally gets sick from eating only bad dreams. ","pokemonId":"96","imageURL":"http://"}
+{"name":"hypno","description":"When it locks eyes with an enemy, it will use a mix of PSI moves such as HYPNOSIS and CONFUSION.","pokemonId":"97","imageURL":"http://"}
+{"name":"krabby","description":"The pincers break off easily. If it loses a pincer, it somehow becomes incapable of walk ing sideways.","pokemonId":"98","imageURL":"http://"}
+{"name":"krabby","description":"It lives in burrows dug on sandy beaches. Its pincers fully grow back if they are broken in battle.","pokemonId":"98","imageURL":"http://"}
+{"name":"kingler","description":"Its large and hard pincer has 10,000- horsepower strength. However, being so big, it is unwieldy to move.","pokemonId":"99","imageURL":"http://"}
+{"name":"voltorb","description":"It rolls to move. If the ground is uneven, a sudden jolt from hitting a bump can cause it to explode.","pokemonId":"100","imageURL":"http://"}
+{"name":"voltorb","description":"It was discovered when Pok Balls were introduced. It is said that there is some connection.","pokemonId":"100","imageURL":"http://"}
+{"name":"electrode","description":"One of ELECTRODEs characteristics is its attraction to electricity. It is a problematical POKMON that congregates mostly at electrical power plants to feed on electricity that has just been generated.","pokemonId":"101","imageURL":"http://"}
+{"name":"electrode","description":"It stores an overflowing amount of electric energy inside its body. Even a small shock makes it explode.","pokemonId":"101","imageURL":"http://"}
+{"name":"exeggcute","description":"Its six eggs converse using telepathy. They can quickly gather if they become separated.","pokemonId":"102","imageURL":"http://"}
+{"name":"exeggutor","description":"If a head drops off, it emits a telepathic call in search of others to form an EXEGGCUTE cluster.","pokemonId":"103","imageURL":"http://"}
+{"name":"exeggutor","description":"It is called The Walking Jungle. If a head grows too big, it falls off and becomes an Exeggcute.","pokemonId":"103","imageURL":"http://"}
+{"name":"cubone","description":"Because it never removes its skull helmet, no one has ever seen this POKMONs real face.","pokemonId":"104","imageURL":"http://"}
+{"name":"marowak","description":"It has been seen pounding boulders with the bone it carries in order to tap out mes sages to others.","pokemonId":"105","imageURL":"http://"}
+{"name":"marowak","description":"From its birth, this savage Pokmon constantly holds bones. It is skilled in using them as weapons.","pokemonId":"105","imageURL":"http://"}
+{"name":"hitmonlee","description":"Its legs freely stretch and contract. Using these springlike limbs, it bowls over foes with devastating kicks. After battle, it rubs down its tired legs.","pokemonId":"106","imageURL":"http://"}
+{"name":"hitmonchan","description":"Punches in cork screw fashion. It can punch its way through a concrete wall in the same way as a drill.","pokemonId":"107","imageURL":"http://"}
+{"name":"hitmonchan","description":"Its punches slice the air. They are launched at such high speed, even a slight graze could cause a burn.","pokemonId":"107","imageURL":"http://"}
+{"name":"lickitung","description":"Its tongue is twice the length of its body. It can be moved like an arm for grabbing food and attacking.","pokemonId":"108","imageURL":"http://"}
+{"name":"koffing","description":"Because it stores several kinds of toxic gases in its body, it is prone to exploding without warning.","pokemonId":"109","imageURL":"http://"}
+{"name":"koffing","description":"Lighter-than-air gases in its body keep it aloft. The gases not only smell, they are also explosive.","pokemonId":"109","imageURL":"http://"}
+{"name":"weezing","description":"WEEZING loves the gases given off by rotted kitchen garbage. This POKMON will find a dirty, unkempt house and make it its home. At night, when the people in the house are asleep, it will go through the trash.","pokemonId":"110","imageURL":"http://"}
+{"name":"rhyhorn","description":"Its massive bones are 1000 times harder than human bones. It can easily knock a trailer flying.","pokemonId":"111","imageURL":"http://"}
+{"name":"rhyhorn","description":"Its body is clad in a thick hide, and its tackles topple buildings. Unfortunately, it is not smart.","pokemonId":"111","imageURL":"http://"}
+{"name":"rhydon","description":"Its rugged hide protects it from even the heat of lava. However, the hide also makes it insensitive.","pokemonId":"112","imageURL":"http://"}
+{"name":"rhydon","description":"Its rugged hide protects it from even the heat of lava. However, the hide also makes it insensitive.","pokemonId":"112","imageURL":"http://"}
+{"name":"chansey","description":"People try to catch it for its extremely nutritious eggs, but it rarely can be found.","pokemonId":"113","imageURL":"http://"}
+{"name":"chansey","description":"A kindly Pokmon that lays highly nutritious eggs and shares them with injured Pokmon or people.","pokemonId":"113","imageURL":"http://"}
+{"name":"tangela","description":"Blue plant vines cloak the POKMONs identity in a tangled mass. It entangles anything that gets close.","pokemonId":"114","imageURL":"http://"}
+{"name":"kangaskhan","description":"The infant rarely ventures out of its mother's protective pouch until it is 3 years old.","pokemonId":"115","imageURL":"http://"}
+{"name":"kangaskhan","description":"If it is safe, the young gets out of the belly pouch to play. The adult keeps a close eye on the youngster.","pokemonId":"115","imageURL":"http://"}
+{"name":"horsea","description":"When they're in a safe location, they can be seen playfully tangling their tails together.","pokemonId":"116","imageURL":"http://"}
+{"name":"horsea","description":"It makes its nest in the shade of corals. If it senses danger, it spits murky ink and flees.","pokemonId":"116","imageURL":"http://"}
+{"name":"seadra","description":"Its body bristles with sharp spikes. Carelessly trying to touch it could cause fainting from the spikes.","pokemonId":"117","imageURL":"http://"}
+{"name":"goldeen","description":"Its dorsal, pecto ral and tail fins wave elegantly in water. That is why it is known as the water dancer.","pokemonId":"118","imageURL":"http://"}
+{"name":"goldeen","description":"Though it appears very elegant when swimming with fins unfurled, it can jab powerfully with its horn.","pokemonId":"118","imageURL":"http://"}
+{"name":"seaking","description":"Using its horn, it bores holes in riverbed boulders, making nests to prevent its eggs from washing away.","pokemonId":"119","imageURL":"http://"}
+{"name":"seaking","description":"During spawning season, SEAKING gather from all over, causing rivers to appear a brilliant red.","pokemonId":"119","imageURL":"http://"}
+{"name":"staryu","description":"When the stars twinkle at night, it floats up from the sea floor, and its body's center core flickers.","pokemonId":"120","imageURL":"http://"}
+{"name":"staryu","description":"As long as its red core remains, it can regenerate its body instantly, even if its torn apart.","pokemonId":"120","imageURL":"http://"}
+{"name":"starmie","description":"This POKMON has a geometric body. Because of its body, the locals suspect that it is an alien creature.","pokemonId":"121","imageURL":"http://"}
+{"name":"mr-mime","description":"A skilled mime from birth, it gains the ability to create invisi ble objects as it matures.","pokemonId":"122","imageURL":"http://"}
+{"name":"mr-mime","description":"A skilled mime from birth, it gains the ability to create invisible objects as it matures.","pokemonId":"122","imageURL":"http://"}
+{"name":"scyther","description":"It's very proud of its speed. It moves so fast that its opponent does not even know what knocked it down.","pokemonId":"123","imageURL":"http://"}
+{"name":"scyther","description":"The sharp scythes on its forearms become increasingly sharp by cutting through hard objects.","pokemonId":"123","imageURL":"http://"}
+{"name":"jynx","description":"It speaks using a language that sounds human. Research is under way to determine what is being said.","pokemonId":"124","imageURL":"http://"}
+{"name":"electabuzz","description":"If a major power outage occurs, it is certain that this POKMON has eaten electricity at a power plant.","pokemonId":"125","imageURL":"http://"}
+{"name":"electabuzz","description":"Electricity runs across the surface of its body. In darkness, its entire body glows a whitish-blue.","pokemonId":"125","imageURL":"http://"}
+{"name":"magmar","description":"In battle, MAGMAR blows out intensely hot flames from all over its body to intimidate its opponent. This POKMONs fiery bursts create heat waves that ignite grass and trees in its surroundings.","pokemonId":"126","imageURL":"http://"}
+{"name":"magmar","description":"Found near the mouth of a volcano. This fire-breathers body temperature is nearly 2,200 degree Fahrenheit. ","pokemonId":"126","imageURL":"http://"}
+{"name":"pinsir","description":"If it fails to crush the foe in its pincers, it will swing around and toss the opponent.","pokemonId":"127","imageURL":"http://"}
+{"name":"tauros","description":"After heightening its will to fight by whipping itself with its three tails, it charges at full speed.","pokemonId":"128","imageURL":"http://"}
+{"name":"tauros","description":"Once it takes aim at its foe, it makes a headlong charge. It is famous for its violent nature.","pokemonId":"128","imageURL":"http://"}
+{"name":"magikarp","description":"Its swimming muscles are weak, so it is easily washed away by currents. In places where water pools, you can see many MAGIKARP deposited there by the flow.","pokemonId":"129","imageURL":"http://"}
+{"name":"magikarp","description":"It is virtually worthless in terms of both power and speed. It is the most weak and pathetic Pokmon in the world.","pokemonId":"129","imageURL":"http://"}
+{"name":"gyarados","description":"It has an extremely aggressive nature. The HYPER BEAM it shoots from its mouth totally incinerates all targets.","pokemonId":"130","imageURL":"http://"}
+{"name":"gyarados","description":"Rarely seen in the wild. Huge and vicious, it is capable of destroying entire cities in a rage.","pokemonId":"130","imageURL":"http://"}
+{"name":"lapras","description":"It loves crossing the sea with people and Pokmon on its back. It understands human speech.","pokemonId":"131","imageURL":"http://"}
+{"name":"ditto","description":"Its transformation ability is per fect. However, if made to laugh, it can't maintain its disguise.","pokemonId":"132","imageURL":"http://"}
+{"name":"ditto","description":"It can reconstitute its entire cellular structure to change into what it sees, but it returns to normal when it relaxes.","pokemonId":"132","imageURL":"http://"}
+{"name":"eevee","description":"An extremely rare POKMON that may evolve in a number of different ways depending on stimuli.","pokemonId":"133","imageURL":"http://"}
+{"name":"vaporeon","description":"Lives close to water. Its long tail is ridged with a fin which is often mistaken for a mermaid's.","pokemonId":"134","imageURL":"http://"}
+{"name":"vaporeon","description":"Its cell composition is similar to water molecules. As a result, it can melt away into water.","pokemonId":"134","imageURL":"http://"}
+{"name":"jolteon","description":"Every hair on its body starts to stand sharply on end if it becomes charged with electricity.","pokemonId":"135","imageURL":"http://"}
+{"name":"jolteon","description":"If agitated, it uses electricity to straighten out its fur and launch it in small bunches.","pokemonId":"135","imageURL":"http://"}
+{"name":"flareon","description":"FLAREONs fluffy fur releases heat into the air so that its body does not get excessively hot. Its body temperature can rise to a maximum of 1,650 degrees F.","pokemonId":"136","imageURL":"http://"}
+{"name":"flareon","description":"It has a flame bag inside its body. After inhaling deeply, it blows out flames of nearly 3,000 degrees Fahrenheit.","pokemonId":"136","imageURL":"http://"}
+{"name":"porygon","description":"The worlds first artificially created Pokmon. It can travel through electronic space.","pokemonId":"137","imageURL":"http://"}
+{"name":"omanyte","description":"In prehistoric times, it swam on the sea floor, eating plankton. Its fossils are sometimes found.","pokemonId":"138","imageURL":"http://"}
+{"name":"omanyte","description":"A prehistoric Pokmon that lived in the primordial sea, it swims by twisting its 10 tentacles about.","pokemonId":"138","imageURL":"http://"}
+{"name":"omastar","description":"Despite having strong fangs and tentacles, it went extinct when its heavy shell made it unable to catch prey.","pokemonId":"139","imageURL":"http://"}
+{"name":"kabuto","description":"This POKMON lived in ancient times. On rare occasions, it has been discovered as a living fossil.","pokemonId":"140","imageURL":"http://"}
+{"name":"kabuto","description":"It is thought to have inhabited beaches 300 million years ago. It is protected by a stiff shell.","pokemonId":"140","imageURL":"http://"}
+{"name":"kabutops","description":"It swims freely through water. It catches prey with its scythe-like arms and drains the victims fluids.","pokemonId":"141","imageURL":"http://"}
+{"name":"aerodactyl","description":"A vicious POKMON from the distant past, it appears to have flown by spreading its wings and gliding.","pokemonId":"142","imageURL":"http://"}
+{"name":"aerodactyl","description":"A Pokmon that roamed the skies in the dinosaur era. Its teeth are like saw blades.","pokemonId":"142","imageURL":"http://"}
+{"name":"snorlax","description":"SNORLAXs typical day consists of nothing more than eating and sleeping. It is such a docile POKMON that there are children who use its big belly as a place to play.","pokemonId":"143","imageURL":"http://"}
+{"name":"snorlax","description":"It is not satisfied unless it eats over 880 pounds of food every day. When it is done eating, it goes promptly to sleep.","pokemonId":"143","imageURL":"http://"}
+{"name":"articuno","description":"A legendary bird POKMON that is said to appear to doomed people who are lost in icy mountains.","pokemonId":"144","imageURL":"http://"}
+{"name":"zapdos","description":"Legendary bird POKMON. They say lightning caused by the flapping of its wings causes summer storms.","pokemonId":"145","imageURL":"http://"}
+{"name":"zapdos","description":"A legendary Pokmon that is said to live in thunderclouds. It freely controls lightning bolts.","pokemonId":"145","imageURL":"http://"}
+{"name":"moltres","description":"One of the legendary bird Pokmon. It is said that its appearance indicates the coming of spring.","pokemonId":"146","imageURL":"http://"}
+{"name":"dratini","description":"DRATINI continually molts and sloughs off its old skin. It does so because the life energy within its body steadily builds to reach uncontrollable levels.","pokemonId":"147","imageURL":"http://"}
+{"name":"dragonair","description":"A mystical POKMON that exudes a gentle aura. Has the ability to change climate conditions.","pokemonId":"148","imageURL":"http://"}
+{"name":"dragonair","description":"They say that if it emits an aura from its whole body, the weather will begin to change instantly.","pokemonId":"148","imageURL":"http://"}
+{"name":"dragonite","description":"It is said that somewhere in the ocean lies an island where these gather. Only they live there.","pokemonId":"149","imageURL":"http://"}
+{"name":"dragonite","description":"It is said to make its home somewhere in the sea. It guides crews of shipwrecks to shore.","pokemonId":"149","imageURL":"http://"}
+{"name":"mewtwo","description":"A Pokmon created by recombining MEWs genes. Its said to have the most savage heart among Pokmon.","pokemonId":"150","imageURL":"http://"}
+{"name":"mew","description":"Its DNA is said to contain the genet ic codes of all POKMON, so it can use all kinds of techniques.","pokemonId":"151","imageURL":"http://"}
+{"name":"mew","description":"Because it can use all kinds of moves, many scientists believe Mew to be the ancestor of Pokmon.","pokemonId":"151","imageURL":"http://"}
+{"name":"chikorita","description":"Its pleasantly aromatic leaf has the ability to check humidity and temperature.","pokemonId":"152","imageURL":"http://"}
+{"name":"bayleef","description":"The buds that ring its neck give off a spicy aroma that perks people up.","pokemonId":"153","imageURL":"http://"}
+{"name":"meganium","description":"MEGANIUMs breath has the power to revive dead grass and plants. It can make them healthy again.","pokemonId":"154","imageURL":"http://"}
+{"name":"cyndaquil","description":"CYNDAQUIL protects itself by flaring up the flames on its back. The flames are vigorous if the POKMON is angry. However, if it is tired, the flames splutter fitfully with incomplete combustion.","pokemonId":"155","imageURL":"http://"}
+{"name":"quilava","description":"This POKMON is fully covered by nonflammable fur. It can withstand any kind of fire attack.","pokemonId":"156","imageURL":"http://"}
+{"name":"quilava","description":"It intimidates foes with the heat of its flames. The fire burns more strongly when it readies to fight.","pokemonId":"156","imageURL":"http://"}
+{"name":"typhlosion","description":"It has a secret, devastating move. It rubs its blazing fur together to cause huge explosions.","pokemonId":"157","imageURL":"http://"}
+{"name":"totodile","description":"It has the habit of biting anything with its developed jaws. Even its Trainer needs to be careful.","pokemonId":"158","imageURL":"http://"}
