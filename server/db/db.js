@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var gameBoardData = require('../data/gameBoardData.js');
 var gymLeaderData = require('../data/gymLeaderData.js');
 var pokemonData = require('../data/pokemonData.js');
-// var pokemonData = require('../../pokemonData.js');
 var usersData = require('../data/usersData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
 
