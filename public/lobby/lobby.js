@@ -1,5 +1,5 @@
 angular.module('pokemon.lobby', [])
-.controller('lobbyController', function ($scope, $location, gameFactory, $window) {
+.controller('lobbyController', function (pokemonSocket, $scope, $location, gameFactory, $window) {
 
   $scope.lobbytest = "Welcome to the Lobby!";
   $scope.gamename;
@@ -13,9 +13,18 @@ angular.module('pokemon.lobby', [])
   
   
   // DEV Todo: $scope.users has to be got from sockets
-  $scope.users = [ 
-    {facebookId: "Facebook123", playerName: "Bob"}
-  ];
+  // $scope.users = [ 
+  //   {facebookId: "Facebook123", playerName: "Bob"}
+  // ];
+
+  pokemonSocket.on('joinLobby', function(currentUsers) {
+    console.log('from joinLobby',currentUsers);
+    $scope.users = currentUsers;
+  });
+
+  pokemonSocket.on('currentUsers', function(userArray) {
+    $scope.users = userArray;
+  });
 
   var initialize = function () {
     gameFactory.lobbyInit($scope.gameId)
@@ -26,6 +35,8 @@ angular.module('pokemon.lobby', [])
         if($scope.gameCreator !== $scope.facebookId) {
           $scope.myGameCreator = true;
         } 
+        pokemonSocket.emit('enteredLobby', {gameId: $scope.gameId});
+
       }).catch(function (error) {
         console.error(error);
       });

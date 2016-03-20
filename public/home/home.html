@@ -11,13 +11,13 @@
     <br />
     <h2><b>{{playerName}}'s Games</b></h2>
       <li ng-repeat = "game in games track by $index">
-        <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
       </li>
     <br />  
     <h2><b>All Available Games</b></h2>
       <li ng-repeat = "game in games track by $index">
-        <a href='#/lobby' ng-click='localStorage(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
       </li>
     <br /> 
-    <a href='#/lobby'>Go To Lobby</a>
+    <input type='button' ng-click='changeUserInfo()'>
 </div>
