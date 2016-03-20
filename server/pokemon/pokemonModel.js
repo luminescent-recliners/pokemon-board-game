@@ -14,6 +14,7 @@ var pokemonSchema = mongoose.Schema({
     default: true
   },
   imageURL: String,
+  gifURL: String,
   specs: {}
 });
 
