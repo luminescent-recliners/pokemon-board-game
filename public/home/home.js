@@ -1,6 +1,6 @@
 angular.module('pokemon.home', [])
 
-.controller('homeController',function($scope, userFactory, $window, pokemonSocket) {
+.controller('homeController',function($location, $scope, userFactory, $window, pokemonSocket) {
   //happen after face book auth
   $window.localStorage.setItem('pokemon.facebookId', "Facebook123");
   $window.localStorage.setItem('pokemon.playerName', "Bob");
@@ -31,8 +31,18 @@ angular.module('pokemon.home', [])
     $scope.newGameName = '';
   };
 
-  $scope.localStorage = function(id) {
+  $scope.joinLobby = function(id) {
     $window.localStorage.setItem('pokemon.gameId', id);
+    $location.path('/lobby');
+
+    pokemonSocket.emit('joinLobby', {
+      gameId: id,
+      user: {
+        playerName: $scope.playerName,
+        facebookId: $scope.facebookId
+      }
+    });
+
   };
 
   $scope.userGames = function() {
@@ -48,6 +58,15 @@ angular.module('pokemon.home', [])
     });
   }
   $scope.userGames();
+
+  // test function
+  $scope.changeUserInfo = function() {
+    $window.localStorage.setItem('pokemon.facebookId', "Facebook1234");
+    $window.localStorage.setItem('pokemon.playerName', "Henry");
+    $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
+    $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+    
+  }
 });
 
  
