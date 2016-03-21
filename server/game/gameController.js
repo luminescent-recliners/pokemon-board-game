@@ -234,9 +234,22 @@ module.exports = {
       .then(function(games){
         var results = [];
         for(var i = 0; i < games.length; i++) {
+
+          // extract the names of the players in game
+          var playersInGame = [];
+          for(var j= 0; j < games[i].users.length; j++) {
+            playersInGame.push({
+              facebookId: games[i].users[j].facebookId,
+              playerName:  games[i].users[j].playerName
+            });
+          }
+          
           var resObj = {
             gameId: games[i].gameId,
-            gameName: games[i].name
+            gameName: games[i].name,
+            gameStarted:  games[i].gameStarted,
+            gamePlayers: playersInGame,
+            gameCreator:  games[i].gameCreator
           };
           results.push(resObj);
         }

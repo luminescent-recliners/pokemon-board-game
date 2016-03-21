@@ -11,14 +11,14 @@
     </div>
     <br />
     <h2><b>{{playerName}}'s Games</b></h2>
-      <li ng-repeat = "game in games track by $index">
+      <li ng-repeat = "game in myGames track by $index">
         <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
       </li>
     <br />  
     <h2><b>All Available Games</b></h2>
-      <li ng-repeat = "game in games track by $index">
+      <li ng-repeat = "game in games track by $index" ng-hide='game.gameStarted'>
         <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
       </li>
     <br /> 
-    <input type='button' ng-click='changeUserInfo()'>
+    <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
 </div>
