@@ -43,6 +43,10 @@ io.on('connection', function(socket){
     io.to(data.gameId).emit('currentUsers', userArray);
   });
 
+  socket.on('creatorStartsGame', function(data) {
+    io.to(data.gameId).emit('moveAllPlayersToSelectPokemon');
+  });
+
 });
 
 

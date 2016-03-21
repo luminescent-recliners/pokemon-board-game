@@ -11,19 +11,16 @@ angular.module('pokemon.lobby', [])
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   
-  
-  // DEV Todo: $scope.users has to be got from sockets
-  // $scope.users = [ 
-  //   {facebookId: "Facebook123", playerName: "Bob"}
-  // ];
-
   pokemonSocket.on('joinLobby', function(currentUsers) {
-    console.log('from joinLobby',currentUsers);
     $scope.users = currentUsers;
   });
 
   pokemonSocket.on('currentUsers', function(userArray) {
     $scope.users = userArray;
+  });
+
+  pokemonSocket.on('moveAllPlayersToSelectPokemon', function( ){
+    $location.path('/starter');
   });
 
   var initialize = function () {
@@ -35,7 +32,7 @@ angular.module('pokemon.lobby', [])
         if($scope.gameCreator !== $scope.facebookId) {
           $scope.myGameCreator = true;
         } 
-        pokemonSocket.emit('enteredLobby', {gameId: $scope.gameId});
+        pokemonSocket.emit('enteredLobby', { gameId: $scope.gameId });
 
       }).catch(function (error) {
         console.error(error);
@@ -45,7 +42,7 @@ angular.module('pokemon.lobby', [])
   $scope.getStarterView = function () {
     gameFactory.addUsers($scope.gameId, $scope.users)
       .then(function (resp) {
-        $location.path('/starter');
+        pokemonSocket.emit('creatorStartsGame',{ gameId: $scope.gameId });
       }).catch(function (error) {
         console.error(error);
       });
