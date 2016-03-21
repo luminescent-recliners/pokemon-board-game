@@ -16,6 +16,8 @@ angular.module('pokemon.home', [])
   $scope.myGames = [];
 
   pokemonSocket.on('updateAvailGames', function(newGame) {
+    $scope.games = [];
+    $scope.myGames = [];
     $scope.userGames();
   });
 
@@ -38,7 +40,9 @@ angular.module('pokemon.home', [])
           gameId: resp.gameId,
           gameName: resp.name
         };
-        $scope.games.push(userGame);
+        // $scope.games.push(userGame);
+        // $scope.myGames.push(userGame);
+        pokemonSocket.emit('newGame', userGame);
        }).catch(function (error) {
         console.error(error);
       });
@@ -66,7 +70,7 @@ angular.module('pokemon.home', [])
     userFactory.getGames()
     .then(function(games) {
       $scope.games = games;
-
+      console.log('userGame game', games);
       // figure out if player is in any of the started games
       // should this logic go on the server side?
       for(var i = 0; i < games.length; i++) {
@@ -75,6 +79,11 @@ angular.module('pokemon.home', [])
             if(games[i].gamePlayers[j].facebookId === $scope.facebookId) {
               $scope.myGames.push(games[i]);
             }
+          }
+        } else {
+          console.log('from userGames :', games[i].gameCreator.facebookId );
+          if(games[i].gameCreator.facebookId === $scope.facebookId) {
+            $scope.myGames.push(games[i]);
           }
         }
       }

@@ -248,7 +248,8 @@ module.exports = {
             gameId: games[i].gameId,
             gameName: games[i].name,
             gameStarted:  games[i].gameStarted,
-            gamePlayers: playersInGame
+            gamePlayers: playersInGame,
+            gameCreator:  games[i].gameCreator
           };
           results.push(resObj);
         }
