@@ -12,7 +12,8 @@ angular.module('pokemon.home', [])
   // this should happen after face book auth
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
-  $scope.games;
+  $scope.games = [];
+  $scope.myGames = [];
 
   pokemonSocket.on('updateAvailGames', function(newGame) {
     $scope.userGames();
@@ -64,9 +65,18 @@ angular.module('pokemon.home', [])
   $scope.userGames = function() {
     userFactory.getGames()
     .then(function(games) {
-      $scope.games = [];
+      $scope.games = games;
+
+      // figure out if player is in any of the started games
+      // should this logic go on the server side?
       for(var i = 0; i < games.length; i++) {
-        $scope.games.push(games[i]);
+        if(games[i].gameStarted){
+          for(var j = 0; j < games[i].gamePlayers.length; j++){
+            if(games[i].gamePlayers[j].facebookId === $scope.facebookId) {
+              $scope.myGames.push(games[i]);
+            }
+          }
+        }
       }
     })
     .catch(function(error) {

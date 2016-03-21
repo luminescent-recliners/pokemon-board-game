@@ -61,7 +61,10 @@ var createGame = function() {
       var newGame = new Games({
         gameId: 1,
         name: 'Hoooli Dungeon',
-        users: [],
+        users: [{
+          facebookId: 'Facebook123',
+          playerName: 'Bob'
+        }],
         gameBoard: gameBoardData,
         availablePokemon: availablePokemonData,
         availableItemCards: [],
