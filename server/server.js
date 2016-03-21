@@ -21,6 +21,8 @@ app.use(express.static(__dirname + '/../public'));
 
 // for sockets
 var usersInGames = {};
+var starterPokemonLists = {};
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function() {
@@ -41,6 +43,10 @@ io.on('connection', function(socket){
   socket.on('enteredLobby', function(data) {
     var userArray = usersInGames[data.gameId];
     io.to(data.gameId).emit('currentUsers', userArray);
+  });
+
+  socket.on('creatorStartsGame', function(data) {
+    io.to(data.gameId).emit('moveAllPlayersToSelectPokemon');
   });
 
 });
