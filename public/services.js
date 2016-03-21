@@ -150,6 +150,7 @@ angular.module('services', [])
       return resp.data;
     });
   };
+
   var getAvailablePokemon = function(gameId, userId) {
     return $http({
       method: 'GET',
@@ -177,13 +178,28 @@ angular.module('services', [])
     });
   };
 
+  var getRemainingStarterPokemon = function( gameId ) {
+    return $http({
+      method: "GET",
+      url: '/api/games/remainingStarterPokemon',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function(resp) {
+      console.log("response from server ", resp.data);
+      return resp.data;
+    });
+  };
+
   return {
     lobbyInit: lobbyInit,
     addUsers: addUsers,
     getGameTurn: getGameTurn,
     catchPokemon: catchPokemon,
     getAvailablePokemon: getAvailablePokemon,
-    updateTurn: updateTurn
+    updateTurn: updateTurn,
+    getRemainingStarterPokemon: getRemainingStarterPokemon
   };
 
 })

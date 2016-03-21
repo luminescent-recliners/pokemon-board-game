@@ -21,6 +21,8 @@ app.use(express.static(__dirname + '/../public'));
 
 // for sockets
 var usersInGames = {};
+var starterPokemonLists = {};
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function() {
