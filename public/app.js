@@ -10,11 +10,12 @@ angular.module('pokemon', [
   'pokemon.event',
   'pokemon.city',
   'btford.socket-io',
+  'pokemon.auth',
   'ngRoute'
 ])
 .config(function($routeProvider) {
   $routeProvider
-    .when("/", {
+    .when("/home", {
       templateUrl: 'home/home.html',
       conroller: 'homeController'
     })
@@ -41,5 +42,9 @@ angular.module('pokemon', [
     .when('/event', {
       templateUrl: 'event/event.html',
       controller: 'eventController'
+    })
+    .when("/", {
+      templateUrl: 'auth/signin.html',
+      conroller: 'authController'
     });
 });
