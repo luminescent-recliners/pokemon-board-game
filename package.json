@@ -28,6 +28,7 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "express": "^4.13.4",
     "express-routes": "0.0.2",
     "express-session": "^1.13.0",
