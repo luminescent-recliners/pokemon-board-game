@@ -31,7 +31,7 @@ module.exports = {
         game.gameTurn = {
           facebookId: gameTurnFacebookId,
           playerName: gameTurnPlayerName
-        }
+        };
         game.gameBoard['1'].users.push(currentUser);
         game.markModified('users');
         game.markModified('gameTurn');
@@ -199,7 +199,7 @@ module.exports = {
     });
   },
 
-// creates a new game with game name, game Id, gameCreator object and initial static data
+  // creates a new game with game name, game Id, gameCreator object and initial static data
   addGame: function(req, res, next) {
     findGames()
     .then(function(games) {
@@ -377,6 +377,20 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
+  },
+
+  getRemainingStarterPokemon: function(req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({ gameId: gameId })
+    .then(function(game) {
+      availPokemonIds = game.availablePokemon.starter;
+
+      pokemonController.findPokemons({ pokemonId: { $in: availPokemonIds}})
+      .then(function(availPokemon) {
+        res.send(availPokemon);
+      });
+    });
   }
 
 };

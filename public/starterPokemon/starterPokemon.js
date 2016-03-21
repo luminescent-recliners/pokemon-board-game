@@ -3,8 +3,6 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
 .controller('starterController', function($scope, $location, userFactory, gameFactory, $window){
 
   $scope.select = false;
-
-  // post dev values
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
@@ -12,14 +10,15 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
   $scope.selectedPokemon = {};
   $scope.gameTurnFacebookId;
 
+
   // TODO:  get request from pokemon table - and sort out game logic for available pokemon for player turn selections
   $scope.list = [ 
-    {id: 52, name: 'Meowth', specs: { diceRoll: null, attackname: 'Bite' , strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/52.png'},
-    {id: 07, name: 'Squirtle', specs: { diceRoll: null, attackname: 'WaterGun', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/7.png'},
-    {id: 01, name: 'Bulbasaur', specs: { diceRoll: null, attackname: 'LeechSeed', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/1.png'},
-    {id: 35, name: 'Clefairy', specs: { diceRoll: null, attackname: 'Pound', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/35.png'},
-    {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'},
-    {id: 04, name: 'Charmander', specs: { diceRoll: null, attackname: 'Ember', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/4.png'}
+    // {id: 52, name: 'Meowth', specs: { diceRoll: null, attackname: 'Bite' , strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/52.png'},
+    // {id: 07, name: 'Squirtle', specs: { diceRoll: null, attackname: 'WaterGun', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/7.png'},
+    // {id: 01, name: 'Bulbasaur', specs: { diceRoll: null, attackname: 'LeechSeed', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/1.png'},
+    // {id: 35, name: 'Clefairy', specs: { diceRoll: null, attackname: 'Pound', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/35.png'},
+    // {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'},
+    // {id: 04, name: 'Charmander', specs: { diceRoll: null, attackname: 'Ember', strength: 4}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/4.png'}
   ];
 
   $scope.initialize = function () {
@@ -30,6 +29,15 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
         if($scope.facebookId !== $scope.gameTurnFacebookId) {
           $scope.select = true;
         }
+        
+        gameFactory.getRemainingStarterPokemon($scope.gameId)
+          .then(function(resp2) {
+            console.log('from initialize', resp2);
+            $scope.list = resp2;
+
+          });
+
+
       }).catch(function (error) {
         console.error(error);
       });
