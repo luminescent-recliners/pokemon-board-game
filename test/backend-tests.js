@@ -35,16 +35,32 @@ describe('Game Controller', function () {
 // router.post('/api/games/addGame', gameController.addGame);
 
 // router.get('/api/games/getGames', gameController.getGames);
-// router.get('/api/games/name', gameController.findName);
+// router.get('/api/games/lobbyinit', gameController.lobbyInit);
 // router.get('/api/games/gameturn', gameController.findTurn);
 // router.get('/api/games/playerOptions', gameController.getPlayerOptions);
-
-// router.put('/api/games/user', gameController.addUser);
-// router.put('/api/games/addPokemon', gameController.addPokemon);
+// router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
 
 
-// Server Tests
-describe('Server Tests', function() {
+describe('Server Integration Tests', function() {
+
+  // Server POST Request Tests
+
+  it('should add a SINGLE game on /api/games/addGame POST', function(done) {
+    chai.request(server)
+      .post('/api/games/addGame')
+      .send({})
+      .end(function(err, res){
+    	// console.log(res.body)
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        // res.body.should.have.property('gameId');
+        // res.body.should.have.property('gameName');
+        done();
+      });
+  });  	
+
+  // Server GET Request Tests	
   it('should list ALL games on /api/games/getGames GET', function(done) {
     chai.request(server)
       .get('/api/games/getGames')
@@ -52,83 +68,138 @@ describe('Server Tests', function() {
       	// console.log('res.body is: ', res.body)
         res.should.have.status(200);
         res.should.be.json;
-        // expect(Array.isArray(res.body)).to.equal(true);
-        // expect(res.body).to.be.a('array');
+        res.body.should.be.a('array');
+        res.body[res.body.length-1].should.have.property('gameId');
+        res.body[res.body.length-1].should.have.property('gameName');
         done();
       });
   });
 
-  it('should list ALL names on /api/games/name GET', function(done) {
-    chai.request(server)
-      .get('/api/games/name')
-      .end(function(err, res) {
-      	// console.log('res.body is: ', res.body)
-        res.should.have.status(200);
-        res.should.be.json;
-        // expect(Array.isArray(res.body)).to.equal(true);
-        // expect(res.body).to.be.a('array');
-        done();
-      });
+  it('should list ALL users in a game on /api/games/lobbyinit GET', function(done) {
+    var newGame = new game({
+      gameId: 3,
+      name: "test",
+      gameCreator: {
+      	facebookId: "test123", 
+      	playerName: "Pleasework Now"
+      }
+    });
+    newGame.save(function(err, data) {
+      chai.request(server)
+        .get('/api/games/lobbyinit')
+        .query({gameId:3})
+        .end(function(err, res) {
+        	console.log(err, data.id)
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          // res.body.should.have.property('gameId');
+          // res.body.should.have.property('name');
+          // res.body.should.have.property('gameCreator');
+          done();
+        });
+    });
   });
 
   it('should list game turns on /api/games/gameturn GET', function(done) {
-    chai.request(server)
-      .get('/api/games/gameturn')
-      .end(function(err, res) {
-      	// console.log('res.body is: ', res.body)
-        res.should.have.status(200);
-        res.should.be.json;
-        // expect(Array.isArray(res.body)).to.equal(true);
-        // expect(res.body).to.be.a('array');
-        done();
-      });
+  	var newGame = new game({
+  	  gameId: 3,
+  	  name: "test",
+  	  gameCreator: {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }
+  	});
+  	newGame.save(function(err, data) {
+  	  chai.request(server)
+  	    .get('/api/games/gameturn')
+  	    .query({gameId:3})
+  	    .end(function(err, res) {
+  	    	console.log(err, data.id)
+  	      res.should.have.status(200);
+  	      res.should.be.json;
+  	      res.body.should.be.a('object');
+  	      // res.body.should.have.property('gameId');
+  	      // res.body.should.have.property('name');
+  	      // res.body.should.have.property('gameCreator');
+  	      done();
+  	    });
+  	});
   });
 
-  it('should list player options on /api/games/playerOptions GET', function(done) {
-    chai.request(server)
-      .get('/api/games/getGames')
-      .end(function(err, res) {
-      	// console.log('res.body is: ', res.body)
-        res.should.have.status(200);
-        res.should.be.json;
-        // expect(Array.isArray(res.body)).to.equal(true);
-        // expect(res.body).to.be.a('array');
-        done();
-      });
-  });
+  // it('should list player options on /api/games/playerOptions GET', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/playerOptions')
+  //     .end(function(err, res) {
+  //     	// console.log('res.body is: ', res.body)
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       // expect(Array.isArray(res.body)).to.equal(true);
+  //       // expect(res.body).to.be.a('array');
+  //       done();
+  //     });
+  // });
 
-  it('should add a SINGLE game on /api/games/addGame POST', function(done) {
-    chai.request(server)
-      .post('/api/games/addGame')
-      .send({})
-      .end(function(err, res){
-      	// console.log("RES: ", res)
-      	// console.log("ERR: ", err)
-        res.should.have.status(200);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        done();
-      });
-  });  
+  // it('should list available Pokemon on /api/games/availablePokemon GET', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/availablePokemon')
+  //     .end(function(err, res) {
+  //     	// console.log('res.body is: ', res.body)
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       // expect(Array.isArray(res.body)).to.equal(true);
+  //       // expect(res.body).to.be.a('array');
+  //       done();
+  //     });
+  // });
 
-  it('should update a User on /api/games/user PUT', function(done) {
+  // it('should update a User on /api/games/user PUT', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/user')
+  //     .end(function(err, res){
+  //       chai.request(server)
+  //         .put('/api/games/user')
+  //         .send({'': 'TEST FACEBOOK ID'})
+  //         .end(function(error, response){
+  //           response.should.have.status(200);
+  //           response.should.be.json;
+  //           response.body.should.be.a('object');
+  //           response.body.UPDATED.should.be.a('object');
+  //           response.body.UPDATED.should.have.property('user');
+  //           response.body.UPDATED.should.have.property('_id');
+  //           done();
+  //       });
+  //     });
+  // }); 
+
+  it('should update a User on /api/games/updateturn PUT', function(done) {
     chai.request(server)
-      .get('/api/games/user')
+      .get('/api/games/updateturn')
       .end(function(err, res){
+      	// console.log("PUT REQUEST", res.body)
+
         chai.request(server)
-          .put('/api/games/user')
-          .send({'playerName': 'TEST FACEBOOK ID'})
+          .put('/api/games/updateturn' + res.body[res.body.length-1].gameId)
+          .send({})
           .end(function(error, response){
+          	// console.log("PUT REQUEST", response.body)
             response.should.have.status(200);
             response.should.be.json;
             response.body.should.be.a('object');
-            response.body.UPDATED.should.be.a('object');
-            response.body.UPDATED.should.have.property('user');
-            response.body.UPDATED.should.have.property('_id');
+            // response.body.UPDATED.should.be.a('object');
+            // response.body.UPDATED.should.have.property('user');
+            // response.body.UPDATED.should.have.property('_id');
             done();
         });
       });
-  });  // it('should delete a SINGLE blob on /blob/<id> DELETE');
+  }); 
+
+
+
+  // router.put('/api/games/addPokemon', gameController.playerInit);
+// router.put('/api/games/user/movePlayer', gameController.movePlayer);
+// router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
+// router.put('/api/games/updateturn', gameController.updateTurn);
 });
 
 
