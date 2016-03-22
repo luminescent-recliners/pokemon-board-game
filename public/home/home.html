@@ -15,10 +15,10 @@
       <div class='col-lg-10'>
       <div class="col-lg-3 text-center">
       </div>
-      <div class='newGameContent col-lg-6'>    
+      <div class='newGameContent col-lg-5'>    
         <td>
         <form name="myform">
-          <input class="amount" type="text" size="12"ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event, input)"></input>
+          <input class="amount" type="text" size="12" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event, input)"></input>
           <input class="tn-lg btn-primary" type="button" value="Create Game" ng-click="makeNewGame()"></input>
           <p ng-show='showMessage'>A game Name is Required</p>
          </form>
@@ -31,7 +31,7 @@
       </div>
       <br />
         <div class='panel panel-primary col-lg-5' style="height: 400px">
-          <h2 class='panel-heading'><b>{{playerName}}'s Games in Progess</b></h2>
+          <h2 class='panel-heading'><b>{{playerName}}'s Games</b></h2>
           <div class='gameContent' style="height: 300px">
             <li ng-repeat = "game in games track by $index">
               <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
@@ -46,9 +46,9 @@
               <li ng-repeat = "game in games track by $index">
                 <a href='#/lobby' ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
               </li>
-              <br /> 
-              <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
             </div>  
         <div>
+        <br /> 
+        <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
     </div>  
 </div>
