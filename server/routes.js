@@ -6,18 +6,21 @@ var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
 
+router.post('/api/games/addGame', gameController.addGame);
+
 router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
-router.post('/api/games/addGame', gameController.addGame);
-router.get('/api/games/getGames', gameController.getGames);
-router.get('/api/games/lobbyinit', gameController.lobbyInit);
 router.put('/api/games/user', gameController.addUser);
+router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
+router.put('/api/games/updateturn', gameController.updateTurn);
+
 router.get('/api/games/gameturn', gameController.findTurn);
 router.get('/api/games/playerOptions', gameController.getPlayerOptions);
-router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
-router.put('/api/games/updateturn', gameController.updateTurn);
+router.get('/api/games/getGames', gameController.getGames);
+router.get('/api/games/lobbyinit', gameController.lobbyInit);
 router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
+router.get('/api/games/boardInit', gameController.boardInit);
 
 router.get('/signin/facebook', passport.authenticate('facebook'));
 
@@ -33,6 +36,5 @@ router.get('/signin/facebook/callback',
 
 
 // a quick add to play with board object
-router.get('/api/games/boardInit', gameController.boardInit);
 
 module.exports = router;

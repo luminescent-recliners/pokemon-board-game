@@ -46,8 +46,7 @@ passport.deserializeUser(function(obj, cb) {
 
 // for sockets
 var usersInGames = {};
-var starterPokemonLists = {};
-
+var selectionPokemon = {};
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function() {
@@ -74,6 +73,20 @@ io.on('connection', function(socket){
     io.to(data.gameId).emit('moveAllPlayersToSelectPokemon');
   });
 
+  socket.on('a pokemon was selected', function(data) {
+    //first add pokemon to selectionPokemon object
+    selectionPokemon[data.gameId] = selectionPokemon[data.gameId] || [];
+    selectionPokemon[data.gameId].push(data.pokemon);
+    var numPlayers = usersInGames[data.gameId].length;
+    var numStartPokemon = selectionPokemon[data.gameId].length;
+
+    var doneselection = false;
+    if(numStartPokemon === numPlayers) {
+      doneselection = true;
+    }
+    io.to(data.gameId).emit('refresh after pokemon selection',{doneselection: doneselection});
+
+  });
 });
 
 // for sockets
