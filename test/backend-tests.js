@@ -16,23 +16,15 @@ global.sinon = require('sinon');
 chai.use(sinonChai);
 chai.use(chaiHTTP);
 
-// Controller Function Tests
-describe('It should be equal to one', function () {
-  it('1 should equal 1', function () {
-    expect(1).to.equal(1);
-  });
-});
-
 describe('Server Integration Tests', function() {
 
   // Server POST Request Tests
-
   it('should add a SINGLE game on /api/games/addGame POST', function(done) {
     chai.request(server)
       .post('/api/games/addGame')
       .send({gameName: "testGame"})
       .end(function(err, res){
-      	console.log(res.body)
+      	// console.log(res.body)
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
@@ -53,7 +45,7 @@ describe('Server Integration Tests', function() {
         res.body[res.body.length-1].should.have.property('gameId');
         res.body[res.body.length-1].should.have.property('gameName');
         res.body[res.body.length-1].gameId.should.equal(res.body[res.body.length-1].gameId);
-        // res.body[res.body.length-1].gameName.should.equal(res.body[res.body.length-1].gameName);
+        res.body[res.body.length-1].gameName.should.equal(res.body[res.body.length-1].gameName);
         done();
       });
   });
@@ -70,14 +62,15 @@ describe('Server Integration Tests', function() {
     newGame.save(function(err, data) {
       chai.request(server)
         .get('/api/games/lobbyinit')
-        .query({gameId:1})
+        .query({gameId:3})
         .end(function(err, res) {
+          console.log(res.body)
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
-          // res.body.should.have.property('gameId');
-          // res.body.should.have.property('name');
-          // res.body.should.have.property('gameCreator');
+          res.body.should.have.property('gameName');
+          res.body.should.have.property('gameCreator');
+          res.body.should.have.property('creatorName');
           done();
         });
     });
