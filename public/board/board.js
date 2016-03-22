@@ -94,13 +94,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.redirect = function(action) {
     switch (action) {
       case 'pokemon':
-        $location.path('/capture')
+        $location.path('/capture');
         break;
       case 'city':
-        $location.path('/city')
+        $location.path('/city');
         break;
       case 'event':
-        $location.path('/event')
+        $location.path('/event');
         break;
     }
   };
@@ -137,6 +137,17 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   $scope.init();
 });
+
+app.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    // Allow same origin resource loads.
+    'self',
+    // Allow loading from outer templates domain.
+    'http://sprites.pokecheck.org/i/**',
+    'http://pokeapi.co/media/img/**'
+  ]);
+});
+// '$sce.trustAsResourceUrl({{point.pokemon.gifURL}})' 
 
 app.factory('boardFactory', function($http) {
 
