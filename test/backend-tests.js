@@ -23,24 +23,6 @@ describe('It should be equal to one', function () {
   });
 });
 
-describe('Game Controller', function () {
-  before(function (done) {
-    if(mongoose.connection.db) {
-      return done();
-    }
-    mongoose.connect(dbURI, done);
-  });
-});
-
-// router.post('/api/games/addGame', gameController.addGame);
-
-// router.get('/api/games/getGames', gameController.getGames);
-// router.get('/api/games/lobbyinit', gameController.lobbyInit);
-// router.get('/api/games/gameturn', gameController.findTurn);
-// router.get('/api/games/playerOptions', gameController.getPlayerOptions);
-// router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
-
-
 describe('Server Integration Tests', function() {
 
   // Server POST Request Tests
@@ -48,14 +30,14 @@ describe('Server Integration Tests', function() {
   it('should add a SINGLE game on /api/games/addGame POST', function(done) {
     chai.request(server)
       .post('/api/games/addGame')
-      .send({})
+      .send({gameName: "testGame"})
       .end(function(err, res){
-    	// console.log(res.body)
+      	console.log(res.body)
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
-        // res.body.should.have.property('gameId');
-        // res.body.should.have.property('gameName');
+        res.body.should.have.property('gameId');
+        res.body.gameId.should.equal(res.body.gameId);
         done();
       });
   });  	
@@ -65,12 +47,13 @@ describe('Server Integration Tests', function() {
     chai.request(server)
       .get('/api/games/getGames')
       .end(function(err, res) {
-      	// console.log('res.body is: ', res.body)
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('array');
         res.body[res.body.length-1].should.have.property('gameId');
         res.body[res.body.length-1].should.have.property('gameName');
+        res.body[res.body.length-1].gameId.should.equal(res.body[res.body.length-1].gameId);
+        // res.body[res.body.length-1].gameName.should.equal(res.body[res.body.length-1].gameName);
         done();
       });
   });
@@ -237,7 +220,7 @@ describe('Server Integration Tests', function() {
 
 
 
-  // router.put('/api/games/addPokemon', gameController.playerInit);
+// router.put('/api/games/addPokemon', gameController.playerInit);
 // router.put('/api/games/user/movePlayer', gameController.movePlayer);
 // router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 // router.put('/api/games/updateturn', gameController.updateTurn);
