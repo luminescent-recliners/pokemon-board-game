@@ -112,6 +112,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   $scope.redirectAllUsers = function() {
     pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
+    $scope.redirect(action);
   };
 
 
