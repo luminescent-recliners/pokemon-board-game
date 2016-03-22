@@ -24,6 +24,7 @@
 
   <div class="currentTurn">
     <h3>Current Turn: {{currentTurnPlayerName}}</h3>
+    <h4 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h4>
   </div>
 <hr>
   <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
