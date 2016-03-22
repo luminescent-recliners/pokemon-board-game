@@ -87,12 +87,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send action description', function(description) {
-    console.log('send action description received');
     $scope.actionDescription = description;
     $scope.actionDisplay = true;
   });
 
-  $scope.redirect = function() {
+  $scope.redirect = function(action) {
     switch (action) {
       case 'pokemon':
         $location.path('/capture')
@@ -105,6 +104,15 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         break;
     }
   };
+
+  $scope.redirectAllUsers = function() {
+    pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
+  };
+
+
+  pokemonSocket.on('send redirect path to users', function(action){
+    $scope.redirect(action);
+  });
 
   $scope.init = function() {
     boardFactory.boardInit($scope.gameId, $scope.facebookId)
