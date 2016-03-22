@@ -1,13 +1,16 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket) {
   $scope.hello = 'hello testing testing';
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
+
   $scope.roll;
+  $scope.rollDisplay = false;
+
   $scope.actionDisplay = false;
   $scope.actionDescription = '';
   var action;
@@ -18,12 +21,19 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.roll = Math.ceil(Math.random() * 6);
     $scope.roll = arr[$scope.counter % 6];
     $scope.counter ++;
+
+    pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
       });
   };
+
+  pokemonSocket.on('send player roll to move', function(roll) {
+    $scope.roll = roll;
+    $scope.rollDisplay = true;
+  });
 
   var resetOptions = function () {
     $scope.actionDisplay = true;
