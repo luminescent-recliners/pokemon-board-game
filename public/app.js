@@ -11,6 +11,7 @@ angular.module('pokemon', [
   'pokemon.city',
   'btford.socket-io',
   'pokemon.auth',
+  'ngCookies',
   'ngRoute'
 ])
 .config(function($routeProvider) {
