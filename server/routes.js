@@ -2,6 +2,9 @@ var router = require('express').Router();
 var gymLeader = require('./gymLeader/gymLeaderController.js');
 var gameController = require('./game/gameController.js');
 
+var passport = require('passport');
+var Strategy = require('passport-facebook').Strategy;
+
 
 router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
@@ -16,7 +19,16 @@ router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
 router.put('/api/games/updateturn', gameController.updateTurn);
 router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
 
+router.get('/signin/facebook', passport.authenticate('facebook'));
 
+router.get('/signin/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.cookie('playerName',req.user.displayName);
+    res.cookie('facebookId',req.user.id);
+    res.redirect('/#/home');
+  });
 
 
 

@@ -1,12 +1,8 @@
 angular.module('pokemon.home', [])
 
-.controller('homeController',function($location, $scope, userFactory, $window, pokemonSocket) {
-  //happen after face book auth
-  // >>>>>>>>-----------------------------------
-  // mimiciking facebook auth with next two lines
-  // DELETE AFTER IMPLEMENTING FACEBOOK AUTH
-  $window.localStorage.setItem('pokemon.facebookId', "Facebook123");
-  $window.localStorage.setItem('pokemon.playerName', "Bob");
+.controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket) {
+  $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
+  $window.localStorage.setItem('pokemon.playerName', $cookies.get('playerName'));
   // --------------------------------------<<<<<<
   
   // this should happen after face book auth
