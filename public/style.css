@@ -1,0 +1,30 @@
+/* All Pages */
+
+.shared {
+  background-color: #63C0FB;
+  color: white;
+}
+
+input {
+  color: #125986;
+  background-color: #D9E1E5;
+}
+
+/*  Sign In Page   */
+
+.login {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Home View  */
+.home {
+  text-align: center;
+}
+
+
+/* Lobby View  */
+.lobby {
+  text-align: center;
+}
