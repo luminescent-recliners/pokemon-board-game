@@ -1,23 +1,48 @@
 var express = require('express');
+var app = express();
+var dbConfig = require('./db/db.js');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var dbConfig = require('./db/db.js');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var router = require('./routes.js');
+var fbConfig = require('./config/fbKeys.js');
 
 mongoose.connect('mongodb://localhost/pokemon');
 
-
-var router = require('./routes.js');
-var app = express();
-// for sockets
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
 var port = 3000;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.use(router);
 app.use(express.static(__dirname + '/../public'));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(router);
+
+var userController = require('./users/userController.js');
+
+passport.use(new FacebookStrategy({
+    clientID: fbConfig.appId,
+    clientSecret: fbConfig.appSecret,
+    callbackURL: "/signin/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    userController.findOrCreate(profile);
+    return cb(null, profile);
+  })
+);
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
 
 // for sockets
 var usersInGames = {};
@@ -50,10 +75,6 @@ io.on('connection', function(socket){
   });
 
 });
-
-
-// app.listen(port);
-// console.log('Server listening on..', port);
 
 // for sockets
 http.listen(port, function() {
