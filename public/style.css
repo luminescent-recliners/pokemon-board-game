@@ -23,8 +23,17 @@ input {
   text-align: center;
 }
 
+.gameContent {
+  height: 50px;
+  overflow: scroll;
+}
 
 /* Lobby View  */
 .lobby {
   text-align: center;
+}
+
+/* Starter View  */
+.radio {
+  color: #125986;
 }
