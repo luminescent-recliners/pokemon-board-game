@@ -87,6 +87,18 @@ io.on('connection', function(socket){
     io.to(data.gameId).emit('refresh after pokemon selection',{doneselection: doneselection});
 
   });
+
+  socket.on('player rolled dice to move', function(data) {
+    socket.broadcast.to(data.gameId).emit('send player roll to move', data.roll);
+  });
+
+  socket.on('update action description', function(data) {
+    socket.broadcast.to(data.gameId).emit('send action description', data.description);
+  });
+
+  socket.on('redirect users to action', function(data) {
+    io.to(data.gameId).emit('send redirect path to users', data.action);
+  });
 });
 
 // for sockets
