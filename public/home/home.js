@@ -1,4 +1,4 @@
-angular.module('pokemon.home', ['ui.bootstrap'])
+angular.module('pokemon.home', [])
 
 .controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket) {
   $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
