@@ -40,9 +40,9 @@
     </div>
   </div>
 
-  <div class="action-display" ng-if="facebookId === currentTurnFacebookId && actionDisplay === true">
+  <div class="action-display" ng-if="actionDisplay">
     <h1>{{actionDescription}}</h1>
-    <button ng-click="redirect()">Continue</button>
+    <button ng-click="redirect()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
     
   </div>
 
