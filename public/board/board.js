@@ -99,6 +99,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
+
+        $scope.allPlayers = data.allUsers;
+        console.log($scope.allPlayers);
       });
   };
 
