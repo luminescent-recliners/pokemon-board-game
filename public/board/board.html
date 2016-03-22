@@ -4,7 +4,7 @@
   <svg width='100%' height='600' >    
     
     <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
-    <path d="{{pathString}}" stroke="#795548" stroke-width=3 fill="none"></path>
+    <path d="{{pathString}}" stroke="orange" stroke-width=3 fill="none"></path>
 
     <circle class="player" ng-attr-cx="{{boardData[playerPosition].col*10}}" ng-attr-cy="{{boardData[playerPosition].row*10}}" r="18" 
     fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
