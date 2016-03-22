@@ -85,45 +85,47 @@ describe('Server Integration Tests', function() {
   // for this test to pass set var gameTurn = game.users[ game.gameCounter % game.users.length ]; 
   // to var gameTurn = game.users[0];
 
-  // it('should list game turns on /api/games/gameturn GET', function(done) {
-  // 	var newGame = new game({
-  // 	  gameId: 4,
-  // 	  name: "test",
-  // 	  gameCreator: {
-  // 	  	facebookId: "test123", 
-  // 	  	playerName: "Pleasework Now"
-  // 	  }, 
-  // 	  users: [
-  // 	  {
-  // 	  	facebookId: "test123", 
-  // 	  	playerName: "Pleasework Now"
-  // 	  }, 
-  // 	  {
-  // 	  	facebookId: "test456", 
-  // 	  	playerName: "Isworking Now?"
-  // 	  }
-  // 	  ],
-  // 	  gameTurn: {
-  // 	  	facebookId: "test123", 
-  // 	  	playerName: "Pleasework Now"
-  // 	  }
-  // 	});
-  // 	newGame.save(function(err, data) {
-  // 	  chai.request(server)
-  // 	    .get('/api/games/gameturn')
-  // 	    .query({gameId:4})
-  // 	    .end(function(err, res) {
-  // 	    	console.log(data.id)
-  // 	      res.should.have.status(200);
-  // 	      res.should.be.json;
-  // 	      res.body.should.be.a('object');
-  // 	      // res.body.should.have.property('gameId');
-  // 	      // res.body.should.have.property('name');
-  // 	      // res.body.should.have.property('gameCreator');
-  // 	      done();
-  // 	    });
-  // 	});
-  // });
+  it('should list game turns on /api/games/gameturn GET', function(done) {
+  	var newGame = new game({
+  	  gameId: 4,
+  	  name: "test",
+  	  gameCreator: {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }, 
+  	  users: [
+  	  {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }, 
+  	  {
+  	  	facebookId: "test456", 
+  	  	playerName: "Isworking Now?"
+  	  }
+  	  ],
+  	  gameTurn: {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }, 
+      gameCounter: 1
+  	});
+  	newGame.save(function(err, data) {
+  	  chai.request(server)
+  	    .get('/api/games/gameturn')
+  	    .query({gameId:4})
+  	    .end(function(err, res) {
+  	    	console.log(res.body)
+  	      res.should.have.status(200);
+  	      res.should.be.json;
+  	      res.body.should.be.a('object');
+  	      res.body.should.have.property('facebookId');
+  	      res.body.should.have.property('playerName');
+          res.body.facebookId.should.equal("test456");
+          res.body.playerName.should.equal("Isworking Now?");
+  	      done();
+  	    });
+  	});
+  });
 
   // it('should list player options on /api/games/playerOptions GET', function(done) {
   //   var newGame = new game({
