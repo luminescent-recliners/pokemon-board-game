@@ -168,12 +168,20 @@ module.exports = {
 
     findGame({ gameId: gameId })
       .then(function(game) {
+        var allUsers = [];
+        for(var i=0;i<game.users.length;i++) {
+          allUsers.push({
+            facebookId: game.users[i].facebookId,
+            playerName: game.users[i].playerName,
+            positionOnBoard: game.users[i].positionOnBoard
+          })
+        }
         var gameData = {
           board: game.gameBoard,
           user: gameHelperFn.findUser(game, userId),
-          currentTurn: game.gameTurn
+          currentTurn: game.gameTurn,
+          allUsers: allUsers
         };
-
         res.send(gameData);
       })
       .fail(function(error) {
