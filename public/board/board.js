@@ -73,12 +73,24 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         checkAction(newSpot.typeOfSpot);
 
         if (newSpot.typeOfSpot === 'pokemon') {
-          $scope.actionDisplay = true;
           $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
+          $scope.actionDisplay = true;
           $scope.playerOptions = [[], []];
         }
+
+        pokemonSocket.emit('update action description', 
+        {
+          gameId: $scope.gameId, 
+          description: $scope.actionDescription
+        });
       });
   };
+
+  pokemonSocket.on('send action description', function(description) {
+    console.log('send action description received');
+    $scope.actionDescription = description;
+    $scope.actionDisplay = true;
+  });
 
   $scope.redirect = function() {
     switch (action) {
