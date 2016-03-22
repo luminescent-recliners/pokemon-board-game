@@ -87,9 +87,8 @@ describe('Server Integration Tests', function() {
     newGame.save(function(err, data) {
       chai.request(server)
         .get('/api/games/lobbyinit')
-        .query({gameId:3})
+        .query({gameId:1})
         .end(function(err, res) {
-        	console.log(err, data.id)
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
@@ -101,11 +100,28 @@ describe('Server Integration Tests', function() {
     });
   });
 
+  // for this test to pass set var gameTurn = game.users[ game.gameCounter % game.users.length ]; 
+  // to var gameTurn = game.users[0];
+
   it('should list game turns on /api/games/gameturn GET', function(done) {
   	var newGame = new game({
-  	  gameId: 3,
+  	  gameId: 4,
   	  name: "test",
   	  gameCreator: {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }, 
+  	  users: [
+  	  {
+  	  	facebookId: "test123", 
+  	  	playerName: "Pleasework Now"
+  	  }, 
+  	  {
+  	  	facebookId: "test456", 
+  	  	playerName: "Isworking Now?"
+  	  }
+  	  ],
+  	  gameTurn: {
   	  	facebookId: "test123", 
   	  	playerName: "Pleasework Now"
   	  }
@@ -113,9 +129,9 @@ describe('Server Integration Tests', function() {
   	newGame.save(function(err, data) {
   	  chai.request(server)
   	    .get('/api/games/gameturn')
-  	    .query({gameId:3})
+  	    .query({gameId:4})
   	    .end(function(err, res) {
-  	    	console.log(err, data.id)
+  	    	console.log(data.id)
   	      res.should.have.status(200);
   	      res.should.be.json;
   	      res.body.should.be.a('object');
@@ -128,30 +144,55 @@ describe('Server Integration Tests', function() {
   });
 
   // it('should list player options on /api/games/playerOptions GET', function(done) {
-  //   chai.request(server)
-  //     .get('/api/games/playerOptions')
-  //     .end(function(err, res) {
-  //     	// console.log('res.body is: ', res.body)
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       // expect(Array.isArray(res.body)).to.equal(true);
-  //       // expect(res.body).to.be.a('array');
-  //       done();
-  //     });
+  //   var newGame = new game({
+  //     gameId: 3,
+  //     name: "test",
+  //     gameCreator: {
+  //     	facebookId: "test123", 
+  //     	playerName: "Pleasework Now"
+  //     }
+  //   });
+  //   newGame.save(function(err, data) {
+  //     chai.request(server)
+  //       .get('/api/games/playerOptions')
+  //       .query({gameId:1})
+  //       .end(function(err, res) {
+  //         res.should.have.status(200);
+  //         res.should.be.json;
+  //         res.body.should.be.a('object');
+  //         // res.body.should.have.property('gameId');
+  //         // res.body.should.have.property('name');
+  //         // res.body.should.have.property('gameCreator');
+  //         done();
+  //       });
+  //   });
   // });
 
-  // it('should list available Pokemon on /api/games/availablePokemon GET', function(done) {
-  //   chai.request(server)
-  //     .get('/api/games/availablePokemon')
-  //     .end(function(err, res) {
-  //     	// console.log('res.body is: ', res.body)
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       // expect(Array.isArray(res.body)).to.equal(true);
-  //       // expect(res.body).to.be.a('array');
-  //       done();
-  //     });
-  // });
+  it('should list available Pokemon on /api/games/availablePokemon GET', function(done) {
+    var newGame = new game({
+      gameId: 3,
+      facebookId: "test123", 
+      name: "test",
+      gameCreator: {
+      	facebookId: "test123", 
+      	playerName: "Pleasework Now"
+      }
+    });
+    newGame.save(function(err, data) {
+      chai.request(server)
+        .get('/api/games/availablePokemon')
+        .query({gameId:1})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          // res.body.should.have.property('gameId');
+          // res.body.should.have.property('name');
+          // res.body.should.have.property('gameCreator');
+          done();
+        });
+    });
+  });
 
   // it('should update a User on /api/games/user PUT', function(done) {
   //   chai.request(server)
@@ -172,27 +213,27 @@ describe('Server Integration Tests', function() {
   //     });
   // }); 
 
-  it('should update a User on /api/games/updateturn PUT', function(done) {
-    chai.request(server)
-      .get('/api/games/updateturn')
-      .end(function(err, res){
-      	// console.log("PUT REQUEST", res.body)
+  // it('should update a User on /api/games/updateturn PUT', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/updateturn')
+  //     .end(function(err, res){
+  //     	// console.log("PUT REQUEST", res.body)
 
-        chai.request(server)
-          .put('/api/games/updateturn' + res.body[res.body.length-1].gameId)
-          .send({})
-          .end(function(error, response){
-          	// console.log("PUT REQUEST", response.body)
-            response.should.have.status(200);
-            response.should.be.json;
-            response.body.should.be.a('object');
-            // response.body.UPDATED.should.be.a('object');
-            // response.body.UPDATED.should.have.property('user');
-            // response.body.UPDATED.should.have.property('_id');
-            done();
-        });
-      });
-  }); 
+  //       chai.request(server)
+  //         .put('/api/games/updateturn' + res.body[res.body.length-1].gameId)
+  //         .send({})
+  //         .end(function(error, response){
+  //         	// console.log("PUT REQUEST", response.body)
+  //           response.should.have.status(200);
+  //           response.should.be.json;
+  //           response.body.should.be.a('object');
+  //           // response.body.UPDATED.should.be.a('object');
+  //           // response.body.UPDATED.should.have.property('user');
+  //           // response.body.UPDATED.should.have.property('_id');
+  //           done();
+  //       });
+  //     });
+  // }); 
 
 
 
