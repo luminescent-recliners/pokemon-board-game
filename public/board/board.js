@@ -18,7 +18,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.roll = Math.ceil(Math.random() * 6);
     $scope.roll = arr[$scope.counter % 6];
     $scope.counter ++;
-    console.log($scope.userPosition);
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
@@ -62,6 +61,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
         checkAction(newSpot.typeOfSpot);
+
+        if (newSpot.typeOfSpot === 'pokemon') {
+          $scope.actionDisplay = true;
+          $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
+          $scope.playerOptions = [[], []];
+        }
       });
   };
 
@@ -91,23 +96,14 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
         $scope.currentTurnPlayerName = data.currentTurn.playerName;
         $scope.currentTurnFacebookId = data.currentTurn.facebookId;
-
-        $scope.userPosition = data.user.positionOnBoard;  
+        
+        $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
       });
   };
 
   // these should probably be initialized at the same time as board above
   $scope.playerList = []; // what is this used for???
-
-  $scope.input ='';
-  $scope.inputValue = function($event) {
-    if($event.which === 13) {
-      $scope.playerPosition = ($scope.input - 1);
-      $scope.input = '';
-      $scope.userPosition = $scope.playerPosition + 1;
-    }
-  };
 
   $scope.init();
 });
@@ -190,66 +186,6 @@ app.factory('boardFactory', function($http) {
   };
 });
 
-app.directive('drawSpot', function() {
-  return {
-    templateNamespace: 'svg',
-    restrict: 'E',
-    replace: true,
-    scope: {data: '=nodeData'},
-    template: function() {
-        return '<circle ng-attr-cx="{{data.col*10}}" ng-attr-cy="{{data.row*10}}"'+
-          ' r=12 fill={{data.colorOfSpot}} data-node={{data}}/>';
-    },
-
-    link: function(scope, element1, attrs) {
-      
-      // both options below show up in the dom tree but does not render the first 
-      // with the directive tag instead of the text tag.
-      if(scope.data.users.length > 0) {
-        // for (var i = 0; i < scope.data.users.length; i++) {
-        //   var newTag = angular.element('<write-name data='+scope.data.users[i]+'>'+scope.data.users[i]+'</write-name>');
-        //   angular.element(element1[0]).after(newTag);
-        // }
-        for (var i = 0; i < scope.data.users.length; i++) {
-          var x = Number(attrs.cx) + 15;
-          var y = Number(attrs.cy) + 15;
-          var newTag = angular.element('<text data="'+scope.data.users[i]+
-            '" fill="#00BCD4" ng-attr-x="' + x + '"ng-attr-y="' + y +
-            '">' + scope.data.users[i]+ '</text>');
-          angular.element(element1[0]).after(newTag);
-        }
-      }
-
-      element1.on('mouseenter', function(event) {
-        // do other stuff
-        element1.attr('fill', 'orange');
-      });
-
-      element1.on('mouseleave', function(event) {
-        // do other stuff
-        element1.attr('fill', scope.data.colorOfSpot);
-      });
-    }
-  };
-});
-
-
-// right now this one is hard coded cant figure out why it will
-// not read from the input data
-app.directive('drawPath', function() {
-  return {
-    templateNamespace: 'svg',
-    restrict: 'E',
-    replace: true,
-    scope: {path1: '=pathString'},
-    template: function(){
-      // return '<path d="{{path1}}" stroke="#795548" stroke-width=3 fill="none"></path>';
-      return '<path d="M60,120L120,120L180,120L240,120L300,120L360,120L420,120L480,120L540,120L600,120L660,120L720,120L780,120L840,120L900,120L960,120L1020,120L1080,120L1140,240L1080,240L1020,240L960,240L900,240L840,240L780,240L720,240L660,240L600,240L540,240L480,240L420,240L360,240L300,240L240,240L180,240L120,240L60,240L0,360L60,360L120,360L180,360L240,360L300,360L360,360L420,360L480,360L540,360L600,360L660,360L720,360L780,360L840,360L900,360L960,360L1020,360L1080,360L960,480L900,480L840,480L780,480L720,480L660,480L600,480L540,480L480,480L420,480L360,480L300,480L240,480L180,480L120,480L1140,480L1080,480" stroke="#795548" stroke-width=3 fill="none"></path>';
-
-    }
-  };
-});
-
 app.directive('writeName', function() {
   return {
     templateNamespace: 'svg',
@@ -260,42 +196,3 @@ app.directive('writeName', function() {
       'ng-attr-y="{{50+data.col*50}}" fill="#00BCD4">{{data.users}}</text>'
   };
 });
-
-app.directive('drawPlayer', function($animate) {
-  return {
-    templateNamespace: 'svg',
-    restrict: 'E',
-    replace: true,
-    scope: {
-      player: '=player',
-      position: '=position',
-      board: '=board'
-    },
-    template: function() {
-      var x = '{{board[position].col * 10}}';
-      var y = '{{board[position].row * 10}}';
-      var r = '18';
-      var fillOpacity = '.9';
-      var fillColor = 'beige';
-      var stroke = 'black';
-      var strokeWidth = '1';
-      return '<circle  class="player" ng-attr-cx="'+ x +'" ng-attr-cy="'+ y +'"'+
-                ' r="'+r+'" fill="'+ fillColor+'" fill-opacity="'+
-                fillOpacity +'" stroke="'+ stroke +
-                '" stroke-width="'+ strokeWidth +'" />';
-                
-    },
-    link: function(scope, element1, attrs) {
-      element1.on('mouseover', function(event) {
-        // do stuff
-        console.log('mouse on player');
-      });
-      element1.on('mouseleave', function(event) {
-        // do stuff
-        console.log("mouse not on player");
-      });
-    }
-  };
-});
-
-
