@@ -91,6 +91,10 @@ io.on('connection', function(socket){
   socket.on('player rolled dice to move', function(data) {
     socket.broadcast.to(data.gameId).emit('send player roll to move', data.roll);
   });
+
+  socket.on('update action description', function(data) {
+    socket.broadcast.to(data.gameId).emit('send action description', data.description);
+  })
 });
 
 // for sockets
