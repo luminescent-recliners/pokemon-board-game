@@ -11,6 +11,8 @@ var findGames = Q.nbind(Games.find, Games);
 var pokemonController = require('../pokemon/pokemonController');
 
 module.exports = {
+  findGame: findGame,
+  
   playerInit: function(req, res, next) {
     var gameId = req.body.gameId;
     var userId = req.body.userId;
@@ -18,6 +20,7 @@ module.exports = {
 
     findGame({ gameId: gameId })
       .then(function(game) {
+        // adds starter pokemon object to user's party
         for(var i = 0; i < game.users.length; i++) {
           if(game.users[i].facebookId === userId) {
             var currentUser = game.users[i];
@@ -25,6 +28,12 @@ module.exports = {
             game.users[i].positionOnBoard = 1;
           }
         }
+        // Removes the pokemon's ID from available pokemons
+        var id = pokemon.pokemonId;
+        var starterPokemon = game.availablePokemon.starter;
+        var index = starterPokemon.indexOf(id);
+        starterPokemon.splice(index, 1);
+        // increment counter ans set next turn
         game.gameCounter = game.gameCounter + 1;
         var gameTurnFacebookId = game.users[game.gameCounter % game.users.length ].facebookId;
         var gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].playerName;
@@ -36,6 +45,7 @@ module.exports = {
         game.markModified('users');
         game.markModified('gameTurn');
         game.markModified('gameBoard');
+        game.markModified('availablePokemon');
         game.save();
         res.send(game.gameTurn);
       })
