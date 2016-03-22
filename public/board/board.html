@@ -1,14 +1,21 @@
 <hr>
 <!  this section for drawing the board ->
 <div ng-controller='boardController'>
-  <!-- <p>Enter Spot To Move To: <input type='number' ng-keypress='inputValue($event)' ng-model='input'></p> -->
-  <svg width='100%' height='500' >    
-    <draw-path pathString='pathString'></draw-path>    
+  <svg width='100%' height='600' >    
     
-    <draw-spot ng-repeat='point in boardData' node-data='point'></draw-spot> 
+    <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
+    <path d="{{pathString}}" stroke="#795548" stroke-width=3 fill="none"></path>
 
-    <draw-player player='playerName' position='playerPosition' board='boardData' class='player'></draw-player>
-    
+    <circle class="player" ng-attr-cx="{{boardData[playerPosition].col*10}}" ng-attr-cy="{{boardData[playerPosition].row*10}}" r="18" 
+    fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
+
+    <g>
+    <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col*10}}" ng-attr-cy="{{point.row*10}}" r=12 fill='{{point.colorOfSpot}}' data-players='{{data.users}}' data-pokemon='{{data.pokemon}}'>
+      <text ng-repeat='player in point.users' ng-attr-x="{{point.col*10}}" ng-attr-y="{{point.col*10}}" fill="#00BCD4">{{point.users}}</text>
+    </circle>
+    </g>
+
+
     <! testing tags below ->
 <!--     <write-name data='boardData[0]'></write-data> -->
   </svg>
