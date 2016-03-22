@@ -94,7 +94,11 @@ io.on('connection', function(socket){
 
   socket.on('update action description', function(data) {
     socket.broadcast.to(data.gameId).emit('send action description', data.description);
-  })
+  });
+
+  socket.on('redirect users to action', function(data) {
+    io.to(data.gameId).emit('send redirect path to users', data.action);
+  });
 });
 
 // for sockets
