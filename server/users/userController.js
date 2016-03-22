@@ -7,7 +7,7 @@ var createUser = Q.nbind(Users.create, Users);
 
 
 module.exports = {
-  findOrCreate: function(profile, callback) {
+  findOrCreate: function(profile) {
     findUser({facebookId: profile.id})
       .then(function(user){
         if (!user) {

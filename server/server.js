@@ -27,7 +27,7 @@ var userController = require('./users/userController.js');
 passport.use(new FacebookStrategy({
     clientID: fbConfig.appId,
     clientSecret: fbConfig.appSecret,
-    callbackURL: "http://localhost:3000/signin/facebook/callback"
+    callbackURL: "/signin/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     userController.findOrCreate(profile);
