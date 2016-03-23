@@ -61,7 +61,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player to move', function(data) {
-    $scope.allPlayers = data;
+    $scope.init();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
@@ -72,10 +72,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
     userFactory.movePlayer(newSpot.id, userObject, $scope.userPosition, $scope.gameId)
       .then(function(position){
-        pokemonSocket.emit('a player moved', {allUsers: $scope.allPlayers})
+        pokemonSocket.emit('a player moved', {gameId: $scope.gameId, allUsers: $scope.allPlayers});
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
-        $scope.init();
         checkAction(newSpot.typeOfSpot);
 
         if (newSpot.typeOfSpot === 'pokemon') {
