@@ -1,24 +1,54 @@
   <div class='home' ng-controller='homeController'>
-    <p>Logged in as {{playerName}}</p>
-    <div class='newGame'>
-    	<td>
-      <form name="myform">
-    	  <input class="amount" type="text" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"</input>
-         <input type="button" value="Create Game" ng-click="makeNewGame()"></input>
-         <p ng-show='showMessage'>A game Name is Required</p>
-       </form>
-    	</td> 
+    <div class='newGameSideBar col-lg-2'>
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <h4><b>Logged in as {{playerName}}</b></h4>
+      <p>{{playerName}} Stats</p>
+      <p>{{playerName}} Stats</p>
+      <p>{{playerName}} Stats</p>
+      <p>{{playerName}} Stats</p>
     </div>
-    <br />
-    <h2><b>{{playerName}}'s Games</b></h2>
-      <li ng-repeat = "game in myGames track by $index">
-        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-      </li>
-    <br />  
-    <h2><b>All Available Games</b></h2>
-      <li ng-repeat = "game in games track by $index" ng-hide='game.gameStarted'>
-        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-      </li>
-    <br /> 
-    <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
+      <br />
+      <div class='col-lg-10'>
+      <div class="col-lg-3 text-center">
+      </div>
+      <div class='newGameContent col-lg-5'>    
+        <td>
+        <form name="myform">
+          <input class="amount" type="text" size="12" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"></input>
+          <input class="tn-lg btn-primary" type="button" value="Create Game" ng-click="makeNewGame()"></input>
+          <p ng-show='showMessage'>A Game Name is Required</p>
+         </form>
+        </td> 
+      </div>
+      <br />
+      <br />
+
+      <div class="col-lg-2 text-center">
+      </div>
+      <br />
+        <div class='panel panel-primary col-lg-5' style="height: 400px">
+          <h2 class='panel-heading'><b>{{playerName}}'s Games</b></h2>
+          <div class='gameContent' style="height: 300px">
+            <li ng-repeat = "game in myGames track by $index">
+              <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+            </li>
+          </div>
+        </div>
+        <div class="col-lg-1 text-center">
+        </div>
+        <div class='panel panel-primary col-lg-5' style="height: 400px">
+            <h2 class='panel-heading' ><b>All Available Games</b></h2>
+            <div class='gameContent' style="height: 300px">
+              <li ng-repeat = "game in games track by $index" ng-hide="game.gameStarted">
+                <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
+              </li>
+            </div>  
+        <div>
+        <br /> 
+        <input class="tn-lg btn-primary" type='button' ng-click='changeUserInfo()' value='test and development - change user'>
+    </div>  
 </div>
