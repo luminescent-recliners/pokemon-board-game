@@ -34,9 +34,9 @@ angular.module('pokemon.event', [])
 
   initialize();
 
-  setTimeout(function(){ 
-    pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
-  }, 3000);
+  // setTimeout(function(){ 
+  //   pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
+  // }, 3000);
 
 
 });
