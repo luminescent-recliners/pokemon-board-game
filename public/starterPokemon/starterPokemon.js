@@ -51,8 +51,7 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
   pokemonSocket.on('refresh after pokemon selection', function(data){
     if(data.doneselection) {
       gameFactory.updateCurrentPage($scope.gameId, 'boardView')
-        .then(function(data) {
-          console.log('this is the game page', data);
+        .then(function() {
           $location.path('/board');
         });
     } else {
