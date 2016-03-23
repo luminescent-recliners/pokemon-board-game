@@ -13,7 +13,6 @@ angular.module('pokemon.lobby', [])
   
   pokemonSocket.on('joinLobby', function(currentUsers) {
     $scope.users = currentUsers;
-    console.log("users from back end socket ", $scope.users);
   });
 
   pokemonSocket.on('currentUsers', function(userArray) {
