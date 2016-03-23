@@ -1,28 +1,3 @@
-<!--   <div class='home' ng-controller='homeController'>
-    <p>Logged in as {{playerName}}</p>
-    <div class='newGame'>
-    	<td>
-      <form name="myform">
-    	  <input class="amount" type="text" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"</input>
-         <input type="button" value="Create Game" ng-click="makeNewGame()"></input>
-         <p ng-show='showMessage'>A game Name is Required</p>
-       </form>
-    	</td> 
-    </div>
-    <br />
-    <h2><b>{{playerName}}'s Games</b></h2>
-      <li ng-repeat = "game in myGames track by $index">
-        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-      </li>
-    <br />  
-    <h2><b>All Available Games</b></h2>
-      <li ng-repeat = "game in games track by $index" ng-hide='game.gameStarted'>
-        <a ng-click='joinLobby(game.gameId)'>{{game.gameId}}: {{game.gameName}} </a>
-      </li>
-    <br /> 
-    <input type='button' ng-click='changeUserInfo()' value='test and development - change user'>
-</div>
- -->
   <div class='home' ng-controller='homeController'>
     <div class='newGameSideBar col-lg-2'>
       <br />
