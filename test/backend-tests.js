@@ -27,8 +27,12 @@ describe('Server Integration Tests', function() {
         gameId: 100,
         name: 'TEST TEST TEST',
         users: [{
-          facebookId: '123Facebook',
-          playerName: 'Robert'
+          playerName: 'Robert',
+          facebookId: '123Facebook'
+        }, 
+        {
+          playerName: 'Robert2',
+          facebookId: '1234Facebook'
         }],
         gameBoard: gameBoardData,
         availablePokemon: availablePokemonData,
@@ -102,7 +106,6 @@ describe('Server Integration Tests', function() {
         .get('/api/games/lobbyinit')
         .query({gameId:3})
         .end(function(err, res) {
-          // console.log(res.body)
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
@@ -149,7 +152,6 @@ describe('Server Integration Tests', function() {
   	    .get('/api/games/gameturn')
   	    .query({gameId:4})
   	    .end(function(err, res) {
-  	    	console.log(res.body)
   	      res.should.have.status(200);
   	      res.should.be.json;
   	      res.body.should.be.a('object');
@@ -219,19 +221,11 @@ describe('Server Integration Tests', function() {
       .end(function(err, res){
         chai.request(server)
           .put('/api/games/user')
-          .query({gameId:1})
-          .send({
+          .query({gameId:4})
+          .send({users:[{
               facebookId: 'facebook789',
               playerName: 'Christopherson',
-              playerIndex: 1,
-              badges: [],
-              party: [],
-              box: [],
-              itemCards: [],
-              positionOnBoard: 0,
-              citiesVisited: [0],
-              lastCity: 0
-            })
+            }]})
           .end(function(error, response) {
             response.should.have.status(200);
             response.should.be.json;
