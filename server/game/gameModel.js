@@ -13,7 +13,8 @@ var gameSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
-  gameCounter: Number
+  gameCounter: Number,
+  currentPage: String
 });
 
 var Games = mongoose.model('games', gameSchema);
