@@ -102,7 +102,15 @@ io.on('connection', function(socket){
 
   socket.on('a player moved', function(data) {
     io.to(data.gameId).emit('send player to move', data);
-  })
+  });
+
+  socket.on('roll die for capture', function(data) {
+    socket.broadcast.to(data.gameId).emit('send response for capture page', {result: data.result, roll: data.roll});
+  });
+
+  socket.on('emit users back to board', function(data) {
+    socket.broadcast.to(data.gameId).emit('redirect back to board');
+  });
 });
 
 // for sockets
