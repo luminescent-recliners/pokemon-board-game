@@ -147,7 +147,6 @@ app.config(function($sceDelegateProvider) {
     'http://pokeapi.co/media/img/**'
   ]);
 });
-// '$sce.trustAsResourceUrl({{point.pokemon.gifURL}})' 
 
 app.factory('boardFactory', function($http) {
 
