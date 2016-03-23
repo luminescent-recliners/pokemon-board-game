@@ -1,5 +1,5 @@
 <div>
-  <p> {{capturetest}}</p>
+  <h3>{{currentTurnPlayerName}} is about to catch a Pokemon!</h3>
   <div>
     Name:<span> {{name}}</span>
     <br /><br />
@@ -7,15 +7,24 @@
     <br /><br />
     Description:<span> {{description}}</span>
     <br /><br />
+    <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{ rollNeeded }} .</p>
   </div>
-  <div ng-hide='dicerolled'>
-    To capture you must Roll<span>{{rollneeded}}</span>
+  <div ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
     <button ng-click ="rollDice()" > Roll Dice & Catch</button>
     <br /><br />
   </div>
-    You Rolled: <span>{{rollvalue}}</span>
-    <br /><br />
-  <div>
+
+  <div class="result-panel">
+    <p ng-if="currentTurnPlayerId !== facebookId && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
+    <div ng-if="diceRolled && currentTurnPlayerId !== facebookId">
+      <p>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+      <p>{{result}}</p>
+      
+    </div>
+  </div>
+
+  <br /><br />
+  <div ng-if="diceRolled && currentTurnPlayerId===facebookId">
     Result: <span>{{result}}</span>
     <br /><br />
     <button ng-click="updateTurn()">Continue</button>
