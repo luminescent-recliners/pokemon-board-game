@@ -101,7 +101,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('a player moved', function(data) {
-    io.broadcast.to(data.gameId).emit('send player to move', data.allUsers);
+    io.to(data.gameId).emit('send player to move', data);
   })
 });
 
