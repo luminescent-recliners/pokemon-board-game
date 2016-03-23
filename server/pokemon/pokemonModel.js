@@ -13,6 +13,10 @@ var pokemonSchema = mongoose.Schema({
     type: Boolean,
     default: true
   },
+  capture: {
+    type: [],
+    default: []
+  },
   imageURL: String,
   gifURL: String,
   specs: {}
