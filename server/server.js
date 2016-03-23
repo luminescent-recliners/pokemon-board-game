@@ -99,6 +99,10 @@ io.on('connection', function(socket){
   socket.on('redirect users to action', function(data) {
     io.to(data.gameId).emit('send redirect path to users', data.action);
   });
+
+  socket.on('a player moved', function(data) {
+    io.broadcast.to(data.gameId).emit('send player to move', data.allUsers);
+  })
 });
 
 // for sockets
