@@ -1,9 +1,9 @@
 <div>
   <div>
-    <h1>{{playerName}} has triggered an event!</h1>
+    <h1>{{currentTurnPlayerName}} has triggered an event!</h1>
   </div>
 
-  <div>
+  <div ng-if="currentTurnPlayerId===facebookId">
     <button ng-click="updateTurn()">Continue</button>
   </div>
 </div>
