@@ -34,7 +34,7 @@
   </div>
 <hr>
   <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
-    <span>Roll Dice: </span><button ng-click="rollDice()">Roll Dice</button>
+    <span>Roll Dice: </span><button class="tn-lg btn-primary" ng-click="rollDice()">Roll Dice</button>
     <p>your roll is {{roll}}</p>
     <div class="player-options">
       <ul>
@@ -48,7 +48,7 @@
 
   <div class="action-display" ng-if="actionDisplay">
     <h1>{{actionDescription}}</h1>
-    <button ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
+    <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
     
   </div>
 

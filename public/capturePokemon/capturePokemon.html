@@ -10,7 +10,7 @@
     <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{ rollNeeded }} .</p>
   </div>
   <div ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
-    <button ng-click ="rollDice()" > Roll Dice & Catch</button>
+    <button class="tn-lg btn-primary" ng-click ="rollDice()" > Roll Dice & Catch</button>
     <br /><br />
   </div>
 
@@ -27,6 +27,6 @@
   <div ng-if="diceRolled && currentTurnPlayerId===facebookId">
     Result: <span>{{result}}</span>
     <br /><br />
-    <button ng-click="updateTurn()">Continue</button>
+    <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
   </div>
 </div>
