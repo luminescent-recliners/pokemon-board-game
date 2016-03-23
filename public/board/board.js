@@ -1,6 +1,6 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket) {
+app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket, gameFactory) {
   $scope.hello = 'hello testing testing';
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
@@ -81,6 +81,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
           $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
           $scope.actionDisplay = true;
           $scope.playerOptions = [[], []];
+
+          gameFactory.getAvailablePokemon($scope.gameId, $scope.facebookId);
         }
 
         pokemonSocket.emit('update action description', 
