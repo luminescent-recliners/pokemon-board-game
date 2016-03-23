@@ -13,6 +13,7 @@ angular.module('pokemon.lobby', [])
   
   pokemonSocket.on('joinLobby', function(currentUsers) {
     $scope.users = currentUsers;
+    console.log("users from back end socket ", $scope.users);
   });
 
   pokemonSocket.on('currentUsers', function(userArray) {
@@ -21,6 +22,11 @@ angular.module('pokemon.lobby', [])
 
   pokemonSocket.on('moveAllPlayersToSelectPokemon', function( ){
     $location.path('/starter');
+  });
+
+  pokemonSocket.on('user update', function(userArrayUpdated) {
+    $scope.users = userArrayUpdated;
+    initialize();
   });
 
   var initialize = function () {
