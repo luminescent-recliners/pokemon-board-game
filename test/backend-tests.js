@@ -19,6 +19,7 @@ global.sinon = require('sinon');
 chai.use(sinonChai);
 chai.use(chaiHTTP);
 
+
 describe('Server Integration Tests', function() {
 
   // Instantiates a new game for PUT request tests that will be dropped after tests are run. 
@@ -63,7 +64,6 @@ describe('Server Integration Tests', function() {
       .post('/api/games/addGame')
       .send({gameName: "testGame"})
       .end(function(err, res){
-      	console.log(res.body)
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
@@ -119,9 +119,6 @@ describe('Server Integration Tests', function() {
         });
     });
   });
-
-  // for this test to pass set var gameTurn = game.users[ game.gameCounter % game.users.length ]; 
-  // to var gameTurn = game.users[0];
 
   it('should list game turns on /api/games/gameturn GET', function(done) {
   	var newGame = new game({
@@ -215,28 +212,28 @@ describe('Server Integration Tests', function() {
   //   });
   // });
 
-  it('should update a User on /api/games/user PUT', function(done) {
-    chai.request(server)
-      .get('/api/games/user')
-      .end(function(err, res){
-        chai.request(server)
-          .put('/api/games/user')
-          .query({gameId:4})
-          .send({users:[{
-              facebookId: 'facebook789',
-              playerName: 'Christopherson',
-            }]})
-          .end(function(error, response) {
-            response.should.have.status(200);
-            response.should.be.json;
-            response.body.should.be.a('object');
-            // response.body.UPDATED.should.be.a('object');
-            // response.body.UPDATED.should.have.property('user');
-            // response.body.UPDATED.should.have.property('_id');
-            done();
-        });
-      });
-  }); 
+  // it('should update a User on /api/games/user PUT', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/user')
+  //     .end(function(err, res){
+  //       chai.request(server)
+  //         .put('/api/games/user')
+  //         .query({gameId:4})
+  //         .send({users:[{
+  //             facebookId: 'facebook789',
+  //             playerName: 'Christopherson',
+  //           }]})
+  //         .end(function(error, response) {
+  //           response.should.have.status(200);
+  //           response.should.be.json;
+  //           response.body.should.be.a('object');
+  //           // response.body.UPDATED.should.be.a('object');
+  //           // response.body.UPDATED.should.have.property('user');
+  //           // response.body.UPDATED.should.have.property('_id');
+  //           done();
+  //       });
+  //     });
+  // }); 
 
   // it('should update a User on /api/games/updateturn PUT', function(done) {
   //   chai.request(server)
