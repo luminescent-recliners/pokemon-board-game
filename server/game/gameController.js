@@ -136,6 +136,7 @@ module.exports = {
           });
         }
         game.gameStarted = true;
+        game.currentPage = 'starterView';
         game.markModified('users');
         game.save();
         res.send(game.gameTurn);
@@ -238,7 +239,8 @@ module.exports = {
           },
           gameStarted: false,
           gameTurn: {},
-          gameCounter: 0
+          gameCounter: 0,
+          currentPage: 'lobbyView'
         });
         newGame.save(function (err) {
           if (err) throw err;
