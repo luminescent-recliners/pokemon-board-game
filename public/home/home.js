@@ -10,6 +10,11 @@ angular.module('pokemon.home', [])
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.games = [];
   $scope.myGames = [];
+  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+
+  if($scope.gameId !== null) {
+    pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { facebookId: $scope.facebookId, playerName: $scope.playerName}});
+  }
 
   pokemonSocket.on('updateAvailGames', function(newGame) {
     $scope.games = [];
