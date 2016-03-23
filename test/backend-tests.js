@@ -7,6 +7,9 @@ var gameController = require('../server/game/gameController.js');
 var chaiHTTP = require('chai-http')
 var server = require('../server/server.js');
 
+var gameBoardData = require('../server/data/gameBoardData.js');
+var availablePokemonData = require('../server/data/availablePokemonData.js');
+
 var dbURI = 'mongodb://localhost/pokemon';
 
 global.expect = chai.expect;
@@ -17,6 +20,38 @@ chai.use(sinonChai);
 chai.use(chaiHTTP);
 
 describe('Server Integration Tests', function() {
+
+  // Instantiates a new game for PUT request tests that will be dropped after tests are run. 
+  beforeEach(function(done){
+      var newGame = new game({
+        gameId: 100,
+        name: 'TEST TEST TEST',
+        users: [{
+          facebookId: '123Facebook',
+          playerName: 'Robert'
+        }],
+        gameBoard: gameBoardData,
+        availablePokemon: availablePokemonData,
+        availableItemCards: [],
+        gameCreator: {
+          facebookId: '123Facebook',
+          playerName: 'Robert'
+        },
+        gameTurn: {
+          facebookId: '123Facebook',
+          playerName: 'Robert'
+        },
+        gameStarted: true,
+        gameCounter: 0
+      });
+      newGame.save(function(err) {
+        done();
+      });
+    });
+    // afterEach(function(done){
+    //   game.collection.drop();
+    //   done();
+    // });
 
   // Server POST Request Tests
   it('should add a SINGLE game on /api/games/addGame POST', function(done) {
@@ -30,7 +65,7 @@ describe('Server Integration Tests', function() {
         res.body.should.be.a('object');
         res.body.should.have.property('gameId');
         res.body.should.have.property('name');
-        res.body.gameId.should.equal(1);
+        res.body.gameId.should.equal(2);
         res.body.name.should.equal("testGame");
 
         done();
@@ -47,8 +82,8 @@ describe('Server Integration Tests', function() {
         res.body.should.be.a('array');
         res.body[res.body.length-1].should.have.property('gameId');
         res.body[res.body.length-1].should.have.property('gameName');
-        res.body[res.body.length-1].gameId.should.equal(1);
-        res.body[res.body.length-1].gameName.should.equal("Hoooli Dungeon");
+        res.body[res.body.length-1].gameId.should.equal(100);
+        res.body[res.body.length-1].gameName.should.equal("TEST TEST TEST");
         done();
       });
   });
@@ -178,24 +213,36 @@ describe('Server Integration Tests', function() {
   //   });
   // });
 
-  // it('should update a User on /api/games/user PUT', function(done) {
-  //   chai.request(server)
-  //     .get('/api/games/user')
-  //     .end(function(err, res){
-  //       chai.request(server)
-  //         .put('/api/games/user')
-  //         .send({'': 'TEST FACEBOOK ID'})
-  //         .end(function(error, response){
-  //           response.should.have.status(200);
-  //           response.should.be.json;
-  //           response.body.should.be.a('object');
-  //           response.body.UPDATED.should.be.a('object');
-  //           response.body.UPDATED.should.have.property('user');
-  //           response.body.UPDATED.should.have.property('_id');
-  //           done();
-  //       });
-  //     });
-  // }); 
+  it('should update a User on /api/games/user PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/user')
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/user')
+          .query({gameId:1})
+          .send({
+              facebookId: 'facebook789',
+              playerName: 'Christopherson',
+              playerIndex: 1,
+              badges: [],
+              party: [],
+              box: [],
+              itemCards: [],
+              positionOnBoard: 0,
+              citiesVisited: [0],
+              lastCity: 0
+            })
+          .end(function(error, response) {
+            response.should.have.status(200);
+            response.should.be.json;
+            response.body.should.be.a('object');
+            // response.body.UPDATED.should.be.a('object');
+            // response.body.UPDATED.should.have.property('user');
+            // response.body.UPDATED.should.have.property('_id');
+            done();
+        });
+      });
+  }); 
 
   // it('should update a User on /api/games/updateturn PUT', function(done) {
   //   chai.request(server)
