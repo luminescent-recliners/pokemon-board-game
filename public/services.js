@@ -187,7 +187,6 @@ angular.module('services', [])
       }
     })
     .then(function(resp) {
-      console.log("response from server ", resp.data);
       return resp.data;
     });
   };
