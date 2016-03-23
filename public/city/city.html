@@ -1,9 +1,9 @@
 <div>
   <div>
-    <h1>{{playerName}} is resting at the Pokemon Center.  Zzz...Zzz...Zzz...</h1>
+    <h1>{{currentTurnPlayerName}} is resting at the Pokemon Center.  Zzz...Zzz...Zzz...</h1>
   </div>
 
-  <div>
+  <div ng-if="currentTurnPlayerId===facebookId">
     <button ng-click="updateTurn()">Continue</button>
   </div>
 </div>
