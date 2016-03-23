@@ -55,7 +55,7 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
           $location.path('/board');
         });
     } else {
-      $scope.initialize();
+      initialize();
     }
   });
 
