@@ -12,6 +12,30 @@ var pokemonController = require('../pokemon/pokemonController');
 
 module.exports = {
   findGame: findGame,
+
+  updateCurrentPage: function(req, res, next) {
+    var gameId = req.body.gameId;
+    var currentPage = req.body.currentPage;
+
+    findGame({gameId: gameId})
+      .then(function(game) {
+        game.currentPage = currentPage;
+        game.save();
+        res.send(game.currentPage);
+      });
+  },
+
+  getCurrentPage: function(req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+      .then(function(game) {
+        res.send(game.currentPage);
+      })
+      .fail(function(error) {
+        next(error);
+      });
+  },
   
   playerInit: function(req, res, next) {
     var gameId = req.body.gameId;
