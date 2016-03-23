@@ -11,7 +11,7 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
 
   $scope.list = [];
 
-  $scope.initialize = function () {
+  var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
         $scope.gameTurnName = resp.playerName;
@@ -50,11 +50,15 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
 
   pokemonSocket.on('refresh after pokemon selection', function(data){
     if(data.doneselection) {
-      $location.path('/board');
+      gameFactory.updateCurrentPage($scope.gameId, 'boardView')
+        .then(function(data) {
+          console.log('this is the game page', data);
+          $location.path('/board');
+        });
     } else {
       $scope.initialize();
     }
-  })
+  });
 
-  $scope.initialize();
+  initialize();
 });
