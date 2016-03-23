@@ -33,3 +33,8 @@ input {
   background-image: url("assets/boardMap.png");
   background-size: 100% 100%;
 }
+/* Starter View  */
+.radio {
+  color: #125986;
+}
+
