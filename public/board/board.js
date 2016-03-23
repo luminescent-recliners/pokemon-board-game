@@ -60,6 +60,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
+  pokemonSocket.on('send player to move', function(data) {
+    $scope.allPlayers = data;
+  });
+
   $scope.movePlayer = function(newSpot, userId) {
     var userObject = {
       facebookId: $scope.facebookId,
@@ -68,8 +72,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
     userFactory.movePlayer(newSpot.id, userObject, $scope.userPosition, $scope.gameId)
       .then(function(position){
+        pokemonSocket.emit('a player moved', {allUsers: $scope.allPlayers})
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
+        $scope.init();
         checkAction(newSpot.typeOfSpot);
 
         if (newSpot.typeOfSpot === 'pokemon') {
@@ -131,7 +137,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.playerPosition = $scope.userPosition - 1;
 
         $scope.allPlayers = data.allUsers;
-        console.log($scope.allPlayers);
       });
   };
 
