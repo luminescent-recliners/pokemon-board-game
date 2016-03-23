@@ -38,3 +38,8 @@ input {
   color: #125986;
 }
 
+.pokeball{
+    -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
+    -ms-transform: rotate(19deg);      /* to support IE 9 */
+    transform: rotate(19deg);
+}
