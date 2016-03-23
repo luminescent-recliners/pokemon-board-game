@@ -17,7 +17,7 @@
 
     <g>
       <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col*10}}" ng-attr-cy="{{point.row*10}}" r=12 fill='{{point.colorOfSpot}}' 
-      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' ></circle>
+      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' stroke="black" stroke-width="1"></circle>
 
       <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col*10}}" ng-attr-cy="{{point.row*10}}" r=27 fill='{{point.colorOfSpot}}' 
       data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-if='point.pokemon' stroke-width='1' stroke='grey' ></circle>
