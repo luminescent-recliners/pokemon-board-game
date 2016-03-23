@@ -122,7 +122,23 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $scope.redirect(action);
   });
 
-  $scope.init = function() {
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'boardView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'starterView':
+              $location.path('/starter');
+              break;
+          }
+        }
+      });
+  };
+
+
+  var initialize = function() {
     boardFactory.boardInit($scope.gameId, $scope.facebookId)
       .then(function(data){
         // get board data from database
@@ -145,7 +161,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   // these should probably be initialized at the same time as board above
   $scope.playerList = []; // what is this used for???
 
-  $scope.init();
+  confirmCurrentPage();
 });
 
 app.config(function($sceDelegateProvider) {
