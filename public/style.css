@@ -11,10 +11,9 @@ input {
 }
 
 /*  Sign In Page   */
-
 .login {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-bottom: 50px;
 }
 
@@ -32,4 +31,14 @@ input {
 .board {
   background-image: url("assets/boardMap.png");
   background-size: 100% 100%;
+}
+/* Starter View  */
+.radio {
+  color: #125986;
+}
+
+.pokeball{
+    -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
+    -ms-transform: rotate(19deg);      /* to support IE 9 */
+    transform: rotate(19deg);
 }
