@@ -1,37 +1,31 @@
 <hr>
-<!  this section for drawing the board ->
+<!--  this section for drawing the board -->
 <div ng-controller='boardController'>
 
   <svg width='100%' height='600' viewBox="0 0 1100 600">    
     <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
-    <path d="{{pathString}}" stroke="orange" stroke-width=3 fill="none" ></path>
+    <path d="{{pathString}}" stroke="LemonChiffon" stroke-width=3 fill="none" ></path>
 
-    <circle class="player" ng-repeat ='player in allPlayers track by $index' ng-attr-cx="{{boardData[player.positionOnBoard -1].col*10 + $index*5}}" 
-    ng-attr-cy="{{boardData[player.positionOnBoard - 1].row*10 + $index*5}}" r="18" 
+    <circle class="player" ng-repeat ='player in allPlayers track by $index' 
+      ng-attr-cx="{{boardData[player.positionOnBoard -1].col + $index * 5}}" 
+      ng-attr-cy="{{boardData[player.positionOnBoard - 1].row + $index * 5}}" r="18" 
     fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
   <!-- 
          this was my old code I kept becasue I think there may be a problem with how playerPosition index is used in new code above
     <circle class="player" ng-attr-cx="{{boardData[playerPosition].col*10}}" ng-attr-cy="{{boardData[playerPosition].row*10}}" r="18" 
     fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null' /> 
   -->
-
     <g>
-      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col*10}}" ng-attr-cy="{{point.row*10}}" r=12 fill='{{point.colorOfSpot}}' 
-      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' ></circle>
+      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=8 fill='{{point.colorOfSpot}}' 
+      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' stroke="black" stroke-width="1"
+      fill-opacity="0.8" ></circle>
 
-      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col*10}}" ng-attr-cy="{{point.row*10}}" r=27 fill='{{point.colorOfSpot}}' 
+      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=27 fill='{{point.colorOfSpot}}' 
       data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-if='point.pokemon' stroke-width='1' stroke='grey' ></circle>
 
       <image ng-if='point.pokemon' ng-repeat='point in boardData' xlink:href='{{point.pokemon.gifURL}}' 
-      ng-attr-x="{{point.col*10 -20}}" ng-attr-y="{{point.row*10 -20}}" width='40px' height='40px'/>
+      ng-attr-x="{{point.col -20}}" ng-attr-y="{{point.row -20}}" width='40px' height='40px'/>
     </g>
-
-    <! testing tags below ->
-<!--     <write-name data='boardData[0]'></write-data> -->
-  <circle cx="101" cy="600" r=3 fill='steel-grey' stroke-width='1' stroke='black' ></circle>
-  <circle cx="101" cy="1" r=3 fill='steel-grey' stroke-width='1' stroke='black' ></circle>
-  <circle cx="1000" cy="600" r=3 fill='steel-grey' stroke-width='1' stroke='black' ></circle>
-  <circle cx="1000" cy="1" r=3 fill='steel-grey' stroke-width='1' stroke='black' ></circle>
   </svg>
 
 <hr>
