@@ -28,3 +28,8 @@ input {
 .lobby {
   text-align: center;
 }
+
+.board {
+  background-image: url("assets/boardMap.png");
+  background-size: 100% 100%;
+}
