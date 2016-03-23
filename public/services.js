@@ -191,7 +191,36 @@ angular.module('services', [])
     });
   };
 
+  var getCurrentPage = function(gameId) {
+    return $http({
+      method: 'GET',
+      url: '/api/games/currentPage',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  };
+
+  var updateCurrentPage = function(gameId, currentPage) {
+    return $http({
+      method: 'PUT',
+      url: '/api/games/currentPage',
+      data: {
+        gameId: gameId,
+        currentPage: currentPage
+      }
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  };
+
   return {
+    updateCurrentPage: updateCurrentPage,
+    getCurrentPage: getCurrentPage,
     lobbyInit: lobbyInit,
     addUsers: addUsers,
     getGameTurn: getGameTurn,
