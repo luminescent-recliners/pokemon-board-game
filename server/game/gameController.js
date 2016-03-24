@@ -3,8 +3,6 @@ var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
-var gameWinData = require('../data/gameWinData.js');
-
 
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
@@ -208,11 +206,16 @@ module.exports = {
             positionOnBoard: game.users[i].positionOnBoard
           })
         }
+        var user  = gameHelperFn.findUser(game, userId);
+        var pokemonCount = user.pokemonCount;
+        var won = gameHelperFn.checkWinner(pokemonCount);
+        var winner = won? user:null;
         var gameData = {
           board: game.gameBoard,
-          user: gameHelperFn.findUser(game, userId),
+          user: user,
           currentTurn: game.gameTurn,
-          allUsers: allUsers
+          allUsers: allUsers,
+          winner: winner
         };
         res.send(gameData);
       })
@@ -334,7 +337,6 @@ module.exports = {
               game.markModified('gameBoard');
               game.markModified('users');
               game.save();
-              console.log("response for a Successful catchPokemon ", game.users[i].pokemonCount);
             }
           }
         // if not change visibility of pokemon on game board  
