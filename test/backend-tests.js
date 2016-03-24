@@ -1,4 +1,3 @@
-// http://mherman.org/blog/2015/09/10/testing-node-js-with-mocha-and-chai/#.VunkLRIrJo4
 var chai = require('chai');
 var sinonChai = require('sinon-chai');
 var mongoose = require('mongoose');
@@ -22,7 +21,7 @@ chai.use(chaiHTTP);
 
 describe('Server Integration Tests', function() {
 
-  // Instantiates a new game for PUT request tests that will be dropped after tests are run. 
+  // Instantiates a new game that will be dropped after tests are run. 
   beforeEach(function(done){
       var newGame = new game({
         gameId: 100,
@@ -212,57 +211,112 @@ describe('Server Integration Tests', function() {
   //   });
   // });
 
-  // it('should update a User on /api/games/user PUT', function(done) {
+// router.get('/api/games/playerOptions', gameController.getPlayerOptions);
+// router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
+// router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
+// router.get('/api/games/boardInit', gameController.boardInit);
+
+
+  // Server GET Request Tests 
+  it('should update a User on /api/games/user PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/gameturn')
+      .query({gameId:100})
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/user')
+            .send({gameId:100,
+              users:[{
+              facebookId: 'facebook789',
+              playerName: 'Christopherson'
+            }
+            ]})
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Robert");
+            res.body.facebookId.should.equal("123Facebook");
+            done();
+        });
+      });
+  }); 
+
+  it('should update a Game Turn on /api/games/updateturn PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/gameturn')
+      .query({gameId:100})
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/updateturn')
+            .send({gameId:100})
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Robert2");
+            res.body.facebookId.should.equal("1234Facebook");
+            done();
+        });
+      });
+  }); 
+
+  it('should update a Game Turn on /api/games/addPokemon PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/gameturn')
+      .query({gameId:100})
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/addPokemon')
+            .send({
+              gameId:100, 
+              userId:"Robert2",
+              pokemon:[{"name":"Mewtwo","description":"A Pokmon created by recombining MEWs genes. Its said to have the most savage heart among Pokmon.","pokemonId":"150","imageURL":"http://pokeapi.co/media/img/150.png ","alive":true,"visible":false,"color":"gold","capture":[6],"gifURL":"http://sprites.pokecheck.org/i/150.gif"}]
+            })
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Christopherson");
+            res.body.facebookId.should.equal("facebook789");
+            done();
+        });
+      });
+  }); 
+
+  // it('should update a Player Position on /api/games/movePlayer PUT', function(done) {
   //   chai.request(server)
-  //     .get('/api/games/user')
+  //     .get('/api/games/gameturn')
+  //     .query({gameId:100})
   //     .end(function(err, res){
   //       chai.request(server)
-  //         .put('/api/games/user')
-  //         .query({gameId:4})
-  //         .send({users:[{
-  //             facebookId: 'facebook789',
-  //             playerName: 'Christopherson',
-  //           }]})
-  //         .end(function(error, response) {
-  //           response.should.have.status(200);
-  //           response.should.be.json;
-  //           response.body.should.be.a('object');
-  //           // response.body.UPDATED.should.be.a('object');
-  //           // response.body.UPDATED.should.have.property('user');
-  //           // response.body.UPDATED.should.have.property('_id');
+  //         .put('/api/games/movePlayer')
+  //           .send({
+  //             gameId:100, 
+  //             userId:"Robert2",
+  //             pokemon:[{"name":"Mewtwo","description":"A Pokmon created by recombining MEWs genes. Its said to have the most savage heart among Pokmon.","pokemonId":"150","imageURL":"http://pokeapi.co/media/img/150.png ","alive":true,"visible":false,"color":"gold","capture":[6],"gifURL":"http://sprites.pokecheck.org/i/150.gif"}]
+  //           })
+  //         .end(function(error, res) {
+  //           res.should.have.status(200);
+  //           res.should.be.json;
+  //           res.body.should.be.a('object');
+  //           res.body.should.have.property('playerName');
+  //           res.body.should.have.property('facebookId');
+  //           res.body.playerName.should.equal("Christopherson");
+  //           res.body.facebookId.should.equal("facebook789");
   //           done();
   //       });
   //     });
   // }); 
 
-  // it('should update a User on /api/games/updateturn PUT', function(done) {
-  //   chai.request(server)
-  //     .get('/api/games/updateturn')
-  //     .end(function(err, res){
-  //     	// console.log("PUT REQUEST", res.body)
-
-  //       chai.request(server)
-  //         .put('/api/games/updateturn' + res.body[res.body.length-1].gameId)
-  //         .send({})
-  //         .end(function(error, response){
-  //         	// console.log("PUT REQUEST", response.body)
-  //           response.should.have.status(200);
-  //           response.should.be.json;
-  //           response.body.should.be.a('object');
-  //           // response.body.UPDATED.should.be.a('object');
-  //           // response.body.UPDATED.should.have.property('user');
-  //           // response.body.UPDATED.should.have.property('_id');
-  //           done();
-  //       });
-  //     });
-  // }); 
-
-
-
-// router.put('/api/games/addPokemon', gameController.playerInit);
 // router.put('/api/games/user/movePlayer', gameController.movePlayer);
 // router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
-// router.put('/api/games/updateturn', gameController.updateTurn);
 });
 
 
