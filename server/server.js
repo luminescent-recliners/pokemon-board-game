@@ -45,8 +45,9 @@ passport.deserializeUser(function(obj, cb) {
 
 
 // for sockets
-var usersInGames = {};
+var usersInGames = {}; 
 var selectionPokemon = {};
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function() {
@@ -60,9 +61,21 @@ io.on('connection', function(socket){
   socket.on('joinLobby', function(data) {
     socket.join(data.gameId);
     usersInGames[data.gameId] = usersInGames[data.gameId] || [];
-    usersInGames[data.gameId].push(data.user);
+     usersInGames[data.gameId].push(data.user);
     io.to(data.gameId).emit('joinLobby', usersInGames[data.gameId]);
   });
+  // removes a user from usersIngGames object when they leave lobby and go to home page &
+  // updates users in room to other players in lobby
+  socket.on('a user left lobby', function(data) {
+    socket.join(data.gameId);
+    for(var j = 0; j < usersInGames[data.gameId].length; j++) {
+      if(usersInGames[data.gameId][j].facebookId === data.user.facebookId) {
+        var index = j;
+      }
+    }
+    usersInGames[data.gameId].splice(index, 1);
+    io.to(data.gameId).emit('user update', usersInGames[data.gameId]);
+  })
 
   socket.on('enteredLobby', function(data) {
     var userArray = usersInGames[data.gameId];
