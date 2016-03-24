@@ -212,34 +212,37 @@ describe('Server Integration Tests', function() {
   //   });
   // });
 
-  // it('should update a User on /api/games/user PUT', function(done) {
-  //   chai.request(server)
-  //     .get('/api/games/user')
-  //     .end(function(err, res){
-  //       chai.request(server)
-  //         .put('/api/games/user')
-  //         .query({gameId:4})
-  //         .send({users:[{
-  //             facebookId: 'facebook789',
-  //             playerName: 'Christopherson',
-  //           }]})
-  //         .end(function(error, response) {
-  //           response.should.have.status(200);
-  //           response.should.be.json;
-  //           response.body.should.be.a('object');
-  //           // response.body.UPDATED.should.be.a('object');
-  //           // response.body.UPDATED.should.have.property('user');
-  //           // response.body.UPDATED.should.have.property('_id');
-  //           done();
-  //       });
-  //     });
-  // }); 
+  it('should update a User on /api/games/user PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/gameturn')
+      .query({gameId:100})
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/user')
+            .send({gameId:100,
+              users:[{
+              facebookId: 'facebook789',
+              playerName: 'Christopherson'
+            }
+            ]})
+          .end(function(error, response) {
+            response.should.have.status(200);
+            response.should.be.json;
+            response.body.should.be.a('object');
+            response.body.should.have.property('playerName');
+            response.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Robert");
+            res.body.facebookId.should.equal("123Facebook");
+            done();
+        });
+      });
+  }); 
 
   // it('should update a User on /api/games/updateturn PUT', function(done) {
   //   chai.request(server)
   //     .get('/api/games/updateturn')
   //     .end(function(err, res){
-  //     	// console.log("PUT REQUEST", res.body)
+  //     	console.log("PUT REQUEST", res.body)
 
   //       chai.request(server)
   //         .put('/api/games/updateturn' + res.body[res.body.length-1].gameId)
