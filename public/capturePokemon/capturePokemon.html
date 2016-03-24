@@ -1,13 +1,14 @@
 <div>
-  <h3>{{currentTurnPlayerName}} is about to catch a Pokemon!</h3>
-  <div>
+  <h3>{{currentTurnPlayerName}} is wandering in the tall grass!</h3>
+  <h3>A wild {{name}} appeared!</h3>
+  <div class="col-lg-12 text-center">
     Name:<span> {{name}}</span>
     <br /><br />
     <div> <img src = {{imageUrl}} ></div>
     <br /><br />
     Description:<span> {{description}}</span>
     <br /><br />
-    <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{ rollNeeded }} .</p>
+    <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{ rollNeeded }}.</p>
   </div>
   <div ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
     <button class="tn-lg btn-primary" ng-click ="rollDice()" > Roll Dice & Catch</button>
@@ -22,6 +23,10 @@
       
     </div>
   </div>
+
+  <li ng-repeat = "oneDice in dice track by $index">
+  <div> <img class="dice" src = {{oneDice}} ></div>
+  </li>
 
   <br /><br />
   <div ng-if="diceRolled && currentTurnPlayerId===facebookId">
