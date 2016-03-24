@@ -1,6 +1,6 @@
 module.exports = {
-  pink: 5,
-  green: 4,
-  blue: 2,
-  red: 2
+  pink: 2,
+  green: 0,
+  blue: 0,
+  red: 0
 };
