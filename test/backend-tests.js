@@ -290,6 +290,31 @@ describe('Server Integration Tests', function() {
       });
   }); 
 
+  // it('should update a Player Position on /api/games/movePlayer PUT', function(done) {
+  //   chai.request(server)
+  //     .get('/api/games/gameturn')
+  //     .query({gameId:100})
+  //     .end(function(err, res){
+  //       chai.request(server)
+  //         .put('/api/games/movePlayer')
+  //           .send({
+  //             gameId:100, 
+  //             userId:"Robert2",
+  //             pokemon:[{"name":"Mewtwo","description":"A Pokmon created by recombining MEWs genes. Its said to have the most savage heart among Pokmon.","pokemonId":"150","imageURL":"http://pokeapi.co/media/img/150.png ","alive":true,"visible":false,"color":"gold","capture":[6],"gifURL":"http://sprites.pokecheck.org/i/150.gif"}]
+  //           })
+  //         .end(function(error, res) {
+  //           res.should.have.status(200);
+  //           res.should.be.json;
+  //           res.body.should.be.a('object');
+  //           res.body.should.have.property('playerName');
+  //           res.body.should.have.property('facebookId');
+  //           res.body.playerName.should.equal("Christopherson");
+  //           res.body.facebookId.should.equal("facebook789");
+  //           done();
+  //       });
+  //     });
+  // }); 
+
 // router.put('/api/games/user/movePlayer', gameController.movePlayer);
 // router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 });
