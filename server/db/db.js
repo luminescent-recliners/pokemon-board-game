@@ -4,11 +4,13 @@ var gymLeaderData = require('../data/gymLeaderData.js');
 var pokemonData = require('../data/pokemonData.js');
 var usersData = require('../data/usersData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
+var spriteData = require('../data/spriteData.js');
 
 var Games = require('../game/gameModel.js');
 var GymLeaders = require('../gymLeader/gymLeaderModel.js');
 var Pokemons = require('../pokemon/pokemonModel.js');
 var Users = require('../users/userModel.js');
+var Sprites = require('../sprites/spriteModel.js');
 
 //All these functions are only for testing purposes
 //===========Create Table functions===========
@@ -88,6 +90,17 @@ var createGame = function() {
   });
 };
 
+var createSprite = function() {
+  Sprites.find({}, function(err, sprite) {
+    if(!sprite.length) {
+      Sprites.create(spriteData, function(err) {
+        if(!err) {
+          console.log('Created Sprites');
+        }
+      });
+    }
+  });
+};
 
 
 
@@ -120,4 +133,11 @@ Users.remove({}, function(err) {
 })
 .then(function(){
   createUsers();
+});
+
+Sprites.remove({}, function(err) {
+   console.log('Sprites collection removed');
+})
+.then(function(){
+  createSprite();
 });
