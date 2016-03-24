@@ -46,8 +46,8 @@ input {
 
 /* Capture View  */
 .dice {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 /* resize images */
@@ -56,3 +56,13 @@ input {
     height: auto;
 }
 
+.pokeMove {
+    width: 70px;
+    height: 70px;
+}
+
+/* resize images */
+.pokeMove img {
+    width: 100%;
+    height: auto;
+}
