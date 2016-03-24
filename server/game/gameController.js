@@ -403,12 +403,14 @@ module.exports = {
 
   updateTurn: function (req, res, next) {
     var gameId = req.body.gameId;
+    var currentPage = req.body.currentPage;
 
     findGame({ gameId: gameId })
       .then(function (game) {
         game.gameCounter = game.gameCounter + 1;
         var userObject = game.users[ game.gameCounter % game.users.length ];
 
+        game.currentPage = currentPage;
         game.gameTurn = {
           facebookId: userObject.facebookId,
           playerName: userObject.playerName
