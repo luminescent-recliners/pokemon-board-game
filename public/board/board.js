@@ -15,17 +15,21 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.actionDescription = '';
   var action;
 
-  var distFromSpot = 19;
-  var distFromSpot2 = 25;
+  // section used for placement of players on board --------->>>>>>
+  var distFromSpot = 28;
+  var distFromSpot2 = 37;    // for small spot dist 28, dx -22, dy - 22
+  $scope.dx = -22;           // for large spot dist 37, dx -22, dy - 22
+  $scope.dy = -22;
   $scope.allPlayersBoard = [[0, distFromSpot],[distFromSpot * 0.866, distFromSpot / 2], [distFromSpot * 0.866, - distFromSpot / 2],
            [0, - distFromSpot],[- distFromSpot * 0.866, - distFromSpot / 2], [- distFromSpot * 0.866, distFromSpot / 2]];
 
-  $scope.allPlayersBoard2 = [ [0, distFromSpot2], 
-                              [distFromSpot2 * 0.866, distFromSpot2 / 2], 
-                              [distFromSpot2 * 0.866, - distFromSpot2 / 2],
-                              [0, - distFromSpot2],[- distFromSpot2 * 0.866, - distFromSpot2 / 2], 
-                              [- distFromSpot2 * 0.866, distFromSpot2 / 2]
+  $scope.allPlayersBoard2 = [ [0, distFromSpot2], [distFromSpot2 * 0.866, distFromSpot2 / 2], [distFromSpot2 * 0.866, - distFromSpot2 / 2],
+                              [0, - distFromSpot2],[- distFromSpot2 * 0.866, - distFromSpot2 / 2], [- distFromSpot2 * 0.866, distFromSpot2 / 2]
                             ];
+  $scope.playerImage = ['http://sprites.pokecheck.org/t/187.gif', 'http://sprites.pokecheck.org/t/137.gif',
+    'http://sprites.pokecheck.org/t/123.gif', 'http://sprites.pokecheck.org/t/003.gif', 'http://sprites.pokecheck.org/t/049.gif','http://sprites.pokecheck.org/t/048.gif'
+    ];
+  // till here ---------------------------------------------<<<<<<<
 
   $scope.counter = 0;
   $scope.rollDice = function() {
@@ -208,7 +212,8 @@ app.config(function($sceDelegateProvider) {
     'self',
     // Allow loading from outer templates domain.
     'http://sprites.pokecheck.org/i/**',
-    'http://pokeapi.co/media/img/**'
+    'http://pokeapi.co/media/img/**',
+    'http://sprites.pokecheck.org/t/**'
   ]);
 });
 

@@ -28,13 +28,12 @@ input {
   text-align: center;
 }
 
-/*.board {
-  background-image: url("assets/boardMap.png");
-  background-size: 100% 100%;
+/*  Board View  */
+.player {
+  transition: x 1s,  y 1s;
 }
-*/
-
-/* Starter View  */
+ 
+/*  Starter View  */
 .radio {
   color: #125986;
 }

@@ -1,21 +1,10 @@
 <hr>
 <!--  this section for drawing the board -->
 <div>
-
   <svg width='100%' height='600' viewBox="0 0 1100 600">    
     <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
     <path d="{{pathString}}" stroke="LemonChiffon" stroke-width=3 fill="none" ></path>
-  <!--
-    <circle class="player" ng-repeat ='player in allPlayers track by $index' 
-       ng-attr-cx="{{boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
-      ng-attr-cy="{{boardData[player.positionOnBoard - 1].row + allPlayersBoard[$index][0]}}" r="9" 
-    fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
-  -->  
-  <!-- 
-         this was my old code I kept becasue I think there may be a problem with how playerPosition index is used in new code above
-    <circle class="player" ng-attr-cx="{{boardData[playerPosition].col*10}}" ng-attr-cy="{{boardData[playerPosition].row*10}}" r="18" 
-    fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null' /> 
-  -->
+
     <g>
       <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=8 fill='{{point.colorOfSpot}}' 
       data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' stroke="black" stroke-width="1"
@@ -28,13 +17,17 @@
       ng-attr-x="{{point.col -20}}" ng-attr-y="{{point.row -20}}" width='40px' height='40px'/>
     </g>
 
-    <circle class="player" ng-repeat ='player in allPlayers track by $index' 
-       ng-attr-cx="{{boardData[player.positionOnBoard -1].pokemon ?   boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] :      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
+    <image class="player" ng-repeat ='player in allPlayers track by $index' 
+      ng-attr-x="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] + dx:      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1] + dx}}" 
       
-      ng-attr-cy="{{boardData[player.positionOnBoard -1].pokemon ?   boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] :      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0]}}" 
-      
+      ng-attr-y="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] + dy:      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0] + dy}}" 
       r='9' 
-    fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
+      ng-hide='boardData[playerPosition].col == null'
+      xlink:href='{{playerImage[$index]}}'
+      width='40px'
+      height='40px'
+      >
+    </image>
   </svg>
 
 <hr>
@@ -60,12 +53,5 @@
   <div class="action-display" ng-if="actionDisplay">
     <h1>{{actionDescription}}</h1>
     <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
-    
   </div>
-
-  <style type="text/css">
-    .player {
-      transition: cx 1s,  cy 1s;
-    }
-  </style>
 </div>
