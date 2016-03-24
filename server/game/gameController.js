@@ -8,7 +8,9 @@ var availableSpritesData = require('../data/availableSpritesData.js');
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
 
-var pokemonController = require('../pokemon/pokemonController');
+var pokemonController = require('../pokemon/pokemonController.js');
+
+var spriteController = require('../sprites/spriteController.js');
 
 module.exports = {
   findGame: findGame,
@@ -256,6 +258,8 @@ module.exports = {
 
   // creates a new game with game name, game Id, gameCreator object and initial static data
   addGame: function(req, res, next) {
+    // we are finding all the games first so we can count how many and use
+    // that count to create the next id
     findGames()
     .then(function(games) {
       var gameName = req.body.gameName;
@@ -449,6 +453,18 @@ module.exports = {
       pokemonController.findPokemons({ pokemonId: { $in: availPokemonIds}})
       .then(function(availPokemon) {
         res.send(availPokemon);
+      });
+    });
+  },
+
+  getAvailableSprites: function(req, res, next) {
+    findGame( { gameId: req.query.gameId } )
+    .then(function(game) {
+      var availSprite = game.availableSprites;
+
+      spriteController.findSprites({ spriteId: { $in: availSprite } })
+      .then(function(sprites) {
+        res.send(sprites);
       });
     });
   }
