@@ -1,3 +1,5 @@
+var gameWinData = require('../data/gameWinData.js');
+
 module.exports = {
   //Input: Takes a spot from the board and array to store the spots
   //Output: Stores board spots into an array if they pass the 2 conditions
@@ -44,6 +46,15 @@ module.exports = {
       }
     }
     return false;
+  },
+
+  checkWinner: function (pokemonCount) {
+    if(pokemonCount.pink >= gameWinData.pink && pokemonCount.green >= gameWinData.green && 
+      pokemonCount.blue >= gameWinData.blue && pokemonCount.red >= gameWinData.red) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 };
