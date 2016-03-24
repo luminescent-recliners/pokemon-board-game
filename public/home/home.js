@@ -85,15 +85,7 @@ angular.module('pokemon.home', [])
     });
   };
   $scope.userGames();
-
-  // test function
-  $scope.changeUserInfo = function() {
-    $window.localStorage.setItem('pokemon.facebookId', "Facebook1234");
-    $window.localStorage.setItem('pokemon.playerName', "Henry");
-    $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-    $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
-    
-  }
+  
 });
 
  
