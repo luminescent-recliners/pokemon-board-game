@@ -157,7 +157,13 @@ module.exports = {
             itemCards: [],
             positionOnBoard: 0,
             citiesVisited: [0],
-            lastCity: 0
+            lastCity: 0,
+            pokemonCount: {
+              pink: 0,
+              green: 0,
+              blue: 0,
+              red: 0
+            }
           });
         }
         game.gameStarted = true;
