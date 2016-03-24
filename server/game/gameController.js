@@ -12,6 +12,30 @@ var pokemonController = require('../pokemon/pokemonController');
 
 module.exports = {
   findGame: findGame,
+
+  updateCurrentPage: function(req, res, next) {
+    var gameId = req.body.gameId;
+    var currentPage = req.body.currentPage;
+
+    findGame({gameId: gameId})
+      .then(function(game) {
+        game.currentPage = currentPage;
+        game.save();
+        res.send(game.currentPage);
+      });
+  },
+
+  getCurrentPage: function(req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({gameId: gameId})
+      .then(function(game) {
+        res.send(game.currentPage);
+      })
+      .fail(function(error) {
+        next(error);
+      });
+  },
   
   playerInit: function(req, res, next) {
     var gameId = req.body.gameId;
@@ -136,6 +160,7 @@ module.exports = {
           });
         }
         game.gameStarted = true;
+        game.currentPage = 'starterView';
         game.markModified('users');
         game.save();
         res.send(game.gameTurn);
@@ -238,7 +263,8 @@ module.exports = {
           },
           gameStarted: false,
           gameTurn: {},
-          gameCounter: 0
+          gameCounter: 0,
+          currentPage: 'lobbyView'
         });
         newGame.save(function (err) {
           if (err) throw err;
@@ -377,12 +403,14 @@ module.exports = {
 
   updateTurn: function (req, res, next) {
     var gameId = req.body.gameId;
+    var currentPage = req.body.currentPage;
 
     findGame({ gameId: gameId })
       .then(function (game) {
         game.gameCounter = game.gameCounter + 1;
         var userObject = game.users[ game.gameCounter % game.users.length ];
 
+        game.currentPage = currentPage;
         game.gameTurn = {
           facebookId: userObject.facebookId,
           playerName: userObject.playerName

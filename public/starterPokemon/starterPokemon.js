@@ -11,7 +11,7 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
 
   $scope.list = [];
 
-  $scope.initialize = function () {
+  var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
         $scope.gameTurnName = resp.playerName;
@@ -50,11 +50,38 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
 
   pokemonSocket.on('refresh after pokemon selection', function(data){
     if(data.doneselection) {
-      $location.path('/board');
+      gameFactory.updateCurrentPage($scope.gameId, 'boardView')
+        .then(function() {
+          $location.path('/board');
+        });
     } else {
-      $scope.initialize();
+      initialize();
     }
-  })
+  });
 
-  $scope.initialize();
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'starterView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'boardView':
+              $location.path('/board');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+            case 'cityView':
+              $location.path('/city');
+              break;
+          }
+        }
+      });
+  };
+
+  confirmCurrentPage();
 });
