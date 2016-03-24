@@ -30,7 +30,7 @@ input {
 
 /*  Board View  */
 .player {
-  transition: x 1s,  y 1s;
+  transition: x 1s,  y 1s, cx 1s, cy 1s;
 }
  
 /*  Starter View  */
