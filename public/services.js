@@ -165,12 +165,13 @@ angular.module('services', [])
     });
   };
 
-  var updateTurn = function (gameId) {
+  var updateTurn = function (gameId, currentPage) {
     return $http({
       method: 'PUT',
       url: 'api/games/updateturn',
       data: {
-        gameId: gameId
+        gameId: gameId,
+        currentPage: currentPage
       }
     })
     .then(function (resp) {
