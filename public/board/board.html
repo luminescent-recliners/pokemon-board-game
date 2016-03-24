@@ -1,15 +1,16 @@
 <hr>
-<!  this section for drawing the board ->
+<!--  this section for drawing the board -->
 <div>
 
   <svg width='100%' height='600' viewBox="0 0 1100 600">    
     <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
     <path d="{{pathString}}" stroke="LemonChiffon" stroke-width=3 fill="none" ></path>
-
+  <!--
     <circle class="player" ng-repeat ='player in allPlayers track by $index' 
-      ng-attr-cx="{{boardData[player.positionOnBoard -1].col + $index * 5}}" 
-      ng-attr-cy="{{boardData[player.positionOnBoard - 1].row + $index * 5}}" r="18" 
+       ng-attr-cx="{{boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
+      ng-attr-cy="{{boardData[player.positionOnBoard - 1].row + allPlayersBoard[$index][0]}}" r="9" 
     fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
+  -->  
   <!-- 
          this was my old code I kept becasue I think there may be a problem with how playerPosition index is used in new code above
     <circle class="player" ng-attr-cx="{{boardData[playerPosition].col*10}}" ng-attr-cy="{{boardData[playerPosition].row*10}}" r="18" 
@@ -26,6 +27,14 @@
       <image ng-if='point.pokemon' ng-repeat='point in boardData' xlink:href='{{point.pokemon.gifURL}}' 
       ng-attr-x="{{point.col -20}}" ng-attr-y="{{point.row -20}}" width='40px' height='40px'/>
     </g>
+
+    <circle class="player" ng-repeat ='player in allPlayers track by $index' 
+       ng-attr-cx="{{boardData[player.positionOnBoard -1].pokemon ?   boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] :      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
+      
+      ng-attr-cy="{{boardData[player.positionOnBoard -1].pokemon ?   boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] :      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0]}}" 
+      
+      r='9' 
+    fill="beige" fill-opacity="0.9" stroke="black" stroke-width="1" ng-hide='boardData[playerPosition].col == null'/>
   </svg>
 
 <hr>
