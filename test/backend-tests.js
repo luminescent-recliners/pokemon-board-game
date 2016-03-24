@@ -231,20 +231,20 @@ describe('Server Integration Tests', function() {
               playerName: 'Christopherson'
             }
             ]})
-          .end(function(error, response) {
-            response.should.have.status(200);
-            response.should.be.json;
-            response.body.should.be.a('object');
-            response.body.should.have.property('playerName');
-            response.body.should.have.property('facebookId');
-            response.body.playerName.should.equal("Robert");
-            response.body.facebookId.should.equal("123Facebook");
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Robert");
+            res.body.facebookId.should.equal("123Facebook");
             done();
         });
       });
   }); 
 
-  it('should update a User on /api/games/updateturn PUT', function(done) {
+  it('should update a Game Turn on /api/games/updateturn PUT', function(done) {
     chai.request(server)
       .get('/api/games/gameturn')
       .query({gameId:100})
@@ -252,21 +252,44 @@ describe('Server Integration Tests', function() {
         chai.request(server)
           .put('/api/games/updateturn')
             .send({gameId:100})
-          .end(function(error, response) {
-            console.log(response.body)
-            response.should.have.status(200);
-            response.should.be.json;
-            response.body.should.be.a('object');
-            response.body.should.have.property('playerName');
-            response.body.should.have.property('facebookId');
-            response.body.playerName.should.equal("Robert2");
-            response.body.facebookId.should.equal("1234Facebook");
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Robert2");
+            res.body.facebookId.should.equal("1234Facebook");
             done();
         });
       });
   }); 
 
-// router.put('/api/games/addPokemon', gameController.playerInit);
+  it('should update a Game Turn on /api/games/addPokemon PUT', function(done) {
+    chai.request(server)
+      .get('/api/games/gameturn')
+      .query({gameId:100})
+      .end(function(err, res){
+        chai.request(server)
+          .put('/api/games/addPokemon')
+            .send({
+              gameId:100, 
+              userId:"Robert2",
+              pokemon:[{"name":"Mewtwo","description":"A Pokmon created by recombining MEWs genes. Its said to have the most savage heart among Pokmon.","pokemonId":"150","imageURL":"http://pokeapi.co/media/img/150.png ","alive":true,"visible":false,"color":"gold","capture":[6],"gifURL":"http://sprites.pokecheck.org/i/150.gif"}]
+            })
+          .end(function(error, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('playerName');
+            res.body.should.have.property('facebookId');
+            res.body.playerName.should.equal("Christopherson");
+            res.body.facebookId.should.equal("facebook789");
+            done();
+        });
+      });
+  }); 
+
 // router.put('/api/games/user/movePlayer', gameController.movePlayer);
 // router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 });
