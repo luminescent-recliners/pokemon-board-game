@@ -23,6 +23,7 @@ router.get('/api/games/getGames', gameController.getGames);
 router.get('/api/games/lobbyinit', gameController.lobbyInit);
 router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
 router.get('/api/games/boardInit', gameController.boardInit);
+router.get('api/games/remainingSprites', gameController.getSprites);
 
 router.get('/signin/facebook', passport.authenticate('facebook'));
 

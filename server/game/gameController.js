@@ -3,6 +3,7 @@ var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
+var availableSpritesData = require('../data/availableSpritesData.js');
 
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
@@ -275,7 +276,8 @@ module.exports = {
           gameStarted: false,
           gameTurn: {},
           gameCounter: 0,
-          currentPage: 'lobbyView'
+          currentPage: 'lobbyView',
+          availableSprites: availableSpritesData
         });
         newGame.save(function (err) {
           if (err) throw err;
