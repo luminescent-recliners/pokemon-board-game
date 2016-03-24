@@ -61,7 +61,7 @@ angular.module('pokemon.capture', [])
   });
 
   $scope.updateTurn = function () {
-    gameFactory.updateTurn($scope.gameId)
+    gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
         $location.path('/board');
@@ -75,6 +75,29 @@ angular.module('pokemon.capture', [])
     $location.path('/board');
   });
 
-initialize();
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'captureView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'starterView':
+              $location.path('/starter');
+              break;
+            case 'boardView':
+              $location.path('/board');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+            case 'cityView':
+              $location.path('/city');
+              break;
+          }
+        }
+      });
+  };
 
+  confirmCurrentPage();
 });

@@ -59,5 +59,29 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
     }
   });
 
-  initialize();
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'starterView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'boardView':
+              $location.path('/board');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+            case 'cityView':
+              $location.path('/city');
+              break;
+          }
+        }
+      });
+  };
+
+  confirmCurrentPage();
 });
