@@ -17,6 +17,12 @@ input {
   margin-bottom: 50px;
 }
 
+.pokeball {
+  -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
+  -ms-transform: rotate(19deg);      /* to support IE 9 */
+  transform: rotate(19deg);
+}
+
 /* Home View  */
 .home {
   text-align: center;
@@ -38,8 +44,15 @@ input {
   color: #125986;
 }
 
-.pokeball {
-    -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
-    -ms-transform: rotate(19deg);      /* to support IE 9 */
-    transform: rotate(19deg);
+/* Capture View  */
+.dice {
+    width: 40px;
+    height: 40px;
 }
+
+/* resize images */
+.dice img {
+    width: 100%;
+    height: auto;
+}
+
