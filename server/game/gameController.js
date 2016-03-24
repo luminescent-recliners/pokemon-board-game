@@ -3,6 +3,7 @@ var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
+var gameWinData = require('../data/gameWinData.js');
 
 
 var findGame = Q.nbind(Games.findOne, Games);
