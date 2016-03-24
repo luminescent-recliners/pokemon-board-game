@@ -90,6 +90,17 @@ var createGame = function() {
   });
 };
 
+var createSprite = function() {
+  Sprites.find({}, function(err, sprite) {
+    if(!sprite.length) {
+      Sprites.create(spriteData, function(err) {
+        if(!err) {
+          console.log('Created Sprites');
+        }
+      });
+    }
+  });
+};
 
 
 
@@ -122,4 +133,11 @@ Users.remove({}, function(err) {
 })
 .then(function(){
   createUsers();
+});
+
+Sprites.remove({}, function(err) {
+   console.log('Sprites collection removed');
+})
+.then(function(){
+  createSprite();
 });
