@@ -219,6 +219,19 @@ angular.module('services', [])
     });
   };
 
+  var getRemainingSprites = function(gameId) {
+    return $http({
+      method: "GET",
+      url: '/api/games/remainingSprites',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  };
+
   return {
     updateCurrentPage: updateCurrentPage,
     getCurrentPage: getCurrentPage,
@@ -228,7 +241,8 @@ angular.module('services', [])
     catchPokemon: catchPokemon,
     getAvailablePokemon: getAvailablePokemon,
     updateTurn: updateTurn,
-    getRemainingStarterPokemon: getRemainingStarterPokemon
+    getRemainingStarterPokemon: getRemainingStarterPokemon,
+    getRemainingSprites: getRemainingSprites
   };
 
 })
