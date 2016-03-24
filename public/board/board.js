@@ -7,6 +7,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
+  $scope.winner;
 
   $scope.roll;
   $scope.rollDisplay = false;
@@ -197,6 +198,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.playerPosition = $scope.userPosition - 1;
 
         $scope.allPlayers = data.allUsers;
+        $scope.winner = data.winner;
+        console.log("response from server for boardinit ", $scope.winner);
       });
   };
 
