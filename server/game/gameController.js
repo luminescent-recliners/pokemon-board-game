@@ -161,7 +161,8 @@ module.exports = {
               green: 0,
               blue: 0,
               red: 0
-            }
+            },
+            sprite:''
           });
         }
         game.gameStarted = true;
