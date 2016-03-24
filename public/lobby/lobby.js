@@ -22,7 +22,7 @@ angular.module('pokemon.lobby', [])
   pokemonSocket.on('moveAllPlayersToSelectPokemon', function( ){
     $location.path('/starter');
   });
-
+  // Updates players in room, if a player leaves lobby and goes to home page
   pokemonSocket.on('user update', function(userArrayUpdated) {
     $scope.users = userArrayUpdated;
     initialize();
