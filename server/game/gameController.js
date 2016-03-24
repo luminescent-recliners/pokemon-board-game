@@ -330,9 +330,11 @@ module.exports = {
               game.users[i].party.push(pokemon);
               currentPosition = game.users[i].positionOnBoard;
               game.gameBoard[currentPosition].pokemon = null;
+              game.users[i].pokemonCount[pokemonColor] = game.users[i].pokemonCount[pokemonColor] + 1;
               game.markModified('gameBoard');
               game.markModified('users');
               game.save();
+              console.log("response for a Successful catchPokemon ", game.users[i].pokemonCount);
             }
           }
         // if not change visibility of pokemon on game board  
