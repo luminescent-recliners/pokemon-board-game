@@ -61,7 +61,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player to move', function(data) {
-    $scope.init();
+    initialize();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
@@ -98,7 +98,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $scope.actionDisplay = true;
   });
 
-  $scope.redirect = function(action) {
+  var redirect = function(action) {
     switch (action) {
       case 'pokemon':
         $location.path('/capture');
@@ -112,14 +112,31 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
+  var updateCurrentPage = function(currentPage) {
+    gameFactory.updateCurrentPage($scope.gameId, currentPage)
+      .then(function(){
+        pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
+        redirect(action);
+      }); 
+  };
+
   $scope.redirectAllUsers = function() {
-    pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
-    $scope.redirect(action);
+    switch (action) {
+      case 'pokemon':
+        updateCurrentPage('captureView');
+        break;
+      case 'city':
+        updateCurrentPage('cityView');
+        break;
+      case 'event':
+        updateCurrentPage('eventView');
+        break;
+    }
   };
 
 
   pokemonSocket.on('send redirect path to users', function(action){
-    $scope.redirect(action);
+    redirect(action);
   });
 
   var confirmCurrentPage = function() {
@@ -131,6 +148,15 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
           switch (currentPage) {
             case 'starterView':
               $location.path('/starter');
+              break;
+            case 'cityView':
+              $location.path('/city');
+              break;
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'eventView':
+              $location.path('/event');
               break;
           }
         }
