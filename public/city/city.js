@@ -10,7 +10,7 @@ angular.module('pokemon.city', [])
   $scope.currentTurnPlayerId;
   
   $scope.updateTurn = function () {
-    gameFactory.updateTurn($scope.gameId)
+    gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
         $location.path('/board');
@@ -32,7 +32,31 @@ angular.module('pokemon.city', [])
       });
   };
 
-  initialize();
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'cityView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'starterView':
+              $location.path('/starter');
+              break;
+            case 'boardView':
+              $location.path('/board');
+              break;
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+          }
+        }
+      });
+  };
+
+  confirmCurrentPage();
 
   // setTimeout(function(){ 
   //   pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});

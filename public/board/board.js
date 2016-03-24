@@ -61,7 +61,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player to move', function(data) {
-    $scope.init();
+    initialize();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
@@ -98,7 +98,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $scope.actionDisplay = true;
   });
 
-  $scope.redirect = function(action) {
+  var redirect = function(action) {
     switch (action) {
       case 'pokemon':
         $location.path('/capture');
@@ -112,17 +112,59 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
+  var updateCurrentPage = function(currentPage) {
+    gameFactory.updateCurrentPage($scope.gameId, currentPage)
+      .then(function(){
+        pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
+        redirect(action);
+      }); 
+  };
+
   $scope.redirectAllUsers = function() {
-    pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
-    $scope.redirect(action);
+    switch (action) {
+      case 'pokemon':
+        updateCurrentPage('captureView');
+        break;
+      case 'city':
+        updateCurrentPage('cityView');
+        break;
+      case 'event':
+        updateCurrentPage('eventView');
+        break;
+    }
   };
 
 
   pokemonSocket.on('send redirect path to users', function(action){
-    $scope.redirect(action);
+    redirect(action);
   });
 
-  $scope.init = function() {
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'boardView') {
+          initialize();
+        }else{
+          switch (currentPage) {
+            case 'starterView':
+              $location.path('/starter');
+              break;
+            case 'cityView':
+              $location.path('/city');
+              break;
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+          }
+        }
+      });
+  };
+
+
+  var initialize = function() {
     boardFactory.boardInit($scope.gameId, $scope.facebookId)
       .then(function(data){
         // get board data from database
@@ -145,7 +187,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   // these should probably be initialized at the same time as board above
   $scope.playerList = []; // what is this used for???
 
-  $scope.init();
+  confirmCurrentPage();
 });
 
 app.config(function($sceDelegateProvider) {
