@@ -42,31 +42,30 @@ input {
   transition: x 1s,  y 1s, cx 1s, cy 1s;
 }
 
-.map-panel, .dice-panel, .user-panel {
-  display: inline-block;
-  vertical-align: top;
-  height: 600px;
+.map-group {
+  width: 96%;
+  margin: 0 auto;
+  max-height: 600px;
 }
 
-.dice-panel, .user-panel {
+.map-panel, .control-panel {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+}
+
+.control-panel {
   background-color: #ffc;
   color: darkslateblue;
   opacity: 0.8;
+  width: 18%;
 }
 
 .map-panel {
-  width: 70%;
-  margin: 0;
+  width: 78%;
+  margin: 0 auto;
   padding: 0;
   border: 0;
-}
-
-.dice-panel {
-  width: 15%;
-}
-
-.user-panel {
-
 }
 
 
