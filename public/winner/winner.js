@@ -1,5 +1,5 @@
 angular.module('pokemon.winner', [])
-.controller('winnerController', function ($scope, $window, userFactory, pokemonSocket) {
+.controller('winnerController', function ($scope, $window, $location, userFactory, pokemonSocket) {
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
 
   var winnerInit = function () {
@@ -14,8 +14,11 @@ angular.module('pokemon.winner', [])
       .catch(function (error) {
         console.error(error);
       });
-    
   };
 
   winnerInit();
+
+  $scope.goHome = function () {
+    $location.path('/home');
+  };
 });
