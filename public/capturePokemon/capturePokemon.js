@@ -28,6 +28,7 @@ angular.module('pokemon.capture', [])
         gameFactory.getAvailablePokemon($scope.gameId, $scope.currentTurnPlayerId)
           .then(function(pokemon) {
             $scope.rollNeeded = pokemon.capture.join(', ');
+            $scope.dice = pokemon.diceImg;
             $scope.imageUrl = pokemon.gifURL;
             $scope.pokemonColor = pokemon.color;
             $scope.pokemon = pokemon;

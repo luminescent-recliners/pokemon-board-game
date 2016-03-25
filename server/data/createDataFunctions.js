@@ -49,6 +49,14 @@ var cat = {
   gold:[6]
 };
 
+var dice = {
+  red:["https://www.wpclipart.com/recreation/games/dice/die_face_5.png"],
+  pink:["https://www.wpclipart.com/recreation/games/dice/die_face_3.png","https://www.wpclipart.com/recreation/games/dice/die_face_4.png","https://www.wpclipart.com/recreation/games/dice/die_face_5.png"],
+  blue:["https://www.wpclipart.com/recreation/games/dice/die_face_3.png", "https://www.wpclipart.com/recreation/games/dice/die_face_4.png"],
+  green:["https://www.wpclipart.com/recreation/games/dice/die_face_4.png","https://www.wpclipart.com/recreation/games/dice/die_face_5.png"],
+  gold:["https://www.wpclipart.com/recreation/games/dice/die_face_6.png"]
+};
+
 var whatColor = function(id){
   // arrays of pokemon color id numbers
   var red = [142,65,59,87,148,125,103,141,115,131,126,139,95,78,112,123,9,113,6,149,94,130,128,3,68,143];
@@ -112,6 +120,7 @@ var makeUnique = function() {
     data[i][0]['capture'] = cat[color];
     // data[i][0]['evolutions'] = [];
     data[i][0]['gifURL'] = URL;
+    data[i][0]['diceImg'] = dice[color];
     result.push(data[i][0]);
   }
 

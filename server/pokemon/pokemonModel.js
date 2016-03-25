@@ -17,6 +17,10 @@ var pokemonSchema = mongoose.Schema({
     type: [],
     default: []
   },
+  diceImg: {
+    type: [],
+    default: []
+  },
   imageURL: String,
   gifURL: String,
   specs: {}
