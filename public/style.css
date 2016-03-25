@@ -17,6 +17,12 @@ input {
   margin-bottom: 50px;
 }
 
+.pokeball {
+  -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
+  -ms-transform: rotate(19deg);      /* to support IE 9 */
+  transform: rotate(19deg);
+}
+
 /* Home View  */
 .home {
   text-align: center;
@@ -38,8 +44,31 @@ input {
   color: #125986;
 }
 
-.pokeball {
-    -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
-    -ms-transform: rotate(19deg);      /* to support IE 9 */
-    transform: rotate(19deg);
+/* Capture View  */
+.dice {
+    width: 30px;
+    height: 30px;
+}
+
+/* resize images */
+.dice img {
+    width: 100%;
+    height: auto;
+}
+
+.pokeMove {
+    margin-top: 10;
+    margin-bottom: 25px;
+    width: 150px;
+    height: 100px;
+}
+
+/* resize images */
+.pokeMove img {
+    width: 100%;
+    height: auto;
+}
+
+.pokemonCap {
+  color: #125986;
 }
