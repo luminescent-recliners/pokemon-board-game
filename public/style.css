@@ -41,6 +41,47 @@ input {
 .player {
   transition: x 1s,  y 1s, cx 1s, cy 1s;
 }
+
+.map-panel, .dice-panel, .user-panel {
+  display: inline-block;
+  vertical-align: top;
+  height: 600px;
+}
+
+.dice-panel, .user-panel {
+  background-color: #ffc;
+  color: darkslateblue;
+  opacity: 0.8;
+}
+
+.map-panel {
+  width: 70%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.dice-panel {
+  width: 15%;
+}
+
+.user-panel {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 /*  Starter View  */
 .radio {

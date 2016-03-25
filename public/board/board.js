@@ -193,15 +193,24 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
         $scope.currentTurnPlayerName = data.currentTurn.playerName;
         $scope.currentTurnFacebookId = data.currentTurn.facebookId;
+        for(var i = 0; i < data.allUsers.length; i++) {
+          if(data.currentTurn.facebookId === data.allUsers[0].facebookId) {
+            $scope.currentTurnSprite = data.allUsers[0].sprite;
+          }
+        }
         
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
 
         $scope.allPlayers = data.allUsers;
+        console.log(data.allUsers);
         $scope.winner = data.winner;
         if($scope.winner !== null) {
           pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
-        };
+        }
+
+        $scope.playerSprite = data.user.sprite;
+        $scope.playerParty = data.user.party;
       });
   };
 
