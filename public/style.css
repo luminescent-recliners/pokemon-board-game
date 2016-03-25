@@ -1,9 +1,13 @@
 /* All Pages */
 
 .shared {
-  background-color: #63C0FB;
+/*  background-color: #63C0FB;
+*/  
+  background-color: #71B55B;
+  background-image: url('./assets/pokemonParty.png');
   color: white;
 }
+
 
 input {
   color: #125986;
@@ -43,8 +47,24 @@ input {
 }
  
 /*  Starter View  */
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .radio {
   color: #125986;
+  background-color: white;
+  border-radius: 12px / 12px ;
+}
+
+.pokemon-box {
+  margin-top: 10;
+  border-radius: 120px / 120px ;
+}
+
+.sprite {
+  margin-top: 15px;
 }
 
 /* Capture View  */
