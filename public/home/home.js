@@ -32,6 +32,13 @@ angular.module('pokemon.home', [])
     }
   };
 
+  $scope.logout = function() {
+    window.localStorage.removeItem("pokemon.facebookId");
+    window.localStorage.removeItem("pokemon.gameId");
+    window.localStorage.removeItem("pokemon.playerName");
+    $location.path('/');
+  }
+
   $scope.makeNewGame = function() {
     if($scope.newGameName) {
       $scope.showMessage = false;
