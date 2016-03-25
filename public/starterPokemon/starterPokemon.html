@@ -1,11 +1,25 @@
 <div>
     <div class="text-center">
 
-      <h3>Hey {{ gameTurnName }}! Choose Your Starter Pokemon! </h3>
-    </div>
-    <div class="col-lg-2 text-center">
+      <h3>Hey {{ gameTurnName }}! Choose Your Trainer And Starter Pokemon! </h3>
     </div>
   <div class="col-lg-8 text-center">
+  <h3>Trainers:</h3>
+    <ul ng-repeat = "sprite in spriteList" >
+      <div class="col-lg-4 text-center">
+        <div class="panel panel-primary pokemon-box" style="height: 200px">
+        <p class='panel-heading'><b>{{ sprite.name }}</b></p>
+        <div class="radio">
+          <label><input type="radio" name="optSprite" ng-click = "selectSprite(sprite)">Choose me!</label>
+        </div>
+          <img src="{{sprite.imageURL}}" >
+        </div>
+      </div>    
+    </ul>
+  </div>
+
+  <div class="col-lg-8 text-center">
+  <h3>Starter Pokemon:</h3>
     <ul>
       <ul ng-repeat = "pokemon in list" >
         <div class="col-lg-4 text-center">
@@ -14,13 +28,15 @@
           <div class="radio">
             <label><input type="radio" name="optradio" ng-click = "getStarter(pokemon)">Choose me!</label>
           </div>
-            <img src={{pokemon.imageURL}} >
+            <img src='{{pokemon.imageURL}}' >
           </div>
         </div>    
       </ul>
     </ul>
   </div>
     <div class="col-lg-12 text-center">
+      {{message}}
+      
       <p ng-if='message'>{{message}}</p>
       <button class="btn-lg btn-primary text-center" ng-if='facebookId===gameTurnFacebookId' ng-click = "playerInit()"> Select </button>
     </div>
