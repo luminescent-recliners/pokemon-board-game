@@ -1,64 +1,170 @@
 <hr>
 <!--  this section for drawing the board -->
 <div>
-  <svg width='100%' height='600' viewBox="0 0 1100 600">    
-    <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
-    <path d="{{pathString}}" stroke="LemonChiffon" stroke-width=3 fill="none" ></path>
+  <div class="map">
+    <svg width='100%' height='600' viewBox="0 0 1100 600">    
+      <image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="600" />
+      <path d="{{pathString}}" stroke="LemonChiffon" stroke-width=3 fill="none" ></path>
 
-    <g>
-      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=8 fill='{{point.colorOfSpot}}' 
-      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' stroke="black" stroke-width="1"
-      fill-opacity="0.8" ></circle>
+      <g>
+        <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=8 fill='{{point.colorOfSpot}}' 
+        data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-hide='point.pokemon' stroke="black" stroke-width="1"
+        fill-opacity="0.8" ></circle>
 
-      <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=27 fill='{{point.colorOfSpot}}' 
-      data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-if='point.pokemon' stroke-width='1' stroke='grey' ></circle>
+        <circle ng-repeat='point in boardData' ng-attr-cx="{{point.col}}" ng-attr-cy="{{point.row}}" r=27 fill='{{point.colorOfSpot}}' 
+        data-players='{{data.users}}' data-pokemon='{{data.pokemon}}' ng-if='point.pokemon' stroke-width='1' stroke='grey' ></circle>
 
-      <image ng-if='point.pokemon' ng-repeat='point in boardData' xlink:href='{{point.pokemon.gifURL}}' 
-      ng-attr-x="{{point.col -20}}" ng-attr-y="{{point.row -20}}" width='40px' height='40px'/>
-    </g>
+        <image ng-if='point.pokemon' ng-repeat='point in boardData' xlink:href='{{point.pokemon.gifURL}}' 
+        ng-attr-x="{{point.col -20}}" ng-attr-y="{{point.row -20}}" width='40px' height='40px'/>
+      </g>
 
-    <g class='player' ng-repeat ='player in allPlayers track by $index' ng-hide='boardData[playerPosition].col == null'>
-      <ellipse class='player'
-       ng-attr-cx="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] : 
-       boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
+      <g class='player' ng-repeat ='player in allPlayers track by $index' ng-hide='boardData[playerPosition].col == null'>
+        <ellipse class='player'
+         ng-attr-cx="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] : 
+         boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]}}" 
 
-        ng-attr-cy="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] : boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0]}}"
-        rx="11" ry="28"
-        style="fill:beige;opacity:0.5"  />
+          ng-attr-cy="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] : boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0]}}"
+          rx="11" ry="28"
+          style="fill:beige;opacity:0.5"  />
 
-      <image class='player'
-        ng-attr-x="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] + dx:      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1] + dx}}" 
-        
-        ng-attr-y="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] + dy:      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0] + dy}}" 
-        r='9' 
-        xlink:href='{{player.sprite}}'
-        width='40px'
-        height='40px'  />
-    </g>
-  </svg>
-
-<hr>
-
-  <div class="currentTurn">
-    <h3>Current Turn: {{currentTurnPlayerName}}</h3>
-    <h4 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h4>
+        <image class='player'
+          ng-attr-x="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] + dx:      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1] + dx}}" 
+          
+          ng-attr-y="{{boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] + dy:      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0] + dy}}" 
+          r='9' 
+          xlink:href='{{player.sprite}}'
+          width='40px'
+          height='40px'  />
+      </g>
+    </svg>
   </div>
-<hr>
-  <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
-    <span>Roll Dice: </span><button class="tn-lg btn-primary" ng-click="rollDice()">Roll Dice</button>
-    <p>your roll is {{roll}}</p>
-    <div class="player-options">
-      <ul>
-        <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption}}</a></li>
-      </ul>
-      <ul>
-        <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption}}</a></li>
-      </ul>
+
+  <div class="control-panel" ng-if="!userInfoPanel">
+    <hr>
+
+    <div class="currentTurn">
+      <h3>Current Turn: {{currentTurnPlayerName}}</h3>
+      <h4 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h4>
     </div>
+
+    <hr>
+
+    <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
+      <span>Roll Dice: </span><button class="tn-lg btn-primary" ng-click="rollDice()">Roll Dice</button>
+      <p>your roll is {{roll}}</p>
+      <div class="player-options">
+        <ul>
+          <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption}}</a></li>
+        </ul>
+        <ul>
+          <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption}}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="action-display" ng-if="actionDisplay">
+      <h1>{{actionDescription}}</h1>
+      <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
+    </div>
+
+    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
   </div>
 
-  <div class="action-display" ng-if="actionDisplay">
-    <h1>{{actionDescription}}</h1>
-    <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
+  <div class="control-panel" ng-if="userInfoPanel">
+    <div class="user-info">
+      <h3>{{playerName}}</h3>
+      <img src="http://sprites.pokecheck.org/t/187.gif" alt="">
+      <img src="{{userParty.starter[0].gifURL}}" alt="">
+    </div>
+
+    <hr>
+    <div class="party pink">
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/052.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.pink">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+      <div class="pokemon" ng-repeat="pokemon in userParty.pink">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party green">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.green">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+      <div class="pokemon" ng-repeat="pokemon in userParty.green">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party blue">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/130.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/130.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.blue">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party red">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/076.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.red">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+
+    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
   </div>
+
 </div>
