@@ -104,8 +104,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
           gameFactory.getAvailablePokemon($scope.gameId, $scope.facebookId);
         }
 
-        pokemonSocket.emit('update action description',
-        {
+        pokemonSocket.emit('update action description', {
           gameId: $scope.gameId,
           description: $scope.actionDescription
         });
@@ -193,7 +192,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
         $scope.currentTurnPlayerName = data.currentTurn.playerName;
         $scope.currentTurnFacebookId = data.currentTurn.facebookId;
-        
+        for(var i = 0; i < data.allUsers.length; i++) {
+          if(data.currentTurn.facebookId == data.allUsers[i].facebookId) {
+            $scope.currentTurnSprite = data.allUsers[i].sprite;
+          }
+        }
+        console.log($scope.currentTurnSprite);
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
 
@@ -201,7 +205,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.winner = data.winner;
         if($scope.winner !== null) {
           pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
-        };
+        }
+
+        $scope.playerSprite = data.user.sprite;
+        $scope.playerParty = data.user.party;
       });
   };
 
@@ -234,7 +241,7 @@ app.factory('boardFactory', function($http) {
 
     for(var i = 1; i <= 73; i++) {
       board[i].row = (xyVals[i][1] * 3.5) * 10;
-      board[i].col = ((xyVals[i][0] * 3.6) + 10) * 10;
+      board[i].col = ((xyVals[i][0] * 3.6) + 10) * 10 - 112;
     }
 
     var boardArray = [];
