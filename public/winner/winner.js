@@ -1,5 +1,5 @@
 angular.module('pokemon.winner', [])
-.controller('winnerController', function ($scope, $window, $location, userFactory, pokemonSocket) {
+.controller('winnerController', function ($scope, $window, $location, userFactory, gameFactory, pokemonSocket) {
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
 
   var winnerInit = function () {
@@ -16,9 +16,45 @@ angular.module('pokemon.winner', [])
       });
   };
 
-  winnerInit();
+  // winnerInit();
+
+  var confirmCurrentPage = function() {
+    gameFactory.getCurrentPage($scope.gameId)
+      .then(function(currentPage){
+        if (currentPage === 'winnerView') {
+          winnerInit();
+        }else{
+          switch (currentPage) {
+            case 'starterView':
+              $location.path('/starter');
+              break;
+            case 'boardView':
+              $location.path('/board');
+              break;
+            case 'captureView':
+              $location.path('/capture');
+              break;
+            case 'eventView':
+              $location.path('/event');
+              break;
+            case 'cityView':
+            $location.path('/city');
+            break;
+          }
+        }
+      });
+  };
+
+  confirmCurrentPage();
 
   $scope.goHome = function () {
-    $location.path('/home');
+    gamefactory.updateCurrentpage ($scope.gameId, 'winnerview')
+      .then(function (resp) {
+        $location.path('/home');
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
+  
 });
