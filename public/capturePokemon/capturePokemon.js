@@ -41,8 +41,12 @@ angular.module('pokemon.capture', [])
 
   };
   
+  var audio = new Audio('../assets/sounds/pokeball.mp3');
+
   $scope.diceRolled = false;
   $scope.rollDice = function () {
+    var audioDice = new Audio('../assets/sounds/dice.mp3');
+    audioDice.play();
     $scope.rollvalue = Math.ceil(Math.random() * 6);
     gameFactory.catchPokemon($scope.gameId, $scope.facebookId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
       .then(function (resp) {
@@ -65,6 +69,8 @@ angular.module('pokemon.capture', [])
     gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
+        var audioPokeball = new Audio('../assets/sounds/win.mp3');
+        audioPokeball.play();
         $location.path('/board');
       })
       .catch(function (error) {

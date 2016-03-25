@@ -38,6 +38,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   $scope.rollDice = function() {
     $scope.roll = Math.ceil(Math.random() * 6);
+    // var arr = [1,2,3,4,5,6];
+    // $scope.roll = arr[$scope.counter % 6];
+    // $scope.counter ++;
+    var audio = new Audio('../assets/sounds/dice.mp3');
+    audio.play();
 
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
@@ -117,6 +122,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   var redirect = function(action) {
     switch (action) {
       case 'pokemon':
+        var audioPokeball = new Audio('../assets/sounds/pokeball.mp3');
+        audioPokeball.play();
         $location.path('/capture');
         break;
       case 'city':
@@ -142,6 +149,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.redirectAllUsers = function() {
     switch (action) {
       case 'pokemon':
+      var audioPokeball = new Audio('../assets/sounds/pokeball.mp3');
+      audioPokeball.play();
         updateCurrentPage('captureView');
         break;
       case 'city':
