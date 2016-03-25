@@ -1,3 +1,12 @@
 <div>
-  {{ winnertest }}
+  <h3> {{ winner.playerName }} won the Game! </h3>
+  <br />
+  <div>
+    <img src = "{{ winner.sprite }}">
+    <p> pokemon Count of {{ winner.playerName }} : </p>
+    <span> pink: {{ winner.pokemonCount.pink }}</span>
+    <span> green: {{ winner.pokemonCount.green }} </span>
+    <span> blue: {{ winner.pokemonCount.blue }} </span>
+    <span> red: {{ winner.pokemonCount.red }} </span>
+  </div>
 </div>
