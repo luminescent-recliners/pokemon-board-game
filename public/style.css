@@ -75,3 +75,48 @@ input {
 .pokemonCap {
   color: #125986;
 }
+
+.map {
+  width: 78%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.control-panel {
+  display: inline-block;
+  width: 18%;
+  vertical-align: top;
+}
+
+.pokemon {
+  display: inline-block;
+  margin: 0 2%;
+}
+
+.pokemonName {
+  text-align: center;
+}
+
+.pink {
+  color: pink;
+  background-color: pink;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.party {
+  white-space: nowrap;
+}
+
+hr{
+    height:1px;
+    padding:0px;
+    margin:0px;
+}
+
