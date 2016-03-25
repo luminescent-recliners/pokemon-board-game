@@ -219,8 +219,9 @@ module.exports = {
           allUsers.push({
             facebookId: game.users[i].facebookId,
             playerName: game.users[i].playerName,
-            positionOnBoard: game.users[i].positionOnBoard
-          })
+            positionOnBoard: game.users[i].positionOnBoard,
+            sprite: game.users[i].sprite
+          });
         }
         var user  = gameHelperFn.findUser(game, userId);
         var pokemonCount = user.pokemonCount;

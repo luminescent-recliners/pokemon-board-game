@@ -5,6 +5,7 @@
     </div>
   <div class="col-lg-8 text-center">
   <h3>Trainers:</h3>
+    <ul>
     <ul ng-repeat = "sprite in spriteList" >
       <div class="col-lg-4 text-center">
         <div class="panel panel-primary pokemon-box" style="height: 200px">
@@ -16,6 +17,7 @@
         </div>
       </div>    
     </ul>
+  </ul>
   </div>
 
   <div class="col-lg-8 text-center">
@@ -36,7 +38,7 @@
   </div>
     <div class="col-lg-12 text-center">
       {{message}}
-      
+
       <p ng-if='message'>{{message}}</p>
       <button class="btn-lg btn-primary text-center" ng-if='facebookId===gameTurnFacebookId' ng-click = "playerInit()"> Select </button>
     </div>

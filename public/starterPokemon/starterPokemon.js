@@ -50,7 +50,6 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
       .then(function (resp) {
         $scope.gameTurnName = resp.playerName;
         $scope.gameTurnFacebookId = resp.facebookId;
-        $window.localStorage.setItem('pokemon.sprite', selectedSprite.imageURL);
         pokemonSocket.emit('a pokemon was selected', {gameId: $scope.gameId, pokemon: $scope.selectedPokemon});
       })
       .catch(function (error) {
