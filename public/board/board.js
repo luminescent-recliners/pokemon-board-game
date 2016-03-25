@@ -32,6 +32,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   // TODO: The console log on line 38 has to be replaced to whatever we want to do after a player wins the game!!
   pokemonSocket.on('winner announcement', function(data) {
     console.log(" someone won the game!");
+    $location.path('/winner');
   });
 
   $scope.counter = 0;
