@@ -59,11 +59,25 @@ angular.module('services', [])
     });
   };
 
+  var getUsers = function (gameId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/getusers',
+      params: {
+        gameId: gameId
+      }
+    }).
+    then(function (resp) {
+      return resp.data;
+    });
+  };
+
   return {
     playerInit: playerInit,
     addGame: addGame,
     getGames: getGames,
-    movePlayer: movePlayer
+    movePlayer: movePlayer,
+    getUsers: getUsers
   };
   
 })
