@@ -226,6 +226,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   confirmCurrentPage();
+
+  $scope.userInfoPanel = false;
+  $scope.togglePanel = function () {
+    $scope.userInfoPanel = !$scope.userInfoPanel;
+  };
 });
 
 app.config(function($sceDelegateProvider) {
