@@ -7,7 +7,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
-  $scope.winner;
 
   $scope.roll;
   $scope.rollDisplay = false;
@@ -31,6 +30,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     'http://sprites.pokecheck.org/t/123.gif', 'http://sprites.pokecheck.org/t/003.gif', 'http://sprites.pokecheck.org/t/049.gif','http://sprites.pokecheck.org/t/048.gif'
     ];
   // till here ---------------------------------------------<<<<<<<
+
+  $scope.winner = null;
+  
+  // TODO: The console log on line 38 has to be replaced to whatever we want to do after a player wins the game!!
+  pokemonSocket.on('winner announcement', function(data) {
+    console.log(" someone won the game!");
+  });
 
   $scope.counter = 0;
   $scope.rollDice = function() {
@@ -200,6 +206,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.allPlayers = data.allUsers;
         $scope.winner = data.winner;
         console.log("response from server for boardinit ", $scope.winner);
+        if($scope.winner !== null) {
+          pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
+        };
       });
   };
 
