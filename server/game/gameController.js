@@ -3,11 +3,14 @@ var Q = require('q');
 var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
+var availableSpritesData = require('../data/availableSpritesData.js');
 
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
 
-var pokemonController = require('../pokemon/pokemonController');
+var pokemonController = require('../pokemon/pokemonController.js');
+
+var spriteController = require('../sprites/spriteController.js');
 
 module.exports = {
   findGame: findGame,
@@ -40,23 +43,35 @@ module.exports = {
     var gameId = req.body.gameId;
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
+    var sprite = req.body.sprite;
 
     findGame({ gameId: gameId })
       .then(function(game) {
-        // adds starter pokemon object to user's party
+        // adds starter pokemon object to user's party and
+        // sets user sprite url
         for(var i = 0; i < game.users.length; i++) {
           if(game.users[i].facebookId === userId) {
             var currentUser = game.users[i];
             game.users[i].party.push(pokemon);
             game.users[i].positionOnBoard = 1;
+            game.users[i].sprite = sprite.imageURL;
           }
         }
+
         // Removes the pokemon's ID from available pokemons
         var id = pokemon.pokemonId;
         var starterPokemon = game.availablePokemon.starter;
         var index = starterPokemon.indexOf(id);
         starterPokemon.splice(index, 1);
-        // increment counter ans set next turn
+
+        // Remove the sprite's ID from available sprites
+        var spriteId = sprite.spriteId;
+        var remainingSprites = game.availableSprites;
+        var spriteIndex = remainingSprites.indexOf(spriteId);
+        remainingSprites.splice(spriteIndex, 1);
+
+
+        // increment counter and set next turn
         game.gameCounter = game.gameCounter + 1;
         var gameTurnFacebookId = game.users[game.gameCounter % game.users.length ].facebookId;
         var gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].playerName;
@@ -161,7 +176,8 @@ module.exports = {
               green: 0,
               blue: 0,
               red: 0
-            }
+            },
+            sprite:''
           });
         }
         game.gameStarted = true;
@@ -203,8 +219,9 @@ module.exports = {
           allUsers.push({
             facebookId: game.users[i].facebookId,
             playerName: game.users[i].playerName,
-            positionOnBoard: game.users[i].positionOnBoard
-          })
+            positionOnBoard: game.users[i].positionOnBoard,
+            sprite: game.users[i].sprite
+          });
         }
         var user  = gameHelperFn.findUser(game, userId);
         var pokemonCount = user.pokemonCount;
@@ -254,6 +271,8 @@ module.exports = {
 
   // creates a new game with game name, game Id, gameCreator object and initial static data
   addGame: function(req, res, next) {
+    // we are finding all the games first so we can count how many and use
+    // that count to create the next id
     findGames()
     .then(function(games) {
       var gameName = req.body.gameName;
@@ -274,7 +293,8 @@ module.exports = {
           gameStarted: false,
           gameTurn: {},
           gameCounter: 0,
-          currentPage: 'lobbyView'
+          currentPage: 'lobbyView',
+          availableSprites: availableSpritesData
         });
         newGame.save(function (err) {
           if (err) throw err;
@@ -446,6 +466,18 @@ module.exports = {
       pokemonController.findPokemons({ pokemonId: { $in: availPokemonIds}})
       .then(function(availPokemon) {
         res.send(availPokemon);
+      });
+    });
+  },
+
+  getAvailableSprites: function(req, res, next) {
+    findGame( { gameId: req.query.gameId } )
+    .then(function(game) {
+      var availSprite = game.availableSprites;
+
+      spriteController.findSprites({ spriteId: { $in: availSprite } })
+      .then(function(sprites) {
+        res.send(sprites);
       });
     });
   }
