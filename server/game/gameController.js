@@ -4,7 +4,6 @@ var gameHelperFn = require('./gameHelperFunctions.js');
 var gameBoardData = require('../data/gameBoardData.js');
 var availablePokemonData = require('../data/availablePokemonData.js');
 
-
 var findGame = Q.nbind(Games.findOne, Games);
 var findGames = Q.nbind(Games.find, Games);
 
@@ -156,7 +155,13 @@ module.exports = {
             itemCards: [],
             positionOnBoard: 0,
             citiesVisited: [0],
-            lastCity: 0
+            lastCity: 0,
+            pokemonCount: {
+              pink: 0,
+              green: 0,
+              blue: 0,
+              red: 0
+            }
           });
         }
         game.gameStarted = true;
@@ -201,11 +206,16 @@ module.exports = {
             positionOnBoard: game.users[i].positionOnBoard
           })
         }
+        var user  = gameHelperFn.findUser(game, userId);
+        var pokemonCount = user.pokemonCount;
+        var won = gameHelperFn.checkWinner(pokemonCount);
+        var winner = won ? user : null;
         var gameData = {
           board: game.gameBoard,
-          user: gameHelperFn.findUser(game, userId),
+          user: user,
           currentTurn: game.gameTurn,
-          allUsers: allUsers
+          allUsers: allUsers,
+          winner: winner
         };
         res.send(gameData);
       })
@@ -323,6 +333,7 @@ module.exports = {
               game.users[i].party.push(pokemon);
               currentPosition = game.users[i].positionOnBoard;
               game.gameBoard[currentPosition].pokemon = null;
+              game.users[i].pokemonCount[pokemonColor] = game.users[i].pokemonCount[pokemonColor] + 1;
               game.markModified('gameBoard');
               game.markModified('users');
               game.save();
