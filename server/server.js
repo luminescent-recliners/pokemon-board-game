@@ -124,6 +124,10 @@ io.on('connection', function(socket){
   socket.on('emit users back to board', function(data) {
     socket.broadcast.to(data.gameId).emit('redirect back to board');
   });
+
+  socket.on('player won', function(data) {
+    io.to(data.gameId).emit('winner announcement', { winner: data.winner });
+  });
 });
 
 // for sockets
