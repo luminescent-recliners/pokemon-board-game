@@ -205,7 +205,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
         $scope.allPlayers = data.allUsers;
         $scope.winner = data.winner;
-        console.log("response from server for boardinit ", $scope.winner);
         if($scope.winner !== null) {
           pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
         };

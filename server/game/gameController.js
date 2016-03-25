@@ -209,7 +209,7 @@ module.exports = {
         var user  = gameHelperFn.findUser(game, userId);
         var pokemonCount = user.pokemonCount;
         var won = gameHelperFn.checkWinner(pokemonCount);
-        var winner = won? user:null;
+        var winner = won ? user : null;
         var gameData = {
           board: game.gameBoard,
           user: user,
