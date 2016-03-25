@@ -73,6 +73,37 @@ input {
 }
 
 
+.pokemon {
+  display: inline-block;
+  margin: 0 2%;
+}
+
+.pokemonName {
+  text-align: center;
+}
+
+.pink {
+  color: pink;
+  background-color: pink;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.party {
+  white-space: nowrap;
+}
+
+hr{
+    height:1px;
+    padding:0px;
+    margin:0px;
+}
 
 
 

@@ -180,6 +180,30 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
+  var sortPokemon = function(pokemonArray) {
+    var pokemonByColor = {
+      starter: [],
+      pink: [],
+      green:[],
+      blue: [],
+      red: [],
+      gold: []
+    };
+
+    for (var i = 0; i < pokemonArray.length; i++) {
+      var pokemon = pokemonArray[i];
+      pokemonByColor[pokemon.color].push(pokemon);
+    }
+
+    return pokemonByColor;
+  };
+
+  $scope.userInfoPanel = false;
+
+  $scope.togglePanel = function() {
+    $scope.userInfoPanel = !$scope.userInfoPanel;
+  };
+
   var initialize = function() {
     boardFactory.boardInit($scope.gameId, $scope.facebookId)
       .then(function(data){
@@ -200,6 +224,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         console.log($scope.currentTurnSprite);
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
+        
+        $scope.userParty = sortPokemon(data.user.party);
 
         $scope.allPlayers = data.allUsers;
         $scope.winner = data.winner;
