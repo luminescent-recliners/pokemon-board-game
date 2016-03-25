@@ -27,7 +27,7 @@
         <ul ng-repeat = "pokemon in list" >
           <div class="col-lg-2 text-center">
             <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 125px">
-             <img src='{{pokemon.imageURL}}' >
+             <img class="pokemonGif" src='{{pokemon.gifURL}}' >
             </div>
             <div class="radio">
               <label><input type="radio" name="optradio" ng-click = "getStarter(pokemon)">{{ pokemon.name }}</label>

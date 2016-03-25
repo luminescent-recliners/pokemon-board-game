@@ -67,6 +67,9 @@ input {
   margin-top: 15px;
 }
 
+.pokemonGif {
+  margin-top: 35px;
+}
 /* Capture View  */
 .dice {
     width: 30px;
