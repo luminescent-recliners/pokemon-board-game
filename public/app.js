@@ -11,6 +11,7 @@ angular.module('pokemon', [
   'pokemon.city',
   'btford.socket-io',
   'pokemon.auth',
+  'pokemon.winner',
   'ngCookies',
   'ngRoute'
 ])
@@ -43,6 +44,10 @@ angular.module('pokemon', [
     .when('/event', {
       templateUrl: 'event/event.html',
       controller: 'eventController'
+    })
+    .when("/winner", {
+      templateUrl: 'winner/winner.html',
+      controller: 'winnerController'
     })
     .when("/", {
       templateUrl: 'auth/signin.html',

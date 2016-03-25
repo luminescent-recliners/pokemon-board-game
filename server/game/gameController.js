@@ -480,6 +480,13 @@ module.exports = {
         res.send(sprites);
       });
     });
+  },
+
+  getUsers: function(req, res, next) {
+    findGame({ gameId: req.query.gameId })
+    .then(function (game) {
+      res.send(game.users);
+    });
   }
 
 };

@@ -24,6 +24,7 @@ router.get('/api/games/lobbyinit', gameController.lobbyInit);
 router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
 router.get('/api/games/boardInit', gameController.boardInit);
 router.get('/api/games/remainingSprites', gameController.getAvailableSprites);
+router.get('/api/games/getusers', gameController.getUsers);
 
 router.get('/signin/facebook', passport.authenticate('facebook'));
 
