@@ -43,23 +43,35 @@ module.exports = {
     var gameId = req.body.gameId;
     var userId = req.body.userId;
     var pokemon = req.body.pokemon;
+    var sprite = req.body.sprite;
 
     findGame({ gameId: gameId })
       .then(function(game) {
-        // adds starter pokemon object to user's party
+        // adds starter pokemon object to user's party and
+        // sets user sprite url
         for(var i = 0; i < game.users.length; i++) {
           if(game.users[i].facebookId === userId) {
             var currentUser = game.users[i];
             game.users[i].party.push(pokemon);
             game.users[i].positionOnBoard = 1;
+            game.users[i].sprite = sprite.imageURL;
           }
         }
+
         // Removes the pokemon's ID from available pokemons
         var id = pokemon.pokemonId;
         var starterPokemon = game.availablePokemon.starter;
         var index = starterPokemon.indexOf(id);
         starterPokemon.splice(index, 1);
-        // increment counter ans set next turn
+
+        // Remove the sprite's ID from available sprites
+        var spriteId = sprite.spriteId;
+        var remainingSprites = game.availableSprites;
+        var spriteIndex = remainingSprites.indexOf(spriteId);
+        remainingSprites.splice(spriteIndex, 1);
+
+
+        // increment counter and set next turn
         game.gameCounter = game.gameCounter + 1;
         var gameTurnFacebookId = game.users[game.gameCounter % game.users.length ].facebookId;
         var gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].playerName;
