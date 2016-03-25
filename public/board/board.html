@@ -42,7 +42,7 @@
   </div>
 
   <!-- this section for dice view and messages -->
-  <div class='control-panel' >
+  <div class='control-panel' ng-if="!userInfoPanel">
     <div class="currentTurn">
       <h3>Current Turn: {{currentTurnPlayerName}}</h3>
       <img src="{{currentTurnSprite}}" alt="">
@@ -66,7 +66,104 @@
       <h1>{{actionDescription}}</h1>
       <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
     </div>
+    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
   </div>
 
-   </div>
+  <div class="control-panel" ng-if="userInfoPanel">
+    <div class="user-info">
+      <h3>{{playerName}}</h3>
+      <img src="http://sprites.pokecheck.org/t/187.gif" alt="">
+      <img src="{{userParty.starter[0].gifURL}}" alt="">
+    </div>
+
+    <hr>
+    <div class="party pink">
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/052.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.pink">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+      <div class="pokemon" ng-repeat="pokemon in userParty.pink">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party green">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.green">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+      <div class="pokemon" ng-repeat="pokemon in userParty.green">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party blue">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/130.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/130.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.blue">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="party red">
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/003.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon">
+        <img src="http://sprites.pokecheck.org/i/076.gif" alt="">
+        <p class="pokemonName">Meowth</p>
+      </div>
+
+      <div class="pokemon" ng-repeat="pokemon in userParty.red">
+        <img src="{{pokemon.gifURL}}" alt="">
+        <p class="pokemonName">{{pokemon.name}}</p>
+      </div>
+    </div>
+
+    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
+  </div>
+
 </div>
