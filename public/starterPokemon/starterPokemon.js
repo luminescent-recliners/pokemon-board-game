@@ -6,6 +6,7 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
 
+
   $scope.selectedPokemon = null;
   $scope.gameTurnFacebookId;
 
@@ -18,9 +19,15 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
         $scope.gameTurnFacebookId = resp.facebookId;
 
         gameFactory.getRemainingStarterPokemon($scope.gameId)
-          .then(function(resp2) {
-            $scope.list = resp2;
-          });
+        .then(function(resp2) {
+          $scope.list = resp2;
+        });
+
+        gameFactory.getRemainingSprites($scope.gameId)
+        .then(function(resp3) {
+          $scope.spriteList = resp3;
+        });
+
       })
       .catch(function (error) {
         console.error(error);
@@ -31,20 +38,28 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
     $scope.selectedPokemon = currpokemon;
   };
 
-  $scope.playerInit = function () {
-    if($scope.selectedPokemon !== null) {
+  var selectedSprite = null;
+  $scope.selectSprite = function(currentSprite) {
+    selectedSprite = currentSprite;
+  };
 
-    userFactory.playerInit($scope.gameId, $scope.facebookId, $scope.selectedPokemon)
+  $scope.playerInit = function () {
+    if($scope.selectedPokemon !== null && selectedSprite !== null)  {
+
+      userFactory.playerInit($scope.gameId, $scope.facebookId, $scope.selectedPokemon, selectedSprite)
       .then(function (resp) {
         $scope.gameTurnName = resp.playerName;
-        $scope.gameTurnFacebookId = resp.facebookId
+        $scope.gameTurnFacebookId = resp.facebookId;
         pokemonSocket.emit('a pokemon was selected', {gameId: $scope.gameId, pokemon: $scope.selectedPokemon});
       })
       .catch(function (error) {
         console.error(error);
       });
+
+
+
     } else {
-      $scope.message = "Have To Select a Pokemon";
+      $scope.message = "Have To Select a Pokemon And a Trainer!!";
     }
   };
 

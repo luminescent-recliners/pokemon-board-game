@@ -14,7 +14,8 @@ var gameSchema = mongoose.Schema({
     default: false
   },
   gameCounter: Number,
-  currentPage: String
+  currentPage: String,
+  availableSprites: []
 });
 
 var Games = mongoose.model('games', gameSchema);
