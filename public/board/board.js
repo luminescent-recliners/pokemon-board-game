@@ -24,11 +24,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
            [0, - distFromSpot],[- distFromSpot * 0.866, - distFromSpot / 2], [- distFromSpot * 0.866, distFromSpot / 2]];
 
   $scope.allPlayersBoard2 = [ [0, distFromSpot2], [distFromSpot2 * 0.866, distFromSpot2 / 2], [distFromSpot2 * 0.866, - distFromSpot2 / 2],
-                              [0, - distFromSpot2],[- distFromSpot2 * 0.866, - distFromSpot2 / 2], [- distFromSpot2 * 0.866, distFromSpot2 / 2]
-                            ];
-  $scope.playerImage = ['http://sprites.pokecheck.org/t/187.gif', 'http://sprites.pokecheck.org/t/137.gif',
-    'http://sprites.pokecheck.org/t/123.gif', 'http://sprites.pokecheck.org/t/003.gif', 'http://sprites.pokecheck.org/t/049.gif','http://sprites.pokecheck.org/t/048.gif'
-    ];
+            [0, - distFromSpot2],[- distFromSpot2 * 0.866, - distFromSpot2 / 2], [- distFromSpot2 * 0.866, distFromSpot2 / 2]];
   // till here ---------------------------------------------<<<<<<<
 
   $scope.winner = null;
@@ -157,7 +153,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
-
   pokemonSocket.on('send redirect path to users', function(action){
     redirect(action);
   });
@@ -186,7 +181,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       });
   };
 
-
   var initialize = function() {
     boardFactory.boardInit($scope.gameId, $scope.facebookId)
       .then(function(data){
@@ -210,9 +204,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         };
       });
   };
-
-  // these should probably be initialized at the same time as board above
-  $scope.playerList = []; // what is this used for???
 
   confirmCurrentPage();
 });
@@ -293,16 +284,5 @@ app.factory('boardFactory', function($http) {
     createPath: createPath,
     createBoardArray: createBoardArray,
     createPathString: createPathString
-  };
-});
-
-app.directive('writeName', function() {
-  return {
-    templateNamespace: 'svg',
-    restrict: 'E',
-    replace: true,
-    scope: {data: '=data'},
-    template: '<text ng-attr-x="{{50+data.col*70}}" '+
-      'ng-attr-y="{{50+data.col*50}}" fill="#00BCD4">{{data.users}}</text>'
   };
 });
