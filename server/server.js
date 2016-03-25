@@ -130,6 +130,10 @@ io.on('connection', function(socket){
     winners[data.gameId] = data.winner;
     io.to(data.gameId).emit('winner announcement', { winner: data.winner });
   });
+
+  socket.on('get winner', function(data) {
+    io.to(data.gameId).emit('display winner', { winner: winners[data.gameId] });
+  });
 });
 
 // for sockets
