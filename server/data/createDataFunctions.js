@@ -133,5 +133,5 @@ var makeUnique = function() {
   console.log(result);
   // return result;
 };
-console.log(makeUnique());
+// console.log(makeUnique());
 // makeUnique();
