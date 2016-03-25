@@ -1,37 +1,53 @@
-<div>
-  <h3>{{currentTurnPlayerName}} is wandering in the tall grass!</h3>
-  <h3>A wild {{name}} appeared!</h3>
-  <div class="col-lg-12 text-center">
-    Name:<span> {{name}}</span>
-    <br /><br />
-    <div> <img class="pokeMove" src = {{imageUrl}} ></div>
-    <br /><br />
-    Description:<span> {{description}}</span>
-    <br /><br />
-    <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{ rollNeeded }}.</p>
+<div class="text-center">
+  <div>
+    <h3>{{currentTurnPlayerName}} was wandering in the wild!</h3>
+    <h3>A wild {{name}} appeared!</h3>
+  </div>  
+  <!-- POKEDEX -->  
+  <div class="col-lg-3">
   </div>
-  <div ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
+  <div class='pokemonCap panel panel-primary col-lg-6'>
+    <h2 class='panel-heading'><b>{{currentTurnPlayerName}}'s Pokedex</b></h2> 
+    <div class="col-lg-4">  
+      <img class="col-lg-6 pokeMove" src = {{imageUrl}}>
+    </div>
+    <div class='col-lg-8'>
+      <span class='pokemonCap'><b>{{name}}</b></span>
+      <span ng-repeat = "oneDice in dice track by $index">
+        <span> <img class="dice" src = {{oneDice}} ></span>
+      </span>
+      <br /><br />
+    </div>  
+    <div class="col-lg-8">
+      Description:<span> {{description}}</span>
+    </div>
+<!--     <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{rollNeeded}}.</p>  -->  
+  </div>
+  <div class="col-lg-3">
+  </div>
+
+  <!-- Roll Dice Button -->  
+  <div class='col-lg-12' ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
     <button class="tn-lg btn-primary" ng-click ="rollDice()" > Roll Dice & Catch</button>
     <br /><br />
   </div>
 
+  <!-- MESSAGE (OPPONENTS)-->  
   <div class="result-panel">
     <p ng-if="currentTurnPlayerId !== facebookId && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
     <div ng-if="diceRolled && currentTurnPlayerId !== facebookId">
-      <p>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+      <p class='pokemonCap'>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
       <p>{{result}}</p>
-      
     </div>
   </div>
 
-  <li ng-repeat = "oneDice in dice track by $index">
-  <div> <img class="dice" src = {{oneDice}} ></div>
-  </li>
-
-  <br /><br />
-  <div ng-if="diceRolled && currentTurnPlayerId===facebookId">
-    Result: <span>{{result}}</span>
+  <!-- MESSAGE (USER) -->  
+  <div class='col-lg-12' ng-if="diceRolled && currentTurnPlayerId===facebookId">
+    <p class='pokemonCap'>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+    <span>{{result}}</span>
     <br /><br />
+    <div class='col-lg-12'>
     <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
+    </div>
   </div>
 </div>
