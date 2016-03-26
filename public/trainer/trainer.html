@@ -1,0 +1,8 @@
+<div>
+  <div>
+    <h1>{{currentTurnPlayerName}} must first select a player to trade or battle.</h1>
+  </div>
+  <div ng-if="currentTurnPlayerId===facebookId">
+    <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
+  </div>
+</div>

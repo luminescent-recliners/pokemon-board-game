@@ -12,6 +12,7 @@ angular.module('pokemon', [
   'btford.socket-io',
   'pokemon.auth',
   'pokemon.winner',
+  'pokemon.trainer',
   'ngCookies',
   'ngRoute',
   'ngAudio'
@@ -60,6 +61,10 @@ angular.module('pokemon', [
     .when("/signin", {
       templateUrl: 'auth/signin.html',
       conroller: 'authController'
+    })
+    .when("/trainer", {
+      templateUrl: 'trainer/trainer.html',
+      controller: 'trainerController'
     })
     .otherwise({
       redirectTo: '/home'
