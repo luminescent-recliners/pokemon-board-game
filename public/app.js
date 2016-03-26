@@ -19,38 +19,55 @@ angular.module('pokemon', [
   $routeProvider
     .when("/home", {
       templateUrl: 'home/home.html',
-      conroller: 'homeController'
+      conroller: 'homeController',
+      authenticate: true
     })
     .when('/board', {
       templateUrl: 'board/board.html',
-      controller: 'boardController'
+      controller: 'boardController',
+      authenticate: true
     })
     .when('/starter', {
       templateUrl: 'starterPokemon/starterPokemon.html',
-      controller: 'starterController'
+      controller: 'starterController',
+      authenticate: true
     })
     .when('/lobby', {
       templateUrl: 'lobby/lobby.html',
-      controller: 'lobbyController'
+      controller: 'lobbyController',
+      authenticate: true
     })
     .when('/capture', {
       templateUrl: 'capturePokemon/capturePokemon.html',
-      controller: 'captureController'
+      controller: 'captureController',
+      authenticate: true
     })
     .when('/city', {
       templateUrl: 'city/city.html',
-      controller: 'cityController'
+      controller: 'cityController',
+      authenticate: true
     })
     .when('/event', {
       templateUrl: 'event/event.html',
-      controller: 'eventController'
+      controller: 'eventController',
+      authenticate: true
     })
     .when("/winner", {
       templateUrl: 'winner/winner.html',
       controller: 'winnerController'
     })
-    .when("/", {
+    .when("/signin", {
       templateUrl: 'auth/signin.html',
       conroller: 'authController'
+    })
+    .otherwise({
+      redirectTo: '/home'
     });
+})
+.run(function ($rootScope, $location, authFactory) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    if (next.$$route && next.$$route.authenticate && !authFactory.isAuth()) {
+      $location.path('/signin');
+    }
+  });
 });
