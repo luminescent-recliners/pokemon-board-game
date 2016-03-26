@@ -74,8 +74,8 @@ angular.module('pokemon.home', ['ngAudio'])
     userFactory.getGames()
     .then(function(games) {
       $scope.games = games;
-      var audio = new Audio('http://66.90.91.26/ost/pokemon-gameboy-sound-collection/aipycrsoym/101-opening.mp3');
-      audio.play();
+      // var audio = new Audio('http://66.90.91.26/ost/pokemon-gameboy-sound-collection/aipycrsoym/101-opening.mp3');
+      // audio.play();
       // figure out if player is in any of the started games
       // should this logic go on the server side?
       for(var i = 0; i < games.length; i++) {

@@ -87,6 +87,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   });
 
   $scope.movePlayer = function(newSpot, userId) {
+    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
+
     var userObject = {
       facebookId: $scope.facebookId,
       playerName: $scope.playerName
@@ -120,10 +123,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   });
 
   var redirect = function(action) {
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
     switch (action) {
       case 'pokemon':
-        var audioPokeball = new Audio('../assets/sounds/pokeball.mp3');
-        audioPokeball.play();
         $location.path('/capture');
         break;
       case 'city':
@@ -147,10 +150,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.redirectAllUsers = function() {
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
     switch (action) {
       case 'pokemon':
-      var audioPokeball = new Audio('../assets/sounds/pokeball.mp3');
-      audioPokeball.play();
         updateCurrentPage('captureView');
         break;
       case 'city':
@@ -214,6 +217,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.userInfoPanel = false;
 
   $scope.togglePanel = function() {
+
+    var audioPop = new Audio('../assets/sounds/pop.mp3');
+    audioPop.play();
+
     $scope.userInfoPanel = !$scope.userInfoPanel;
   };
 
