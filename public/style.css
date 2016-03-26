@@ -49,11 +49,12 @@ input {
 .map-group {
   width: 96%;
   margin: 0 auto;
-  max-height: 600px;
+  /*max-height: 100%; *//*600px;*/
+  display: table;
 }
 
 .map-panel, .control-panel {
-  display: inline-block;
+  display: table-cell;
   vertical-align: top;
   height: 100%;
 }
@@ -62,7 +63,17 @@ input {
   background-color: #ffc;
   color: darkslateblue;
   opacity: 0.8;
-  width: 18%;
+  max-width: 230px;
+  min-width: 160px;
+  overflow: scroll;
+}
+
+
+.control-padding {  /* this is a hack to create space*/
+  display: table-cell;
+  vertical-align: top;
+  height: 100%;
+  width: 0.5%;
 }
 
 .map-panel {
@@ -72,6 +83,11 @@ input {
   border: 0;
 }
 
+.board-center {
+  margin: 8px auto;
+  display: block;
+  text-align: center;
+}
 
 .pokemon {
   display: inline-block;
@@ -99,10 +115,17 @@ input {
   white-space: nowrap;
 }
 
-hr{
-    height:1px;
-    padding:0px;
-    margin:0px;
+hr {
+  height: 1px;
+  padding: 0;
+  margin: 0;
+}
+
+.currentTurn {
+  width: 95%;
+  margin: 0 auto;
+
+  text-align: center;
 }
 
 
