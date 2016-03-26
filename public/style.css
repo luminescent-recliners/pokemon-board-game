@@ -73,6 +73,18 @@ input {
   border: 0;
 }
 
+.currentTurn {
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.board-center {
+  margin: 8px auto;
+  display: block;
+  text-align: center;
+}
+
 .pink {
   background-color: pink;
 }
@@ -89,35 +101,36 @@ input {
   background-color: green;
 }
 
-
 hr{
-    height:1px;
-    padding:0px;
-    margin:0px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
 }
 
 .scroll {
-width:230px;
-height:110px;
-overflow:scroll;
+  width: 230px;
+  height: 110px;
+  overflow: scroll;
 }
 
 .scroll ul {
-display:table;
-white-space:nowrap;
-list-style:none;
-padding: 0;
+  display: table;
+  white-space: nowrap;
+  list-style: none;
+  padding: 0;
 }
+
 .scroll li {
-display:table-cell; 
-text-align:center;  
-margin: 0 10px;     
+  display:table-cell; 
+  text-align:center;  
+  margin: 0 10px;     
 }
+
 .scroll img {
-border:0;
-display:block;
-margin:0px 15px 0 15px;
-padding: 0;
+  border:0;
+  display:block;
+  margin:0px 15px 0 15px;
+  padding: 0;
 }
 
 
