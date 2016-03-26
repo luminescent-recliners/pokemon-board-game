@@ -30,7 +30,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.winner = null;
   
   pokemonSocket.on('winner announcement', function(data) {
-    $location.path('/winner');
+    gameFactory.updateCurrentPage($scope.gameId, 'winnerView')
+      .then(function (resp) {
+        redirect('winner');
+      })
   });
 
   $scope.rollDice = function() {
@@ -122,6 +125,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       case 'event':
         $location.path('/event');
         break;
+      case 'winner':
+        $location.path('/winner');
+        break;
     }
   };
 
@@ -169,6 +175,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
               break;
             case 'eventView':
               $location.path('/event');
+              break;
+            case 'winnerView':
+              $location.path('/winner');
               break;
           }
         }
