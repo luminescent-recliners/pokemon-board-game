@@ -188,7 +188,7 @@ angular.module('services', [])
       return resp.data;
     });
   };
-
+// updateTurn function updates the game turn and sets the new currentpage
   var updateTurn = function (gameId, currentPage) {
     return $http({
       method: 'PUT',
@@ -228,7 +228,7 @@ angular.module('services', [])
       return resp.data;
     });
   };
-
+// updateCurrentPage function updates the current page of the game
   var updateCurrentPage = function(gameId, currentPage) {
     return $http({
       method: 'PUT',
