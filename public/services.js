@@ -1,4 +1,13 @@
 angular.module('services', [])
+.factory('authFactory', function ($http, $cookies) {
+  var isAuth = function () {
+    return !!$cookies.get('facebookId');
+  };
+
+  return {
+    isAuth: isAuth
+  };
+})
 .factory('userFactory', function ($http) {
 
   var playerInit = function (gameId, userId, pokemon, sprite) {

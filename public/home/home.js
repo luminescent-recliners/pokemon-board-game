@@ -1,6 +1,6 @@
 angular.module('pokemon.home', [])
 
-.controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket) {
+.controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory) {
   $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
   $window.localStorage.setItem('pokemon.playerName', $cookies.get('playerName'));
   // --------------------------------------<<<<<<
@@ -15,12 +15,6 @@ angular.module('pokemon.home', [])
   if($scope.gameId !== null) {
     pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { facebookId: $scope.facebookId, playerName: $scope.playerName}});
   }
-
-  pokemonSocket.on('updateAvailGames', function(newGame) {
-    $scope.games = [];
-    $scope.myGames = [];
-    $scope.userGames();
-  });
 
   $scope.hitEnter = function($event) {
     if($event.which === 13) {
@@ -72,7 +66,7 @@ angular.module('pokemon.home', [])
 
   };
 
-  $scope.userGames = function() {
+  var userGames = function() {
     userFactory.getGames()
     .then(function(games) {
       $scope.games = games;
@@ -93,11 +87,18 @@ angular.module('pokemon.home', [])
       }
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
   };
-  $scope.userGames();
   
+  userGames();
+
+  pokemonSocket.on('updateAvailGames', function(newGame) {
+    $scope.games = [];
+    $scope.myGames = [];
+    userGames();
+  });
+
 });
 
  
