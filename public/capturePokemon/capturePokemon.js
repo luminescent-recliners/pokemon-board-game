@@ -83,8 +83,6 @@ angular.module('pokemon.capture', [])
     gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
-        var audioPokeball = new Audio('../assets/sounds/pop.mp3');
-        audioPokeball.play();
         $location.path('/board');
       })
       .catch(function (error) {
