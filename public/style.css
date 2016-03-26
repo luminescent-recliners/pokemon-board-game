@@ -124,7 +124,6 @@ input {
 }
 
 .pink {
-  color: pink;
   background-color: pink;
 }
 
@@ -134,6 +133,10 @@ input {
 
 .blue {
   background-color: blue;
+}
+
+.green {
+  background-color: green;
 }
 
 
@@ -209,29 +212,50 @@ hr{
 }
 
 
+.scroll pink {
+  background-color: pink;
+}
+
+.scroll .green {
+  background-color: green;
+}
+
+.scroll red {
+  background-color: red;
+}
+
+.scroll blue {
+  background-color: blue;
+}
+
 .scroll {
 width:230px;
-height:120px;
-margin:100px auto;
-background:pink;
-border:2px solid #000;
+height:110px;
 overflow:scroll;
-box-shadow:0 0 10px #000;
 }
+
 .scroll ul {
 display:table;
 white-space:nowrap;
 list-style:none;
+padding: 0;
 }
 .scroll li {
 display:table-cell; 
-text-align:center;       
+text-align:center;  
+margin: 0 10px;     
 }
 .scroll img {
 border:0;
 display:block;
-margin:15px 15px 0 15px;
+margin:0px 15px 0 15px;
+padding: 0;
 }
+
+span {
+  text-align: center;
+}
+
 .scroll a:active img, .scroll a:focus img, .scroll a:hover img {
 border:1px solid #000;
 }
@@ -246,46 +270,3 @@ color:#FFF;
 .scroll span {
 display:block;
 }
-
-
-
-
-/*.scrollz {
-width:600px;
-height:200px;
-margin:100px auto;
-background:#A3CBE0;
-border:2px solid #000;
-overflow:auto;
-box-shadow:0 0 10px #000;
-}
-.scrollz ul {
-display:table;
-white-space:nowrap;
-list-style:none;
-}
-.scrollz li {
-display:table-cell; 
-text-align:center;       
-}
-.scrollz img {
-border:0;
-display:block;
-border:1px solid #A3CBE0;
-margin:15px 15px 0 15px;
-}
-.scrollz a:active img, .scrollz a:focus img, .scrollz a:hover img {
-border:1px solid #000;
-}
-.scrollz a {
-text-decoration:none;
-font-weight:bold;
-color:#000;
-}
-.scrollz a:active, .scrollz a:focus, .scrollz a:hover {
-color:#FFF;
-}
-.scrollz span {
-padding:5px 0 0;
-display:block;
-}*/
