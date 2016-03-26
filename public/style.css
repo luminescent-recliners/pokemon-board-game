@@ -63,7 +63,7 @@ input {
   color: darkslateblue;
   opacity: 0.8;
   width: 18%;
-  overflow: auto;
+  overflow: scroll;
 }
 
 .map-panel {
@@ -71,56 +71,6 @@ input {
   margin: 0 auto;
   padding: 0;
   border: 0;
-}
-
-.scroll-container {
-  overflow: auto;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.scroll-container ul {
-  display: table;
-}
-
-.scroll-container li {
-  display: table-cell;
-}
-
-.scroll-containers {
-  overflow: auto;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.scroll-containers ul {
-  display: table;
-}
-
-.scroll-containers li {
-  display: table-cell;
-}
-
-
-
-
-
-
-
-
-.party {
-  white-space: nowrap;
-  display: table;
-}
-
-.pokemon {
-  display: table-cell;
-  margin: 0 2%;
-  width: auto;
-}
-
-.pokemonName {
-  text-align: center;
 }
 
 .pink {
@@ -144,6 +94,30 @@ hr{
     height:1px;
     padding:0px;
     margin:0px;
+}
+
+.scroll {
+width:230px;
+height:110px;
+overflow:scroll;
+}
+
+.scroll ul {
+display:table;
+white-space:nowrap;
+list-style:none;
+padding: 0;
+}
+.scroll li {
+display:table-cell; 
+text-align:center;  
+margin: 0 10px;     
+}
+.scroll img {
+border:0;
+display:block;
+margin:0px 15px 0 15px;
+padding: 0;
 }
 
 
@@ -209,64 +183,4 @@ hr{
 
 .pokemonCap {
   color: #125986;
-}
-
-
-.scroll pink {
-  background-color: pink;
-}
-
-.scroll .green {
-  background-color: green;
-}
-
-.scroll red {
-  background-color: red;
-}
-
-.scroll blue {
-  background-color: blue;
-}
-
-.scroll {
-width:230px;
-height:110px;
-overflow:scroll;
-}
-
-.scroll ul {
-display:table;
-white-space:nowrap;
-list-style:none;
-padding: 0;
-}
-.scroll li {
-display:table-cell; 
-text-align:center;  
-margin: 0 10px;     
-}
-.scroll img {
-border:0;
-display:block;
-margin:0px 15px 0 15px;
-padding: 0;
-}
-
-span {
-  text-align: center;
-}
-
-.scroll a:active img, .scroll a:focus img, .scroll a:hover img {
-border:1px solid #000;
-}
-.scroll a {
-text-decoration:none;
-font-weight:bold;
-color:#000;
-}
-.scroll a:active, .scroll a:focus, .scroll a:hover {
-color:#FFF;
-}
-.scroll span {
-display:block;
 }
