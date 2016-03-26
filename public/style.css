@@ -63,6 +63,7 @@ input {
   color: darkslateblue;
   opacity: 0.8;
   width: 18%;
+  overflow: auto;
 }
 
 .map-panel {
@@ -72,10 +73,50 @@ input {
   border: 0;
 }
 
+.scroll-container {
+  overflow: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.scroll-container ul {
+  display: table;
+}
+
+.scroll-container li {
+  display: table-cell;
+}
+
+.scroll-containers {
+  overflow: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.scroll-containers ul {
+  display: table;
+}
+
+.scroll-containers li {
+  display: table-cell;
+}
+
+
+
+
+
+
+
+
+.party {
+  white-space: nowrap;
+  display: table;
+}
 
 .pokemon {
-  display: inline-block;
+  display: table-cell;
   margin: 0 2%;
+  width: auto;
 }
 
 .pokemonName {
@@ -95,9 +136,6 @@ input {
   background-color: blue;
 }
 
-.party {
-  white-space: nowrap;
-}
 
 hr{
     height:1px;
@@ -169,3 +207,85 @@ hr{
 .pokemonCap {
   color: #125986;
 }
+
+
+.scroll {
+width:230px;
+height:120px;
+margin:100px auto;
+background:pink;
+border:2px solid #000;
+overflow:scroll;
+box-shadow:0 0 10px #000;
+}
+.scroll ul {
+display:table;
+white-space:nowrap;
+list-style:none;
+}
+.scroll li {
+display:table-cell; 
+text-align:center;       
+}
+.scroll img {
+border:0;
+display:block;
+margin:15px 15px 0 15px;
+}
+.scroll a:active img, .scroll a:focus img, .scroll a:hover img {
+border:1px solid #000;
+}
+.scroll a {
+text-decoration:none;
+font-weight:bold;
+color:#000;
+}
+.scroll a:active, .scroll a:focus, .scroll a:hover {
+color:#FFF;
+}
+.scroll span {
+display:block;
+}
+
+
+
+
+/*.scrollz {
+width:600px;
+height:200px;
+margin:100px auto;
+background:#A3CBE0;
+border:2px solid #000;
+overflow:auto;
+box-shadow:0 0 10px #000;
+}
+.scrollz ul {
+display:table;
+white-space:nowrap;
+list-style:none;
+}
+.scrollz li {
+display:table-cell; 
+text-align:center;       
+}
+.scrollz img {
+border:0;
+display:block;
+border:1px solid #A3CBE0;
+margin:15px 15px 0 15px;
+}
+.scrollz a:active img, .scrollz a:focus img, .scrollz a:hover img {
+border:1px solid #000;
+}
+.scrollz a {
+text-decoration:none;
+font-weight:bold;
+color:#000;
+}
+.scrollz a:active, .scrollz a:focus, .scrollz a:hover {
+color:#FFF;
+}
+.scrollz span {
+padding:5px 0 0;
+display:block;
+}*/
