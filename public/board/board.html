@@ -70,9 +70,9 @@
   </div>
   <!-- panel with player pokemon captures -->
   <div class="control-panel" ng-if="userInfoPanel">
-    <div class="user-info">
+    <div class="user-info board-center">
       <h3>{{playerName}}</h3>
-      <img src="http://sprites.pokecheck.org/t/187.gif" alt="">
+      <img src='{{playerSprite}}' alt="">
       <img src="{{userParty.starter[0].gifURL}}" alt="">
     </div>
 
@@ -85,7 +85,7 @@
     <hr>
 
     <div class="scroll green">
-       <ul>
+       <!-- <ul>
         <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
         <li><img src="http://sprites.pokecheck.org/i/053.gif" alt=""><span>Image Name</span></li>
         <li><img src="http://sprites.pokecheck.org/i/055.gif" alt=""><span>Image Name</span></li>
@@ -95,7 +95,7 @@
         <li><img src="http://sprites.pokecheck.org/i/142.gif" alt=""><span>Image Name</span></li>
         <li><img src="http://sprites.pokecheck.org/i/129.gif" alt=""><span>Image Name</span></li>
         <li><img src="http://sprites.pokecheck.org/i/120.gif" alt=""><span>Image Name</span></li>
-      </ul>
+      </ul> -->
 
       <ul>
         <li ng-repeat="pokemon in userParty.green"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
@@ -138,7 +138,7 @@
       </ul>
     </div>
      
-    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
+    <button class="tn-lg btn-primary board-center" ng-click="togglePanel()">Change View</button>
   </div>
 
 </div>

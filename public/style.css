@@ -85,6 +85,10 @@ input {
   text-align: center;
 }
 
+.pink, .red, .blue, .green {
+  opacity: 0.8;
+}
+
 .pink {
   background-color: pink;
 }
