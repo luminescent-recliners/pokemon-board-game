@@ -10,8 +10,6 @@ angular.module('pokemon.event', [])
   $scope.currentTurnPlayerId;
   
   $scope.updateTurn = function () {
-    var audioRedir = new Audio('../assets/sounds/pop.mp3');
-    audioRedir.play();
     gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
@@ -24,6 +22,8 @@ angular.module('pokemon.event', [])
 
   pokemonSocket.on('redirect back to board', function() {
     $location.path('/board');
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
   });
 
   var initialize = function () {
