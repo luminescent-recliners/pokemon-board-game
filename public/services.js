@@ -269,6 +269,19 @@ angular.module('services', [])
     });
   };
 
+  var updatePlayerCounter = function(gameId) {
+    return $http({
+      method: 'PUT',
+      url: '/api/games/updateplayercounter',
+      data: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   return {
     updateCurrentPage: updateCurrentPage,
     getCurrentPage: getCurrentPage,
@@ -280,7 +293,8 @@ angular.module('services', [])
     updateTurn: updateTurn,
     getRemainingStarterPokemon: getRemainingStarterPokemon,
     getRemainingSprites: getRemainingSprites,
-    requestLobbyEntry: requestLobbyEntry
+    requestLobbyEntry: requestLobbyEntry,
+    updatePlayerCounter: updatePlayerCounter
   };
 
 })
