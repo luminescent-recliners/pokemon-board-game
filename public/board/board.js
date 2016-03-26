@@ -84,6 +84,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
+        console.log($scope.playerOptions);
       });
   };
 
@@ -116,6 +117,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         $scope.actionDescription = $scope.currentTurnPlayerName + ' landed on an event card!';
         resetOptions();
         break;
+      case 'trainer':
+        action = 'trainer';
+        $scope.actionDescription = $scope.currentTurnPlayerName + ' has locked eyes on a trainer!';
+        resetOptions();
+        break;
     }
   };
 
@@ -138,9 +144,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         pokemonSocket.emit('a player moved', {gameId: $scope.gameId, allUsers: $scope.allPlayers});
         $scope.userPosition = position.id;
         $scope.playerPosition = $scope.userPosition - 1;
-        checkAction(newSpot.typeOfSpot);
+        checkAction(newSpot.action);
 
-        if (newSpot.typeOfSpot === 'pokemon') {
+        if (newSpot.action === 'pokemon') {
           $scope.actionDescription = $scope.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
           $scope.actionDisplay = true;
           $scope.playerOptions = [[], []];
@@ -171,6 +177,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       case 'event':
         $location.path('/event');
         break;
+      case 'trainer':
+        $location.path('/trainer');
+        break;
       case 'winner':
         $location.path('/winner');
         break;
@@ -197,6 +206,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
         break;
       case 'event':
         updateCurrentPage('eventView');
+        break;
+      case 'trainer':
+        updateCurrentPage('trainerView');
         break;
     }
   };
@@ -225,6 +237,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
               break;
             case 'eventView':
               $location.path('/event');
+              break;
+            case 'trainerView':
+              $location.path('/trainer');
               break;
             case 'winnerView':
               $location.path('/winner');

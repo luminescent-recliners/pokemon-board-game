@@ -12,12 +12,16 @@ module.exports = {
   addOptionDescription: function(spot, roll, direction) {
     if (spot.typeOfSpot === 'city') {
       spot.description = "Move " + roll + " " + direction + " and land on a city";
+      spot.action = 'city';
     } else if (spot.users.length) {
       spot.description = "Move " + roll + " " + direction + " and say hi to trainer";
+      spot.action = 'trainer';
     } else if (spot.typeOfSpot === 'pokemon') {
       spot.description = "Move " + roll + " " + direction + " and catch a " + spot.colorOfSpot + " Pokemon";
+      spot.action = 'pokemon';
     } else if (spot.typeOfSpot === 'event') {
       spot.description = "Move " + roll + " " + direction + " and grab an event card";
+      spot.action = 'event';
     }
     return spot;
   },
