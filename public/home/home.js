@@ -27,7 +27,6 @@ angular.module('pokemon.home', [])
   };
 
   $scope.logout = function() {
-    console.log('i get here');
     window.localStorage.removeItem("pokemon.facebookId");
     window.localStorage.removeItem("pokemon.gameId");
     window.localStorage.removeItem("pokemon.playerName");
