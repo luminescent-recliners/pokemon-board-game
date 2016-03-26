@@ -177,7 +177,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
               $location.path('/event');
               break;
             case 'winnerView':
-            $location.path('/winner');
+              $location.path('/winner');
+              break;
           }
         }
       });
