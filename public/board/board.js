@@ -53,10 +53,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player roll to move', function(roll) {
-    $scope.roll = roll;
-    $scope.rollDisplay = true;
     var audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
+    $scope.roll = roll;
+    $scope.rollDisplay = true;
   });
 
   var resetOptions = function () {
