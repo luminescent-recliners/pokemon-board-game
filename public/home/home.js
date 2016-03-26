@@ -1,4 +1,4 @@
-angular.module('pokemon.home', ['ngAudio'])
+angular.module('pokemon.home', [])
 
 .controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory) {
   $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
@@ -25,7 +25,6 @@ angular.module('pokemon.home', ['ngAudio'])
       }
     }
   };
-
 
   $scope.logout = function() {
     window.localStorage.removeItem("pokemon.facebookId");
@@ -69,13 +68,10 @@ angular.module('pokemon.home', ['ngAudio'])
 
   };
 
-  // $scope.audio.muting = false;
-  $scope.userGames = function() {
+  var userGames = function() {
     userFactory.getGames()
     .then(function(games) {
       $scope.games = games;
-      // var audio = new Audio('http://66.90.91.26/ost/pokemon-gameboy-sound-collection/aipycrsoym/101-opening.mp3');
-      // audio.play();
       // figure out if player is in any of the started games
       // should this logic go on the server side?
       for(var i = 0; i < games.length; i++) {
@@ -106,5 +102,3 @@ angular.module('pokemon.home', ['ngAudio'])
   });
 
 });
-
- 
