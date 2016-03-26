@@ -503,6 +503,14 @@ module.exports = {
       requestAccepted = true;
     }
     res.send({ requestAccepted: requestAccepted });
+  },
+
+  updatePlayerCounter: function(req, res, next) {
+    var gameId = req.body.gameId;
+    if(playerCounter[gameId]) {
+      playerCounter[gameId] = playerCounter[gameId] - 1;
+    }
+    res.send("updated!");
   }
 
 };
