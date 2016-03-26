@@ -12,6 +12,8 @@ var pokemonController = require('../pokemon/pokemonController.js');
 
 var spriteController = require('../sprites/spriteController.js');
 
+var playerCounter = {};
+
 module.exports = {
   findGame: findGame,
 
@@ -487,6 +489,20 @@ module.exports = {
     .then(function (game) {
       res.send(game.users);
     });
+  },
+
+  requestLobbyEntry: function(req, res, next) {
+    var gameId = req.body.gameId;
+    var requestAccepted;
+
+    playerCounter[gameId] = playerCounter[gameId] || 0;
+    if(playerCounter[gameId] === 2) {
+      requestAccepted = false;
+    } else {
+      playerCounter[gameId] = playerCounter[gameId] + 1;
+      requestAccepted = true;
+    }
+    res.send({ requestAccepted: requestAccepted });
   }
 
 };
