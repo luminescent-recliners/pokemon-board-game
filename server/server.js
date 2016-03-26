@@ -134,6 +134,10 @@ io.on('connection', function(socket){
   socket.on('get winner', function(data) {
     io.to(data.gameId).emit('display winner', { winner: winners[data.gameId] });
   });
+
+  socket.on('player wants to pause game', function(data) {
+    io.to(data.gameId).emit('player leaving game', data); 
+  });
 });
 
 // for sockets
