@@ -68,8 +68,10 @@ angular.module('pokemon.home', [])
               facebookId: $scope.facebookId
             }
           }); 
+        } else {
+          console.log("Sorry, This game already has 6 players!");
         }
-      })
+      }) 
       .catch(function (error) {
         console.error(error);
       });
