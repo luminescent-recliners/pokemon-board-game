@@ -280,7 +280,7 @@ angular.module('services', [])
     updateTurn: updateTurn,
     getRemainingStarterPokemon: getRemainingStarterPokemon,
     getRemainingSprites: getRemainingSprites,
-    requestlobbyentry: requestlobbyentry
+    requestLobbyEntry: requestLobbyEntry
   };
 
 })
