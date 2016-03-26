@@ -42,31 +42,34 @@
   </div>
 
   <!-- this section for dice view and messages -->
+  <div class='control-padding'>
+    <!-- this is just to put a bit of space between map and control-panel -->
+  </div>
   <div class='control-panel' ng-if="!userInfoPanel">
     <div class="currentTurn">
       <h3>Current Turn: {{currentTurnPlayerName}}</h3>
       <img src="{{currentTurnSprite}}" alt="">
-      <h4 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h4>
+      <h5 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h5>
     </div>
-  <hr>
+    <hr>
     <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
-      <span>Roll Dice: </span><button class="tn-lg btn-primary" ng-click="rollDice()">Roll Dice</button>
-      <p>your roll is {{roll}}</p>
+      <button class="tn-lg btn-primary board-center" ng-click="rollDice()" ng-hide='roll > 0'> Roll Dice </button>
+      <p class='board-center' ng-if='roll > 0'>You rolled a {{roll}}</p>
       <div class="player-options">
         <ul>
-          <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption}}</a></li>
+          <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption.description}}</a></li>
         </ul>
         <ul>
-          <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption}}</a></li>
+          <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption.description}}</a></li>
         </ul>
       </div>
     </div>
-
-    <div class="action-display" ng-if="actionDisplay">
-      <h1>{{actionDescription}}</h1>
+    <hr>
+    <div class="action-display board-center" ng-if="actionDisplay">
+      <h4>{{actionDescription}}</h4>
       <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
     </div>
-    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
+    <button class="tn-lg btn-primary board-center" ng-click="togglePanel()"> Change View </button>
   </div>
 
   <div class="control-panel" ng-if="userInfoPanel">
@@ -165,5 +168,4 @@
 
     <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
   </div>
-
 </div>
