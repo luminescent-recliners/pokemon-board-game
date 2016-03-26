@@ -168,6 +168,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send redirect path to users', function(action){
     redirect(action);
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
   });
 
   var confirmCurrentPage = function() {
