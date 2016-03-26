@@ -1,4 +1,4 @@
-angular.module('pokemon.home', [])
+angular.module('pokemon.home', ['ngAudio'])
 
 .controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory) {
   $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
@@ -69,7 +69,8 @@ angular.module('pokemon.home', [])
 
   };
 
-  var userGames = function() {
+  // $scope.audio.muting = false;
+  $scope.userGames = function() {
     userFactory.getGames()
     .then(function(games) {
       $scope.games = games;
