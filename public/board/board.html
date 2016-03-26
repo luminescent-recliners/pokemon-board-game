@@ -46,36 +46,36 @@
     <div class="currentTurn">
       <h3>Current Turn: {{currentTurnPlayerName}}</h3>
       <img src="{{currentTurnSprite}}" alt="">
-      <h4 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h4>
+      <h5 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h5>
     </div>
   <hr>
     <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
-      <span>Roll Dice: </span><button class="tn-lg btn-primary" ng-click="rollDice()">Roll Dice</button>
-      <p>your roll is {{roll}}</p>
+      <button class="tn-lg btn-primary board-center" ng-click="rollDice()" ng-hide='roll > 0'> Roll Dice </button>
+      <p class='board-center' ng-if='roll > 0'>You rolled a {{roll}}</p>
       <div class="player-options">
         <ul>
-          <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption}}</a></li>
+          <li ng-repeat="forwardOption in playerOptions[0]"><a href="javascript:void(0)" ng-click="movePlayer(forwardOption)">{{forwardOption.description}}</a></li>
         </ul>
         <ul>
-          <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption}}</a></li>
+          <li ng-repeat="backwardOption in playerOptions[1]"><a href="javascript:void(0)" ng-click="movePlayer(backwardOption)">{{backwardOption.description}}</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="action-display" ng-if="actionDisplay">
-      <h1>{{actionDescription}}</h1>
+    <div class="action-display board-center" ng-if="actionDisplay">
+      <h4>{{actionDescription}}</h4>
       <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay">Continue</button>
     </div>
-    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
+    <button class="tn-lg btn-primary board-center" ng-click="togglePanel()"> Change View </button>
   </div>
-
+  <!-- panel with player pokemon captures -->
   <div class="control-panel" ng-if="userInfoPanel">
-    <div class="user-info">
+    <div class="user-info board-center">
       <h3>{{playerName}}</h3>
-      <img src="http://sprites.pokecheck.org/t/187.gif" alt="">
+      <img src='{{playerSprite}}' alt="">
       <img src="{{userParty.starter[0].gifURL}}" alt="">
     </div>
-
+    <h5 class='board-center'> My Captured Pokemon: </h5>
     <div class="scroll pink">
       <ul>
         <li ng-repeat="pokemon in userParty.pink"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
@@ -85,18 +85,6 @@
     <hr>
 
     <div class="scroll green">
-<!--       <ul>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/053.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/055.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/054.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/122.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/150.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/142.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/129.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/120.gif" alt=""><span>Image Name</span></li>
-      </ul> -->
-
       <ul>
         <li ng-repeat="pokemon in userParty.green"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
@@ -105,40 +93,18 @@
     <hr>
 
     <div class="scroll blue">
-<!--       <ul>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/053.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/055.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/054.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/122.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/150.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/142.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-      </ul> -->
       <ul>
         <li ng-repeat="pokemon in userParty.blue"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div>
 
     <div class="scroll red">
-<!--       <ul>
-        <li><img src="http://sprites.pokecheck.org/i/009.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/006.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/003.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/150.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/149.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/147.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/142.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-        <li><img src="http://sprites.pokecheck.org/i/052.gif" alt=""><span>Image Name</span></li>
-      </ul> -->
       <ul>
         <li ng-repeat="pokemon in userParty.red"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div>
      
-    <button class="tn-lg btn-primary" ng-click="togglePanel()">Change View</button>
+    <button class="tn-lg btn-primary board-center" ng-click="togglePanel()">Change View</button>
   </div>
 
 </div>
