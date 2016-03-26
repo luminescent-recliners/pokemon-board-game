@@ -10,6 +10,7 @@
     <script src ="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src ="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src ="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src ="bower_components/angular-audio/app/angular.audio.js"></script>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="home/home.js"></script>
@@ -28,7 +29,7 @@
     <script src="app.js"></script>
   </head>
   <body class='shared'>
-    <button ng-click='mute()'>SOUND OPTIONS</button>  
     <div ng-view></div>
-  </body>
+<!-- <button ng-click='audio.muting = !audio.muting'>{{audio.muting ? "Unmute" : "Mute" }}</button>
+ -->  </body>
 </html>
