@@ -43,6 +43,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.counter ++;
     var audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
+
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
       .then(function(options){
@@ -90,8 +91,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   });
 
   $scope.movePlayer = function(newSpot, userId) {
-    // var audioMove = new Audio('../assets/sounds/swoosh.mp3');
-    // audioMove.play();
+    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
     var userObject = {
       facebookId: $scope.facebookId,
       playerName: $scope.playerName
