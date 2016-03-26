@@ -1,6 +1,6 @@
 angular.module('pokemon.home', [])
 
-.controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory) {
+.controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory, gameFactory) {
   $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
   $window.localStorage.setItem('pokemon.playerName', $cookies.get('playerName'));
   // --------------------------------------<<<<<<
@@ -55,17 +55,24 @@ angular.module('pokemon.home', [])
   };
 
   $scope.joinLobby = function(id) {
-    $window.localStorage.setItem('pokemon.gameId', id);
-    $location.path('/lobby');
+    gameFactory.requestLobbyEntry(id)
+      .then(function (resp) {
+        if(resp.requestAccepted) {
+          $window.localStorage.setItem('pokemon.gameId', id);
+          $location.path('/lobby');
 
-    pokemonSocket.emit('joinLobby', {
-      gameId: id,
-      user: {
-        playerName: $scope.playerName,
-        facebookId: $scope.facebookId
-      }
-    });
-
+          pokemonSocket.emit('joinLobby', {
+            gameId: id,
+            user: {
+              playerName: $scope.playerName,
+              facebookId: $scope.facebookId
+            }
+          }); 
+        }
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
 
   var userGames = function() {
