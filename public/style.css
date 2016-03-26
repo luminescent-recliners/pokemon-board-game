@@ -63,6 +63,7 @@ input {
   color: darkslateblue;
   opacity: 0.8;
   width: 18%;
+  overflow: scroll;
 }
 
 .map-panel {
@@ -72,18 +73,7 @@ input {
   border: 0;
 }
 
-
-.pokemon {
-  display: inline-block;
-  margin: 0 2%;
-}
-
-.pokemonName {
-  text-align: center;
-}
-
 .pink {
-  color: pink;
   background-color: pink;
 }
 
@@ -95,14 +85,39 @@ input {
   background-color: blue;
 }
 
-.party {
-  white-space: nowrap;
+.green {
+  background-color: green;
 }
+
 
 hr{
     height:1px;
     padding:0px;
     margin:0px;
+}
+
+.scroll {
+width:230px;
+height:110px;
+overflow:scroll;
+}
+
+.scroll ul {
+display:table;
+white-space:nowrap;
+list-style:none;
+padding: 0;
+}
+.scroll li {
+display:table-cell; 
+text-align:center;  
+margin: 0 10px;     
+}
+.scroll img {
+border:0;
+display:block;
+margin:0px 15px 0 15px;
+padding: 0;
 }
 
 
