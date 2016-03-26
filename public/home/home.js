@@ -69,7 +69,7 @@ angular.module('pokemon.home', [])
             }
           }); 
         } else {
-          console.log("Sorry, This game already has 6 players!");
+          alert("Sorry, This game already has 6 players! Pls select another game.");
         }
       }) 
       .catch(function (error) {
