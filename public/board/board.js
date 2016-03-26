@@ -85,12 +85,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send player to move', function(data) {
     initialize();
+    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
-    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
-    audioMove.play();
-
+    // var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    // audioMove.play();
     var userObject = {
       facebookId: $scope.facebookId,
       playerName: $scope.playerName
