@@ -8,7 +8,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
 
-  $scope.roll = 0;
+  $scope.roll;
   $scope.rollDisplay = false;
 
   $scope.actionDisplay = false;
@@ -33,12 +33,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $location.path('/winner');
   });
 
-  // $scope.counter = 0;
+  $scope.counter = 0;
   $scope.rollDice = function() {
-    // var arr = [1,2,3,4,5,6];
-    $scope.roll = Math.ceil(Math.random() * 6);
-    // $scope.roll = arr[$scope.counter % 6];
-    // $scope.counter ++;
+    var arr = [1,2,3,4,5,6];
+    // $scope.roll = Math.ceil(Math.random() * 6);
+    $scope.roll = arr[$scope.counter % 6];
+    $scope.counter ++;
 
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
@@ -220,7 +220,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
             $scope.currentTurnSprite = data.allUsers[i].sprite;
           }
         }
-        // console.log($scope.currentTurnSprite);
+        console.log($scope.currentTurnSprite);
         $scope.userPosition = data.user.positionOnBoard;
         $scope.playerPosition = $scope.userPosition - 1;
         
