@@ -85,8 +85,8 @@ input {
   text-align: center;
 }
 
-.pink, .red, .blue, .green {
-  opacity: 0.8;
+.player-options {
+  min-height: 50px;
 }
 
 .pink {
