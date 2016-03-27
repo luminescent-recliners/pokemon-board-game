@@ -89,6 +89,10 @@ input {
   min-height: 50px;
 }
 
+.space {
+  margin: 30px 0 10px 0 ;
+}
+
 .pink {
   background-color: pink;
 }
