@@ -55,6 +55,9 @@ angular.module('pokemon.event', [])
             case 'cityView':
               $location.path('/city');
               break;
+            case 'trainerView':
+              $location.path('/trainer');
+              break;
           }
         }
       });
