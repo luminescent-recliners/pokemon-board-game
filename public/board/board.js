@@ -38,7 +38,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     pokemonSocket.emit('player wants to pause game', data);
   };
   pokemonSocket.on('player leaving game', function(data) {
-    // hide play options and make visible a button to move to home which will cler local storage and reidrect
+    // hide play options and make visible a button to move to home
     $scope.continueGame = false;
     $scope.pauseGameMessage = data.message;
     $scope.showexitoptions = false;
@@ -51,6 +51,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   // used by go home buton to redirect to home view
   $scope.goHome = function() {
+    window.localStorage.removeItem("pokemon.gameId");
     $location.path('/home');
   };
 
