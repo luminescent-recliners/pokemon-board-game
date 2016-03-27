@@ -29,6 +29,11 @@ angular.module('pokemon.trainer', [])
       .then(function (resp) {
         $scope.currentTurnPlayerName = resp.playerName;
         $scope.currentTurnPlayerId = resp.facebookId;
+        gameFactory.trainerInit($scope.gameId, $scope.currentTurnPlayerId)
+          .then(function (resp) {
+            $scope.currentTrainer = resp.currentTrainer;
+            $scope.otherTrainers = resp.otherTrainers;
+          });
       });
   };
 
