@@ -8,12 +8,47 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
 
+  $scope.continueGame = true;
+  $scope.confirmExit = true;
+  $scope.pauseGameMessage = '';
+  $scope.showexitoptions = true;
+
   $scope.roll = 0;
   $scope.rollDisplay = false;
 
   $scope.actionDisplay = false;
   $scope.actionDescription = '';
   var action;
+
+  // alerts other players that someone has to stop playing
+  // saves game state and gives users chance to go back to home page
+  $scope.exitGame = function() {
+    // emit a message to all in game that someone has left game
+    var data = {
+      gameId: $scope.gameId,
+      user: { facebookId: $scope.facebookId, playerName: $scope.playerName },
+      message: $scope.playerName + " is leaving game!  Resume game from Lobby Page after everyone is back.",
+      continueGame: false
+    };
+    pokemonSocket.emit('player wants to pause game', data);
+  };
+  pokemonSocket.on('player leaving game', function(data) {
+    // hide play options and make visible a button to move to home
+    $scope.continueGame = false;
+    $scope.pauseGameMessage = data.message;
+    $scope.showexitoptions = false;
+  });
+
+  // used by checkbox to activate exit game button
+  $scope.toggleConfirm = function() {
+    $scope.confirmExit = !$scope.confirmExit;
+  };
+
+  // used by go home buton to redirect to home view
+  $scope.goHome = function() {
+    window.localStorage.removeItem("pokemon.gameId");
+    $location.path('/home');
+  };
 
   // section used for placement of players on board --------->>>>>>
   var distFromSpot = 28;
