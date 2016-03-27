@@ -33,7 +33,7 @@
   </div>
 
   <!-- MESSAGE (OPPONENTS)-->  
-  <div class="result-panel">
+  <div class="result-panel col-lg-12">
     <p ng-if="currentTurnPlayerId !== facebookId && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
     <div ng-if="diceRolled && currentTurnPlayerId !== facebookId">
       <p class='pokemonCap'>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>

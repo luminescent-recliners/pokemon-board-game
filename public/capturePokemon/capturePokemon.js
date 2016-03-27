@@ -43,10 +43,19 @@ angular.module('pokemon.capture', [])
   
   $scope.diceRolled = false;
   $scope.rollDice = function () {
+    var audioDice = new Audio('../assets/sounds/dice.mp3');
+    audioDice.play();
     $scope.rollvalue = Math.ceil(Math.random() * 6);
     gameFactory.catchPokemon($scope.gameId, $scope.facebookId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
       .then(function (resp) {
         $scope.result = resp;
+        if ($scope.result === "Sorry!! Pokemon Got Away") {
+          var audioDice = new Audio('../assets/sounds/bloop.mp3');
+          audioDice.play();
+        } else {
+          var audioDice = new Audio('../assets/sounds/win.mp3');
+          audioDice.play();
+        }
         pokemonSocket.emit('roll die for capture', {gameId: $scope.gameId, result: $scope.result, roll: $scope.rollvalue});
       }).catch(function (error) {
         console.error(error);
@@ -59,6 +68,15 @@ angular.module('pokemon.capture', [])
     $scope.result = data.result;
     $scope.rollvalue = data.roll;
     $scope.diceRolled = true;
+    var audioDice = new Audio('../assets/sounds/dice.mp3');
+    audioDice.play();
+    if ($scope.result === "Sorry!! Pokemon Got Away") {
+      var audioDice = new Audio('../assets/sounds/bloop.mp3');
+      audioDice.play();
+    } else {
+      var audioDice = new Audio('../assets/sounds/win.mp3');
+      audioDice.play();
+    }
   });
 
   $scope.updateTurn = function () {
@@ -74,6 +92,8 @@ angular.module('pokemon.capture', [])
 
   pokemonSocket.on('redirect back to board', function() {
     $location.path('/board');
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
   });
 
   var confirmCurrentPage = function() {

@@ -73,6 +73,11 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   $scope.rollDice = function() {
     $scope.roll = Math.ceil(Math.random() * 6);
+    // var arr = [1,2,3,4,5,6];
+    // $scope.roll = arr[$scope.counter % 6];
+    // $scope.counter ++;
+    var audio = new Audio('../assets/sounds/dice.mp3');
+    audio.play();
 
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
@@ -83,6 +88,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player roll to move', function(roll) {
+    var audio = new Audio('../assets/sounds/dice.mp3');
+    audio.play();
     $scope.roll = roll;
     $scope.rollDisplay = true;
   });
@@ -114,9 +121,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send player to move', function(data) {
     initialize();
+    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
+    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
     var userObject = {
       facebookId: $scope.facebookId,
       playerName: $scope.playerName
@@ -175,6 +186,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.redirectAllUsers = function() {
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
     switch (action) {
       case 'pokemon':
         updateCurrentPage('captureView');
@@ -190,6 +203,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send redirect path to users', function(action){
     redirect(action);
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
   });
 
   var confirmCurrentPage = function() {
@@ -240,6 +255,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.userInfoPanel = false;
 
   $scope.togglePanel = function() {
+
+    var audioPop = new Audio('../assets/sounds/pop.mp3');
+    audioPop.play();
+
     $scope.userInfoPanel = !$scope.userInfoPanel;
   };
 
