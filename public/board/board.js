@@ -84,7 +84,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
-        console.log($scope.playerOptions);
       });
   };
 
