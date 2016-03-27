@@ -511,6 +511,37 @@ module.exports = {
       playerCounter[gameId] = playerCounter[gameId] - 1;
     }
     res.send("updated!");
+  },
+  trainerInit: function(req, res, next) {
+    var gameId = req.query.gameId;
+    var currentTurnUserId = req.query.currentTurnUserId;
+
+    findGame({ gameId: gameId })
+    .then(function (game) {
+      var initObject = {};
+      var otherTrainers = [];
+      var currentTrainer = gameHelperFn.findUser(game, currentTurnUserId);
+      var usersOnSpot = game.gameBoard[currentTrainer.positionOnBoard].users;
+      
+      initObject.currentTrainer = currentTrainer;
+      
+      //Removes Current Turn User From the Users On Spot Array
+      for (var i = 0; i < usersOnSpot.length; i++) {
+        var user = usersOnSpot[i];
+        if (user.facebookId === currentTurnUserId) {
+          usersOnSpot.splice(i, 1);
+        }
+      }
+
+      for (var j = 0; j < usersOnSpot.length; j++) {
+        var user = usersOnSpot[j];
+        otherTrainers.push(gameHelperFn.findUser(game, user.facebookId));
+      }
+
+      initObject.otherTrainers = otherTrainers;
+      res.send(initObject);
+
+    });
   }
 
 };

@@ -117,6 +117,19 @@ angular.module('services', [])
 })
 
 .factory('gameFactory', function ($http) {
+  var trainerInit = function(gameId, currentTurnUserId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/trainerInit',
+      params: {
+        gameId: gameId,
+        currentTurnUserId: currentTurnUserId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
 
   var lobbyInit = function (gameId) {
     return $http({
@@ -283,6 +296,7 @@ angular.module('services', [])
   };
 
   return {
+    trainerInit: trainerInit,
     updateCurrentPage: updateCurrentPage,
     getCurrentPage: getCurrentPage,
     lobbyInit: lobbyInit,
