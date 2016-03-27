@@ -20,11 +20,6 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.actionDescription = '';
   var action;
 
-  // testing and develop ----------------------------------->>>>>
-  $scope.toggleState = function(){ $scope.continueGame = !$scope.continueGame; };
-  // till here ---------------------------------------------<<<<<
-
-
   // alerts other players that someone has to stop playing
   // saves game state and gives users chance to go back to home page
   $scope.exitGame = function() {
