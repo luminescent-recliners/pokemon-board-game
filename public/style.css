@@ -15,6 +15,13 @@ input {
 }
 
 /*  Sign In Page   */
+.themesong {
+/*  width: 100px;
+  height: 10px;
+*/
+  text-align: center;
+}
+
 .login {
   text-align: center;
   margin-top: 0;
