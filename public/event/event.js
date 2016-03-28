@@ -51,6 +51,7 @@ angular.module('pokemon.event', [])
       .then(function (resp) {
         $scope.currentTurnPlayerName = resp.playerName;
         $scope.currentTurnPlayerId = resp.facebookId;
+        getGif();
       });
   };
 
@@ -81,7 +82,6 @@ angular.module('pokemon.event', [])
       });
   };
 
-  getGif();
 
   confirmCurrentPage();
 
