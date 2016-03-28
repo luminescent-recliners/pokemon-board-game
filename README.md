@@ -1,9 +1,13 @@
 # Pokemon Master Trainer
 
 > A re-creation of the Pokemon Master Trainer Board game
+> Status: in development
 
-> __Status:__ in development
+## Team
 
+  - __Product Owner__: Alex Chou (Choumander)
+  - __Scrum Master__: Hitesh Lala (Hiteshmonlee)
+  - __Development Team Members__: Arthi Palaniappan (Arthicuno), Linda Zou (Zoubat)
 
 ## Table of Contents
 
@@ -19,13 +23,15 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Team
 
-  - __Product Owner__: Alex Chou (Choumander)
-  - __Scrum Master__: Hitesh Lala (Hiteshmonlee)
-  - __Development Team Members__: Arthi Palaniappan (Arthicuno), Linda Zou (Zoubat)
+## Game Play
 
-## Usage
+1. Roll the dice
+1. Check the number of positions in both direction and offer player options:
+  1. If other players on spot, can battle or trade - not implemented yet
+  1. If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
+  1. If spot is event pick an event card and do what it says - not impelemented yet
+  1. If spot has a pokemon then try to catch pokemon
 
 ## Game Play
 
@@ -57,6 +63,7 @@
   - Sinon-chai  2.8.0
 
 ### Client Side
+<<<<<<< HEAD
   - Bootstrap  3.3.6
   - Jquery  2.2.2
   - Angular-bootstrap  1.2.4
@@ -68,6 +75,19 @@
   - Socket.io  1.4.5
   - Socket.io-client  1.4.5
   - Angular-audio  1.7.1
+=======
+  - bootstrap  3.3.6
+  - jquery  2.2.2
+  - angular-bootstrap  1.2.4
+  - angular  1.5.1
+  - angular-cookies  1.5.2
+  - angular-animate  1.5.1
+  - angular-route  1.5.1
+  - angular-socket-io  0.7.0
+  - socket.io  1.4.5
+  - socket.io-client  1.4.5
+  - angular-audio  1.7.1
+>>>>>>> Edits Readme
 
 ## Development
 
