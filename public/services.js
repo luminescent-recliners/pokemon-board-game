@@ -256,6 +256,32 @@ angular.module('services', [])
     });
   };
 
+  var requestLobbyEntry = function(gameId) {
+    return $http({
+      method: 'PUT',
+      url: '/api/games/requestlobbyentry',
+      data: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
+  var updatePlayerCounter = function(gameId) {
+    return $http({
+      method: 'PUT',
+      url: '/api/games/updateplayercounter',
+      data: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   return {
     updateCurrentPage: updateCurrentPage,
     getCurrentPage: getCurrentPage,
@@ -266,7 +292,9 @@ angular.module('services', [])
     getAvailablePokemon: getAvailablePokemon,
     updateTurn: updateTurn,
     getRemainingStarterPokemon: getRemainingStarterPokemon,
-    getRemainingSprites: getRemainingSprites
+    getRemainingSprites: getRemainingSprites,
+    requestLobbyEntry: requestLobbyEntry,
+    updatePlayerCounter: updatePlayerCounter
   };
 
 })
