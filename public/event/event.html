@@ -6,14 +6,10 @@
   </div>
   <br/>
   <div class="city">
-    <img src="http://cdn.makeagif.com/media/8-18-2015/oDlUKW.gif" alt="Pikachu Squad Dancing (HD)">
+    <img src={{gifURL}} alt="Your brower does not support this functionality">
   </div>
-
-  <div class="city">
-    <img src={{gifURL}} alt="Pikachu Squad Dancing (HD)">
-  </div>
-
-  <div ng-if="currentTurnPlayerId===facebookId">
+  <br/>
+  <div class="city" ng-if="currentTurnPlayerId===facebookId">
     <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
   </div>
 </div>
