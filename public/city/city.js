@@ -8,6 +8,17 @@ angular.module('pokemon.city', [])
 
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
+
+  var getGif = function() {
+    gameFactory.getCityGif()
+    .then(function (resp) {
+      $scope.gifDescrip = resp.descriptions;
+      $scope.gifURL = resp.cityURL;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  };
   
   $scope.updateTurn = function () {
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
@@ -62,6 +73,7 @@ angular.module('pokemon.city', [])
         }
       });
   };
+  getGif();
 
   confirmCurrentPage();
 
