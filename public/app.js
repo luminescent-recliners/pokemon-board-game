@@ -62,15 +62,13 @@ angular.module('pokemon', [
       templateUrl: 'auth/signin.html',
       conroller: 'authController'
     })
-<<<<<<< HEAD
     .when("/trainer", {
       templateUrl: 'trainer/trainer.html',
       controller: 'trainerController'
-=======
+    })  
     .when("/resumelobby", {
       templateUrl: 'resumelobby/resumeLobby.html',
       controller: 'resumeLobbyController'
->>>>>>> Adds a resume lobby controller and module
     })
     .otherwise({
       redirectTo: '/home'
