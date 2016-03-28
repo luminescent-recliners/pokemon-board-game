@@ -20,13 +20,10 @@ angular.module('pokemon.resumelobby', [])
   });
 
   var initialize = function (gameId) {
-    console.log("facebookId from local storage ", $scope.facebookId);
     gameFactory.lobbyInit($scope.gameId)
     .then(function (resp) {
-      console.log(" response from server ", resp);
-      console.log("gme creator Id from backend ", resp.gameCreatorId);
       $scope.gameName = resp.gameName;
-      $scope.gameCreator = resp.gameCreatorName;
+      $scope.gameCreator = resp.creatorName;
       $scope.gameCreatorId = resp.gameCreator;
     })
     .catch(function (error) {
