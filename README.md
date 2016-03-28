@@ -118,8 +118,6 @@ A RESTful API was built using Node and Express.  A table with the endpoints can 
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
-#### Database Design
-
 
 #### Client Design
 

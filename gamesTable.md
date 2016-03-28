@@ -23,15 +23,24 @@
   ```
   - gameId: at this point we are assigning an id based on how many games in the table.  Will have to change this at some point in the future
   - gameCreator: only creator of game is permitted to begin game
+<<<<<<< HEAD
 
   ```javascript  
+=======
+```javascript  
+>>>>>>> Adds Description Of Data Tables
         { 
           playerName : "Henry",
           facebookId : "Facebook123H" 
         }
+<<<<<<< HEAD
   ```
   - users: an array of user objects each representing a player in the game
 
+=======
+```
+  - users: an array of user objects each representing a player in the game
+>>>>>>> Adds Description Of Data Tables
   ```javascript
     [ 
         { 
@@ -65,6 +74,7 @@
             red : 0 
           }, 
           sprite : "http://sprites.pokecheck.org/t/123.gif" 
+<<<<<<< HEAD
         },
         ...
         ... 
@@ -72,6 +82,12 @@
   ```
   - availablePokemon: contains all the pokemon available for capture at any point in the game
 
+=======
+        } 
+      ], 
+  ```
+  - availablePokemon: contains all the pokemon available for capture at any point in the game
+>>>>>>> Adds Description Of Data Tables
   ```javascript
     { 
       starter : [ 7, 52, 1, 4, 25, 35 ], 
@@ -82,22 +98,34 @@
       red : [ 142, 65, 59, ... 3, 68, 143 ] 
     },
   ```
+<<<<<<< HEAD
 
   - availableSprites: a list of sprites which players select to represent themselves on board during the game
   - availableItemCards: will have item cards when implemented
   - gameTurn:
 
+=======
+  - availableSprites: a list of sprites which players select to represent themselves on board during the game
+  - availableItemCards: will have item cards when implemented
+  - gameTurn:
+>>>>>>> Adds Description Of Data Tables
   ```javascript
       { 
         playerName : "Henry", 
         facebookId : "Facebook123H"
       }
   ```
+<<<<<<< HEAD
 
   - gameCounter: a number that increments each time a turn is complete.  It is used to determine the next players turn
   - currentPage: a string to describe which page view all players need to be on at any point in the gameCounter
   - gameBoard: an object with 73 objects within, each being a spot on the board
 
+=======
+  - gameCounter: a number that increments each time a turn is complete.  It is used to determine the next players turn
+  - currentPage: a string to describe which page view all players need to be on at any point in the gameCounter
+  - gameBoard: an object with 73 objects within, each being a spot on the board
+>>>>>>> Adds Description Of Data Tables
   ```javascript
     { 
       1 : { 

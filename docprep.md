@@ -54,7 +54,7 @@
   Chat box between player
 
 ## Data:
-  board state saved as matrix
+  board state saved as an object
   each user is an object with {position,gymLeaderDefeated,lastCity, bank, party, cards}
   an array for each group of pokemon containing the ids for pokemon
 
