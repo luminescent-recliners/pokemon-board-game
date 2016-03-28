@@ -1,5 +1,5 @@
-angular.module('pokemon.city', [])
-.controller('cityController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
+angular.module('pokemon.trainer', [])
+.controller('trainerController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
 
   // Post Dev values
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
@@ -10,8 +10,6 @@ angular.module('pokemon.city', [])
   $scope.currentTurnPlayerId;
   
   $scope.updateTurn = function () {
-    var audioRedir = new Audio('../assets/sounds/pop.mp3');
-    audioRedir.play();
     gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
@@ -24,8 +22,6 @@ angular.module('pokemon.city', [])
 
   pokemonSocket.on('redirect back to board', function() {
     $location.path('/board');
-    var audioRedir = new Audio('../assets/sounds/pop.mp3');
-    audioRedir.play();
   });
 
   var initialize = function () {
@@ -33,18 +29,26 @@ angular.module('pokemon.city', [])
       .then(function (resp) {
         $scope.currentTurnPlayerName = resp.playerName;
         $scope.currentTurnPlayerId = resp.facebookId;
+        gameFactory.trainerInit($scope.gameId, $scope.currentTurnPlayerId)
+          .then(function (resp) {
+            $scope.currentTrainer = resp.currentTrainer;
+            $scope.otherTrainers = resp.otherTrainers;
+          });
       });
   };
 
   var confirmCurrentPage = function() {
     gameFactory.getCurrentPage($scope.gameId)
       .then(function(currentPage){
-        if (currentPage === 'cityView') {
+        if (currentPage === 'trainerView') {
           initialize();
         }else{
           switch (currentPage) {
             case 'starterView':
               $location.path('/starter');
+              break;
+            case 'cityView':
+              $location.path('/city');
               break;
             case 'boardView':
               $location.path('/board');
@@ -54,9 +58,6 @@ angular.module('pokemon.city', [])
               break;
             case 'eventView':
               $location.path('/event');
-              break;
-            case 'trainerView':
-              $location.path('/trainer');
               break;
           }
         }

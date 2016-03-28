@@ -93,6 +93,9 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
             case 'cityView':
               $location.path('/city');
               break;
+            case 'trainerView':
+              $location.path('/trainer');
+              break;
           }
         }
       });
