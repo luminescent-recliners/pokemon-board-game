@@ -14,14 +14,15 @@ angular.module('pokemon.home', [])
 
   if($scope.gameId !== null) {
     pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { facebookId: $scope.facebookId, playerName: $scope.playerName}});
-    gameFactory.updatePlayerCounter($scope.gameId)
+  }
+
+  gameFactory.updatePlayerCounter($scope.gameId)
     .then(function (resp) {
       console.log("player counter is updated!", resp);
     })
     .catch(function (error) {
       console.error(error);
     });
-  }
 
   $scope.hitEnter = function($event) {
     if($event.which === 13) {
