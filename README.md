@@ -2,7 +2,7 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
-> Status: in development
+> __Status:__ in development
 
 ## Team
 
@@ -81,6 +81,8 @@ bower install
 
 ### Project Details
 
+A single page application using Angular front end, Express server, and MongoDB database.  Five data items are stored on the players machine.  Two cookies for Facebook authentication - containing the player name, and Facebook ID.  Three local storage items, the playe name, Facebook ID, and the current game.
+
 #### Server Design
 
 A RESTful API was built using Node and Express.  A table with the endpoints can be found below and a more detailed description of the routes can be found [here](serverRoutes.md).
@@ -126,7 +128,7 @@ Angular was used as the front end framework.
 
 #### Database Design
 
-MongoDB was chosen for the database in order to allow storage of objects.  Q was used to promisify the interface and Mongoose was used to connect the database and server.
+MongoDB was chosen for the database in order to allow storage of objects.  Q was used to promisify the interface and Mongoose was used to connect the database and server.  The size of the record for MongoDB is 16MB so our game object which is large is still within the size limit.
 
 There are six tables in the database as listed below.  The Users and Games table are the only talbes that are ever changed - during game play and new user creation.
 
