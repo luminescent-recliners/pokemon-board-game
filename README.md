@@ -2,14 +2,8 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
-## Status
-> Still in developement
+## Status - in development
 
-## Team
-
-  - __Product Owner__: Alex Chou (Choumander)
-  - __Scrum Master__: Hitesh Lala (Hiteshmonlee)
-  - __Development Team Members__: Arthi Palaniappan (Arthicuno), Linda Zou (Zoubat)
 
 ## Table of Contents
 
@@ -20,6 +14,12 @@
     1. [Tasks](#tasks)
 1. [Team](#team)
 1. [Contributing](#contributing)
+
+## Team
+
+  - __Product Owner__: Alex Chou (Choumander)
+  - __Scrum Master__: Hitesh Lala (Hiteshmonlee)
+  - __Development Team Members__: Arthi Palaniappan (Arthicuno), Linda Zou (Zoubat)
 
 ## Usage
 
