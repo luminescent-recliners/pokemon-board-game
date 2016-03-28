@@ -125,9 +125,13 @@ io.on('connection', function(socket){
   socket.on('emit users back to board', function(data) {
     socket.broadcast.to(data.gameId).emit('redirect back to board');
   });
-//====================================
+
   socket.on('load event gif', function(data) {
-    socket.broadcast.to(data.gameId).emit('all user gif', {desc: data.desc, url: data.url});
+    socket.broadcast.to(data.gameId).emit('all user event gif', {desc: data.desc, url: data.url});
+  });
+
+  socket.on('load city gif', function(data) {
+    socket.broadcast.to(data.gameId).emit('all user city gif', {desc: data.desc, url: data.url});
   });
 
   socket.on('player won', function(data) {

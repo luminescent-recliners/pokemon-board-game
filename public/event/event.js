@@ -21,8 +21,8 @@ angular.module('pokemon.event', [])
     });
   };
 
-  pokemonSocket.on('all user gif', function(data) {
-    console.log("all user gif is working ", data)
+  pokemonSocket.on('all user event gif', function(data) {
+    console.log("all user EVENT gif is working ", data)
     $scope.gifDescrip = data.desc;
     $scope.gifURL = data.url;
   });
