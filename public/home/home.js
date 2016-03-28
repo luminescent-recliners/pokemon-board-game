@@ -68,7 +68,6 @@ angular.module('pokemon.home', [])
       .then(function (resp) {
         if(resp.requestAccepted) {
           $window.localStorage.setItem('pokemon.gameId', id);
-          $location.path('/lobby');
           pokemonSocket.emit('joinLobby', {
             gameId: id,
             user: {
@@ -76,6 +75,7 @@ angular.module('pokemon.home', [])
               facebookId: $scope.facebookId
             }
           });
+          $location.path('/lobby');
         } else {
           alert("Sorry, This game already has 6 players! Pls select another game.");
         }
@@ -84,14 +84,15 @@ angular.module('pokemon.home', [])
         console.error(error);
       });  
     } else {
-      $location.path('/resumelobby');
+      $window.localStorage.setItem('pokemon.gameId', id);
       pokemonSocket.emit('join resume lobby', {
         gameId: id,
         user: {
           playerName: $scope.playerName,
           facebookId: $scope.facebookId
         }
-      }); 
+      });
+      $location.path('/resumelobby'); 
     } 
   };
 
