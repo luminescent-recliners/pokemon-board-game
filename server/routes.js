@@ -2,6 +2,11 @@ var router = require('express').Router();
 var gymLeader = require('./gymLeader/gymLeaderController.js');
 var gameController = require('./game/gameController.js');
 
+// temp event and city logic
+var tempEventsController = require('./tempEvents/tempEventsController.js');
+var tempCityController = require('./tempCity/tempCityController.js');
+
+
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
@@ -28,6 +33,10 @@ router.get('/api/games/boardInit', gameController.boardInit);
 router.get('/api/games/remainingSprites', gameController.getAvailableSprites);
 router.get('/api/games/getusers', gameController.getUsers);
 router.get('/api/games/trainerInit', gameController.trainerInit);
+
+// for temp city and events logic
+router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
+router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
 router.get('/signin/facebook', passport.authenticate('facebook'));
 

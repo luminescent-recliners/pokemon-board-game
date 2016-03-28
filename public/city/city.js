@@ -8,6 +8,27 @@ angular.module('pokemon.city', [])
 
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
+
+  // $scope.gifDescrip;
+  // $scope.gifURL;
+
+  var getGif = function() {
+    gameFactory.getCityGif()
+    .then(function (resp) {
+      $scope.gifDescrip = resp.descriptions;
+      $scope.gifURL = resp.cityURL;
+      pokemonSocket.emit('load city gif', {gameId: $scope.gameId, desc: $scope.gifDescrip, url:$scope.gifURL});
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  };
+
+  pokemonSocket.on('all user city gif', function(data) {
+    console.log("all user CITY gif is working ", data)
+    $scope.gifDescrip = data.desc;
+    $scope.gifURL = data.url;
+  });
   
   $scope.updateTurn = function () {
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
@@ -33,6 +54,7 @@ angular.module('pokemon.city', [])
       .then(function (resp) {
         $scope.currentTurnPlayerName = resp.playerName;
         $scope.currentTurnPlayerId = resp.facebookId;
+        getGif();
       });
   };
 

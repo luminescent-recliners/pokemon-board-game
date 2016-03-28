@@ -126,6 +126,14 @@ io.on('connection', function(socket){
     socket.broadcast.to(data.gameId).emit('redirect back to board');
   });
 
+  socket.on('load event gif', function(data) {
+    socket.broadcast.to(data.gameId).emit('all user event gif', {desc: data.desc, url: data.url});
+  });
+
+  socket.on('load city gif', function(data) {
+    socket.broadcast.to(data.gameId).emit('all user city gif', {desc: data.desc, url: data.url});
+  });
+
   socket.on('player won', function(data) {
     winners[data.gameId] = data.winner;
     io.to(data.gameId).emit('winner announcement', { winner: data.winner });
