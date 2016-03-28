@@ -27,86 +27,86 @@
 
  Request Body: { gameName: string, facebookId: string, playerName: string }
 
- Description: creates a new game with game name, game Id, gameCreator object and initial static data
+ Description: Creates a new game with game name, game Id, gameCreator object and initial start data.
 
 
 1. __/api/games/addPokemon__  PUT
 
  Controller: gameController.playerInit
 
- Request Body:
+ Request Body: { gameId: number, userId: string, pokemon: object, sprite: object}
 
- Description:
+ Description: Adds selected starter pokemon object to user's party, sets the users selected sprite url, removes the pokemons ID  and sprites ID from their respective available arrays, increments game counter and sets the next turn.
 
 
 1. __/api/games/user/movePlayer__  PUT
 
  Controller: gameController.movePlayer
 
- Request Body:
+ Request Body: {user: object, currentPosition: number, nextPosition: number, gameId: number }
 
- Description:
+ Description: Removes user from the current board spot and adds user to the new position. Updates the new user position in the database.
 
 
 1. __/api/games/user__  PUT
 
  Controller: gameController.addUser
 
- Request Body:
+ Request Body: { gameId: number, users: array }
 
- Description:
+ Description:  This function is called at the beginning of a game.  Takes all users in array and adds them to the users array in the game initializing all player values.
 
 
 1. __/api/games/user/catchPokemon__  PUT
 
  Controller: gameController.catchPokemon
 
- Request Body:
+ Request Body: { gameId: number, userId: number, pokemonColor: string, pokemon: object, roll: number }
 
- Description:
+ Description: This function is called when a player tires to catch a pokemon.  It checks to see if players dice roll will capture poekmon.  If it does the pokemon is removed from the board spot and then added to players party.  If the the pokemon gets away the visibility of the pokemon is set to true.
 
 
 1. __/api/games/updateturn__  PUT
 
  Controller: gameController.updateTurn
 
- Request Body:
+ Request Body: { gameId: number, currentPage: string }
 
- Description:
+ Description: This function increments the gameCounter, sets the currentPage, and sets the gameTurn.  Returns the gameTurn.
 
 
 1. __/api/games/currentPage__  PUT
 
  Controller: gameController.updateCurrentPage
 
- Request Body:
+ Request Body: { gameId: number, currentPage: string }
 
- Description:
+ Description:  Sets the currentPage field in the game with gameId
 
 
 1. __/api/games/currentPage__  GET
 
  Controller: gameController.getCurrentPage
 
- Request Body:
+ Request Params: { gameId: number }
 
- Description:
+ Description:  Returns the currentPage from game with gameId.
 
 
 1. __/api/games/gameturn__  GET
 
  Controller: gameController.findTurn
 
- Request Body:
+ Request Params: { gameId: number }
 
- Description:
+ Description:  Returns the user object who's turn it is to play from game with gameId.
 
 
 1. __/api/games/playerOptions__  GET
 
  Controller: gameController.getPlayerOptions
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -115,7 +115,7 @@
 
  Controller: gameController.getAvailablePokemon
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -124,7 +124,7 @@
 
  Controller: gameController.getGames
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -133,7 +133,7 @@
 
  Controller: gameController.lobbyInit
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -142,7 +142,7 @@
 
  Controller: gameController.getRemainingStarterPokemon
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -151,7 +151,7 @@
 
  Controller: gameController.boardInit
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -160,7 +160,7 @@
 
  Controller: gameController.getAvailableSprites
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -169,7 +169,7 @@
 
  Controller: gameController.getUsers
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -178,7 +178,7 @@
 
  Controller: thenticate('facebook')
 
- Request Body:
+ Request Params:
 
  Description:
 
@@ -187,7 +187,7 @@
 
  Controller: redirect to /#/home
 
- Request Body:
+ Request Params:
 
  Description:
 
