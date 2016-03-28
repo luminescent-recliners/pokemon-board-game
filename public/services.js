@@ -282,6 +282,16 @@ angular.module('services', [])
     });
   };
 
+  var getEventGif = function () {
+    return $http({
+      method: 'GET',
+      url: '/api/tempEvents/getURL'
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   var updatePlayerCounter = function(gameId) {
     return $http({
       method: 'PUT',
@@ -292,6 +302,16 @@ angular.module('services', [])
     })
     .then(function (resp) {
       return resp.data;
+    });
+  };
+
+  var getCityGif = function () {
+    return $http({
+      method: 'GET',
+      url: 'api/tempCity/getURL',
+     })
+    .then(function (resp) {
+       return resp.data;
     });
   };
 
@@ -308,7 +328,9 @@ angular.module('services', [])
     getRemainingStarterPokemon: getRemainingStarterPokemon,
     getRemainingSprites: getRemainingSprites,
     requestLobbyEntry: requestLobbyEntry,
-    updatePlayerCounter: updatePlayerCounter
+    updatePlayerCounter: updatePlayerCounter,
+    getCityGif: getCityGif,
+    getEventGif: getEventGif
   };
 
 })

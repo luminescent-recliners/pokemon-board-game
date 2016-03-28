@@ -183,6 +183,16 @@ hr{
     height: 30px;
 }
 
+/* Event View  */
+.event {
+  text-align: center;
+}
+
+/* City View  */
+.city {
+  text-align: center;
+}
+
 /* resize images */
 .dice img {
     width: 100%;
