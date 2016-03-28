@@ -46,6 +46,7 @@ passport.deserializeUser(function(obj, cb) {
 
 // for sockets
 var usersInGames = {}; 
+var usersInResumeGameLobby = {};
 var selectionPokemon = {};
 var winners = {};
 
@@ -63,24 +64,48 @@ io.on('connection', function(socket){
     socket.join(data.gameId);
     usersInGames[data.gameId] = usersInGames[data.gameId] || [];
      usersInGames[data.gameId].push(data.user);
-    io.to(data.gameId).emit('joinLobby', usersInGames[data.gameId]);
+    io.to(data.gameId).emit('join-Lobby', usersInGames[data.gameId]);
   });
 
-  socket.on('join resume lobby', function (data) {
-    io.to(data.gameId).emit('join resume lobby', data.user);
+  socket.on('join resume lobby', function(data) {
+    socket.join(data.gameId);
+    usersInResumeGameLobby[data.gameId] = usersInResumeGameLobby[data.gameId] || [];
+    usersInResumeGameLobby[data.gameId].push(data.user);
+    io.to(data.gameId).emit('join resume lobby', usersInResumeGameLobby[data.gameId]);
+  });
+
+  socket.on('entered resume lobby', function(data) {
+    var resumeGameUserArray = usersInResumeGameLobby[data.gameId];
+    io.to(data.gameId).emit('users in resumegamelobby', resumeGameUserArray);
+  });
+
+  socket.on('creater enters board', function(data) {
+    delete usersInResumeGameLobby[data.gameId];
+    io.to(data.gameId).emit('moveAllPlayersToBoard');
   });
   // removes a user from usersIngGames object when they leave lobby and go to home page &
   // updates users in room to other players in lobby
   socket.on('a user left lobby', function(data) {
     socket.join(data.gameId);
-    for(var j = 0; j < usersInGames[data.gameId].length; j++) {
-      if(usersInGames[data.gameId][j].facebookId === data.user.facebookId) {
-        var index = j;
+    if(usersInGames[data.gameId]) {
+      for(var j = 0; j < usersInGames[data.gameId].length; j++) {
+        if(usersInGames[data.gameId][j].facebookId === data.user.facebookId) {
+          var index = j;
+        }
       }
+      usersInGames[data.gameId].splice(index, 1);
+      io.to(data.gameId).emit('user update', usersInGames[data.gameId]);
     }
-    usersInGames[data.gameId].splice(index, 1);
-    io.to(data.gameId).emit('user update', usersInGames[data.gameId]);
-  })
+    if(usersInResumeGameLobby[data.gameId]) {
+      for(var j = 0; j < usersInResumeGameLobby[data.gameId].length; j++) {
+        if(usersInResumeGameLobby[data.gameId].facebookId === data.user.facebookId) {
+          var userIndex = j;
+        }
+      }
+      usersInResumeGameLobby[data.gameId].splice(userIndex, 1);
+      io.to(data.gameId).emit('update users in room', usersInResumeGameLobby[data.gameId]);
+    }
+  });
 
   socket.on('enteredLobby', function(data) {
     var userArray = usersInGames[data.gameId];
@@ -150,6 +175,7 @@ io.on('connection', function(socket){
   socket.on('player wants to pause game', function(data) {
     io.to(data.gameId).emit('player leaving game', data); 
   });
+
 });
 
 // for sockets
