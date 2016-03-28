@@ -65,7 +65,9 @@
             red : 0 
           }, 
           sprite : "http://sprites.pokecheck.org/t/123.gif" 
-        } 
+        },
+        ...
+        ... 
       ], 
   ```
   - availablePokemon: contains all the pokemon available for capture at any point in the game
@@ -95,7 +97,7 @@
   - gameCounter: a number that increments each time a turn is complete.  It is used to determine the next players turn
   - currentPage: a string to describe which page view all players need to be on at any point in the gameCounter
   - gameBoard: an object with 73 objects within, each being a spot on the board
-  
+
   ```javascript
     { 
       1 : { 
