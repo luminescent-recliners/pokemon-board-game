@@ -7,6 +7,5 @@ var tempEventData = require('../data/tempEventData.js');
       descriptions: tempEventData[x].description,
       eventURL: tempEventData[x].eventURL
     };
-    console.log("THESE ARE RETURNED: ", tempEventData)
       res.send(returned);
   };

@@ -36,7 +36,7 @@ router.get('/api/games/trainerInit', gameController.trainerInit);
 
 // for temp city and events logic
 router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
-// router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
+router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
 router.get('/signin/facebook', passport.authenticate('facebook'));
 

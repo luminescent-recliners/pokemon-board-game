@@ -311,7 +311,7 @@ angular.module('services', [])
       url: 'api/tempCity/getURL',
      })
     .then(function (resp) {
-      return resp.data;
+       return resp.data;
     });
   };
 
