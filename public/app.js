@@ -14,7 +14,6 @@ angular.module('pokemon', [
   'pokemon.winner',
   'pokemon.trainer',
   'ngCookies',
-  'ngRoute',
   'ngAudio'
 ])
 .config(function($routeProvider) {
