@@ -1,6 +1,6 @@
-Pokemon Board Game
+# Pokemon Board Game
 
-Technologies:
+## Technologies:
   Angular
   Express server
   MongoDB
@@ -12,25 +12,25 @@ Technologies:
   Chai
   ???
 
-Team Roles:
+## Team Roles:
   Product Owner: Alex Chou
   Scrum Master: Hitesh Lala
   Developer Team: Linda Zhou, Arthi Palaniappan
 
-Division of Labour:
+## Division of Labour:
   We would like to have each of us work on every part of the app
   Equal division of labour on frontend, backend, database.
   Thinking of working in pairs and other pair will review code before
   merging
 
-Learning Goals:
+## Learning Goals:
   We all want to learn all aspects of the stack but some of us want to
   focus on specific areas
   Alex, Hitesh - facebook auth, socket.io, databases
   Linda - css, html, frontend
   Arthi - databases
 
-Git workflow:
+## Git workflow:
  1. Fork a copy from organization
  2. Clone a local copy from your personal repo
  3. Git pull --rebase 'remote master'
@@ -39,7 +39,7 @@ Git workflow:
  6. Git push 'your personal repo' 'branch'
  7. From your github account make a pull request to organization repo
 
-Stretched Goals:
+## Stretched Goals:
   Make front end look REALLY goood
   Evolving pokemon
   Facebook invite friends
@@ -53,29 +53,29 @@ Stretched Goals:
   Wating list in the games html page 
   Chat box between player
 
-Data:
-  board state saved as matrix
+## Data:
+  board state saved as an object
   each user is an object with {position,gymLeaderDefeated,lastCity, bank, party, cards}
   an array for each group of pokemon containing the ids for pokemon
 
-Tech Stack:
-  Angular:
+## Tech Stack:
+   ### Angular:
     Mainly because of the 2 way data bind
     Creating a single page game - don’t have to reload entire page
     Wanted to spend more time on game logic instead of learning a new tech
 
-  Express Server:
+  ### Express Server:
     No call back hell/pyramid of doom
   
-  MongoDB:
+  ### MongoDB:
     Use Mongoose to connect and Q to promisify
     Need to store objects and arrays
     Record Size Limit: 16MB
     
 
-Data Objects:
+## Data Objects:
 
-Pokemon: 
+### Pokemon: 
   -- This table is generated once and never changes
   -- Stores all the individual pokemon data
 
@@ -96,7 +96,7 @@ Pokemon:
   -- capture: is the dice roll required to capture the pokemon
   -- diceImg: is a dice image with the capture value 
 
-Users:
+### Users:
   {
     facebookId: "Facebook123H",
     playerName: "Henry",
@@ -106,7 +106,7 @@ Users:
   -- gamesParticipating: is a an array of the gameId's that the player is in
 
 '
-GymLeader:
+### GymLeader:
   -- This table is generated once and never changes
   -- Stores all the individual gym leader data
   -- This table will be used when battles are implemented
@@ -125,7 +125,7 @@ GymLeader:
     imageURL: "string with url to an image"
   }
 
-ItemCards:
+### ItemCards:
   -- This table is generated once and never changes
   -- Stores all the individual item card data
   -- This table will be used when item card events are implemented
@@ -140,7 +140,7 @@ ItemCards:
   }
   -- function: will contain a function to run upon item card selection, still have to figure this one out 
   
-EventCards:
+### EventCards:
   -- This table is generated once and never changes
   -- Stores all the individual event card data
   -- This table will be used when event card events are implemented
@@ -155,7 +155,7 @@ EventCards:
   }
   -- function: will contain a function to run upon event card selection, still have to figure this one out 
 
-Games:
+### Games:
   -- This table stores each game and is updated on every user interaction
   {
     gameId: Number,
@@ -255,7 +255,7 @@ Games:
       } 
     } 
 
-Game Play:
+## Game Play:
   Roll the dice
   Check the number of positions in both direction and offer player options:
     If other players on spot, can battle or trade - not implemented yet
@@ -263,7 +263,7 @@ Game Play:
     If spot is event pick an event card and do what it says - not impelemented yet
     If spot has a pokemon then try to catch pokemon
 
-Client Side Data Storage:
+## Client Side Data Storage:
   Store Facebook Id, player name and curent game in local Storage
   FacebookId and Name is stored in cookie
   
