@@ -1,6 +1,7 @@
 # Pokemon Master Trainer
 
 > A re-creation of the Pokemon Master Trainer Board game
+
 > Status: in development
 
 ## Team
@@ -15,7 +16,10 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
+    1. [Project Details](#project-details)
+      * [Server Design](#server-design)
+      * []
+    1. [Roadmap](#roadmap)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
@@ -24,10 +28,10 @@
 
 1. Roll the dice
 1. Check the number of positions in both direction and offer player options:
-  1. If other players on spot, can battle or trade - not implemented yet
-  1. If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
-  1. If spot is event pick an event card and do what it says - not impelemented yet
-  1. If spot has a pokemon then try to catch pokemon
+  * If spot has a pokemon then try to catch pokemon - implemented
+  * If other players on spot, can battle or trade - not implemented yet
+  * If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
+  * If spot is event pick an event card and do what it says - not impelemented yet
 
 
 ## Requirements
@@ -50,17 +54,17 @@
   - Sinon-chai  2.8.0
 
 ### Client Side
-  - bootstrap  3.3.6
-  - jquery  2.2.2
-  - angular-bootstrap  1.2.4
-  - angular  1.5.1
-  - angular-cookies  1.5.2
-  - angular-animate  1.5.1
-  - angular-route  1.5.1
-  - angular-socket-io  0.7.0
-  - socket.io  1.4.5
-  - socket.io-client  1.4.5
-  - angular-audio  1.7.1
+  - Bootstrap  3.3.6
+  - Jquery  2.2.2
+  - Angular-bootstrap  1.2.4
+  - Angular  1.5.1
+  - Angular-cookies  1.5.2
+  - Angular-animate  1.5.1
+  - Angular-route  1.5.1
+  - Angular-socket-io  0.7.0
+  - Socket.io  1.4.5
+  - Socket.io-client  1.4.5
+  - Angular-audio  1.7.1
 
 ## Development
 
@@ -73,6 +77,54 @@ sudo npm install -g bower
 npm install
 bower install
 ```
+
+### Project Details
+
+#### Server Design
+
+A RESTful API was built using Node and Express.  A table with the endpoints can be found below and a more detailed description of the routes can be found [here](serverRoutes.md).
+
+|  URL | HTTP Verb |  Controller Function |
+|:----:|:---------:|:--------------------:|
+| /api/games/addGame | POST | gameController.addGame | 
+| /api/games/addPokemon | PUT | gameController.playerInit | 
+| /api/games/user/movePlayer | PUT | gameController.movePlayer | 
+| /api/games/user | PUT | gameController.addUser | 
+| /api/games/user/catchPokemon | PUT | gameController.catchPokemon | 
+| /api/games/updateturn | PUT | gameController.updateTurn | 
+| /api/games/currentPage | PUT | gameController.updateCurrentPage | 
+| /api/games/currentPage | GET | gameController.getCurrentPage | 
+| /api/games/gameturn | GET | gameController.findTurn | 
+| /api/games/playerOptions | GET | gameController.getPlayerOptions | 
+| /api/games/availablePokemon | GET | gameController.getAvailablePokemon | 
+| /api/games/getGames | GET | gameController.getGames | 
+| /api/games/lobbyinit | GET | gameController.lobbyInit | 
+| /api/games/remainingStarterPokemon | GET | gameController.getRemainingStarterPokemon | 
+| /api/games/boardInit | GET | gameController.boardInit | 
+| /api/games/remainingSprites | GET | gameController.getAvailableSprites | 
+| /api/games/getusers | GET | gameController.getUsers | 
+| /signin/facebook | GET | passport.authenticate('facebook') | 
+| /signin/facebook/callback | GET | redirect to /#/home | 
+
+
+#### Database Design
+
+
+#### Client Design
+
+Angular was used as the front end framework.
+
+|  URL      | Controller            | Template            | Authenticate |
+|:---------:|:---------------------:|:-------------------:|:------------:|
+| /home |  homeController | home/home.html | true |
+| /board | boardController | board/board.html | true |
+| /starter | starterController | starterPokemon/starterPokemon.html | true |
+| /lobby | lobbyController | lobby/lobby.html | true |
+| /capture | captureController | capturePokemon/capturePokemon.html | true |
+| /city | cityController | city/city.html | true |
+| /event | eventController | event/event.html | true |
+| /winner | winnerController | winner/winner.html | false |
+| /signin | authController | auth/signin.html | false |
 
 ### Roadmap
 
