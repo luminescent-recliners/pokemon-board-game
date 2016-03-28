@@ -141,18 +141,6 @@ hr{
   padding: 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
- 
 /*  Starter View  */
 .vertical-center-row {
     display: table-cell;
@@ -191,6 +179,25 @@ hr{
 /* City View  */
 .city {
   text-align: center;
+}
+
+/* Trainer View  */
+
+.trainer {
+  text-align: center;
+}
+
+.other-trainers {
+  margin: auto;
+}
+
+.other-trainer {
+  display: inline-block;
+  margin:2% 5%;
+}
+
+.other-trainer-name {
+  font-size: 1.2em;
 }
 
 /* resize images */
