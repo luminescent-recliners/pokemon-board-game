@@ -2,7 +2,7 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
-> Status: in development
+> __Status:__ in development
 
 ## Team
 
