@@ -5,37 +5,43 @@ angular.module('pokemon.resumelobby', [])
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
-  $scope.users = [];
+  $scope.usersInRoom = [];
 
   pokemonSocket.on('join resume lobby', function (data) {
-    $scope.users.push(data);
+    $scope.usersInRoom = data;
   });
 
-  pokemonSocket.on('results for check users', function (data) {
-    if(data.result) {
-      $scope.allusersavailable = true;
-    } else {
-      $scope.allusersavailable = false;
-    }
+  pokemonSocket.on('users in resumegamelobby', function (resumeGameUserArray) {
+    $scope.usersInRoom = resumeGameUserArray;
   });
 
-  var initialize = function (gameId) {
-    gameFactory.lobbyInit($scope.gameId)
+  pokemonSocket.on('moveAllPlayersToBoard', function () {
+    $location.path('/board');
+  });
+
+  pokemonSocket.on('update users in room', function(updatedusers) {
+    $scope.usersInRoom = updatedusers;
+    initialize();
+  });
+
+  var initialize = function () {
+    gameFactory.resumeGameLobbyInit($scope.gameId)
     .then(function (resp) {
       $scope.gameName = resp.gameName;
       $scope.gameCreator = resp.creatorName;
       $scope.gameCreatorId = resp.gameCreator;
+      $scope.users = resp.users;
+      pokemonSocket.emit('entered resume lobby', { gameId: $scope.gameId });
     })
     .catch(function (error) {
       console.error(error);
     });
   };
 
-  initialize($scope.gameId);
+  initialize();
 
   $scope.getBoardView = function () {
-    pokemonSocket.emit('check if all users are here', { gameId: $scope.gameId, NumberOfUsers: $scope.users.length });
-    $location.path('/board');
+    pokemonSocket.emit('creater enters board', { gameId: $scope.gameId });
   };
 
 });

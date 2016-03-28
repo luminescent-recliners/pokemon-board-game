@@ -7,7 +7,9 @@
   <br /><br />
   <span> Game Creator: {{ gameCreator }}</span>
   <br /><br />
-  <span> People in Room: <ul ng-repeat = "user in users"><li>{{ user.playerName }}</li></ul></span>
+  <span> People in Game: <ul ng-repeat = 'user in users'><li>{{ user.playerName }}</li></ul></span>
   <br /><br />
-  <input class="tn-lg btn-primary" type='button' ng-if = "gameCreatorId === facebookId && allusersavailable === true" ng-click = "getBoardView()" value='Resume Game' />
+  <span> People in Room: <ul ng-repeat = "user in usersInRoom"><li>{{ user.playerName }}</li></ul></span>
+  <br /><br />
+  <input class="tn-lg btn-primary" type='button' ng-if = "gameCreatorId === facebookId && usersInRoom.length === users.length" ng-click = "getBoardView()" value='Resume Game' />
 </div>
