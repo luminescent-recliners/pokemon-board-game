@@ -14,11 +14,18 @@ angular.module('pokemon.event', [])
     .then(function (resp) {
       $scope.gifDescrip = resp.descriptions;
       $scope.gifURL = resp.eventURL;
+      pokemonSocket.emit('load event gif', {gameId: $scope.gameId, desc: $scope.gifDescrip, url:$scope.gifURL});
     })
     .catch(function (error) {
       console.error(error);
     });
   };
+
+  pokemonSocket.on('all user gif', function(data) {
+    console.log("all user gif is working ", data)
+    $scope.gifDescrip = data.desc;
+    $scope.gifURL = data.url;
+  });
 
   $scope.updateTurn = function () {
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
@@ -73,6 +80,7 @@ angular.module('pokemon.event', [])
         }
       });
   };
+
   getGif();
 
   confirmCurrentPage();
