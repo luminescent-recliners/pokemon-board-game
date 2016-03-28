@@ -144,6 +144,19 @@ angular.module('services', [])
     });
   };
 
+  var resumeGameLobbyInit = function (gameId) {
+    return $http({
+      method: 'GET',
+      url: 'api/games/resumegamelobbyinit',
+      params: {
+        gameId: gameId
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   var addUsers = function (gameId, users) {
     return $http({
       method: 'PUT',
@@ -330,7 +343,8 @@ angular.module('services', [])
     requestLobbyEntry: requestLobbyEntry,
     updatePlayerCounter: updatePlayerCounter,
     getCityGif: getCityGif,
-    getEventGif: getEventGif
+    getEventGif: getEventGif,
+    resumeGameLobbyInit: resumeGameLobbyInit
   };
 
 })
