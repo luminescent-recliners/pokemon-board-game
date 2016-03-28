@@ -2,6 +2,9 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
+## Status
+> Still in developement
+
 ## Team
 
   - __Product Owner__: Alex Chou (Choumander)
