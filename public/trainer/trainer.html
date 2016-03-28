@@ -1,16 +1,17 @@
-<div>
+<div class="trainer">
   <div>
-    <h1>{{currentTurnPlayerName}} says hi to all the trainers.</h1>
+    <h3>{{currentTurnPlayerName}} says hi to all the trainers.</h3>
     <img src="{{currentTrainer.sprite}}" alt="">
   </div>
 
-  <div>
-  	<h1>Other Trainers</h1>
-  	<div ng-repeat="trainer in otherTrainers">
-  		<img src="{{trainer.sprite}}" alt="">
-  		<p>{{trainer.playerName}}</p>
+  <div class="other-trainers">
+  	<h3>Other Trainers at this Location</h3>
+  	<div class="other-trainer" ng-repeat="trainer in otherTrainers">
+  		<img class="sprite" src="{{trainer.sprite}}" alt="">
+  		<p class="other-trainer-name">{{trainer.playerName}}</p>
   	</div>
   </div>
+
   <div ng-if="currentTurnPlayerId===facebookId">
     <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
   </div>
