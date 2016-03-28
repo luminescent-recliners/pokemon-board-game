@@ -139,12 +139,13 @@ Angular was used as the front end framework.
 
 MongoDB was chosen for the database in order to allow storage of objects.  Q was used to promisify the interface and Mongoose was used to connect the database and server.  The size of the record for MongoDB is 16MB so our game object which is large is still within the size limit.
 
-There are six tables in the database as listed below.  The Users and Games table are the only talbes that are ever changed - during game play and new user creation.
+There are seven tables in the database as listed below.  The Users and Games table are the only talbes that are ever changed - during game play and new user creation.
 
 1. [Pokemon](pokemonTable.md) 
 1. [GymLeader](gymLeaderTable.md)
 1. [ItemCards](itemCardsTable.md)
 1. [EventCards](eventCardsTable.md)
+1. [Sprites](spritesTable.md)
 1. [Users](usersTable.md) - stores users of the app and is updated when a new user joins and also when users join a game
 1. [Games](gamesTable.md) - stores the game state and is updated on every turn
 
