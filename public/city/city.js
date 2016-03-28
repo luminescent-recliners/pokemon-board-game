@@ -9,6 +9,9 @@ angular.module('pokemon.city', [])
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
 
+  // $scope.gifDescrip;
+  // $scope.gifURL;
+
   var getGif = function() {
     gameFactory.getCityGif()
     .then(function (resp) {
@@ -51,6 +54,7 @@ angular.module('pokemon.city', [])
       .then(function (resp) {
         $scope.currentTurnPlayerName = resp.playerName;
         $scope.currentTurnPlayerId = resp.facebookId;
+        getGif();
       });
   };
 
@@ -80,7 +84,6 @@ angular.module('pokemon.city', [])
         }
       });
   };
-  getGif();
 
   confirmCurrentPage();
 
