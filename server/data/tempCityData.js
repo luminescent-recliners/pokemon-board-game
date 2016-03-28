@@ -14,7 +14,7 @@ module.exports =
 	},
 	{
 	description: "Get stocked up on food and supplies at the shop!",
-	cityURL: "hhttp://i3.kym-cdn.com/photos/images/newsfeed/000/256/385/152.gif"
+	cityURL: "http://i3.kym-cdn.com/photos/images/newsfeed/000/256/385/152.gif"
 	},
 	{
 	description: "Recharge your Pokedex and switch out your party!",
