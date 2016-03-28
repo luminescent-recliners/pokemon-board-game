@@ -1,7 +1,13 @@
 <div>
-  <div>
-    <h1>{{currentTurnPlayerName}} is resting at the Pokemon Center.  Zzz...Zzz...Zzz...</h1>
+  <div class="city">
+  <br/>
+    <h3>{{currentTurnPlayerName}} is resting at the Pokemon Center.  Zzz...Zzz...Zzz...</h3>
   </div>
+  <br/>
+  <div class="city">
+    <img src="http://cdn.makeagif.com/media/8-18-2015/oDlUKW.gif" alt="Pikachu Squad Dancing (HD)">
+  </div>
+
   <div ng-if="currentTurnPlayerId===facebookId">
     <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
   </div>

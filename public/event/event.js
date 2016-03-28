@@ -9,6 +9,17 @@ angular.module('pokemon.event', [])
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
   
+  var getGif = function() {
+    gameFactory.getEventGif()
+    .then(function (resp) {
+      $scope.gifDescrip = resp.descriptions;
+      $scope.gifURL = resp.eventURL;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  };
+
   $scope.updateTurn = function () {
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
     audioRedir.play();
@@ -62,6 +73,7 @@ angular.module('pokemon.event', [])
         }
       });
   };
+  getGif();
 
   confirmCurrentPage();
 
