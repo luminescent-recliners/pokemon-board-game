@@ -9,5 +9,5 @@
   <br /><br />
   <span> People in Room: <ul ng-repeat = "user in users"><li>{{ user.playerName }}</li></ul></span>
   <br /><br />
-  <input class="tn-lg btn-primary" type='button' ng-if = "gameCreatorId === facebookId" ng-click = "getBoardView()" value='Resume Game' />
+  <input class="tn-lg btn-primary" type='button' ng-if = "gameCreatorId === facebookId && allusersavailable === true" ng-click = "getBoardView()" value='Resume Game' />
 </div>
