@@ -65,6 +65,10 @@ io.on('connection', function(socket){
      usersInGames[data.gameId].push(data.user);
     io.to(data.gameId).emit('joinLobby', usersInGames[data.gameId]);
   });
+
+  socket.on('join resume lobby', function (data) {
+    io.to(data.gameId).emit('join resume lobby', data.user);
+  });
   // removes a user from usersIngGames object when they leave lobby and go to home page &
   // updates users in room to other players in lobby
   socket.on('a user left lobby', function(data) {
