@@ -14,6 +14,7 @@ angular.module('pokemon.home', [])
 
   if($scope.gameId !== null) {
     pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { facebookId: $scope.facebookId, playerName: $scope.playerName}});
+    window.localStorage.removeItem("pokemon.gameId");
   }
 
   gameFactory.updatePlayerCounter($scope.gameId)
