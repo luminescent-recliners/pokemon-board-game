@@ -13,6 +13,7 @@ angular.module('pokemon', [
   'pokemon.auth',
   'pokemon.winner',
   'pokemon.trainer',
+  'pokemon.resumelobby',
   'ngCookies',
   'ngAudio'
 ])
@@ -64,6 +65,10 @@ angular.module('pokemon', [
     .when("/trainer", {
       templateUrl: 'trainer/trainer.html',
       controller: 'trainerController'
+    })  
+    .when("/resumelobby", {
+      templateUrl: 'resumelobby/resumeLobby.html',
+      controller: 'resumeLobbyController'
     })
     .otherwise({
       redirectTo: '/home'
