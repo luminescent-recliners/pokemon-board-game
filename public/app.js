@@ -56,7 +56,8 @@ angular.module('pokemon', [
     })
     .when("/winner", {
       templateUrl: 'winner/winner.html',
-      controller: 'winnerController'
+      controller: 'winnerController',
+      authenticate: true
     })
     .when("/signin", {
       templateUrl: 'auth/signin.html',
@@ -64,11 +65,13 @@ angular.module('pokemon', [
     })
     .when("/trainer", {
       templateUrl: 'trainer/trainer.html',
-      controller: 'trainerController'
+      controller: 'trainerController',
+      authenticate: true
     })  
     .when("/resumelobby", {
       templateUrl: 'resumelobby/resumeLobby.html',
-      controller: 'resumeLobbyController'
+      controller: 'resumeLobbyController',
+      authenticate: true
     })
     .otherwise({
       redirectTo: '/home'
