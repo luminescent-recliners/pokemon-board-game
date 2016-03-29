@@ -69,7 +69,7 @@ angular.module('pokemon', [
       authenticate: true
     })  
     .when("/resumelobby", {
-      templateUrl: 'resumelobby/resumeLobby.html',
+      templateUrl: 'resumeLobby/resumeLobby.html',
       controller: 'resumeLobbyController',
       authenticate: true
     })
