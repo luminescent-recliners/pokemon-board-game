@@ -179,34 +179,35 @@
 
   Controller: gameController.trainerInit 
 
-  Request Params: 
+  Request Params: { gameId: number, currentTurnUserId: string }
 
-  Description:
+  Description: Returns an object containing two properties currentTrainer, which is a user object of the trainer who initiated the trainer event and other trainers is an array of user objects of trainers who are located on the spot the original trainer landed on.
 
 
 1. __/api/games/resumegamelobbyinit__  GET 
 
  Controller:  gameController.resumeGameLobbyInit
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an object, containing the gameName, game creator's facebook ID, game creator's display name and the users associated to the game.
  
 
-1. __/signin/facebook | GET |__  
+1. __/signin/facebook |__ GET 
 
- Controller: thenticate('facebook')
+ Controller: passport.authenticate('facebook')
 
- Request Params:
+ Request Params: N/A
 
- Description:
+ Description: This function uses Passport's Facebook Strategy, authentication middleware for Node, to assist in authenticating users from Facebook to allow users to be redirected to Facebook and attempt to login.
 
 
-1. __/signin/facebook/callback |__  T
+1. __/signin/facebook/callback |__ GET
 
  Controller: redirect to /#/home
 
- Request Params:
+ Request Params: N/A
 
- Description:
+ Description: This function handles a user's login from Facebook. If the user's login failed then the user will be redirected back to the sign-in page, otherwise the user will be redirected to the home page, and server will send a cookie containing the user's Facebook ID and display name.
+ 
 
