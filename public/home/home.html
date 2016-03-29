@@ -26,17 +26,16 @@
       <h3 class='panel-heading'><b>{{playerName}}'s Games</b></h3>
       <div class='gameContent' style="height: 300px">
         <li ng-repeat = "game in myGames track by $index">
-          <a ng-click='joinLobby(game.gameId)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+          <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
         </li>
       </div>
-
     </div>
 
     <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' style="height: 400px">
         <h3 class='panel-heading' ><b>All Available Games</b></h3>
         <div class='gameContent' style="height: 300px">
           <li ng-repeat = "game in games track by $index" ng-hide="game.gameStarted">
-            <a ng-click='joinLobby(game.gameId)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+            <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
           </li>
         </div>  
     </div>
