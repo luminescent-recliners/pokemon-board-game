@@ -106,6 +106,8 @@ A RESTful API was built using Node and Express.  A table with the endpoints can 
 | /api/games/boardInit | GET | gameController.boardInit | 
 | /api/games/remainingSprites | GET | gameController.getAvailableSprites | 
 | /api/games/getusers | GET | gameController.getUsers | 
+| /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
+| /api/games/trainerInit | GET | gameController.trainerInit |
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
@@ -123,8 +125,9 @@ Angular was used as the front end framework.
 | /capture | captureController | capturePokemon/capturePokemon.html | true |
 | /city | cityController | city/city.html | true |
 | /event | eventController | event/event.html | true |
-| /winner | winnerController | winner/winner.html | false |
+| /winner | winnerController | winner/winner.html | true |
 | /signin | authController | auth/signin.html | false |
+| /resumelobby |resumeLobbyController | resumelobby/resumeLobby.html | true |
 
 #### Database Design
 

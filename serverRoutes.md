@@ -17,6 +17,8 @@
 | /api/games/boardInit | GET | gameController.boardInit | 
 | /api/games/remainingSprites | GET | gameController.getAvailableSprites | 
 | /api/games/getusers | GET | gameController.getUsers | 
+| /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
+| /api/games/trainerInit | GET | gameController.trainerInit |
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
@@ -173,6 +175,23 @@
 
  Description:
 
+1. __/api/games/trainerInit__  GET 
+
+  Controller: gameController.trainerInit 
+
+  Request Params:
+
+  Description:
+
+
+1. __/api/games/resumegamelobbyinit__  GET 
+
+ Controller:  gameController.resumeGameLobbyInit
+
+ Request Params:
+
+ Description:
+ 
 
 1. __/signin/facebook | GET |__  ssport
 
