@@ -39,9 +39,27 @@ input {
   text-align: center;
 }
 
+.home-text {
+  text-align: left;
+  margin-bottom: 2%;
+  margin-top: 1%
+}
+
 .gameContent {
   overflow: scroll;
 }
+
+.create-game-btn, .create-game-input, .game-name, .home-text{
+  font-size: 1.5em;
+}
+
+
+.game-panel {
+  opacity: .75;
+}
+
+
+
 
 /* Lobby View  */
 .lobby {
