@@ -78,6 +78,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // $scope.counter ++;
     var audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
+    console.log("DICE from rollDice")
 
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
@@ -88,6 +89,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   pokemonSocket.on('send player roll to move', function(roll) {
+    console.log("DICE from send player roll to move")
     var audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
     $scope.roll = roll;
@@ -126,11 +128,13 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send player to move', function(data) {
     initialize();
+    console.log("SWOOSH from send player to move")
     var audioMove = new Audio('../assets/sounds/swoosh.mp3');
     audioMove.play();
   });
 
   $scope.movePlayer = function(newSpot, userId) {
+    console.log("SWOOSH from movePlayer")
     var audioMove = new Audio('../assets/sounds/swoosh.mp3');
     audioMove.play();
     var userObject = {
@@ -194,6 +198,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   };
 
   $scope.redirectAllUsers = function() {
+    console.log("POP from redirectAllUsers")
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
     audioRedir.play();
     switch (action) {
@@ -214,6 +219,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   pokemonSocket.on('send redirect path to users', function(action){
     redirect(action);
+    console.log("POP from send redirect path to users")
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
     audioRedir.play();
   });

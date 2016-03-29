@@ -28,6 +28,7 @@ angular.module('pokemon.event', [])
   });
 
   $scope.updateTurn = function () {
+    console.log("POP from updateTurn")
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
     audioRedir.play();
     gameFactory.updateTurn($scope.gameId, 'boardView')
@@ -42,6 +43,7 @@ angular.module('pokemon.event', [])
 
   pokemonSocket.on('redirect back to board', function() {
     $location.path('/board');
+    console.log("POP from redirect back to board")
     var audioRedir = new Audio('../assets/sounds/pop.mp3');
     audioRedir.play();
   });
