@@ -11,7 +11,7 @@ angular.module('pokemon.lobby', [])
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   
-  pokemonSocket.on('joinLobby', function(currentUsers) {
+  pokemonSocket.on('join-Lobby', function(currentUsers) {
     $scope.users = currentUsers;
   });
 

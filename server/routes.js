@@ -28,6 +28,7 @@ router.get('/api/games/playerOptions', gameController.getPlayerOptions);
 router.get('/api/games/availablePokemon', gameController.getAvailablePokemon);
 router.get('/api/games/getGames', gameController.getGames);
 router.get('/api/games/lobbyinit', gameController.lobbyInit);
+router.get('/api/games/resumegamelobbyinit', gameController.resumeGameLobbyInit);
 router.get('/api/games/remainingStarterPokemon', gameController.getRemainingStarterPokemon);
 router.get('/api/games/boardInit', gameController.boardInit);
 router.get('/api/games/remainingSprites', gameController.getAvailableSprites);

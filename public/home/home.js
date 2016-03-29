@@ -62,27 +62,38 @@ angular.module('pokemon.home', [])
     }
   };
 
-  $scope.joinLobby = function(id) {
-    gameFactory.requestLobbyEntry(id)
+  $scope.joinLobby = function(id, gameStarted) {
+    if(gameStarted === false) {
+      gameFactory.requestLobbyEntry(id)
       .then(function (resp) {
         if(resp.requestAccepted) {
           $window.localStorage.setItem('pokemon.gameId', id);
-          $location.path('/lobby');
-
           pokemonSocket.emit('joinLobby', {
             gameId: id,
             user: {
               playerName: $scope.playerName,
               facebookId: $scope.facebookId
             }
-          }); 
+          });
+          $location.path('/lobby');
         } else {
           alert("Sorry, This game already has 6 players! Pls select another game.");
         }
       }) 
       .catch(function (error) {
         console.error(error);
+      });  
+    } else {
+      $window.localStorage.setItem('pokemon.gameId', id);
+      pokemonSocket.emit('join resume lobby', {
+        gameId: id,
+        user: {
+          playerName: $scope.playerName,
+          facebookId: $scope.facebookId
+        }
       });
+      $location.path('/resumelobby'); 
+    } 
   };
 
   var userGames = function() {

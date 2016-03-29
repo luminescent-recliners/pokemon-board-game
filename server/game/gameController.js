@@ -137,13 +137,10 @@ module.exports = {
 
   lobbyInit: function (req, res, next) {
     var gameId = req.query.gameId;
-    var result;
 
-    findGame({gameId: gameId})
+    findGame({ gameId: gameId })
       .then(function (game) {
-        // var gameCreator = game.gameCreator;
-        // var creator = gameHelperFn.findUser(game, gameCreator);
-        result = {
+        var result = {
           gameName: game.name,
           gameCreator: game.gameCreator.facebookId,
           creatorName: game.gameCreator.playerName
@@ -153,6 +150,31 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
+  },
+
+  resumeGameLobbyInit: function (req, res, next) {
+    var gameId = req.query.gameId;
+
+    findGame({ gameId: gameId })
+    .then(function (game) {
+      var users = [];
+      for(var i = 0;i < game.users.length; i++) {
+        users.push({
+          facebookId: game.users[i].facebookId,
+          playerName: game.users[i].playerName
+        });
+      }
+      var result = {
+        gameName: game.name,
+        gameCreator: game.gameCreator.facebookId,
+        creatorName: game.gameCreator.playerName,
+        users: users
+      };
+      res.send(result);
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   addUser: function (req, res, next) {
