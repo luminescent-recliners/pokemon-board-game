@@ -143,7 +143,7 @@ module.exports = {
         var result = {
           gameName: game.name,
           gameCreator: game.gameCreator.facebookId,
-          creatorName: game.gameCreator.playerName,
+          creatorName: game.gameCreator.playerName
         };
         res.send(result);
       })
