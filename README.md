@@ -34,15 +34,6 @@
   * If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
   * If spot is event pick an event card and do what it says - not impelemented yet
 
-## Game Play
-
-1. Roll the dice
-1. Check the number of positions in both direction and offer player options:
-  * If spot has a pokemon then try to catch pokemon - implemented
-  * If other players on spot, can battle or trade - not implemented yet
-  * If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
-  * If spot is event pick an event card and do what it says - not impelemented yet
-
 
 ## Requirements
 
