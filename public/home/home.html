@@ -1,52 +1,45 @@
-  <div class='home' ng-controller='homeController'>
+<div class='home' ng-controller='homeController'>
+  <div class="row">
+    <!-- col used to space the next column -->
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+
+      <p class="home-text">Create or join an existing game to play with other trainers. Explore the world map, catching various Pokemon and become a Pokemon Master amongst your peers!</p>  
+
+      <form name="myform">
+        <input class="create-game-input" type="text" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"></input>
+        <input class="tn-lg btn-primary create-game-btn" type="button" value="Create Game" ng-click="makeNewGame()"></input>
+        <p ng-show='showMessage'>A Game Name is Required</p>
+       </form>
+    </div>
+  </div>
+  <br>
+  <div class="row">
     <div class='newGameSideBar col-lg-2'>
-      <br />
-      <br />
-      <br />
-      <br />
       <h4><b>Logged in as {{playerName}}</b></h4>
-      <p>{{playerName}} Stats</p>
-      <p>{{playerName}} Stats</p>
-      <p>{{playerName}} Stats</p>
-      <p>{{playerName}} Stats</p>
+      <br><br>
+      <!-- Include Stats Later -->
       <button class="btn-sm btn-primary text-center" ng-click = "logout()"> Log Out </button>
     </div>
-      <br />
-      <div class='col-lg-10'>
-      <div class="col-lg-3 text-center">
-      </div>
-      <div class='newGameContent col-lg-5'>    
-        <td>
-        <form name="myform">
-          <input class="amount" type="text" size="12" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"></input>
-          <input class="tn-lg btn-primary" type="button" value="Create Game" ng-click="makeNewGame()"></input>
-          <p ng-show='showMessage'>A Game Name is Required</p>
-         </form>
-        </td> 
-      </div>
-      <br />
-      <br />
 
-      <div class="col-lg-2 text-center">
+    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' style="height: 400px">
+      <h3 class='panel-heading'><b>{{playerName}}'s Games</b></h3>
+      <div class='gameContent' style="height: 300px">
+        <li ng-repeat = "game in myGames track by $index">
+          <a ng-click='joinLobby(game.gameId)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+        </li>
       </div>
-      <br />
-        <div class='panel panel-primary col-lg-5' style="height: 400px">
-          <h2 class='panel-heading'><b>{{playerName}}'s Games</b></h2>
-          <div class='gameContent' style="height: 300px">
-            <li ng-repeat = "game in myGames track by $index">
-              <a ng-click='joinLobby(game.gameId, game.gameStarted)'>{{game.gameId}}: {{game.gameName}} </a>
-            </li>
-          </div>
-        </div>
-        <div class="col-lg-1 text-center">
-        </div>
-        <div class='panel panel-primary col-lg-5' style="height: 400px">
-            <h2 class='panel-heading' ><b>All Available Games</b></h2>
-            <div class='gameContent' style="height: 300px">
-              <li ng-repeat = "game in games track by $index" ng-hide="game.gameStarted">
-                <a ng-click='joinLobby(game.gameId, game.gameStarted)'>{{game.gameId}}: {{game.gameName}} </a>
-              </li>
-            </div>  
-        <div>
-    </div>  
+
+    </div>
+
+    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' style="height: 400px">
+        <h3 class='panel-heading' ><b>All Available Games</b></h3>
+        <div class='gameContent' style="height: 300px">
+          <li ng-repeat = "game in games track by $index" ng-hide="game.gameStarted">
+            <a ng-click='joinLobby(game.gameId)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+          </li>
+        </div>  
+    </div>
+
+  </div>
 </div>
