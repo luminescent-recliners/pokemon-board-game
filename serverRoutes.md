@@ -108,78 +108,78 @@
 
  Controller: gameController.getPlayerOptions
 
- Request Params:
+ Request Params: { roll: number, gameId: number, userId: number, userPosition: number}
 
- Description:
+ Description: Returns a player options object containing two arrays of potential forward/backward spot objects on the board a user can move to. Spot objects also contain a specific action that can be executed.
 
 
 1. __/api/games/availablePokemon__  GET
 
  Controller: gameController.getAvailablePokemon
 
- Request Params:
+ Request Params: { gameId: number, userId: number}
 
- Description:
+ Description: This function is called when a user lands on a Pokemon spot on the board. The function removes a Pokemon from the Available Pokemon of the specific board spot color, and returns the Pokemon Object. If a Pokemon has already been revealed, this function returns the Pokemon associated to that board spot.
 
 
 1. __/api/games/getGames__  GET
 
  Controller: gameController.getGames
 
- Request Params:
+ Request Params: N/A
 
- Description:
+ Description: Returns an array of all game objects. Objects contain the properties gameId, gameName, gameStarted, gamePlayers, and gameCreator. The gamePlayers property in the object is an array of player objects containing their facebook ID and display name.
 
 
 1. __/api/games/lobbyinit__  GET
 
  Controller: gameController.lobbyInit
 
- Request Params:
+ Request Params: { gameId: gameId }
 
- Description:
+ Description: Returns an object containing the game name, the game creator's name and the game creator's facebook ID.
 
 
 1. __/api/games/remainingStarterPokemon__  GET
 
  Controller: gameController.getRemainingStarterPokemon
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description:	Returns an array of remaining starter Pokemon with data from the Pokemons table.
 
 
 1. __/api/games/boardInit__  GET
 
  Controller: gameController.boardInit
 
- Request Params:
+ Request Params: { gameId: number, userId: number }
 
- Description:
+ Description: Returns an object containing the board object, the current user object, current turn object, containing the user's facebook ID, and their display name, users array of object, containing player name, facebook ID, position and sprite image, and a winner property.
 
 
 1. __/api/games/remainingSprites__  GET
 
  Controller: gameController.getAvailableSprites
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an array of remaining sprites with data from the Sprites table.
 
 
 1. __/api/games/getusers__  GET
 
  Controller: gameController.getUsers
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an array of user objects.
 
 1. __/api/games/trainerInit__  GET 
 
   Controller: gameController.trainerInit 
 
-  Request Params:
+  Request Params: 
 
   Description:
 
@@ -193,7 +193,7 @@
  Description:
  
 
-1. __/signin/facebook | GET |__  ssport
+1. __/signin/facebook | GET |__  
 
  Controller: thenticate('facebook')
 
