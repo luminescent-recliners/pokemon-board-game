@@ -24,12 +24,12 @@
   - gameId: at this point we are assigning an id based on how many games in the table.  Will have to change this at some point in the future
   - gameCreator: only creator of game is permitted to begin game
 
-  ```javascript  
+```javascript  
         { 
           playerName : "Henry",
           facebookId : "Facebook123H" 
         }
-  ```
+```
   - users: an array of user objects each representing a player in the game
 
   ```javascript
@@ -82,7 +82,6 @@
       red : [ 142, 65, 59, ... 3, 68, 143 ] 
     },
   ```
-
   - availableSprites: a list of sprites which players select to represent themselves on board during the game
   - availableItemCards: will have item cards when implemented
   - gameTurn:
@@ -93,7 +92,6 @@
         facebookId : "Facebook123H"
       }
   ```
-
   - gameCounter: a number that increments each time a turn is complete.  It is used to determine the next players turn
   - currentPage: a string to describe which page view all players need to be on at any point in the gameCounter
   - gameBoard: an object with 73 objects within, each being a spot on the board
