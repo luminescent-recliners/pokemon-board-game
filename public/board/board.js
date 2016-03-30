@@ -20,6 +20,10 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.actionDescription = '';
   var action;
 
+  $scope.$on('$destroy', function () {
+    pokemonSocket.removeAllListeners();
+  });
+
   // alerts other players that someone has to stop playing
   // saves game state and gives users chance to go back to home page
   $scope.exitGame = function() {
@@ -83,11 +87,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
     gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
       .then(function(options){
+        console.log("DICE fron rollDice SOCKET EVENT EMIT")
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
       });
   };
-
+  console.log("place right above send player roll")
   pokemonSocket.on('send player roll to move', function(roll) {
     console.log("DICE from send player roll to move")
     var audio = new Audio('../assets/sounds/dice.mp3');
@@ -95,6 +100,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     $scope.roll = roll;
     $scope.rollDisplay = true;
   });
+
+  // pokemonSocket.removeListener('send player roll to move')
 
   var resetOptions = function () {
     $scope.actionDisplay = true;
@@ -134,9 +141,9 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   });
 
   $scope.movePlayer = function(newSpot, userId) {
-    console.log("SWOOSH from movePlayer")
-    var audioMove = new Audio('../assets/sounds/swoosh.mp3');
-    audioMove.play();
+    // console.log("SWOOSH from movePlayer")
+    // var audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    // audioMove.play();
     var userObject = {
       facebookId: $scope.facebookId,
       playerName: $scope.playerName
