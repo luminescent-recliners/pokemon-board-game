@@ -96,6 +96,8 @@ A RESTful API was built using Node and Express.  A table with the endpoints can 
 | /api/games/user/catchPokemon | PUT | gameController.catchPokemon | 
 | /api/games/updateturn | PUT | gameController.updateTurn | 
 | /api/games/currentPage | PUT | gameController.updateCurrentPage | 
+| /api/games/requestlobbyentry | PUT | gameController.requestLobbyEntry | 
+| /api/games/updateplayercounter | PUT | gameController.updatePlayerCounter | 
 | /api/games/currentPage | GET | gameController.getCurrentPage | 
 | /api/games/gameturn | GET | gameController.findTurn | 
 | /api/games/playerOptions | GET | gameController.getPlayerOptions | 
@@ -108,6 +110,8 @@ A RESTful API was built using Node and Express.  A table with the endpoints can 
 | /api/games/getusers | GET | gameController.getUsers | 
 | /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
 | /api/games/trainerInit | GET | gameController.trainerInit |
+| /api/tempEvents/getURL | GET | tempEventsController.getRandomURL |
+| /api/tempCity/getURL | GET | tempCityController.getRandomURL |
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
