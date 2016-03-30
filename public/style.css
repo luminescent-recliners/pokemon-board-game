@@ -96,6 +96,11 @@ input {
 
 }
 
+.resume-text {
+  text-align: left;
+  margin: 1%;
+}
+
 /*  Board View  */
 .player {
   transition: x 1s,  y 1s, cx 1s, cy 1s;
