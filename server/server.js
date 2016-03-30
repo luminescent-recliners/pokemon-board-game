@@ -50,7 +50,7 @@ var usersInResumeGameLobby = {};
 var selectionPokemon = {};
 var winners = {};
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
   console.log('a user connected');
   socket.on('disconnect', function() {
     console.log('a user disconnected');
@@ -132,6 +132,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('player rolled dice to move', function(data) {
+    console.log("SERVERERRRRR ___________________DICE from send player roll to move")
     socket.broadcast.to(data.gameId).emit('send player roll to move', data.roll);
   });
 
@@ -140,11 +141,11 @@ io.on('connection', function(socket){
   });
 ////////////////////////////////////////////////
   socket.on('redirect users to action', function(data) {
-    socket.broadcast.to(data.gameId).emit('send redirect path to users', data.action);
+    io.to(data.gameId).emit('send redirect path to users', data.action);
   });
 ////////////////////////////////////////////////
   socket.on('a player moved', function(data) {
-    socket.broadcast.to(data.gameId).emit('send player to move', data);
+    io.to(data.gameId).emit('send player to move', data);
   });
 
   socket.on('roll die for capture', function(data) {

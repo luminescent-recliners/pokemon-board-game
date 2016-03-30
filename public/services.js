@@ -350,6 +350,6 @@ angular.module('services', [])
 })
 
 .factory('pokemonSocket', function(socketFactory) {
+  console.log("+++++++++++++++++++++POKEMONSOCKET++++++++++++++++++++++++")
   return socketFactory();
-
 });
