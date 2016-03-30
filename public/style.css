@@ -247,3 +247,38 @@ hr{
 .pokemonCap {
   color: #125986;
 }
+
+/* winner View */
+.winner {
+  margin: 0 auto;
+  display:inline;  
+}
+
+.otherPlayers {
+  font-size: 125%;
+}
+
+.gameWon {
+  float: left;
+}
+/* Button to go to home view */
+.home {
+  float: right;
+  border-radius: 12px;
+}
+
+.winnerHeading {
+  font-size: 150%;
+}
+/* To make the circles around winner rotate */
+.saturn {
+   position: absolute;
+   left: 225px;
+   top: 270px;
+   -webkit-animation: myOrbit 4s linear infinite;
+}
+
+@keyframes myOrbit {
+    from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
