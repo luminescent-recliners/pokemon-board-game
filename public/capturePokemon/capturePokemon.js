@@ -43,7 +43,6 @@ angular.module('pokemon.capture', [])
   
   $scope.diceRolled = false;
   $scope.rollDice = function () {
-    console.log("DICE SET from rollDice")
     var audioDice = new Audio('../assets/sounds/dice.mp3');
     audioDice.play();
     $scope.rollvalue = Math.ceil(Math.random() * 6);
@@ -69,8 +68,6 @@ angular.module('pokemon.capture', [])
     $scope.result = data.result;
     $scope.rollvalue = data.roll;
     $scope.diceRolled = true;
-    console.log("DICE SET from send response for capture page")
-
     var audioDice = new Audio('../assets/sounds/dice.mp3');
     audioDice.play();
     if ($scope.result === "Sorry!! Pokemon Got Away") {
