@@ -518,7 +518,7 @@ module.exports = {
     var requestAccepted;
 
     playerCounter[gameId] = playerCounter[gameId] || 0;
-    if(playerCounter[gameId] === 2) {
+    if(playerCounter[gameId] === 6) {
       requestAccepted = false;
     } else {
       playerCounter[gameId] = playerCounter[gameId] + 1;
