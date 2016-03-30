@@ -21,6 +21,8 @@
 | /api/games/getusers | GET | gameController.getUsers | 
 | /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
 | /api/games/trainerInit | GET | gameController.trainerInit |
+| /api/tempEvents/getURL | GET | tempEventsController.getRandomURL |
+| /api/tempCity/getURL | GET | tempCityController.getRandomURL |
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
@@ -212,6 +214,23 @@
 
  Description: Returns an object, containing the gameName, game creator's facebook ID, game creator's display name and the users associated to the game.
  
+1. __/api/tempEvents/getURL__  GET 
+
+  Controller: tempEventsController.getRandomURL
+
+  Request Params: N/A
+
+  Description: Returns a random description and gif URL from the temporary event data object.
+
+
+1. __/api/tempCity/getURL__  GET 
+
+ Controller:  tempCityController.getRandomURL
+
+ Request Params: N/A
+
+ Description: Returns a random description and gif URL from the temporary city data object.
+
 
 1. __/signin/facebook |__ GET 
 
