@@ -66,6 +66,36 @@ input {
   text-align: center;
 }
 
+.lobby-text {
+  margin: 1%;
+  font-size: 1em;
+}
+
+.lobby p {
+  font-size: 1.5em;
+}
+
+.user-in-lobby {
+  list-style: none;
+  font-size: 1.3em;
+}
+
+.lobby-image-container{
+  position: absolute;
+  z-index: 1;
+  right: 30%;
+}
+.lobby-image {
+  opacity: .6;
+  border-radius: 30%;
+  margin: 0 auto;
+}
+
+.main-pokemon-btn {
+  font-size: 1.5em;
+
+}
+
 /*  Board View  */
 .player {
   transition: x 1s,  y 1s, cx 1s, cy 1s;
