@@ -53,7 +53,7 @@ angular.module('pokemon.capture', [])
           var audioDice = new Audio('../assets/sounds/bloop.mp3');
           audioDice.play();
         } else {
-          var audioDice = new Audio('../assets/sounds/win.mp3');
+          var audioDice = new Audio('../assets/sounds/caught.mp3');
           audioDice.play();
         }
         pokemonSocket.emit('roll die for capture', {gameId: $scope.gameId, result: $scope.result, roll: $scope.rollvalue});
@@ -74,12 +74,14 @@ angular.module('pokemon.capture', [])
       var audioDice = new Audio('../assets/sounds/bloop.mp3');
       audioDice.play();
     } else {
-      var audioDice = new Audio('../assets/sounds/win.mp3');
+      var audioDice = new Audio('../assets/sounds/caught.mp3');
       audioDice.play();
     }
   });
 
   $scope.updateTurn = function () {
+    var audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
     gameFactory.updateTurn($scope.gameId, 'boardView')
       .then(function (resp) {
         pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
