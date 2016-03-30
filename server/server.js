@@ -132,18 +132,17 @@ io.on('connection', function(socket) {
   });
 
   socket.on('player rolled dice to move', function(data) {
-    console.log("SERVERERRRRR ___________________DICE from send player roll to move")
     socket.broadcast.to(data.gameId).emit('send player roll to move', data.roll);
   });
 
   socket.on('update action description', function(data) {
     socket.broadcast.to(data.gameId).emit('send action description', data.description);
   });
-////////////////////////////////////////////////
+
   socket.on('redirect users to action', function(data) {
     io.to(data.gameId).emit('send redirect path to users', data.action);
   });
-////////////////////////////////////////////////
+
   socket.on('a player moved', function(data) {
     io.to(data.gameId).emit('send player to move', data);
   });
