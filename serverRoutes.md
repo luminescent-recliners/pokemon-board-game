@@ -7,6 +7,8 @@
 | /api/games/user/catchPokemon | PUT | gameController.catchPokemon | 
 | /api/games/updateturn | PUT | gameController.updateTurn | 
 | /api/games/currentPage | PUT | gameController.updateCurrentPage | 
+| /api/games/requestlobbyentry | PUT | gameController.requestLobbyEntry | 
+| /api/games/updateplayercounter | PUT | gameController.updatePlayerCounter | 
 | /api/games/currentPage | GET | gameController.getCurrentPage | 
 | /api/games/gameturn | GET | gameController.findTurn | 
 | /api/games/playerOptions | GET | gameController.getPlayerOptions | 
@@ -84,6 +86,24 @@
  Request Body: { gameId: number, currentPage: string }
 
  Description:  Sets the currentPage field in the game with gameId
+
+
+1. __/api/games/requestlobbyentry__  PUT
+
+ Controller: gameController.requestLobbyEntry
+
+ Request Body: { gameId: number }
+
+ Description: Returns an object with a requestAccepted property to check if a user is permitted to enter the lobby. If the user is accepted, the function also increments a global variable playerCounter[gameId] defined in the game controller.
+
+
+1. __/api/games/updatePlayerCounter__  PUT
+
+ Controller: gameController.updateCurrentPage
+
+ Request Body: { gameId: number }
+
+ Description:  Decrements the global variable playerCounter[gameId] if the game exists in the playerCounter object.
 
 
 1. __/api/games/currentPage__  GET
@@ -209,5 +229,5 @@
  Request Params: N/A
 
  Description: This function handles a user's login from Facebook. If the user's login failed then the user will be redirected back to the sign-in page, otherwise the user will be redirected to the home page, and server will send a cookie containing the user's Facebook ID and display name.
- 
+
 
