@@ -7,6 +7,8 @@
 | /api/games/user/catchPokemon | PUT | gameController.catchPokemon | 
 | /api/games/updateturn | PUT | gameController.updateTurn | 
 | /api/games/currentPage | PUT | gameController.updateCurrentPage | 
+| /api/games/requestlobbyentry | PUT | gameController.requestLobbyEntry | 
+| /api/games/updateplayercounter | PUT | gameController.updatePlayerCounter | 
 | /api/games/currentPage | GET | gameController.getCurrentPage | 
 | /api/games/gameturn | GET | gameController.findTurn | 
 | /api/games/playerOptions | GET | gameController.getPlayerOptions | 
@@ -19,6 +21,8 @@
 | /api/games/getusers | GET | gameController.getUsers | 
 | /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
 | /api/games/trainerInit | GET | gameController.trainerInit |
+| /api/tempEvents/getURL | GET | tempEventsController.getRandomURL |
+| /api/tempCity/getURL | GET | tempCityController.getRandomURL |
 | /signin/facebook | GET | passport.authenticate('facebook') | 
 | /signin/facebook/callback | GET | redirect to /#/home | 
 
@@ -86,6 +90,24 @@
  Description:  Sets the currentPage field in the game with gameId
 
 
+1. __/api/games/requestlobbyentry__  PUT
+
+ Controller: gameController.requestLobbyEntry
+
+ Request Body: { gameId: number }
+
+ Description: Returns an object with a requestAccepted property to check if a user is permitted to enter the lobby. If the user is accepted, the function also increments a global variable playerCounter[gameId] defined in the game controller.
+
+
+1. __/api/games/updatePlayerCounter__  PUT
+
+ Controller: gameController.updateCurrentPage
+
+ Request Body: { gameId: number }
+
+ Description:  Decrements the global variable playerCounter[gameId] if the game exists in the playerCounter object.
+
+
 1. __/api/games/currentPage__  GET
 
  Controller: gameController.getCurrentPage
@@ -108,105 +130,123 @@
 
  Controller: gameController.getPlayerOptions
 
- Request Params:
+ Request Params: { roll: number, gameId: number, userId: number, userPosition: number}
 
- Description:
+ Description: Returns a player options object containing two arrays of potential forward/backward spot objects on the board a user can move to. Spot objects also contain a specific action that can be executed.
 
 
 1. __/api/games/availablePokemon__  GET
 
  Controller: gameController.getAvailablePokemon
 
- Request Params:
+ Request Params: { gameId: number, userId: number}
 
- Description:
+ Description: This function is called when a user lands on a Pokemon spot on the board. The function removes a Pokemon from the Available Pokemon of the specific board spot color, and returns the Pokemon Object. If a Pokemon has already been revealed, this function returns the Pokemon associated to that board spot.
 
 
 1. __/api/games/getGames__  GET
 
  Controller: gameController.getGames
 
- Request Params:
+ Request Params: N/A
 
- Description:
+ Description: Returns an array of all game objects. Objects contain the properties gameId, gameName, gameStarted, gamePlayers, and gameCreator. The gamePlayers property in the object is an array of player objects containing their facebook ID and display name.
 
 
 1. __/api/games/lobbyinit__  GET
 
  Controller: gameController.lobbyInit
 
- Request Params:
+ Request Params: { gameId: gameId }
 
- Description:
+ Description: Returns an object containing the game name, the game creator's name and the game creator's facebook ID.
 
 
 1. __/api/games/remainingStarterPokemon__  GET
 
  Controller: gameController.getRemainingStarterPokemon
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description:	Returns an array of remaining starter Pokemon with data from the Pokemons table.
 
 
 1. __/api/games/boardInit__  GET
 
  Controller: gameController.boardInit
 
- Request Params:
+ Request Params: { gameId: number, userId: number }
 
- Description:
+ Description: Returns an object containing the board object, the current user object, current turn object, containing the user's facebook ID, and their display name, users array of object, containing player name, facebook ID, position and sprite image, and a winner property.
 
 
 1. __/api/games/remainingSprites__  GET
 
  Controller: gameController.getAvailableSprites
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an array of remaining sprites with data from the Sprites table.
 
 
 1. __/api/games/getusers__  GET
 
  Controller: gameController.getUsers
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an array of user objects.
 
 1. __/api/games/trainerInit__  GET 
 
   Controller: gameController.trainerInit 
 
-  Request Params:
+  Request Params: { gameId: number, currentTurnUserId: string }
 
-  Description:
+  Description: Returns an object containing two properties currentTrainer, which is a user object of the trainer who initiated the trainer event and other trainers is an array of user objects of trainers who are located on the spot the original trainer landed on.
 
 
 1. __/api/games/resumegamelobbyinit__  GET 
 
  Controller:  gameController.resumeGameLobbyInit
 
- Request Params:
+ Request Params: { gameId: number }
 
- Description:
+ Description: Returns an object, containing the gameName, game creator's facebook ID, game creator's display name and the users associated to the game.
  
+1. __/api/tempEvents/getURL__  GET 
 
-1. __/signin/facebook | GET |__  ssport
+  Controller: tempEventsController.getRandomURL
 
- Controller: thenticate('facebook')
+  Request Params: N/A
 
- Request Params:
-
- Description:
+  Description: Returns a random description and gif URL from the temporary event data object.
 
 
-1. __/signin/facebook/callback |__  T
+1. __/api/tempCity/getURL__  GET 
+
+ Controller:  tempCityController.getRandomURL
+
+ Request Params: N/A
+
+ Description: Returns a random description and gif URL from the temporary city data object.
+
+
+1. __/signin/facebook |__ GET 
+
+ Controller: passport.authenticate('facebook')
+
+ Request Params: N/A
+
+ Description: This function uses Passport's Facebook Strategy, authentication middleware for Node, to assist in authenticating users from Facebook to allow users to be redirected to Facebook and attempt to login.
+
+
+1. __/signin/facebook/callback |__ GET
 
  Controller: redirect to /#/home
 
- Request Params:
+ Request Params: N/A
 
- Description:
+ Description: This function handles a user's login from Facebook. If the user's login failed then the user will be redirected back to the sign-in page, otherwise the user will be redirected to the home page, and server will send a cookie containing the user's Facebook ID and display name.
+
 
