@@ -17,6 +17,8 @@ var playerCounter = {};
 module.exports = {
   findGame: findGame,
 
+  findGames: findGames,
+
   updateCurrentPage: function(req, res, next) {
     var gameId = req.body.gameId;
     var currentPage = req.body.currentPage;

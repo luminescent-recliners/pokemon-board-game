@@ -105,8 +105,8 @@ var createSprite = function() {
 
 
 
-//===========Remove contents of the tables in the database===========
-//===========Then Run Populate Table functions===========
+// //===========Remove contents of the tables in the database===========
+// //===========Then Run Populate Table functions===========
 // Games.remove({}, function(err) {
 //    console.log('Games collection removed');
 // })
@@ -141,3 +141,11 @@ var createSprite = function() {
 // .then(function(){
 //   createSprite();
 // });
+
+
+// initalize static database tables if they do not exist
+var dbInit = function() {
+  createGymLeader();
+  createPokemons();
+  createSprite();
+}();
