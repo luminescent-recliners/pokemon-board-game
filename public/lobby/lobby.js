@@ -1,7 +1,6 @@
 angular.module('pokemon.lobby', [])
 .controller('lobbyController', function (pokemonSocket, $scope, $location, gameFactory, $window) {
 
-  $scope.lobbytest = "Welcome to the Lobby!";
   $scope.gamename;
   $scope.gameCreator;
   $scope.myGameCreator = false;
