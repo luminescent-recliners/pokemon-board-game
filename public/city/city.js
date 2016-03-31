@@ -9,20 +9,18 @@ angular.module('pokemon.city', [])
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
 
-  $scope.gifDescrip;
-  $scope.gifURL;
+  // $scope.gifDescrip;
+  // $scope.gifURL;
 
   var getGif = function() {
-    if($scope.currentTurnPlayerId===$scope.facebookId) {
-      gameFactory.getCityGif()
-      .then(function (resp) {
-         $scope.gifDescrip = resp.descriptions;
-        $scope.gifURL = resp.cityURL;
-       })
-      .catch(function (error) {
-        console.error(error);
-      });
-    }  
+    gameFactory.getCityGif()
+    .then(function (resp) {
+      $scope.gifDescrip = resp.descriptions;
+      $scope.gifURL = resp.cityURL;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   };
   
   $scope.updateTurn = function () {
