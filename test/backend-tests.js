@@ -26,6 +26,11 @@ chai.use(sinonChai);
 chai.use(chaiHTTP);
 
 describe('Server Integration Tests', function() {
+  var numGames = 0;
+  // this will be a list of all game Ids added during tested
+  // and will be used to delete after testing is done
+  var gameIdAdded = [100, 300, 400];
+
   // Instantiates a new game that will be dropped after tests are run. 
   before(function(done) {
       var newGame = new game({
@@ -55,13 +60,21 @@ describe('Server Integration Tests', function() {
         gameCounter: 0
       });
       newGame.save(function(err) {
-        done();
       });
+
+      // find number of games in table
+      // which is used to create a new gameId - with the current
+      // implementation
+      gameController.findGames({})
+      .then(function(games) {
+        numGames = games.length;
+      });
+      done();
   });
 
   // deletes the sample game that was entered in the data base after all the tests are run
   after(function(done) {
-    game.remove({gameId:100}, function(err, data) {
+    game.remove({gameId: { $in: gameIdAdded } }, function(err, data) {
       if(err) { console.error(err);}
       else { console.log('Test Data Deleted');}
     });
@@ -79,7 +92,8 @@ describe('Server Integration Tests', function() {
         res.body.should.be.a('object');
         res.body.should.have.property('gameId');
         res.body.should.have.property('name');
-        res.body.gameId.should.equal(2);
+        res.body.gameId.should.equal(numGames + 1);
+        gameIdAdded.push(numGames + 1);
         res.body.name.should.equal("testGame");
 
         done();
@@ -96,15 +110,14 @@ describe('Server Integration Tests', function() {
         res.body.should.be.a('array');
         res.body[res.body.length-1].should.have.property('gameId');
         res.body[res.body.length-1].should.have.property('gameName');
-        res.body[0].gameId.should.equal(100);
-        res.body[0].gameName.should.equal("TEST TEST TEST");
+        res.body.length.should.equal(numGames + 1);
         done();
       });
   });
 
   it('should list ALL users in a game on /api/games/lobbyinit GET', function(done) {
     var newGame = new game({
-      gameId: 3,
+      gameId: 300,
       name: "test",
       gameCreator: {
         facebookId: "test123", 
@@ -114,7 +127,7 @@ describe('Server Integration Tests', function() {
     newGame.save(function(err, data) {
       chai.request(server)
         .get('/api/games/lobbyinit')
-        .query({gameId:3})
+        .query({gameId:300})
         .end(function(err, res) {
           res.should.have.status(200);
           res.should.be.json;
@@ -132,7 +145,7 @@ describe('Server Integration Tests', function() {
 
   it('should list game turns on /api/games/gameturn GET', function(done) {
     var newGame = new game({
-      gameId: 4,
+      gameId: 400,
       name: "test",
       gameCreator: {
         facebookId: "test123", 
@@ -157,7 +170,7 @@ describe('Server Integration Tests', function() {
     newGame.save(function(err, data) {
       chai.request(server)
         .get('/api/games/gameturn')
-        .query({gameId:4})
+        .query({gameId:400})
         .end(function(err, res) {
           res.should.have.status(200);
           res.should.be.json;
