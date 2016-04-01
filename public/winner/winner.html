@@ -28,11 +28,11 @@
     <ul ng-repeat = "user in users" ng-if = "user.facebookId !== winner.facebookId"> 
       <li> 
         <div>
-           <span> pokemon Count of {{ user.playerName }} : </span>
-            <span> pink: {{ user.pokemonCount.pink }}</span>
-            <span> green: {{ user.pokemonCount.green }} </span>
-            <span> blue: {{ user.pokemonCount.blue }} </span>
-            <span> red: {{ user.pokemonCount.red }} </span>
+           <span> Pokemon Count of {{ user.playerName }} : </span>
+            <span> Pink: {{ user.pokemonCount.pink }}</span>
+            <span> Green: {{ user.pokemonCount.green }} </span>
+            <span> Blue: {{ user.pokemonCount.blue }} </span>
+            <span> Red: {{ user.pokemonCount.red }} </span>
             <br />
             <img src = "{{ user.sprite }}">
             <span ng-repeat = " pokemon in user.party"> 
