@@ -1,7 +1,6 @@
 var app = angular.module('pokemon.board',[]);
 
 app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket, gameFactory) {
-  $scope.hello = 'hello testing testing';
   $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
   $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
   $scope.playerName = $window.localStorage.getItem('pokemon.playerName');

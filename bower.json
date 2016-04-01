@@ -1,5 +1,5 @@
 {
-  "name": "pokemon-master-trainer",
+  "name": "Pokemon Master Trainer",
   "description": "Pokemon Master Trainer Board Game",
   "main": "server/server.js",
   "authors": [
@@ -14,6 +14,7 @@
     "board",
     "game"
   ],
+  "directory": "public/bower_components",
   "homepage": "https://github.com/luminescent-recliners/pokemon-board-game.git",
   "moduleType": [
     "node"
@@ -26,6 +27,20 @@
     "tests"
   ],
   "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.2",
+    "angular-bootstrap": "~1.2.4",
+    "angular": "~1.5.1",
+    "angular-cookies": "~1.5.2",
+    "angular-animate": "~1.5.1",
+    "angular-route": "~1.5.1",
+    "angular-socket-io": "^0.7.0",
+    "socket.io": "^1.4.5",
+    "socket-io": "^1.0.0",
+    "socket.io-client": "^1.4.5",
     "angular-audio": "~1.7.1"
+  },
+  "resolutions": {
+    "angular": ">=1.2 < 1.5"
   }
 }
