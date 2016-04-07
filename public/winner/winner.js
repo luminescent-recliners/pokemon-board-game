@@ -16,31 +16,41 @@ angular.module('pokemon.winner', [])
     {row: 120, col: 90, typeOfSpot: 'red'},
     {row: 163, col: 42, typeOfSpot: 'red'}
   ];
-
-  pokemonSocket.on('display winner', function (data) {
-    $scope.winner = data.winner;
-    $scope.party = data.winner.party;
-    for(var i = 1; i < $scope.circleData.length; i++) {
-      for(var j = 0; j < $scope.party.length; j++) {
-        if($scope.party[j].color === $scope.circleData[i].typeOfSpot) {
-          $scope.circleData[i].gifURL = $scope.party[j].gifURL;
-          $scope.party.splice(j, 1);
-          i++;
-        } else if( $scope.party[j].color === "starter") {
-          $scope.circleData[0].gifURL = $scope.party[j].gifURL;
-          $scope.party.splice(j ,1);
-          i++;
-        }
-      }
+  
+  var checkWinner = function (pokemonCount) {
+    if(pokemonCount.pink >= 4 && pokemonCount.green >= 3 &&
+      pokemonCount.blue >= 2 && pokemonCount.red >= 2) {
+      return true;
+    } else {
+      return false;
     }
-
-  });
+  };
 
   var initialize = function () {
     userFactory.getUsers($scope.gameId)
       .then(function (resp) {
-        pokemonSocket.emit('get winner', { gameId: $scope.gameId });
         $scope.users = resp;
+
+        for(var i = 0; i < $scope.users.length; i++) {
+          if(checkWinner($scope.users[i].pokemonCount)) {
+            $scope.winner = $scope.users[i];
+            break;
+          }
+        }
+
+        $scope.party = $scope.winner.party;
+        $scope.circleData[0].gifURL = $scope.party.shift().gifURL;
+        
+        for(var i = 1; i < $scope.circleData.length; i++) {
+          for(var j = 0; j < $scope.party.length; j++) {
+            if($scope.party[j].color === $scope.circleData[i].typeOfSpot) {
+              $scope.circleData[i].gifURL = $scope.party[j].gifURL;
+              $scope.party.splice(j, 1);
+              break;
+            }
+          }
+        }
+
       })
       .catch(function (error) {
         console.error(error);
