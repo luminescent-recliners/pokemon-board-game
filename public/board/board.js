@@ -320,7 +320,14 @@ app.config(function($sceDelegateProvider) {
     // Allow loading from outer templates domain.
     'http://sprites.pokecheck.org/i/**',
     'http://pokeapi.co/media/img/**',
-    'http://sprites.pokecheck.org/t/**'
+    'http://sprites.pokecheck.org/t/**',
+    'http://www.pokestadium.com/sprites/xy/**',
+    'http://vignette**',
+    'http://i893.**',
+    'http://i573.**',
+    'http://orig02.deviantart.net/**'
+    'http://orig15.deviantart.net/**',
+    'http://67.media.tumblr.com/**'
   ]);
 });
 
