@@ -325,9 +325,10 @@ app.config(function($sceDelegateProvider) {
     'http://vignette**',
     'http://i893.**',
     'http://i573.**',
-    'http://orig02.deviantart.net/**'
+    'http://orig02.deviantart.net/**',
     'http://orig15.deviantart.net/**',
-    'http://67.media.tumblr.com/**'
+    'http://67.media.tumblr.com/**',
+    'http://66.media.tumblr.com/**'
   ]);
 });
 

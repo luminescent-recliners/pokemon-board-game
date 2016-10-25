@@ -11,14 +11,14 @@ module.exports = [
     spriteId: 2,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://vignette4.wikia.nocookie.net/pokemon/images/5/54/Rival_Blue.gif/revision/latest?cb=20110628163247'
+    imageURL: 'http://66.media.tumblr.com/45b07cb862e1fe4f979f56cbd623bb9a/tumblr_n4gtn62q5x1smedslo3_100.gif'
   },
   {
     name: 'Female Trainer',
     spriteId: 3,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://vignette3.wikia.nocookie.net/pokemon/images/e/e1/RivalPlatinum.gif/revision/latest?cb=20090903051836'
+    imageURL: 'http://66.media.tumblr.com/a6d9cc2b56f97da54d6eb2961900a90b/tumblr_n4gtn62q5x1smedslo5_100.gif'
   },
   {
     name:  'Female Trainer',
@@ -32,13 +32,13 @@ module.exports = [
     spriteId: 5,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://orig15.deviantart.net/36af/f/2010/173/7/5/crystal_trainer_sprite_by_kiraga_neko.gif'
+    imageURL: 'http://67.media.tumblr.com/a2abd7bc4934dfe65650b87ae6fc3911/tumblr_n4gtn62q5x1smedslo9_100.gif'
   },
   {
     name: 'Female Trainer',
     spriteId: 6,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://orig02.deviantart.net/5c62/f/2010/173/3/2/ash_trainer_animated_by_j3010.gif'
+    imageURL: 'http://66.media.tumblr.com/367125b436e783f7fea7aaa7e86e9afd/tumblr_n4gtn62q5x1smedslo2_75sq.gif'
   }
 ];
