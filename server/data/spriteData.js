@@ -4,7 +4,7 @@ module.exports = [
     spriteId: 1,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://vignette4.wikia.nocookie.net/pokemon/images/4/4e/Janine%28HGSS%29Sprite.gif/revision/latest?cb=20100311133924'
+    imageURL: 'http://67.media.tumblr.com/d822927cfce60c426952bb902c95ad18/tumblr_n4gtn62q5x1smedslo4_75sq.gif'
   },
   {
     name: 'Male Trainer',
