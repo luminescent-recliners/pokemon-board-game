@@ -44,19 +44,6 @@ var trainerSprites = [
   }
 ];
 
-
-for (var i = 0; i < trainerSprites.length; i++) {
-  const options = {
-    url: trainerSprites[i].imageURL,
-    dest: '/../../public/img/' + 'trainer' + trainerSprites[i].spriteId + 'gif' 
-  }
-  download.image(options)
-    .then(({ filename, image }) => {
-      console.log('File saved to', filename)
-    }).catch((err) => {
-      throw err
-    })
-} 
 // Download to a directory and save with the original filename 
  
 
