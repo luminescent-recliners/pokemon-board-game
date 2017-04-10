@@ -1,44 +1,63 @@
-module.exports = [
+const download = require('image-downloader');
+var trainerSprites = [
   {
     name: 'Male Trainer',
     spriteId: 1,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://67.media.tumblr.com/d822927cfce60c426952bb902c95ad18/tumblr_n4gtn62q5x1smedslo4_75sq.gif'
+    imageURL: './img/trainer1.gif'
   },
   {
     name: 'Male Trainer',
     spriteId: 2,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://66.media.tumblr.com/45b07cb862e1fe4f979f56cbd623bb9a/tumblr_n4gtn62q5x1smedslo3_100.gif'
+    imageURL: './img/trainer2.gif'
   },
   {
     name: 'Female Trainer',
     spriteId: 3,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://66.media.tumblr.com/a6d9cc2b56f97da54d6eb2961900a90b/tumblr_n4gtn62q5x1smedslo5_100.gif'
+    imageURL: './img/trainer3.gif'
   },
   {
     name:  'Female Trainer',
     spriteId: 4,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://67.media.tumblr.com/8ac2ce7ad86e78b77df5e69938b15508/tumblr_n4gtn62q5x1smedslo7_100.gif'
+    imageURL: './img/trainer4.gif'
   },
   {
     name: 'Male Trainer',
     spriteId: 5,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://67.media.tumblr.com/a2abd7bc4934dfe65650b87ae6fc3911/tumblr_n4gtn62q5x1smedslo9_100.gif'
+    imageURL: './img/trainer5.gif'
   },
   {
     name: 'Female Trainer',
     spriteId: 6,
     type: 'trainer',
     description: 'A description of Sprite still to come.',
-    imageURL: 'http://66.media.tumblr.com/367125b436e783f7fea7aaa7e86e9afd/tumblr_n4gtn62q5x1smedslo2_75sq.gif'
+    imageURL: './img/trainer6.gif'
   }
 ];
+
+
+for (var i = 0; i < trainerSprites.length; i++) {
+  const options = {
+    url: trainerSprites[i].imageURL,
+    dest: '/../../public/img/' + 'trainer' + trainerSprites[i].spriteId + 'gif' 
+  }
+  download.image(options)
+    .then(({ filename, image }) => {
+      console.log('File saved to', filename)
+    }).catch((err) => {
+      throw err
+    })
+} 
+// Download to a directory and save with the original filename 
+ 
+
+module.exports = trainerSprites;
