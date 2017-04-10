@@ -11,7 +11,7 @@
         <ul ng-repeat = "sprite in spriteList" >
           <div class="col-lg-2 text-center">
             <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 125px">
-             <img class="sprite" src="{{sprite.imageURL}}" >
+             <img class="sprite" ng-src="{{sprite.imageURL}}" >
             </div>
             <div class="radio">
               <label><input type="radio" name="optSprite" ng-click = "selectSprite(sprite)">{{ sprite.name }}</label>
@@ -27,7 +27,7 @@
         <ul ng-repeat = "pokemon in list" >
           <div class="col-lg-2 text-center">
             <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 125px">
-             <img class="pokemonGif" src='{{pokemon.gifURL}}' >
+             <img class="pokemonGif" ng-src="{{pokemon.gifURL}}" >
             </div>
             <div class="radio">
               <label><input type="radio" name="optradio" ng-click = "getStarter(pokemon)">{{ pokemon.name }}</label>
