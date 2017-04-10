@@ -1,4 +1,3 @@
-const download = require('image-downloader');
 var trainerSprites = [
   {
     name: 'Male Trainer',
