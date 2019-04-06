@@ -105,39 +105,39 @@ var createSprite = function() {
 
 
 
-// //===========Remove contents of the tables in the database===========
-// //===========Then Run Populate Table functions===========
-// Games.remove({}, function(err) {
-//    console.log('Games collection removed');
-// })
-// .then(function(){
-//   createGame();
-// });
+//===========Remove contents of the tables in the database===========
+//===========Then Run Populate Table functions===========
+Games.remove({}, function(err) {
+   console.log('Games collection removed');
+})
+.then(function(){
+  createGame();
+});
 
-// GymLeaders.remove({}, function(err) {
-//    console.log('GymLeaders collection removed');
-// })
+GymLeaders.remove({}, function(err) {
+   console.log('GymLeaders collection removed');
+})
 // .then(function(){
 //   createGymLeader();
 // });
 
-// Pokemons.remove({}, function(err) {
-//    console.log('Pokemons collection removed');
-// })
+Pokemons.remove({}, function(err) {
+   console.log('Pokemons collection removed');
+})
 // .then(function(){
 //   createPokemons();
 // });
 
-// Users.remove({}, function(err) {
-//    console.log('Users collection removed');
-// })
-// .then(function(){
-//   createUsers();
-// });
+Users.remove({}, function(err) {
+   console.log('Users collection removed');
+})
+.then(function(){
+  createUsers();
+});
 
-// Sprites.remove({}, function(err) {
-//    console.log('Sprites collection removed');
-// })
+Sprites.remove({}, function(err) {
+   console.log('Sprites collection removed');
+})
 // .then(function(){
 //   createSprite();
 // });

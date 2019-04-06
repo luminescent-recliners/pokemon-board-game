@@ -45,7 +45,7 @@
   <div class='control-panel' ng-if="!userInfoPanel">
     <div class="currentTurn">
       <h3>Current Turn: {{currentTurnPlayerName}}</h3>
-      <img src="{{currentTurnSprite}}" alt="">
+      <img ng-src="{{currentTurnSprite}}" alt="">
       <h5 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h5>
     </div>
   <hr>
@@ -84,13 +84,13 @@
   <div class="control-panel" ng-if="userInfoPanel">
     <div class="user-info board-center">
       <h3>{{playerName}}</h3>
-      <img src='{{playerSprite}}' alt="">
-      <img src="{{userParty.starter[0].gifURL}}" alt="">
+      <img ng-src='{{playerSprite}}' alt="">
+      <img ng-src="{{userParty.starter[0].gifURL}}" alt="">
     </div>
     <h5 class='board-center'> My Captured Pokemon: </h5>
     <div class="scroll pink">
       <ul>
-        <li ng-repeat="pokemon in userParty.pink"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
+        <li ng-repeat="pokemon in userParty.pink"><img ng-src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div> 
 
@@ -98,7 +98,7 @@
 
     <div class="scroll green">
       <ul>
-        <li ng-repeat="pokemon in userParty.green"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
+        <li ng-repeat="pokemon in userParty.green"><img ng-src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div>
 
@@ -106,13 +106,13 @@
 
     <div class="scroll blue">
       <ul>
-        <li ng-repeat="pokemon in userParty.blue"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
+        <li ng-repeat="pokemon in userParty.blue"><img ng-src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div>
 
     <div class="scroll red">
       <ul>
-        <li ng-repeat="pokemon in userParty.red"><img src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
+        <li ng-repeat="pokemon in userParty.red"><img ng-src="{{pokemon.gifURL}}" alt=""><span>{{pokemon.name}}</span></li>
       </ul>
     </div>
      
