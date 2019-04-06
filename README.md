@@ -2,7 +2,7 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
-> __Status:__ in development
+> __Status:__ in development:  http://159.203.230.104:3000
 
 ## Team
 
