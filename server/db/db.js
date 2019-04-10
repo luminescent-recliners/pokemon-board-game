@@ -107,35 +107,35 @@ var createSprite = function() {
 
 //===========Remove contents of the tables in the database===========
 //===========Then Run Populate Table functions===========
-Games.remove({}, function(err) {
+Games.deleteOne({}, function(err) {
    console.log('Games collection removed');
 })
 .then(function(){
   createGame();
 });
 
-GymLeaders.remove({}, function(err) {
+GymLeaders.deleteOne({}, function(err) {
    console.log('GymLeaders collection removed');
 })
 // .then(function(){
 //   createGymLeader();
 // });
 
-Pokemons.remove({}, function(err) {
+Pokemons.deleteOne({}, function(err) {
    console.log('Pokemons collection removed');
 })
 // .then(function(){
 //   createPokemons();
 // });
 
-Users.remove({}, function(err) {
+Users.deleteOne({}, function(err) {
    console.log('Users collection removed');
 })
 .then(function(){
   createUsers();
 });
 
-Sprites.remove({}, function(err) {
+Sprites.deleteOne({}, function(err) {
    console.log('Sprites collection removed');
 })
 // .then(function(){

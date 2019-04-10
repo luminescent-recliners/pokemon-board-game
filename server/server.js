@@ -1,29 +1,33 @@
-var express = require('express');
-var app = express();
-var dbConfig = require('./db/db.js');
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
-var router = require('./routes.js');
-var fbConfig = require('./config/fbKeys.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const http = require('http');
+const IO = require('socket.io');
 
-mongoose.connect('mongodb://localhost/pokemon');
+// const FacebookStrategy = require('passport-facebook').Strategy;
 
-var port = 3000;
+const dbConfig = require('./db/db.js');
+const router = require('./routes.js');
+// const fbConfig = require('./config/fbKeys.js');
 
+const userController = require('./users/userController.js');
+
+mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
+
+const port = 3000;
+
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-
 app.use(express.static(__dirname + '/../public'));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(router);
 
-var userController = require('./users/userController.js');
+const server = http.createServer( app );
 
+/*
 passport.use(new FacebookStrategy({
     clientID: fbConfig.appId,
     clientSecret: fbConfig.appSecret,
@@ -42,13 +46,16 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
+*/
 
 
 // for sockets
-var usersInGames = {}; 
-var usersInResumeGameLobby = {};
-var selectionPokemon = {};
-var winners = {};
+const usersInGames = {}; 
+const usersInResumeGameLobby = {};
+const selectionPokemon = {};
+const winners = {};
+const io = IO( server );
+
 
 io.on('connection', function(socket) {
   console.log('a user connected');
@@ -170,9 +177,9 @@ io.on('connection', function(socket) {
 
 });
 
-// for sockets
-http.listen(port, function() {
+
+server.listen( port, () => {
   console.log('Server listening on..', port);
-});
+})
 
 module.exports = app;

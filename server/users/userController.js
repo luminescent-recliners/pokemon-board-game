@@ -1,28 +1,28 @@
-var Users = require('./userModel.js');
-var Q = require('q');
+const Users = require('./userModel.js');
+const Q = require('q');
 
-var findUser = Q.nbind(Users.findOne, Users);
-var createUser = Q.nbind(Users.create, Users);
+const findUser = Q.nbind(Users.findOne, Users);
+const createUser = Q.nbind(Users.create, Users);
 
 
 
 module.exports = {
-  findOrCreate: function(profile) {
+  findOrCreate: profile => {
     findUser({facebookId: profile.id})
-      .then(function(user){
-        if (!user) {
-          createUser({
-            facebookId: profile.id,
-            playerName: profile.displayName,
-            gamesParticipating: [],
-            numGameWon: 0
-          });
-        }else{
-          console.log('this ID already exists!');
-        }
-      })
-      .fail(function(error){
-        console.error(error);
-      });
+    .then(function(user){
+      if (!user) {
+        createUser({
+          facebookId: profile.id,
+          playerName: profile.displayName,
+          gamesParticipating: [],
+          numGameWon: 0
+        });
+      }else{
+        console.log('this ID already exists!');
+      }
+    })
+    .fail(function(error){
+      console.error(error);
+    });
   }
 };

@@ -7,8 +7,8 @@ var tempEventsController = require('./tempEvents/tempEventsController.js');
 var tempCityController = require('./tempCity/tempCityController.js');
 
 
-var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
+// var passport = require('passport');
+// var Strategy = require('passport-facebook').Strategy;
 
 
 router.post('/api/games/addGame', gameController.addGame);
@@ -39,6 +39,7 @@ router.get('/api/games/trainerInit', gameController.trainerInit);
 router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
 router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
+/*
 router.get('/signin/facebook', passport.authenticate('facebook'));
 
 router.get('/signin/facebook/callback',
@@ -50,8 +51,16 @@ router.get('/signin/facebook/callback',
     res.redirect('/#/home');
   });
 
+  */
+
+  router.post( '/login', ( req, res, next ) => {
+    console.log( req.path, req.params, req.query, req.body );
+    res.cookie('playerName',req.body.name );
+    res.cookie('facebookId', `${Date.now()}-${req.body.name}`);
+    res.redirect('/#/home');
+
+  })
 
 
-// a quick add to play with board object
 
 module.exports = router;

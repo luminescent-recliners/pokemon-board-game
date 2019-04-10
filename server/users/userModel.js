@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var usersSchema = mongoose.Schema({
-  facebookId: String,
-  playerName: String,
+const usersSchema = mongoose.Schema({
+  facebookId: String, // maybe email
+  playerName: String, // name
   gamesParticipating: [],
   numGameWon: Number
 });
 
-var users = mongoose.model('users', usersSchema);
+const users = mongoose.model( 'users', usersSchema );
 
 module.exports = users;

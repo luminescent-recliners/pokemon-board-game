@@ -2,7 +2,17 @@
 
   <div class='login facebook col-lg-12'>
   	<image class="pokeball" src="assets/pokeball.png" x="0" y="0"  width="400px" height="400px" />
-	 	<a class = "col-lg-12" href="/signin/facebook" target="_self"><img class='fbbutton' src="http://i.stack.imgur.com/Vk9SO.png"></a> 
+		 <!-- <a class = "col-lg-12" href="/signin/facebook" target="_self"><img class='fbbutton' src="http://i.stack.imgur.com/Vk9SO.png"></a>  -->
+		
+		 <div class="login-box col-lg-12">
+      <form action="/login" method="post">
+      <p> <input class="input" type="text" placeholder="Enter username" id="name" name="name"> </p>
+      <p> <input class="input" type="password" placeholder="Enter password" id="pswd" name="password"></p>
+      <p class="right"> <button class="button" type="submit" value="Login">Login</button></p>
+      <input type='text' id='dest' name='test' style="display:none" value="">
+      </form>
+		</div>
+		
 		<div class="credits">
 			<p>This application is a recreation of the Pokemon Master Trainer Board Game (which is no longer in production). The authors of this site take no credit for the board game made by Milton Bradley nor do they take credit for any of the artwork displayed on the page.</p>
 			<p>The authors of this application are Linda Zou, Hitesh Lala, Arthi Palaniappan and Alex Chou.</p>
