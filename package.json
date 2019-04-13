@@ -9,17 +9,18 @@
   "scripts": {
     "test": "mocha test/backend-tests.js",
     "startMongo": "mongod  --dbpath ~/data/db",
-    "start": "node server/server.js"
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "NODE_ENV=development node server/server.js",
+    "build": "cd frontend && npm run build && cd ..",
+    "bs": "npm run build && npm run dev"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luminescent-recliners/pokemon-board-game.git"
+    "url": "https://github.com/luminescent-recliners/pokemon-board-game.git"
   },
   "keywords": [
     "Pokemon",
-    "Hack",
-    "Reactor",
-    "Thesis"
+    "Boardgame"
   ],
   "author": "Arthi, Alex, Hitesh, Linda",
   "license": "ISC",

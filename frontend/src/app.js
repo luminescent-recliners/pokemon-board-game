@@ -1,21 +1,45 @@
+import * as angular from 'angular';
+import 'angular-route';
+import 'angular-animate';
+import 'angular-audio';
+import 'angular-bootstrap';
+import 'angular-cookies';
+import 'angular-socket-io';
+
+import './services';
+import './auth/auth.js';
+import './board/board.js';
+import './capturePokemon/capturePokemon.js';
+import './city/city.js';
+import './event/event.js';
+import './home/home.js';
+import './lobby/lobby.js';
+import './resumeLobby/resumeLobby.js';
+import './starterPokemon/starterPokemon.js';
+import './trainer/trainer.js';
+import './winner/winner.js';
+
+
 angular.module('pokemon', [
-  'pokemon.board',
-  'pokemon.home',
-  'services',
-  'pokemon.starter',
   'ngRoute',
   'ngAnimate',
+  'ngCookies',
+  'ngAudio',
+
+  'btford.socket-io',
+  
+  'services',
+  'pokemon.auth',
+  'pokemon.board',
+  'pokemon.home',
+  'pokemon.starter',
   'pokemon.lobby',
   'pokemon.capture',
   'pokemon.event',
   'pokemon.city',
-  'btford.socket-io',
-  'pokemon.auth',
   'pokemon.winner',
   'pokemon.trainer',
   'pokemon.resumelobby',
-  'ngCookies',
-  'ngAudio'
 ])
 .config(function($routeProvider) {
   $routeProvider
@@ -78,6 +102,7 @@ angular.module('pokemon', [
     });
 })
 .run(function ($rootScope, $location, authFactory) {
+
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     if (next.$$route && next.$$route.authenticate && !authFactory.isAuth()) {
       $location.path('/signin');

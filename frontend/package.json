@@ -1,0 +1,31 @@
+{
+  "name": "pokemon-board-game-frontend",
+  "version": "1.0.0",
+  "description": "Angular Front End",
+  "scripts": {
+    "build": "rimraf ./dist && webpack"
+  },
+  "keywords": [],
+  "author": "Arthi, Alex, Hitesh, Linda",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "~1.5.1",
+    "angular-animate": "~1.5.1",
+    "angular-audio": "~1.7.1",
+    "angular-bootstrap": "~0.12.2",
+    "angular-cookies": "~1.5.2",
+    "angular-route": "~1.5.1",
+    "angular-socket-io": "^0.7.0",
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.2",
+    "socket-io": "^1.0.0",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3",
+    "copy-webpack-plugin": "^5.0.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}

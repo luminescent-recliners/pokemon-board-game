@@ -1,3 +1,5 @@
+
+
 angular.module('services', [])
 .factory('authFactory', function ($http, $cookies) {
   var isAuth = function () {

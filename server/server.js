@@ -18,9 +18,18 @@ mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 const port = 3000;
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development')  app.use( (req, res, next) => {
+  console.log( `${req.method} - ${req.path} `)
+  next()
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(express.static(__dirname + '/../public'));
+// app.use(express.static(__dirname + '/../public'));
+app.use(express.static(__dirname + '/../frontend/dist'));
+app.use(express.static(__dirname + '/../frontend/dist/assets'));
+app.use(express.static(__dirname + '/../frontend/dist/assets/img'));
 // app.use(passport.initialize());
 // app.use(passport.session());
 app.use(router);
