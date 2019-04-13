@@ -1,5 +1,6 @@
 const Users = require('./userModel.js');
 const Codes = require( '../verificationCode' );
+const { sendLoginCode } = require( '../mailModule' );
 
 const debug = process.env.NODE_ENV === 'development';
 
@@ -45,13 +46,6 @@ const findOrCreate =  profile => {
   });
 }
 
-function sendEmail( email, code ) {
-  return new Promise(( resolve, reject ) => {
-    console.log( 'Email:', email, 'Code:', code );
-    // validify email and code
-    setTimeout( resolve, 1000 );
-  });
-}
 function createSession( email ) {
   return new Promise(( resolve, reject ) => {
     console.log( 'Email:', email );
@@ -65,7 +59,7 @@ module.exports = {
   sendVerificationCode: async ( req, res, next ) => {
     const email = req.body.email;
     const code = Codes.getLoginCode( email )
-    sendEmail( email, code )
+    sendLoginCode( email, code )
     .then( u => {
       res.send( JSON.stringify({ message: 'Verification Code Sent', result: true }) );
     })

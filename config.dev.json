@@ -1,0 +1,5 @@
+{
+  "mode": "developement",
+  "apiKey": "some-token",
+  "mailDomain": "mail.chobek.com"
+}
