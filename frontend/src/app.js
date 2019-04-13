@@ -98,7 +98,7 @@ angular.module('pokemon', [
       authenticate: true
     })
     .otherwise({
-      redirectTo: '/home'
+      redirectTo: '/signin'
     });
 })
 .run(function ($rootScope, $location, authFactory) {

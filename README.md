@@ -37,35 +37,7 @@
 
 ## Requirements
 
-### Server Side
-  - Body-parser  1.15.0
-  - Chai  3.5.0
-  - Chai-http  2.0.1
-  - Express  4.13.4
-  - Express-routes  0.0.2
-  - Express-session  1.13.0
-  - Mocha  2.4.5
-  - Mongoose  4.4.6
-  - Morgan  1.7.0
-  - Passport  0.3.2
-  - Passport-facebook  2.1.0
-  - Q  1.4.1
-  - Socket.io  1.4.5
-  - Sinon  1.17.3
-  - Sinon-chai  2.8.0
-
-### Client Side
-  - Bootstrap  3.3.6
-  - Jquery  2.2.2
-  - Angular-bootstrap  1.2.4
-  - Angular  1.5.1
-  - Angular-cookies  1.5.2
-  - Angular-animate  1.5.1
-  - Angular-route  1.5.1
-  - Angular-socket-io  0.7.0
-  - Socket.io  1.4.5
-  - Socket.io-client  1.4.5
-  - Angular-audio  1.7.1
+Node >= 8.0
 
 ## Development
 

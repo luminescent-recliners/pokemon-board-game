@@ -1,11 +1,25 @@
 /* All Pages */
 
 .shared {
-/*  background-color: #63C0FB;
-*/  
-  background-color: #71B55B;
-  background-image: url('./assets/pokemonParty.png');
+  background-color: rgba(125,173,113, 1);
+  background-image: url('./assets/pokemonParty.png'), 
+                    linear-gradient(to bottom, rgba(121,201,250, 1 ) 40%, rgba(255,255,255,1), rgba(125,173,113, 1) 60%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
+}
+
+.main-banner {
+  margin: 0;
+  padding: 0;
+  align-content: center;
+  width: 100%;
+}
+.main-banner h1 {
+  align-content: center;
+  margin: 0 auto;
+  width: fit-content;
 }
 
 
@@ -27,12 +41,24 @@ input {
   margin-top: 0;
   margin-bottom: 50px;
 }
+.login-box {
+  width: 300px;
+  background-color: rgba(121,201,250, 0.9 );
+  color: white;
+  padding:5px;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 
 .pokeball {
   -webkit-transform: rotate(19deg);  /* to support Safari and Android browser */
   -ms-transform: rotate(19deg);      /* to support IE 9 */
   transform: rotate(19deg);
+  width: 300px;
+  height: 300px;
 }
+
 
 .fbbutton {
   margin-bottom: 20px;
@@ -322,9 +348,20 @@ hr{
     to   { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
 }
 
+
+
+.credits {
+  position: fixed;
+  bottom:0;
+  border-top: 1px solid #125986;
+  width: 100%;
+}
 .credits p {
   color: darkgreen;
   text-align: center;
-  font-size: 1.1em;
-  font-weight: bold;
+  font-size: 0.9em;
+  max-width: 600px;
+  margin: 0 auto;
+
+  /* font-weight: bold; */
 }

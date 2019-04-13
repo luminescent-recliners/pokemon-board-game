@@ -1,4 +1,5 @@
 const Users = require('./userModel.js');
+const Codes = require( '../verificationCode' );
 
 const debug = process.env.NODE_ENV === 'development';
 
@@ -44,21 +45,53 @@ const findOrCreate =  profile => {
   });
 }
 
-
+function sendEmail( email, code ) {
+  return new Promise(( resolve, reject ) => {
+    console.log( 'Email:', email, 'Code:', code );
+    // validify email and code
+    setTimeout( resolve, 1000 );
+  });
+}
+function createSession( email ) {
+  return new Promise(( resolve, reject ) => {
+    console.log( 'Email:', email );
+    
+    setTimeout( ()=>resolve(Date.now()), 1000 );
+  });
+}
 
 module.exports = {
+
   sendVerificationCode: async ( req, res, next ) => {
-    findOrCreate( req.body )
+    const email = req.body.email;
+    const code = Codes.getLoginCode( email )
+    sendEmail( email, code )
     .then( u => {
-      res.cookie('playerName', u.name );
-      res.cookie('facebookId', `${Date.now()}-${u.name}`);
-      res.redirect('/#/home');
+      res.send( JSON.stringify({ message: 'Verification Code Sent', result: true }) );
     })
     .catch( e => {
       console.error( e.message || e );
-      res.redirect('/');
+      res.send( JSON.stringify({ message: e.message || e , result: false }) );
     })
   },
+
+  verifyCode: async ( req, res, next ) => {
+    const email = req.body.email;
+    const code = req.body.code;
+    const result = Codes.verifyCode( email, code );
+    if ( result ) {
+      const ses = await createSession( email );
+      res.cookie( 'pokemon.session', ses );
+      res.send( JSON.stringify({ message: 'Login Success', result: true }) );
+    }
+    else {
+      res.send( JSON.stringify({ message: 'Incorrect Code', result: false }) );
+    }
+  },
+
+
+
+  
 
   
 };

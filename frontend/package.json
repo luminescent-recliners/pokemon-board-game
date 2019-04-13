@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Angular Front End",
   "scripts": {
-    "build": "rimraf ./dist && webpack"
+    "build": "rimraf ./dist && webpack",
+    "watch": "webpack --watch"
   },
   "keywords": [],
   "author": "Arthi, Alex, Hitesh, Linda",

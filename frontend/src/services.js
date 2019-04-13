@@ -5,9 +5,38 @@ angular.module('services', [])
   var isAuth = function () {
     return !!$cookies.get('facebookId');
   };
+  const sendCode = ( email ) => {
+    return $http({
+      method: 'POST',
+      url: 'login',
+      data: {
+        email
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  }
+  const verifyCode = ( email, code ) => {
+    console.log( 'verifyCode', email, code )
+    return $http({
+      method: 'POST',
+      url: 'login/verify',
+      data: {
+        email,
+        code
+      }
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  }
 
   return {
-    isAuth: isAuth
+    isAuth: () => !!$cookies.get( 'pokemon.session' ),
+    getSession: () => $cookies.get( 'pokemon.session' ),
+    sendCode,
+    verifyCode
   };
 })
 .factory('userFactory', function ($http) {

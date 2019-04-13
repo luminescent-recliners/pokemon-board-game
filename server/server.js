@@ -5,10 +5,9 @@ const http = require('http');
 const IO = require('socket.io');
 
 
-const dbConfig = require('./db/db.js');
-const router = require('./routes.js');
+const db = require('./db/db.js'); // sets up db
 
-const userController = require('./users/userController.js');
+const router = require('./routes.js');
 
 const debug = process.env.NODE_ENV === 'development';
 
@@ -18,13 +17,19 @@ const port = 3000;
 
 const app = express();
 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+
 if ( debug )  app.use( (req, res, next) => {
   debug && console.log( req.method, req.path, 'params:', req.params, 'query:', req.query, 'body:', req.body );
   next()
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+// session checker
+// app.use(( req, res, next ) => {
+
+// });
 
 app.use(express.static(__dirname + '/../frontend/dist'));
 app.use(express.static(__dirname + '/../frontend/dist/assets'));
