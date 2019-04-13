@@ -1,17 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const http = require('http');
 const IO = require('socket.io');
 
-// const FacebookStrategy = require('passport-facebook').Strategy;
 
 const dbConfig = require('./db/db.js');
 const router = require('./routes.js');
-// const fbConfig = require('./config/fbKeys.js');
 
 const userController = require('./users/userController.js');
+
+const debug = process.env.NODE_ENV === 'development';
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
@@ -19,43 +18,21 @@ const port = 3000;
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development')  app.use( (req, res, next) => {
-  console.log( `${req.method} - ${req.path} `)
+if ( debug )  app.use( (req, res, next) => {
+  debug && console.log( req.method, req.path, 'params:', req.params, 'query:', req.query, 'body:', req.body );
   next()
 });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-// app.use(express.static(__dirname + '/../public'));
+
 app.use(express.static(__dirname + '/../frontend/dist'));
 app.use(express.static(__dirname + '/../frontend/dist/assets'));
 app.use(express.static(__dirname + '/../frontend/dist/assets/img'));
-// app.use(passport.initialize());
-// app.use(passport.session());
+
 app.use(router);
 
 const server = http.createServer( app );
-
-/*
-passport.use(new FacebookStrategy({
-    clientID: fbConfig.appId,
-    clientSecret: fbConfig.appSecret,
-    callbackURL: "/signin/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    userController.findOrCreate(profile);
-    return cb(null, profile);
-  })
-);
-
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-*/
 
 
 // for sockets

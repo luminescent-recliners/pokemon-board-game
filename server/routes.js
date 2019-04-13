@@ -1,14 +1,12 @@
-var router = require('express').Router();
-var gymLeader = require('./gymLeader/gymLeaderController.js');
-var gameController = require('./game/gameController.js');
+const router = require('express').Router();
+
+const gymLeader = require('./gymLeader/gymLeaderController.js');
+const gameController = require('./game/gameController.js');
+const userController = require('./users/userController.js');
 
 // temp event and city logic
-var tempEventsController = require('./tempEvents/tempEventsController.js');
-var tempCityController = require('./tempCity/tempCityController.js');
-
-
-// var passport = require('passport');
-// var Strategy = require('passport-facebook').Strategy;
+const tempEventsController = require('./tempEvents/tempEventsController.js');
+const tempCityController = require('./tempCity/tempCityController.js');
 
 
 router.post('/api/games/addGame', gameController.addGame);
@@ -39,27 +37,8 @@ router.get('/api/games/trainerInit', gameController.trainerInit);
 router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
 router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
-/*
-router.get('/signin/facebook', passport.authenticate('facebook'));
 
-router.get('/signin/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.cookie('playerName',req.user.displayName);
-    res.cookie('facebookId',req.user.id);
-    res.redirect('/#/home');
-  });
-
-  */
-
-  router.post( '/login', ( req, res, next ) => {
-    console.log( req.path, req.params, req.query, req.body );
-    res.cookie('playerName',req.body.name );
-    res.cookie('facebookId', `${Date.now()}-${req.body.name}`);
-    res.redirect('/#/home');
-
-  })
+router.post( '/login', userController.sendVerificationCode );
 
 
 

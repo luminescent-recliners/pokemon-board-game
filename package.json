@@ -2,7 +2,7 @@
   "name": "pokemon-board-game",
   "version": "1.0.0",
   "description": "Pokemon Master Trainer",
-  "main": "index.js",
+  "main": "server/server.js",
   "directories": {
     "test": "test"
   },
@@ -12,7 +12,8 @@
     "start": "NODE_ENV=production node server/server.js",
     "dev": "NODE_ENV=development node server/server.js",
     "build": "cd frontend && npm run build && cd ..",
-    "bs": "npm run build && npm run dev"
+    "bs": "npm run build && npm run dev",
+    "getAuthors": "git log --format='%aN <%aE>' | sort -f | uniq"
   },
   "repository": {
     "type": "git",
@@ -36,10 +37,8 @@
     "express-routes": "0.0.2",
     "express-session": "^1.15.6",
     "mocha": "^2.4.5",
-    "mongoose": "^5.5.0",
+    "mongoose": "^5.5.1",
     "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.0",
     "q": "^1.5.1",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",

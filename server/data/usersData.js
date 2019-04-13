@@ -1,8 +1,8 @@
 module.exports = [
   {
-    facebookId: "Facebook123H",
-    playerName: "Henry",
+    email: "developer@mail.chobek.com",
+    name: "developer",
     gamesParticipating: [1],
     numGameWon: 3
-    }
+  }
 ];
