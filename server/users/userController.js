@@ -19,24 +19,24 @@ const createUser = ( user ) => new Promise(( resolve, reject) => {
 });
 
 
-const findOrCreate =  profile => {
+const createSession =  email => {
   return new Promise( async ( resolve, reject ) => {
-    if ( !profile.email ) {
+    if ( !email ) {
       reject( new Error( 'Missing email.' ));
       return;
     }
     try {
-      let user = await findUser({ email: profile.email });
+      let user = await findUser({ email: email });
       if ( !user ) {
-        user = {
-          email: profile.email,
-          name: profile.email.trim().split( '@')[0],
+        const newuser = {
+          email: email,
+          name: email.trim().split( '@' )[ 0 ],
           gamesParticipating: [],
           numGameWon: 0
         };
-        await createUser( user );
+        user = await createUser( newuser );
       }
-      resolve( user );
+      resolve( user._id.toString() );
     }
     catch( error ) {
       const message = `Error getting or creating user: ${error.message || error}`; 
@@ -46,18 +46,18 @@ const findOrCreate =  profile => {
   });
 }
 
-function createSession( email ) {
-  return new Promise(( resolve, reject ) => {
-    console.log( 'Email:', email );
-    
-    setTimeout( ()=>resolve(Date.now()), 1000 );
-  });
-}
-
 module.exports = {
+
+  findUser,
 
   sendVerificationCode: async ( req, res, next ) => {
     const email = req.body.email;
+    if ( !email || typeof email !== 'string' || email.length < 5 ) {
+      const message = 'Invalid email';
+      console.error( message);
+      res.send( JSON.stringify({ message: message , result: false }) );
+      return;
+    }
     const code = Codes.getLoginCode( email )
     sendLoginCode( email, code )
     .then( u => {
@@ -75,17 +75,12 @@ module.exports = {
     const result = Codes.verifyCode( email, code );
     if ( result ) {
       const ses = await createSession( email );
-      res.cookie( 'pokemon.session', ses );
+      res.cookie( 'pokemon.session', ses, { signed: true } );
       res.send( JSON.stringify({ message: 'Login Success', result: true }) );
     }
     else {
       res.send( JSON.stringify({ message: 'Incorrect Code', result: false }) );
     }
   },
-
-
-
-  
-
   
 };

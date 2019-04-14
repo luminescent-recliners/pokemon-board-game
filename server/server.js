@@ -3,33 +3,52 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const http = require('http');
 const IO = require('socket.io');
+const cookieParser = require('cookie-parser')
 
 
-const db = require('./db/db.js'); // sets up db
-
+require('./db/db.js'); // sets up db
 const router = require('./routes.js');
+const Users = require( './users/userController' );
 
 const debug = process.env.NODE_ENV === 'development';
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
-const port = 3000;
+const port = debug ? 3000 : 80;
 
 const app = express();
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+app.use( cookieParser('some super secret hard to guess string to sign cookies with') );
 
 if ( debug )  app.use( (req, res, next) => {
   debug && console.log( req.method, req.path, 'params:', req.params, 'query:', req.query, 'body:', req.body );
   next()
 });
 
-// session checker
-// app.use(( req, res, next ) => {
-
-// });
+app.use( async ( req, res, next ) => {
+  const cookie = req.signedCookies[ 'pokemon.session' ];
+  console.log( req.cookies, req.signedCookies )
+  if ( cookie ) {
+    const user = await Users.findUser({ _id: cookie });
+    if ( !user ) {
+      debug && console.log( 'stale cookie' )
+      res.clearCookie( 'pokemon.session' );
+      res.clearCookie( 'io' );
+      res.redirect( '/' );
+    }
+    else {
+      debug && console.log( 'valid cookie' )
+      next();
+    }
+  }
+  else {
+    debug && console.log( 'no cookie' )
+    next();
+  }
+});
 
 app.use(express.static(__dirname + '/../frontend/dist'));
 app.use(express.static(__dirname + '/../frontend/dist/assets'));
@@ -38,7 +57,19 @@ app.use(express.static(__dirname + '/../frontend/dist/assets/img'));
 app.use(router);
 
 const server = http.createServer( app );
+server.on( 'error', error => {
+  console.log( '\nUnhandled Server Error')
+  console.log( error.code );
+  console.log( error.message );
+  console.log( error.stack );
+})
 
+app.on( 'error', error => {
+  console.log( '\nUnhandled Server App Error')
+  console.log( error.code );
+  console.log( error.message );
+  console.log( error.stack );
+})
 
 // for sockets
 const usersInGames = {}; 
