@@ -1,9 +1,28 @@
 var app = angular.module('pokemon.board',[]);
 
-app.controller('boardController', function($scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket, gameFactory) {
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+app.controller('boardController', function( authFactory, $scope, gameDashboardFactory, boardFactory, userFactory, $window, $location, pokemonSocket, gameFactory) {
+  
+  const debug = false;
+
+  if ( !authFactory.isAuth('boardController') ){
+    debug && console.log( 'boardController isAuth', false );
+    $location.path('/');
+    return;
+  }
+
+   authFactory.getCurrentUser()
+   .then( u => {
+     debug && console.log( 'boardController user', u );
+     $scope.name = u.name;
+     $scope.email = u.email;
+     $scope.gameId = u.gameId;
+     initialize();
+   })
+   .catch( e => {
+      debug && console.log( 'boardController getCurrentUser', e );
+      $location.path('/');
+   });
+
   $scope.playerOptions = [[],[]];
   $scope.userPosition;
 
@@ -29,8 +48,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     // emit a message to all in game that someone has left game
     var data = {
       gameId: $scope.gameId,
-      user: { facebookId: $scope.facebookId, playerName: $scope.playerName },
-      message: $scope.playerName + " is leaving game!  Resume game from Lobby Page after everyone is back.",
+      user: { email: $scope.email, name: $scope.name },
+      message: $scope.name + " is leaving game!  Resume game from Lobby Page after everyone is back.",
       continueGame: false
     };
     pokemonSocket.emit('player wants to pause game', data);
@@ -68,7 +87,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.winner = null;
   
   pokemonSocket.on('winner announcement', function(data) {
-    gameFactory.updateCurrentPage($scope.gameId, 'winnerView')
+    gameFactory.updateCurrentPage($scope.gameId, 'winnerView' )
       .then(function (resp) {
         redirect('winner');
       })
@@ -82,7 +101,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     var audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
     pokemonSocket.emit('player rolled dice to move', {gameId: $scope.gameId, roll: $scope.roll});
-    gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.facebookId)
+    gameDashboardFactory.getPlayerOptions($scope.roll, $scope.userPosition, $scope.gameId, $scope.email)
       .then(function(options){
         $scope.playerOptions[0] = options.forwardOptions;
         $scope.playerOptions[1] = options.backwardOptions;
@@ -135,8 +154,8 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
 
   $scope.movePlayer = function(newSpot, userId) {
     var userObject = {
-      facebookId: $scope.facebookId,
-      playerName: $scope.playerName
+      email: $scope.email,
+      name: $scope.name
     };
 
     userFactory.movePlayer(newSpot.id, userObject, $scope.userPosition, $scope.gameId)
@@ -151,7 +170,7 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
           $scope.actionDisplay = true;
           $scope.playerOptions = [[], []];
 
-          gameFactory.getAvailablePokemon($scope.gameId, $scope.facebookId);
+          gameFactory.getAvailablePokemon($scope.gameId, $scope.email);
         }
 
         pokemonSocket.emit('update action description', {
@@ -186,12 +205,12 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
     }
   };
 
-  var updateCurrentPage = function(currentPage) {
-    gameFactory.updateCurrentPage($scope.gameId, currentPage)
-      .then(function(){
-        pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
-        redirect(action);
-      });
+  var updateCurrentPage = currentPage => {
+    gameFactory.updateCurrentPage($scope.gameId, currentPage )
+    .then(function(){
+      pokemonSocket.emit('redirect users to action', {gameId: $scope.gameId, action: action});
+      redirect(action);
+    });
   };
 
   $scope.redirectAllUsers = function() {
@@ -220,33 +239,36 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   });
 
   var confirmCurrentPage = function() {
+    debug && console.log( 'boardController confirmCurrentPage', $scope.gameId, $scope.email, $scope.name );
     gameFactory.getCurrentPage($scope.gameId)
-      .then(function(currentPage){
-        if (currentPage === 'boardView') {
-          initialize();
-        }else{
-          switch (currentPage) {
-            case 'starterView':
-              $location.path('/starter');
-              break;
-            case 'cityView':
-              $location.path('/city');
-              break;
-            case 'captureView':
-              $location.path('/capture');
-              break;
-            case 'eventView':
-              $location.path('/event');
-              break;
-            case 'trainerView':
-              $location.path('/trainer');
-              break;
-            case 'winnerView':
-              $location.path('/winner');
-              break;
-          }
+    .then(function(currentPage){
+      debug && console.log( 'boardController confirmCurrentPage getCurrentPage currentPage:', currentPage );
+      if (currentPage === 'boardView') {
+        initialize();
+      }
+      else {
+        switch (currentPage) {
+          case 'starterView':
+            $location.path('/starter');
+            break;
+          case 'cityView':
+            $location.path('/city');
+            break;
+          case 'captureView':
+            $location.path('/capture');
+            break;
+          case 'eventView':
+            $location.path('/event');
+            break;
+          case 'trainerView':
+            $location.path('/trainer');
+            break;
+          case 'winnerView':
+            $location.path('/winner');
+            break;
         }
-      });
+      }
+    });
   };
 
   var sortPokemon = function(pokemonArray) {
@@ -270,47 +292,49 @@ app.controller('boardController', function($scope, gameDashboardFactory, boardFa
   $scope.userInfoPanel = false;
 
   $scope.togglePanel = function() {
-
-    var audioPop = new Audio('../assets/sounds/pop.mp3');
+    const audioPop = new Audio('../assets/sounds/pop.mp3');
     audioPop.play();
-
     $scope.userInfoPanel = !$scope.userInfoPanel;
   };
 
   var initialize = function() {
-    boardFactory.boardInit($scope.gameId, $scope.facebookId)
-      .then(function(data){
-        // get board data from database
-        // preprocessed to be an array 
-        // calculate path data and path string
-        $scope.boardData = boardFactory.createBoardArray(data.board);
-        $scope.pathData = boardFactory.createPath($scope.boardData);
-        $scope.pathString = boardFactory.createPathString($scope.pathData);
+    debug && console.log( 'boardController initialize', $scope.gameId, $scope.email, $scope.name );
+    boardFactory.boardInit($scope.gameId, $scope.email)
+    .then(function(data){
+      debug && console.log( 'boardController initialize boardInit data', $scope.gameId, data );
+      // get board data from database
+      // preprocessed to be an array 
+      // calculate path data and path string
+      $scope.boardData = boardFactory.createBoardArray(data.board);
+      $scope.pathData = boardFactory.createPath($scope.boardData);
+      $scope.pathString = boardFactory.createPathString($scope.pathData);
 
-        $scope.currentTurnPlayerName = data.currentTurn.playerName;
-        $scope.currentTurnFacebookId = data.currentTurn.facebookId;
-        for(var i = 0; i < data.allUsers.length; i++) {
-          if(data.currentTurn.facebookId == data.allUsers[i].facebookId) {
-            $scope.currentTurnSprite = data.allUsers[i].sprite;
-          }
+      $scope.currentTurnPlayerName = data.currentTurn.name;
+      $scope.currentTurnEmail = data.currentTurn.email;
+      for(var i = 0; i < data.allUsers.length; i++) {
+        if(data.currentTurn.email == data.allUsers[i].email) {
+          $scope.currentTurnSprite = data.allUsers[i].sprite;
         }
-        $scope.userPosition = data.user.positionOnBoard;
-        $scope.playerPosition = $scope.userPosition - 1;
-        
-        $scope.userParty = sortPokemon(data.user.party);
+      }
+      $scope.userPosition = data.user.positionOnBoard;
+      $scope.playerPosition = $scope.userPosition - 1;
+      
+      $scope.userParty = sortPokemon(data.user.party);
 
-        $scope.allPlayers = data.allUsers;
-        $scope.winner = data.winner;
-        if($scope.winner !== null) {
-          pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
-        }
+      $scope.allPlayers = data.allUsers;
+      $scope.winner = data.winner;
+      if($scope.winner !== null) {
+        pokemonSocket.emit('player won', { gameId: $scope.gameId, winner: $scope.winner});
+      }
 
-        $scope.playerSprite = data.user.sprite;
-        $scope.playerParty = data.user.party;
-      });
+      $scope.playerSprite = data.user.sprite;
+      $scope.playerParty = data.user.party;
+     
+      // confirmCurrentPage();
+    });
   };
 
-  confirmCurrentPage();
+  // confirmCurrentPage();
 });
 
 app.config(function($sceDelegateProvider) {

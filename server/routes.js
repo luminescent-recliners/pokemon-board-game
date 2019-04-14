@@ -41,6 +41,9 @@ router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 router.post( '/login', userController.sendVerificationCode );
 router.post( '/login/verify', userController.verifyCode );
 
+router.get( '/user', userController.loggedInUser );
+
+
 
 
 module.exports = router;

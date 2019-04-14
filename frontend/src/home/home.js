@@ -1,27 +1,41 @@
 angular.module('pokemon.home', [])
 
 .controller('homeController',function($cookies, $location, $scope, userFactory, $window, pokemonSocket, authFactory, gameFactory) {
-  $window.localStorage.setItem('pokemon.facebookId', $cookies.get('facebookId'));
-  $window.localStorage.setItem('pokemon.playerName', $cookies.get('playerName'));
-  // --------------------------------------<<<<<<
-  
-  // this should happen after face book auth
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+
+  const debug = false;
+
+  if ( !authFactory.isAuth('homeController') ){
+    debug && console.log( 'homeController isAuth', false );
+    $location.path('/');
+    return;
+  }
+
+   authFactory.getCurrentUser()
+   .then( u => {
+     debug && console.log( 'homeController user', u );
+     $scope.name = u.name;
+     $scope.email = u.email;
+     $scope.gameId = u.gameId;
+     userGames();
+   })
+   .catch( e => {
+      debug && console.log( 'homeController getCurrentUser', e );
+      $location.path('/');
+   });
+
   $scope.games = [];
   $scope.myGames = [];
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
 
-  if($scope.gameId !== null) {
-    pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { facebookId: $scope.facebookId, playerName: $scope.playerName}});
-    window.localStorage.removeItem("pokemon.gameId");
+  if( $scope.gameId !== null ) {
+    pokemonSocket.emit("a user left lobby", { gameId: $scope.gameId, user: { email: $scope.email, name: $scope.name } });
+
+    authFactory.delGameId();
+
     gameFactory.updatePlayerCounter($scope.gameId)
-      .then(function (resp) {
-        console.log("player counter is updated!", resp);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    .catch(function (error) {
+      // TODO: the question is what to do...
+      console.error(error);
+    });
   }
 
   $scope.hitEnter = function($event) {
@@ -34,26 +48,22 @@ angular.module('pokemon.home', [])
     }
   };
 
-  $scope.logout = function() {
-    window.localStorage.removeItem("pokemon.facebookId");
-    window.localStorage.removeItem("pokemon.gameId");
-    window.localStorage.removeItem("pokemon.playerName");
-    $cookies.remove("facebookId");
-    $cookies.remove("playerName");
-    $location.path('/');
+  $scope.logout = () => {
+    authFactory.logOut();
   };
 
   $scope.makeNewGame = function() {
     if($scope.newGameName) {
       $scope.showMessage = false;
-      userFactory.addGame($scope.gameId, $scope.newGameName, $scope.facebookId, $scope.playerName)
+      userFactory.addGame($scope.gameId, $scope.newGameName, $scope.email, $scope.name)
       .then(function (resp) {
         var userGame = {
           gameId: resp.gameId,
           gameName: resp.name
         };
         pokemonSocket.emit('newGame', userGame);
-       }).catch(function (error) {
+       })
+       .catch(function (error) {
         console.error(error);
       });
         $scope.newGameName = '';
@@ -67,29 +77,31 @@ angular.module('pokemon.home', [])
       gameFactory.requestLobbyEntry(id)
       .then(function (resp) {
         if(resp.requestAccepted) {
-          $window.localStorage.setItem('pokemon.gameId', id);
+          authFactory.setGameId( id );
           pokemonSocket.emit('joinLobby', {
             gameId: id,
             user: {
-              playerName: $scope.playerName,
-              facebookId: $scope.facebookId
+              name: $scope.name,
+              email: $scope.email
             }
           });
           $location.path('/lobby');
-        } else {
+        } 
+        else {
           alert("Sorry, This game already has 6 players! Pls select another game.");
         }
       }) 
       .catch(function (error) {
         console.error(error);
       });  
-    } else {
-      $window.localStorage.setItem('pokemon.gameId', id);
+    } 
+    else {
+      authFactory.setGameId( id );
       pokemonSocket.emit('join resume lobby', {
         gameId: id,
         user: {
-          playerName: $scope.playerName,
-          facebookId: $scope.facebookId
+          name: $scope.name,
+          email: $scope.email
         }
       });
       $location.path('/resumelobby'); 
@@ -105,12 +117,12 @@ angular.module('pokemon.home', [])
       for(var i = 0; i < games.length; i++) {
         if(games[i].gameStarted){
           for(var j = 0; j < games[i].gamePlayers.length; j++){
-            if(games[i].gamePlayers[j].facebookId === $scope.facebookId) {
+            if(games[i].gamePlayers[j].email === $scope.email) {
               $scope.myGames.push(games[i]);
             }
           }
         } else {
-          if(games[i].gameCreator.facebookId === $scope.facebookId) {
+          if(games[i].gameCreator.email === $scope.email) {
             $scope.myGames.push(games[i]);
           }
         }
@@ -121,8 +133,6 @@ angular.module('pokemon.home', [])
     });
   };
   
-  userGames();
-
   pokemonSocket.on('updateAvailGames', function(newGame) {
     $scope.games = [];
     $scope.myGames = [];

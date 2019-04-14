@@ -11,11 +11,13 @@ const router = require('./routes.js');
 const Users = require( './users/userController' );
 const { keyGen } = require( './utils' );
 
-const debug = process.env.NODE_ENV === 'development';
+const dev = process.env.NODE_ENV === 'development';
+
+const debug = false;
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
-const port = debug ? 3000 : 80;
+const port = dev ? 3000 : 80;
 
 const app = express();
 
@@ -24,8 +26,8 @@ app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({ extended: true }) );
 app.use( cookieParser( keyGen() ) );
 
-if ( debug )  app.use( (req, res, next) => {
-  debug && console.log( req.method, req.path, 'params:', req.params, 'query:', req.query, 'body:', req.body );
+if ( dev )  app.use( (req, res, next) => {
+  console.log( req.method, req.path, 'params:', req.params, 'query:', req.query, 'body:', req.body );
   next()
 });
 
@@ -35,18 +37,18 @@ app.use( async ( req, res, next ) => {
   if ( cookie ) {
     const user = await Users.findUser({ _id: cookie });
     if ( !user ) {
-      // debug && console.log( 'stale cookie' )
+      debug && console.log( 'stale cookie' )
       res.clearCookie( 'pokemon.session' );
       res.clearCookie( 'io' );
       res.redirect( '/' );
     }
     else {
-      // debug && console.log( 'valid cookie' )
+      debug && console.log( 'valid cookie' )
       next();
     }
   }
   else {
-    // debug && console.log( 'no cookie' )
+    debug && console.log( 'no cookie' )
     next();
   }
 });
@@ -119,7 +121,7 @@ io.on('connection', function(socket) {
     socket.join(data.gameId);
     if(usersInGames[data.gameId]) {
       for(var j = 0; j < usersInGames[data.gameId].length; j++) {
-        if(usersInGames[data.gameId][j].facebookId === data.user.facebookId) {
+        if(usersInGames[data.gameId][j].email === data.user.email) {
           var index = j;
         }
       }
@@ -128,7 +130,7 @@ io.on('connection', function(socket) {
     }
     if(usersInResumeGameLobby[data.gameId]) {
       for(var j = 0; j < usersInResumeGameLobby[data.gameId].length; j++) {
-        if(usersInResumeGameLobby[data.gameId].facebookId === data.user.facebookId) {
+        if(usersInResumeGameLobby[data.gameId].email === data.user.email) {
           var userIndex = j;
         }
       }

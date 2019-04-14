@@ -8,11 +8,11 @@
   	<h3>Other Trainers at this Location</h3>
   	<div class="other-trainer" ng-repeat="trainer in otherTrainers">
   		<img class="sprite" src="{{trainer.sprite}}" alt="">
-  		<p class="other-trainer-name">{{trainer.playerName}}</p>
+  		<p class="other-trainer-name">{{trainer.name}}</p>
   	</div>
   </div>
 
-  <div ng-if="currentTurnPlayerId===facebookId">
+  <div ng-if="currentTurnPlayerId===email">
     <button class="tn-lg btn-primary" ng-click="updateTurn()">Continue</button>
   </div>
 </div>

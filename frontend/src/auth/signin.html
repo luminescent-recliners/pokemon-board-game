@@ -5,15 +5,15 @@
 			<img class="pokeball" src="assets/pokeball.png"  width="400px" height="400px" />
 		</div>
 		
-		 <div class="login-box col-lg-12" >
-			 <form ng-show="phase==='start'" ng-submit="sendCode()">
+		 <div class="login-box col-lg-12">
+			 <form ng-show="phase=='start'" ng-submit="sendCode()">
 				<p> To play, enter a valid email address and a login token will be sent to you! </p>
 				<p> 
 					<input class="input" type="email" placeholder="Enter email" ng-model="user.email"> 
 					<button class="button" type="submit" value="Login"> Send Code </button>
 				</p>
 			</form>
-			<form ng-show="phase==='email'" ng-submit="verifyCode()">
+			<form ng-show="phase=='email'" ng-submit="verifyCode()">
 				<p> Login token sent to <b>{{user.email}}</b> expires in 8 minutes...</p>
 				<p> 
 					<input class="input" type="text" placeholder="Enter code" ng-model="user.code">

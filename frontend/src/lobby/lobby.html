@@ -9,12 +9,12 @@
   <div class="row">
     <div class="col-lg-6">
       <div class="lobby-list">
-        <p> Logged in As: {{ playerName }}</p>
+        <p> Logged in As: {{ name }}</p>
         <p> Game Name: {{ gameId }} {{ gameName }}</p>
         <p> Game Creator: {{ gameCreatorName }}</p>
         <p> People in Room: 
         <ul ng-repeat = "user in users">
-          <li class="user-in-lobby">{{ user.playerName }}</li>
+          <li class="user-in-lobby">{{ user.name }}</li>
         </ul>
         </p>
         <br />

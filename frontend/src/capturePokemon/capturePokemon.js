@@ -1,29 +1,35 @@
 angular.module('pokemon.capture', [])
-.controller('captureController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
+.controller('captureController', function (authFactory, $scope, gameFactory, $window, $location, pokemonSocket) {
+  const debug = false;
+
+  if ( !authFactory.isAuth('captureController') ){
+    debug && console.log( 'captureController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'captureController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
+
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
 
   $scope.rollvalue;
   $scope.result;
 
-
-  // Post Dev values
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
-  
-  // Dev values
-  // $scope.gameId = 1;
-  // $scope.facebookId = "Facebook123";
-
-  // $scope.pokemonColor = 'pink';
-  // $scope.pokemon = {id: 25, name: 'Pikachu', specs: { diceRoll: null, attackname: 'ThunderShock', strength: 3}, visible: true, alive: true, imageURL: 'http://pokeapi.co/media/img/25.png'};
-
   var initialize = function() {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.currentTurnPlayerName = resp.playerName;
-        $scope.currentTurnPlayerId = resp.facebookId;
+        $scope.currentTurnPlayerName = resp.name;
+        $scope.currentTurnPlayerId = resp.email;
 
         gameFactory.getAvailablePokemon($scope.gameId, $scope.currentTurnPlayerId)
           .then(function(pokemon) {
@@ -46,7 +52,7 @@ angular.module('pokemon.capture', [])
     var audioDice = new Audio('../assets/sounds/dice.mp3');
     audioDice.play();
     $scope.rollvalue = Math.ceil(Math.random() * 6);
-    gameFactory.catchPokemon($scope.gameId, $scope.facebookId, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
+    gameFactory.catchPokemon($scope.gameId, $scope.email, $scope.rollvalue, $scope.pokemonColor, $scope.pokemon)
       .then(function (resp) {
         $scope.result = resp;
         if ($scope.result === "Sorry!! Pokemon Got Away") {
@@ -125,5 +131,5 @@ angular.module('pokemon.capture', [])
       });
   };
 
-  confirmCurrentPage();
+  // confirmCurrentPage();
 });

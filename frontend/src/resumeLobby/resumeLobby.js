@@ -1,10 +1,27 @@
 angular.module('pokemon.resumelobby', [])
-.controller('resumeLobbyController', function ($scope, $window, $location, gameFactory, pokemonSocket) {
+.controller('resumeLobbyController', function ($scope, $cookies, $window, $location, gameFactory, pokemonSocket, authFactory ) {
+  
+  const debug = false;
+
+  if ( !authFactory.isAuth('resumeLobbyController') ){
+    debug && console.log( 'resumeLobbyController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'resumeLobbyController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
+
   $scope.resumelobbytest = " welcome to the resume game Lobby!";
 
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
   $scope.usersInRoom = [];
 
   pokemonSocket.on('join resume lobby', function (data) {
@@ -37,8 +54,6 @@ angular.module('pokemon.resumelobby', [])
       console.error(error);
     });
   };
-
-  initialize();
 
   $scope.getBoardView = function () {
     pokemonSocket.emit('creater enters board', { gameId: $scope.gameId });

@@ -1,6 +1,24 @@
 angular.module('pokemon.winner', [])
-.controller('winnerController', function ($scope, $window, $location, userFactory, gameFactory, pokemonSocket) {
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
+.controller('winnerController', function (authFactory, $scope, $window, $location, userFactory, gameFactory, pokemonSocket) {
+  const debug = false;
+
+  if ( !authFactory.isAuth('winnerController') ){
+    debug && console.log( 'winnerController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'winnerController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
+  
 
   $scope.circleData = [
     {row: 225, col: 30, typeOfSpot: 'white'},
@@ -84,7 +102,7 @@ angular.module('pokemon.winner', [])
       });
   };
 
-  confirmCurrentPage();
+  // confirmCurrentPage();
 
   $scope.goHome = function () {
     $location.path('/home');

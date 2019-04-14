@@ -27,22 +27,22 @@
   </div>
 
   <!-- Roll Dice Button -->  
-  <div class='col-lg-12' ng-if="diceRolled===false && currentTurnPlayerId===facebookId" >
+  <div class='col-lg-12' ng-if="diceRolled===false && currentTurnPlayerId===email" >
     <button class="tn-lg btn-primary" ng-click ="rollDice()" > Roll Dice & Catch</button>
     <br /><br />
   </div>
 
   <!-- MESSAGE (OPPONENTS)-->  
   <div class="result-panel col-lg-12">
-    <p ng-if="currentTurnPlayerId !== facebookId && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
-    <div ng-if="diceRolled && currentTurnPlayerId !== facebookId">
+    <p ng-if="currentTurnPlayerId !== email && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
+    <div ng-if="diceRolled && currentTurnPlayerId !== email">
       <p class='pokemonCap'>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
       <p>{{result}}</p>
     </div>
   </div>
 
   <!-- MESSAGE (USER) -->  
-  <div class='col-lg-12' ng-if="diceRolled && currentTurnPlayerId===facebookId">
+  <div class='col-lg-12' ng-if="diceRolled && currentTurnPlayerId===email">
     <p class='pokemonCap'>{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
     <span>{{result}}</span>
     <br /><br />

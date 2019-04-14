@@ -44,13 +44,13 @@
   <!-- this section for dice view and messages -->
   <div class='control-panel' ng-if="!userInfoPanel">
     <div class="currentTurn">
-      <h3>Current Turn: {{currentTurnPlayerName}}</h3>
+      <h3>Current Turn: {{cuname}}</h3>
       <img ng-src="{{currentTurnSprite}}" alt="">
-      <h5 ng-if="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h5>
+      <h5 ng-if="rollDisplay">{{cuname}} rolled a {{roll}}!</h5>
     </div>
   <hr>
     <div ng-if='continueGame'>
-      <div class="game-status" ng-if="facebookId === currentTurnFacebookId && actionDisplay === false">
+      <div class="game-status" ng-if="email === currentTurnEmail && actionDisplay === false">
         <button class="tn-lg btn-primary board-center" ng-click="rollDice()" ng-hide='roll > 0'> Roll Dice </button>
         <p class='board-center' ng-if='roll > 0'>You rolled a {{roll}}</p>
         <div class="player-options">
@@ -65,7 +65,7 @@
       
       <div class="action-display board-center" ng-if="actionDisplay">
         <h4>{{actionDescription}}</h4>
-        <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="facebookId === currentTurnFacebookId && actionDisplay"> Continue </button>
+        <button class="tn-lg btn-primary" ng-click="redirectAllUsers()" ng-if="email === currentTurnEmail && actionDisplay"> Continue </button>
       </div>
     </div>
     <div ng-hide='continueGame' class='board-center'>
@@ -83,7 +83,7 @@
   <!-- panel with player pokemon captures -->
   <div class="control-panel" ng-if="userInfoPanel">
     <div class="user-info board-center">
-      <h3>{{playerName}}</h3>
+      <h3>{{name}}</h3>
       <img ng-src='{{playerSprite}}' alt="">
       <img ng-src="{{userParty.starter[0].gifURL}}" alt="">
     </div>

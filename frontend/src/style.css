@@ -82,6 +82,10 @@ input {
 .create-game-btn, .create-game-input, .game-name, .home-text{
   font-size: 1.5em;
 }
+.game-name:hover {
+  color: #125986;
+  cursor: pointer;
+}
 
 
 .game-panel {
@@ -111,9 +115,15 @@ input {
 }
 
 .lobby-image-container{
-  position: absolute;
-  z-index: 1;
-  right: 30%;
+  /* position: absolute; */
+  z-index: -1;
+  position: fixed;
+  /* right: 30%; */
+  /* align-content: center; */
+  /* justify-content: center; */
+  width: 100%;
+  top: 10%;
+  
 }
 .lobby-image {
   opacity: .6;

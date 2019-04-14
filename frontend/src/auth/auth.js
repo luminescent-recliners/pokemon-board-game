@@ -2,20 +2,25 @@
 angular.module('pokemon.auth', [])
 .controller('authController', function ($scope, authFactory, $location) {
 
-  if (authFactory.isAuth()){
+  const debug = false;
+  
+  if ( authFactory.isAuth('authController') ) {
     $location.path('/home');
+    return;
   }
 
   $scope.user = {};
 
   $scope.phase = 'start';
 
+  debug && console.log( 'phase', $scope.phase )
+
   $scope.message = '';
 
   $scope.sendCode = () => {
     authFactory.sendCode( $scope.user.email )
     .then( r => {
-      // console.log( 'response', r)
+      debug && console.log( 'authController sendCode', r)
       if ( r.result ) {
         $scope.phase = 'email';
         $scope.message = r.message;
@@ -25,7 +30,7 @@ angular.module('pokemon.auth', [])
       }
     })
     .catch( e => {
-      // console.error( e );
+      debug && console.error( e );
       $scope.phase = 'error';
       $scope.message = e.message;
     })
@@ -34,7 +39,7 @@ angular.module('pokemon.auth', [])
   $scope.verifyCode = () => {
     authFactory.verifyCode( $scope.user.email, $scope.user.code )
     .then( r => {
-      // console.log( 'response', r);
+      debug && console.log( 'authController verifyCode', r);
       if ( r.result ) {
         $scope.phase = 'start';
         $scope.message = r.message;
@@ -45,7 +50,7 @@ angular.module('pokemon.auth', [])
       }
     })
     .catch( e => {
-      // console.error( e );
+      debug && console.error( e );
       $scope.phase = 'error';
       $scope.message = e.message;
     })

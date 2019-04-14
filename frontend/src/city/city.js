@@ -1,16 +1,26 @@
 angular.module('pokemon.city', [])
-.controller('cityController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
+.controller('cityController', function (authFactory, $scope, gameFactory, $window, $location, pokemonSocket) {
+  const debug = false;
 
-  // Post Dev values
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+  if ( !authFactory.isAuth('cityController') ){
+    debug && console.log( 'cityController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'cityController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
 
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
-
-  // $scope.gifDescrip;
-  // $scope.gifURL;
 
   var getGif = function() {
     gameFactory.getCityGif()
@@ -45,8 +55,8 @@ angular.module('pokemon.city', [])
   var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.currentTurnPlayerName = resp.playerName;
-        $scope.currentTurnPlayerId = resp.facebookId;
+        $scope.currentTurnPlayerName = resp.name;
+        $scope.currentTurnPlayerId = resp.email;
         getGif();
       });
   };
@@ -78,10 +88,6 @@ angular.module('pokemon.city', [])
       });
   };
 
-  confirmCurrentPage();
-
-  // setTimeout(function(){ 
-  //   pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
-  // }, 3000);
+  // confirmCurrentPage();
 
 });

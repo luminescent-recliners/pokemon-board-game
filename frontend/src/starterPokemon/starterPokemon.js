@@ -1,37 +1,50 @@
 angular.module('pokemon.starter', ['ui.bootstrap'])
 
-.controller('starterController', function($scope, $location, userFactory, gameFactory, $window, pokemonSocket){
+.controller('starterController', function($scope, $location, userFactory, gameFactory, $window, pokemonSocket, $cookies, authFactory){
+  const debug = false;
 
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+  if ( !authFactory.isAuth('starterController') ){
+    debug && console.log( 'starterController isAuth', false );
+    $location.path('/');
+    return;
+  }
 
+   authFactory.getCurrentUser()
+   .then( u => {
+     debug && console.log( 'starterController user', u );
+     $scope.name = u.name;
+     $scope.email = u.email;
+     $scope.gameId = u.gameId;
+     initialize();
+   })
+   .catch( e => {
+      debug && console.log( 'starterController getCurrentUser', e );
+      $location.path('/');
+   });
 
   $scope.selectedPokemon = null;
-  $scope.gameTurnFacebookId;
+  $scope.gameTurnEmail;
 
   $scope.list = [];
 
   var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
-      .then(function (resp) {
-        $scope.gameTurnName = resp.playerName;
-        $scope.gameTurnFacebookId = resp.facebookId;
-
-        gameFactory.getRemainingStarterPokemon($scope.gameId)
-        .then(function(resp2) {
-          $scope.list = resp2;
-        });
-
-        gameFactory.getRemainingSprites($scope.gameId)
-        .then(function(resp3) {
-          $scope.spriteList = resp3;
-        });
-
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    .then(function (resp) {
+      $scope.gameTurnName = resp.name;
+      $scope.gameTurnEmail = resp.email;
+      return gameFactory.getRemainingStarterPokemon($scope.gameId);
+    })
+    .then(function(resp2) {
+      $scope.list = resp2;
+      return gameFactory.getRemainingSprites($scope.gameId)
+    })
+    .then(function(resp3) {
+      $scope.spriteList = resp3;
+      // confirmCurrentPage();
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   };
 
   $scope.getStarter = function (currpokemon) {
@@ -39,25 +52,19 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
   };
 
   var selectedSprite = null;
-  $scope.selectSprite = function(currentSprite) {
-    selectedSprite = currentSprite;
-  };
+  $scope.selectSprite = currentSprite => { selectedSprite = currentSprite; }
 
-  $scope.playerInit = function () {
+  $scope.playerInit = () => {
     if($scope.selectedPokemon !== null && selectedSprite !== null)  {
-
-      userFactory.playerInit($scope.gameId, $scope.facebookId, $scope.selectedPokemon, selectedSprite)
+      userFactory.playerInit($scope.gameId, $scope.email, $scope.selectedPokemon, selectedSprite)
       .then(function (resp) {
-        $scope.gameTurnName = resp.playerName;
-        $scope.gameTurnFacebookId = resp.facebookId;
+        $scope.gameTurnName = resp.name;
+        $scope.gameTurnEmail = resp.email;
         pokemonSocket.emit('a pokemon was selected', {gameId: $scope.gameId, pokemon: $scope.selectedPokemon});
       })
       .catch(function (error) {
         console.error(error);
       });
-
-
-
     } else {
       $scope.message = "Have To Select a Pokemon And a Trainer!!";
     }
@@ -66,9 +73,9 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
   pokemonSocket.on('refresh after pokemon selection', function(data){
     if(data.doneselection) {
       gameFactory.updateCurrentPage($scope.gameId, 'boardView')
-        .then(function() {
-          $location.path('/board');
-        });
+      .then(function() {
+        $location.path('/board');
+      });
     } else {
       initialize();
     }
@@ -101,5 +108,5 @@ angular.module('pokemon.starter', ['ui.bootstrap'])
       });
   };
 
-  confirmCurrentPage();
+  // confirmCurrentPage();
 });

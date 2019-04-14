@@ -1,18 +1,20 @@
-var Games = require('./gameModel.js');
-var Q = require('q');
-var gameHelperFn = require('./gameHelperFunctions.js');
-var gameBoardData = require('../data/gameBoardData.js');
-var availablePokemonData = require('../data/availablePokemonData.js');
-var availableSpritesData = require('../data/availableSpritesData.js');
+const Games = require('./gameModel.js');
+const Q = require('q');
+const gameHelperFn = require('./gameHelperFunctions.js');
+const gameBoardData = require('../data/gameBoardData.js');
+const availablePokemonData = require('../data/availablePokemonData.js');
+const availableSpritesData = require('../data/availableSpritesData.js');
 
-var findGame = Q.nbind(Games.findOne, Games);
-var findGames = Q.nbind(Games.find, Games);
+const findGame = Q.nbind(Games.findOne, Games);
+const findGames = Q.nbind(Games.find, Games);
 
-var pokemonController = require('../pokemon/pokemonController.js');
+const pokemonController = require('../pokemon/pokemonController.js');
 
-var spriteController = require('../sprites/spriteController.js');
+const spriteController = require('../sprites/spriteController.js');
 
-var playerCounter = {};
+const playerCounter = {};
+
+const debug = false;
 
 module.exports = {
   findGame: findGame,
@@ -20,80 +22,96 @@ module.exports = {
   findGames: findGames,
 
   updateCurrentPage: function(req, res, next) {
-    var gameId = req.body.gameId;
-    var currentPage = req.body.currentPage;
+    const gameId = req.body.gameId;
+    const currentPage = req.body.currentPage;
+    let gameFound;
 
     findGame({gameId: gameId})
-      .then(function(game) {
-        game.currentPage = currentPage;
-        game.save();
-        res.send(game.currentPage);
-      });
+    .then( game => {
+      gameFound = game;
+      game.currentPage = currentPage;
+      return game.save();
+    })
+    .then(() => {
+      res.send(gameFound.currentPage); 
+    })
+    .catch( error =>  {
+      debug && console.log( 'updateCurrentPage error', error )
+      next(error);
+    });
   },
 
   getCurrentPage: function(req, res, next) {
-    var gameId = req.query.gameId;
-
-    findGame({gameId: gameId})
-      .then(function(game) {
-        res.send(game.currentPage);
-      })
-      .fail(function(error) {
-        next(error);
-      });
+    const gameId = req.query.gameId;
+    debug && console.log( 'getCurrentPage gameId', gameId )
+    findGame({ gameId: gameId })
+    .then( game => {
+      debug && console.log( 'getCurrentPage', game )
+      res.send( game.currentPage );
+    })
+    .catch( error =>  {
+      debug && console.log( 'getCurrentPage error', error )
+      next(error);
+    });
   },
   
   playerInit: function(req, res, next) {
-    var gameId = req.body.gameId;
-    var userId = req.body.userId;
-    var pokemon = req.body.pokemon;
-    var sprite = req.body.sprite;
+    const gameId = req.body.gameId;
+    const userId = req.body.userId;
+    const pokemon = req.body.pokemon;
+    const sprite = req.body.sprite;
+    let gameTrun;
 
     findGame({ gameId: gameId })
-      .then(function(game) {
-        // adds starter pokemon object to user's party and
-        // sets user sprite url
-        for(var i = 0; i < game.users.length; i++) {
-          if(game.users[i].facebookId === userId) {
-            var currentUser = game.users[i];
-            game.users[i].party.push(pokemon);
-            game.users[i].positionOnBoard = 1;
-            game.users[i].sprite = sprite.imageURL;
-          }
+    .then( game => {
+      let currentUser;
+      // adds starter pokemon object to user's party and
+      // sets user sprite url
+      for(let i = 0; i < game.users.length; i++) {
+        if(game.users[i].email === userId) {
+          currentUser = game.users[i];
+          game.users[i].party.push(pokemon);
+          game.users[i].positionOnBoard = 1;
+          game.users[i].sprite = sprite.imageURL;
         }
+      }
 
-        // Removes the pokemon's ID from available pokemons
-        var id = pokemon.pokemonId;
-        var starterPokemon = game.availablePokemon.starter;
-        var index = starterPokemon.indexOf(id);
-        starterPokemon.splice(index, 1);
+      // Removes the pokemon's ID from available pokemons
+      const id = pokemon.pokemonId;
+      let starterPokemon = game.availablePokemon.starter;
+      const index = starterPokemon.indexOf(id);
+      starterPokemon.splice(index, 1);
 
-        // Remove the sprite's ID from available sprites
-        var spriteId = sprite.spriteId;
-        var remainingSprites = game.availableSprites;
-        var spriteIndex = remainingSprites.indexOf(spriteId);
-        remainingSprites.splice(spriteIndex, 1);
+      // Remove the sprite's ID from available sprites
+      const spriteId = sprite.spriteId;
+      let remainingSprites = game.availableSprites;
+      const spriteIndex = remainingSprites.indexOf(spriteId);
+      remainingSprites.splice(spriteIndex, 1);
 
 
-        // increment counter and set next turn
-        game.gameCounter = game.gameCounter + 1;
-        var gameTurnFacebookId = game.users[game.gameCounter % game.users.length ].facebookId;
-        var gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].playerName;
-        game.gameTurn = {
-          facebookId: gameTurnFacebookId,
-          playerName: gameTurnPlayerName
-        };
-        game.gameBoard['1'].users.push(currentUser);
-        game.markModified('users');
-        game.markModified('gameTurn');
-        game.markModified('gameBoard');
-        game.markModified('availablePokemon');
-        game.save();
-        res.send(game.gameTurn);
-      })
-      .fail(function(error) {
-        next(error);
-      });
+      // increment counter and set next turn
+      game.gameCounter = game.gameCounter + 1;
+      const gameTurnEmail = game.users[game.gameCounter % game.users.length ].email;
+      const gameTurnPlayerName = game.users[game.gameCounter % game.users.length ].name;
+      game.gameTurn = {
+        email: gameTurnEmail,
+        name: gameTurnPlayerName
+      };
+      gameTurn = game.gameTurn;
+      game.gameBoard['1'].users.push(currentUser);
+      game.markModified('users');
+      game.markModified('gameTurn');
+      game.markModified('gameBoard');
+      game.markModified('availablePokemon');
+      return game.save();
+    })
+    .then(() => {
+      res.send(gameTurn);
+    })
+    .catch( error =>  {
+      debug && console.log( 'playerInit error', error )
+      next(error);
+    });
   },
 
   getPlayerOptions: function(req, res, next) {
@@ -141,17 +159,22 @@ module.exports = {
     var gameId = req.query.gameId;
 
     findGame({ gameId: gameId })
-      .then(function (game) {
+    .then(function (game) {
+      if( game ) {
         var result = {
           gameName: game.name,
-          gameCreator: game.gameCreator.facebookId,
-          creatorName: game.gameCreator.playerName
+          gameCreator: game.gameCreator.email,
+          creatorName: game.gameCreator.name
         };
         res.send(result);
-      })
-      .fail(function (error) {
-        next(error);
-      });
+      }
+      else {
+        res.send( {} );
+      }
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   resumeGameLobbyInit: function (req, res, next) {
@@ -162,14 +185,14 @@ module.exports = {
       var users = [];
       for(var i = 0;i < game.users.length; i++) {
         users.push({
-          facebookId: game.users[i].facebookId,
-          playerName: game.users[i].playerName
+          email: game.users[i].email,
+          name: game.users[i].name
         });
       }
       var result = {
         gameName: game.name,
-        gameCreator: game.gameCreator.facebookId,
-        creatorName: game.gameCreator.playerName,
+        gameCreator: game.gameCreator.email,
+        creatorName: game.gameCreator.name,
         users: users
       };
       res.send(result);
@@ -181,14 +204,15 @@ module.exports = {
 
   addUser: function (req, res, next) {
     var gameId = req.body.gameId;
-    var users = req.body.users;
+    var users = req.body.users || [];
+    let gameTurn;
 
     findGame({gameId: gameId})
       .then(function (game) {
         for(var i=0;i<users.length;i++) {
           game.users.push({
-            facebookId: users[i].facebookId,
-            playerName: users[i].playerName,
+            email: users[i].email,
+            name: users[i].name,
             playerIndex: 0,
             badges: [],
             party: [],
@@ -209,8 +233,11 @@ module.exports = {
         game.gameStarted = true;
         game.currentPage = 'starterView';
         game.markModified('users');
-        game.save();
-        res.send(game.gameTurn);
+        gameTurn = game.gameTurn;
+        return game.save();
+      })
+      .then( () => {
+        res.send(gameTurn);
       })
       .fail(function (error) {
         next(error);
@@ -218,15 +245,17 @@ module.exports = {
   },
 
   findTurn: function (req, res, next) {
-    var gameId = req.query.gameId;
-
+    const gameId = req.query.gameId;
     findGame({gameId: gameId})
-      .then(function (game) {
-        var gameTurn = game.users[ game.gameCounter % game.users.length ];
+    .then(function (game) {
+      const gameTurn = game.users[ game.gameCounter % game.users.length ];
+      debug && console.log( 'findTurn findGame gameTurn (we dont save it ?!)', gameTurn );
         game.gameTurn = {
-          facebookId: gameTurn.facebookId,
-          playerName: gameTurn.playerName
+          email: gameTurn.email,
+          name: gameTurn.name
         };
+
+        // TODO: why are we not saving this record?
         res.send(game.gameTurn);
       })
       .fail(function (error) {
@@ -239,32 +268,33 @@ module.exports = {
     var userId = req.query.userId;
 
     findGame({ gameId: gameId })
-      .then(function(game) {
-        var allUsers = [];
-        for(var i=0;i<game.users.length;i++) {
-          allUsers.push({
-            facebookId: game.users[i].facebookId,
-            playerName: game.users[i].playerName,
-            positionOnBoard: game.users[i].positionOnBoard,
-            sprite: game.users[i].sprite
-          });
-        }
-        var user  = gameHelperFn.findUser(game, userId);
-        var pokemonCount = user.pokemonCount;
-        var won = gameHelperFn.checkWinner(pokemonCount);
-        var winner = won ? user : null;
-        var gameData = {
-          board: game.gameBoard,
-          user: user,
-          currentTurn: game.gameTurn,
-          allUsers: allUsers,
-          winner: winner
-        };
-        res.send(gameData);
-      })
-      .fail(function(error) {
-        next(error);
-      });
+    .then(function(game) {
+      debug && console.log( 'boardInit findGame game.users', game.users );
+      var allUsers = [];
+      for(var i=0;i<game.users.length;i++) {
+        allUsers.push({
+          email: game.users[i].email,
+          name: game.users[i].name,
+          positionOnBoard: game.users[i].positionOnBoard,
+          sprite: game.users[i].sprite
+        });
+      }
+      var user  = gameHelperFn.findUser(game, userId);
+      var pokemonCount = user.pokemonCount;
+      var won = gameHelperFn.checkWinner(pokemonCount);
+      var winner = won ? user : null;
+      var gameData = {
+        board: game.gameBoard,
+        user: user,
+        currentTurn: game.gameTurn,
+        allUsers: allUsers,
+        winner: winner
+      };
+      res.send(gameData);
+    })
+    .fail(function(error) {
+      next(error);
+    });
   },
 
   //Output Sends a Board Spot Back to the client with Current User On the new board spot 
@@ -274,6 +304,7 @@ module.exports = {
     var currentPosition = req.body.currentPosition;
     var nextPosition = req.body.nextPosition;
     var gameId = req.body.gameId;
+    let gameSpot;
 
     findGame({gameId: gameId})
     .then(function(game) {
@@ -281,14 +312,16 @@ module.exports = {
       game.gameBoard[currentPosition].users.splice(userObject, 1);
       game.gameBoard[nextPosition].users.push(userObject);
       game.markModified('gameBoard');
-      game.save();
 
       //Updates new user position
-      var user = gameHelperFn.findUser(game, userObject.facebookId);
+      var user = gameHelperFn.findUser(game, userObject.email);
       user.positionOnBoard = nextPosition;
       game.markModified('users');
-      game.save();
-      res.send(game.gameBoard[nextPosition]);
+      gameSpot = game.gameBoard[nextPosition];
+      return game.save();
+    })
+    .then( () => {
+      res.send( gameSpot );
     })
     .fail(function(error) {
       next(error);
@@ -302,8 +335,8 @@ module.exports = {
     findGames()
     .then(function(games) {
       var gameName = req.body.gameName;
-      var facebookId = req.body.facebookId;
-      var playerName = req.body.playerName;
+      var email = req.body.email;
+      var name = req.body.name;
       var id = games.length + 1;
         var newGame = new Games({
           gameId: id, 
@@ -313,19 +346,23 @@ module.exports = {
           availablePokemon: availablePokemonData,
           availableItemCards: [],
           gameCreator: {
-            facebookId: facebookId,
-            playerName: playerName
+            email: email,
+            name: name
           },
           gameStarted: false,
-          gameTurn: {},
+          gameTurn: {
+            email: email,
+            name: name
+          },
           gameCounter: 0,
           currentPage: 'lobbyView',
           availableSprites: availableSpritesData
         });
+
         newGame.save(function (err) {
           if (err) throw err;
+          res.send(newGame);
         });
-    res.send(newGame);
     })
   },
 
@@ -339,8 +376,8 @@ module.exports = {
           var playersInGame = [];
           for(var j= 0; j < games[i].users.length; j++) {
             playersInGame.push({
-              facebookId: games[i].users[j].facebookId,
-              playerName:  games[i].users[j].playerName
+              email: games[i].users[j].email,
+              name:  games[i].users[j].name
             });
           }
           
@@ -375,14 +412,14 @@ module.exports = {
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
           result = "Success!! Pokemon Captured";
           for(var i = 0; i < game.users.length; i++) {
-            if(game.users[i].facebookId === userId) {
+            if(game.users[i].email === userId) {
               game.users[i].party.push(pokemon);
               currentPosition = game.users[i].positionOnBoard;
               game.gameBoard[currentPosition].pokemon = null;
               game.users[i].pokemonCount[pokemonColor] = game.users[i].pokemonCount[pokemonColor] + 1;
               game.markModified('gameBoard');
               game.markModified('users');
-              game.save();
+              return game.save();
             }
           }
         // if not change visibility of pokemon on game board  
@@ -390,15 +427,17 @@ module.exports = {
           result = "Sorry!! Pokemon Got Away";
           // figure out board spot
           for(var i = 0; i < game.users.length; i++) {
-            if(game.users[i].facebookId === userId) {
+            if(game.users[i].email === userId) {
               currentPosition = game.users[i].positionOnBoard;
             }
           }
           // unhide pokemon on that spot on board
           game.gameBoard[currentPosition].pokemon.visible = true;
           game.markModified('gameBoard');
-          game.save();
+          return game.save();
         }
+      })
+      .then( () => {
         res.send(result);
       })
       .fail(function (error) {
@@ -407,55 +446,56 @@ module.exports = {
   },
 
   getAvailablePokemon: function(req, res, next) {
-    var gameId = req.query.gameId;
-    var userId = req.query.userId;
+    const gameId = req.query.gameId;
+    const userId = req.query.userId;
 
-    var getRandomId = function(length) {
+    const getRandomId = function(length) {
       return Math.floor(Math.random()*length);
     };
 
     findGame({ gameId: gameId })
-      .then(function(game){
-        // find player and look for position
-        var player = game.users.filter(function(user){
-          return user.facebookId === userId;
-        })[0];
-        var playerPosition = player.positionOnBoard;
+    .then(function(game){
+      // find player and look for position
+      var player = game.users.filter(function(user){
+        return user.email === userId;
+      })[0];
+      var playerPosition = player.positionOnBoard;
 
-        var pokemonPresent = game.gameBoard[playerPosition].pokemon;
-        // if pokemon on board spot send pokemon back to board
-        if(pokemonPresent) {
-          res.send(pokemonPresent);
+      var pokemonPresent = game.gameBoard[playerPosition].pokemon;
+      // if pokemon on board spot send pokemon back to board
+      if( pokemonPresent ) {
+        res.send(pokemonPresent);
+      } 
+      else {
+        // look at gameboard at user position and find type of spot
+        var color = game.gameBoard[playerPosition].colorOfSpot;
+        // get color array of avail pokemon ids
+        var pokemons = game.availablePokemon[color];
+        var randomPokemonsId = getRandomId(pokemons.length);
+        
+        // pop id off avail pokemon array
+        var pokemonId = pokemons.splice(randomPokemonsId, 1)[0];
 
-        } else {
-          // look at gameboard at user position and find type of spot
-          var color = game.gameBoard[playerPosition].colorOfSpot;
-          // get color array of avail pokemon ids
-          var pokemons = game.availablePokemon[color];
-          var randomPokemonsId = getRandomId(pokemons.length);
-          
-          // pop id off avail pokemon array
-          var pokemonId = pokemons.splice(randomPokemonsId, 1)[0];
-
-          // save modified pokemons array to game
-          game.availablePokemon[color] = pokemons;
-          game.markModified('availablePokemon');
-          game.save();
-
+        // save modified pokemons array to game
+        game.availablePokemon[color] = pokemons;
+        game.markModified('availablePokemon');
+        game.save()
+        .then( () => {
           // query pokemon table to get pokemon data
-          pokemonController.findPokemon({pokemonId: pokemonId})
-            .then(function(pokemonObject){
-
-              // add pokemon to the spot on game board
-              game.gameBoard[playerPosition].pokemon = pokemonObject;
-              game.markModified('gameBoard');
-              game.save();
-
-              // send pokemon client
-              res.send(pokemonObject);
-            });
-        }
-      });
+          return pokemonController.findPokemon({pokemonId: pokemonId})
+        })
+        .then(function(pokemonObject){
+          // add pokemon to the spot on game board
+          game.gameBoard[playerPosition].pokemon = pokemonObject;
+          game.markModified('gameBoard');
+          game.save()
+          .then( () => {
+          // send pokemon client
+          res.send(pokemonObject);
+          });
+        });
+      }
+    });
   },
 
   updateTurn: function (req, res, next) {
@@ -469,8 +509,8 @@ module.exports = {
 
         game.currentPage = currentPage;
         game.gameTurn = {
-          facebookId: userObject.facebookId,
-          playerName: userObject.playerName
+          email: userObject.email,
+          name: userObject.name
         };
         game.markModified('gameTurn');
         game.markModified('gameCounter');
@@ -552,14 +592,14 @@ module.exports = {
       //Removes Current Turn User From the Users On Spot Array
       for (var i = 0; i < usersOnSpot.length; i++) {
         var user = usersOnSpot[i];
-        if (user.facebookId === currentTurnUserId) {
+        if (user.email === currentTurnUserId) {
           usersOnSpot.splice(i, 1);
         }
       }
 
       for (var j = 0; j < usersOnSpot.length; j++) {
         var user = usersOnSpot[j];
-        otherTrainers.push(gameHelperFn.findUser(game, user.facebookId));
+        otherTrainers.push(gameHelperFn.findUser(game, user.email));
       }
 
       initObject.otherTrainers = otherTrainers;

@@ -43,7 +43,7 @@ angular.module('pokemon', [
 ])
 .config(function($routeProvider) {
   $routeProvider
-    .when("/home", {
+    .when('/home', {
       templateUrl: 'home/home.html',
       conroller: 'homeController',
       authenticate: true
@@ -78,7 +78,7 @@ angular.module('pokemon', [
       controller: 'eventController',
       authenticate: true
     })
-    .when("/winner", {
+    .when('/winner', {
       templateUrl: 'winner/winner.html',
       controller: 'winnerController',
       authenticate: true
@@ -104,8 +104,9 @@ angular.module('pokemon', [
 .run(function ($rootScope, $location, authFactory) {
 
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    if (next.$$route && next.$$route.authenticate && !authFactory.isAuth()) {
+    if ( next.$$route && next.$$route.authenticate && !authFactory.isAuth('app.run')) {
       $location.path('/signin');
     }
   });
+  
 });

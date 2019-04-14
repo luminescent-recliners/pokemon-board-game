@@ -1,10 +1,23 @@
 angular.module('pokemon.trainer', [])
-.controller('trainerController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
+.controller('trainerController', function (authFactory, $scope, gameFactory, $window, $location, pokemonSocket) {
+  const debug = false;
 
-  // Post Dev values
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+  if ( !authFactory.isAuth( 'trainerController' ) ){
+    debug && console.log( 'trainerController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'trainerController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
 
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
@@ -31,8 +44,8 @@ angular.module('pokemon.trainer', [])
   var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.currentTurnPlayerName = resp.playerName;
-        $scope.currentTurnPlayerId = resp.facebookId;
+        $scope.currentTurnPlayerName = resp.name;
+        $scope.currentTurnPlayerId = resp.email;
         gameFactory.trainerInit($scope.gameId, $scope.currentTurnPlayerId)
           .then(function (resp) {
             $scope.currentTrainer = resp.currentTrainer;
@@ -68,10 +81,6 @@ angular.module('pokemon.trainer', [])
       });
   };
 
-  confirmCurrentPage();
-
-  // setTimeout(function(){ 
-  //   pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
-  // }, 3000);
+  // confirmCurrentPage();
 
 });

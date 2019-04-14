@@ -4,7 +4,10 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-10">
 
-      <p class="home-text">Create or join an existing game to play with other trainers. Explore the world map, catching various Pokemon and become a Pokemon Master amongst your peers!</p>  
+      <p class="home-text">
+        Create or join an existing game to play with other trainers. 
+        Explore the world map, catching various Pokemon and become a Pokemon Master amongst your peers!
+      </p>  
 
       <form name="myform">
         <input class="create-game-input" type="text" ng-model="newGameName" placeholder="Name Required!" ng-keypress="hitEnter($event)"></input>
@@ -16,26 +19,26 @@
   <br>
   <div class="row">
     <div class='newGameSideBar col-lg-2'>
-      <h4><b>Logged in as {{playerName}}</b></h4>
+      <h4><b>Logged in as {{name}}</b></h4>
       <br><br>
       <!-- Include Stats Later -->
       <button class="btn-sm btn-primary text-center" ng-click = "logout()"> Log Out </button>
     </div>
 
-    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' style="height: 400px">
-      <h3 class='panel-heading'><b>{{playerName}}'s Games</b></h3>
-      <div class='gameContent' style="height: 300px">
+    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' >
+      <h3 class='panel-heading'><b>{{name}}'s Games</b></h3>
+      <div class='gameContent'>
         <li ng-repeat = "game in myGames track by $index">
-          <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+          <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name"><b> {{game.gameName}} </b>- {{game.gameId}}</a>
         </li>
       </div>
     </div>
 
-    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' style="height: 400px">
+    <div class='panel game-panel panel-primary col-lg-4 col-lg-offset-1' >
         <h3 class='panel-heading' ><b>All Available Games</b></h3>
-        <div class='gameContent' style="height: 300px">
+        <div class='gameContent'>
           <li ng-repeat = "game in games track by $index" ng-hide="game.gameStarted">
-            <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name">{{game.gameId}}: {{game.gameName}} </a>
+            <a ng-click='joinLobby(game.gameId, game.gameStarted)' class="game-name"> <b> {{game.gameName}} </b>- {{game.gameId}} </a>
           </li>
         </div>  
     </div>

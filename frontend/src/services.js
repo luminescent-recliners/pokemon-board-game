@@ -1,10 +1,34 @@
 
 
 angular.module('services', [])
-.factory('authFactory', function ($http, $cookies) {
-  var isAuth = function () {
-    return !!$cookies.get('facebookId');
+.factory('authFactory', function ($http, $cookies, $location) {
+  const debug = false;
+  debug && console.log( 'authFactory called')
+  const user = {
+    email: '',
+    name: '',
+    gameId: -1
   };
+  let isLoggedIn = false;
+  const reset = () => {
+    user.email = '';
+    user.name = '';
+    user.gameId = -1;
+    isLoggedIn = false;
+  }
+  if ( $cookies.get( 'pokemon.session' ) && !user.email ) {
+    getUserInfo()
+    .then( u => {
+      user.email = u.email;
+      user.name = u.name;
+      isLoggedIn = u.result;
+    })
+    .catch( e => {
+      debug && console.error( e );
+      logout();
+    });
+  }
+
   const sendCode = ( email ) => {
     return $http({
       method: 'POST',
@@ -18,7 +42,7 @@ angular.module('services', [])
     });
   }
   const verifyCode = ( email, code ) => {
-    console.log( 'verifyCode', email, code )
+    let data = { result: false, message:'' };
     return $http({
       method: 'POST',
       url: 'login/verify',
@@ -27,16 +51,48 @@ angular.module('services', [])
         code
       }
     })
-    .then(function (resp) {
+    .then( resp => {
+      debug && console.log( 'verifyCode', resp.data );
+      data = resp.data;
+      isLoggedIn = data.result;
+      return getUserInfo();
+    })
+    .then( () => data );
+  }
+
+  function getUserInfo() {
+    return $http({
+      method: 'GET',
+      url: 'user'
+    })
+    .then( resp => {
+      user.email = resp.data.email;
+      user.name = resp.data.name
       return resp.data;
-    });
+    });  
+  }
+
+  function getCurrentUser() {
+    debug && console.log( 'authFactory getCurrentUser', user );
+    return isLoggedIn ? Promise.resolve( user ) : $location.path('/signin') && null;
+  }
+
+  function logOut() {
+    reset();
+    $cookies.remove( 'pokemon.session' );
+    $location.path('/signin');
   }
 
   return {
-    isAuth: () => !!$cookies.get( 'pokemon.session' ),
+    isAuth: (a) => { debug && console.log( 'isAuth() from',a, isLoggedIn); return isLoggedIn; },
     getSession: () => $cookies.get( 'pokemon.session' ),
     sendCode,
-    verifyCode
+    verifyCode,
+    getCurrentUser,
+    logOut,
+    getGameId: () => user.gameId,
+    setGameId: id => { user.gameId = id; },
+    delGameId: () => { user.gameId = -1; }
   };
 })
 .factory('userFactory', function ($http) {
@@ -64,8 +120,8 @@ angular.module('services', [])
       data: {
         gameId: gameId,
         gameName: gameName,
-        facebookId: gameCreator,
-        playerName: playerName
+        email: gameCreator,
+        name: playerName
       }
     })
     .then(function (resp) {
@@ -148,6 +204,7 @@ angular.module('services', [])
 })
 
 .factory('gameFactory', function ($http) {
+  const debug = false;
   var trainerInit = function(gameId, currentTurnUserId) {
     return $http({
       method: 'GET',
@@ -274,6 +331,7 @@ angular.module('services', [])
   };
 
   var getCurrentPage = function(gameId) {
+    debug && console.log( 'gameFactory getCurrentPage gameId', gameId)
     return $http({
       method: 'GET',
       url: '/api/games/currentPage',
@@ -287,6 +345,7 @@ angular.module('services', [])
   };
 // updateCurrentPage function updates the current page of the game
   var updateCurrentPage = function(gameId, currentPage) {
+    debug && console.log( 'gameFactory updateCurrentPage gameId:', gameId, 'currentPage:', currentPage );
     return $http({
       method: 'PUT',
       url: '/api/games/currentPage',

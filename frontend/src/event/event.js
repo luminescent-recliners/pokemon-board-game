@@ -1,10 +1,23 @@
 angular.module('pokemon.event', [])
-.controller('eventController', function ($scope, gameFactory, $window, $location, pokemonSocket) {
+.controller('eventController', function (authFactory, $scope, gameFactory, $window, $location, pokemonSocket) {
+  const debug = false;
 
-  // Post Dev values
-  $scope.gameId = $window.localStorage.getItem('pokemon.gameId');
-  $scope.facebookId = $window.localStorage.getItem('pokemon.facebookId');
-  $scope.playerName = $window.localStorage.getItem('pokemon.playerName');
+  if ( !authFactory.isAuth('eventController') ){
+    debug && console.log( 'eventController isAuth', false );
+    $location.path('/');
+    return;
+  }
+  authFactory.getCurrentUser()
+  .then( u => {
+    debug && console.log( 'eventController getCurrentUser', u );
+    $scope.name = u.name;
+    $scope.email = u.email;
+    $scope.gameId = u.gameId;
+    initialize();
+  })
+  .catch( e => {
+    console.error( 'What to do with this error', e );
+  });
 
   $scope.currentTurnPlayerName;
   $scope.currentTurnPlayerId;
@@ -42,8 +55,8 @@ angular.module('pokemon.event', [])
   var initialize = function () {
     gameFactory.getGameTurn($scope.gameId)
       .then(function (resp) {
-        $scope.currentTurnPlayerName = resp.playerName;
-        $scope.currentTurnPlayerId = resp.facebookId;
+        $scope.currentTurnPlayerName = resp.name;
+        $scope.currentTurnPlayerId = resp.email;
         getGif();
       });
   };
@@ -76,11 +89,7 @@ angular.module('pokemon.event', [])
   };
 
 
-  confirmCurrentPage();
-
-  // setTimeout(function(){ 
-  //   pokemonSocket.emit('emit users back to board', {gameId: $scope.gameId});
-  // }, 3000);
+  // confirmCurrentPage();
 
 
 });

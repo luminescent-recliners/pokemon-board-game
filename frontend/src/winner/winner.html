@@ -1,7 +1,7 @@
 <div>
 
   <div>
-    <span class = "winnerHeading"> {{ winner.playerName }} won the Game! </span>
+    <span class = "winnerHeading"> {{ winner.name }} won the Game! </span>
     <button class = "home" ng-click = "goHome()"> Go Home </button>
   </div>
   <br /><br />
@@ -17,7 +17,7 @@
       </g>
     </svg>
     <br />
-    <span> Extra Pokemon's of {{ winner.playerName }} : </span>
+    <span> Extra Pokemon's of {{ winner.name }} : </span>
     <br />
     <span ng-repeat = "ExtraPokemon in party"> 
       <img src = "{{ ExtraPokemon.gifURL }}" > 
@@ -25,10 +25,10 @@
   </div>
 
   <div class = "otherPlayers">
-    <ul ng-repeat = "user in users" ng-if = "user.facebookId !== winner.facebookId"> 
+    <ul ng-repeat = "user in users" ng-if = "user.email !== winner.email"> 
       <li> 
         <div>
-           <span> Pokemon Count of {{ user.playerName }} : </span>
+           <span> Pokemon Count of {{ user.name }} : </span>
             <span> Pink: {{ user.pokemonCount.pink }}</span>
             <span> Green: {{ user.pokemonCount.green }} </span>
             <span> Blue: {{ user.pokemonCount.blue }} </span>

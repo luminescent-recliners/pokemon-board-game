@@ -2,7 +2,7 @@ const Users = require('./userModel.js');
 const { getLoginCode, verifyCode } = require( '../utils' );
 const { sendLoginCode } = require( '../mailModule' );
 
-const debug = process.env.NODE_ENV === 'development';
+const dev = process.env.NODE_ENV === 'development';
 
 const findUser = ( user ) => new Promise(( resolve, reject) => {
   Users.findOne( user, ( error, response ) => {
@@ -51,7 +51,7 @@ module.exports = {
   findUser,
 
   sendVerificationCode: async ( req, res, next ) => {
-    const email = req.body.email;
+    const email = req.body.email || '';
     if ( !email || typeof email !== 'string' || email.length < 5 ) {
       const message = 'Invalid email';
       console.error( message);
@@ -70,16 +70,27 @@ module.exports = {
   },
 
   verifyCode: async ( req, res, next ) => {
-    const email = req.body.email;
-    const code = req.body.code;
+    const email = req.body.email || '';
+    const code = req.body.code || '';
     const result = verifyCode( email, code );
-    if ( result ) {
+    if ( result || dev ) {
       const ses = await createSession( email );
       res.cookie( 'pokemon.session', ses, { signed: true } );
       res.send( JSON.stringify({ message: 'Login Success', result: true }) );
     }
     else {
       res.send( JSON.stringify({ message: 'Incorrect Code', result: false }) );
+    }
+  },
+
+  loggedInUser: async ( req, res, next ) => {
+    const cookie = req.signedCookies['pokemon.session'];
+    if ( cookie ) {
+      const user = await findUser({ _id: cookie } );
+      res.send( JSON.stringify({ name: user.name, email: user.email, result: true }) );
+    }
+    else {
+      res.send( JSON.stringify({ name: '', email: '', message: 'User not logged in', result: false }) );
     }
   },
   
