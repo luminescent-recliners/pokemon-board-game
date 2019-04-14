@@ -1,5 +1,5 @@
 const Users = require('./userModel.js');
-const Codes = require( '../verificationCode' );
+const { getLoginCode, verifyCode } = require( '../utils' );
 const { sendLoginCode } = require( '../mailModule' );
 
 const debug = process.env.NODE_ENV === 'development';
@@ -58,7 +58,7 @@ module.exports = {
       res.send( JSON.stringify({ message: message , result: false }) );
       return;
     }
-    const code = Codes.getLoginCode( email )
+    const code = getLoginCode( email )
     sendLoginCode( email, code )
     .then( u => {
       res.send( JSON.stringify({ message: 'Verification Code Sent', result: true }) );
@@ -72,7 +72,7 @@ module.exports = {
   verifyCode: async ( req, res, next ) => {
     const email = req.body.email;
     const code = req.body.code;
-    const result = Codes.verifyCode( email, code );
+    const result = verifyCode( email, code );
     if ( result ) {
       const ses = await createSession( email );
       res.cookie( 'pokemon.session', ses, { signed: true } );

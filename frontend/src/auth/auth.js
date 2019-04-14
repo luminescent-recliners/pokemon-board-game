@@ -15,7 +15,7 @@ angular.module('pokemon.auth', [])
   $scope.sendCode = () => {
     authFactory.sendCode( $scope.user.email )
     .then( r => {
-      console.log( 'response', r)
+      // console.log( 'response', r)
       if ( r.result ) {
         $scope.phase = 'email';
         $scope.message = r.message;
@@ -25,17 +25,16 @@ angular.module('pokemon.auth', [])
       }
     })
     .catch( e => {
-      console.error( e );
+      // console.error( e );
       $scope.phase = 'error';
       $scope.message = e.message;
     })
   }
 
   $scope.verifyCode = () => {
-    console.log( 'component', $scope.user.email, $scope.user.code )
     authFactory.verifyCode( $scope.user.email, $scope.user.code )
     .then( r => {
-      console.log( 'response', r);
+      // console.log( 'response', r);
       if ( r.result ) {
         $scope.phase = 'start';
         $scope.message = r.message;
@@ -46,7 +45,7 @@ angular.module('pokemon.auth', [])
       }
     })
     .catch( e => {
-      console.error( e );
+      // console.error( e );
       $scope.phase = 'error';
       $scope.message = e.message;
     })
