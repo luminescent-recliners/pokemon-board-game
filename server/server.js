@@ -13,7 +13,7 @@ const { keyGen } = require( './utils' );
 
 const dev = process.env.NODE_ENV === 'development';
 
-const debug = false;
+const debug = true;
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
@@ -65,14 +65,14 @@ server.on( 'error', error => {
   console.log( error.code );
   console.log( error.message );
   console.log( error.stack );
-})
+});
 
 app.on( 'error', error => {
   console.log( '\nUnhandled Server App Error')
   console.log( error.code );
   console.log( error.message );
   console.log( error.stack );
-})
+});
 
 // for sockets
 const usersInGames = {}; 
@@ -80,6 +80,20 @@ const usersInResumeGameLobby = {};
 const selectionPokemon = {};
 const winners = {};
 const io = IO( server );
+
+if ( debug ) {
+  setInterval( () => {
+    console.log( '\n UsersInGames: ', JSON.stringify( usersInGames ) );
+    console.log( '\n UsersInREsumeGameLobby:\n', JSON.stringify( usersInResumeGameLobby ) );
+  }, 10000 );
+}
+
+io.on( 'error', error => {
+  console.log( '\nUnhandled IO Error')
+  console.log( error.code );
+  console.log( error.message );
+  console.log( error.stack );
+});
 
 
 io.on('connection', function(socket) {
@@ -95,7 +109,10 @@ io.on('connection', function(socket) {
   socket.on('joinLobby', function(data) {
     socket.join(data.gameId);
     usersInGames[data.gameId] = usersInGames[data.gameId] || [];
-     usersInGames[data.gameId].push(data.user);
+    const alreadyjoined = usersInGames[data.gameId].filter( u => u.email === data.user.email );
+    if ( alreadyjoined.length === 0 ) {
+      usersInGames[data.gameId].push(data.user);
+    }
     io.to(data.gameId).emit('join-Lobby', usersInGames[data.gameId]);
   });
 
