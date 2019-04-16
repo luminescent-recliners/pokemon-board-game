@@ -56,18 +56,12 @@ angular.module('pokemon.home', [])
     if($scope.newGameName) {
       $scope.showMessage = false;
       userFactory.addGame($scope.gameId, $scope.newGameName, $scope.email, $scope.name)
-      .then(function (resp) {
-        var userGame = {
-          gameId: resp.gameId,
-          gameName: resp.name
-        };
-        pokemonSocket.emit('newGame', userGame);
-       })
-       .catch(function (error) {
+      .catch(function (error) {
         console.error(error);
       });
-        $scope.newGameName = '';
-    } else {
+      $scope.newGameName = '';
+    } 
+    else {
       $scope.showMessage = true;
     }
   };
@@ -110,33 +104,32 @@ angular.module('pokemon.home', [])
 
   var userGames = function() {
     userFactory.getGames()
-    .then(function(games) {
-      $scope.games = games;
-      // figure out if player is in any of the started games
-      // should this logic go on the server side?
-      for(var i = 0; i < games.length; i++) {
-        if(games[i].gameStarted){
-          for(var j = 0; j < games[i].gamePlayers.length; j++){
-            if(games[i].gamePlayers[j].email === $scope.email) {
-              $scope.myGames.push(games[i]);
-            }
-          }
-        } else {
-          if(games[i].gameCreator.email === $scope.email) {
-            $scope.myGames.push(games[i]);
-          }
-        }
-      }
-    })
+    .then( populateGamesAndMyGames )
     .catch(function(error) {
       console.error(error);
     });
   };
   
-  pokemonSocket.on('updateAvailGames', function(newGame) {
-    $scope.games = [];
+  pokemonSocket.on('updateAvailGames',  populateGamesAndMyGames );
+
+  function populateGamesAndMyGames( games ) {
+    $scope.games = games;
     $scope.myGames = [];
-    userGames();
-  });
+    for( let i = 0; i < games.length; i++ ) {
+      const game = games[i];
+      if ( game.gameStarted ) {
+        for( let j = 0; j < game.gamePlayers.length; j++){
+          if(game.gamePlayers[j].email === $scope.email) {
+            $scope.myGames.push(game);
+          }
+        }
+      } 
+      else {
+        if ( game.gameCreator.email === $scope.email ) {
+          $scope.myGames.push(game);
+        }
+      }
+    }
+  }
 
 });

@@ -16,10 +16,14 @@ const playerCounter = {};
 
 const debug = false;
 
+let io;
+
 module.exports = {
   findGame: findGame,
 
   findGames: findGames,
+
+  setIoHandle: inio => io = inio,
 
   updateCurrentPage: function(req, res, next) {
     const gameId = req.body.gameId;
@@ -332,37 +336,60 @@ module.exports = {
   addGame: function(req, res, next) {
     // we are finding all the games first so we can count how many and use
     // that count to create the next id
+    let id;
     findGames()
     .then(function(games) {
       var gameName = req.body.gameName;
       var email = req.body.email;
       var name = req.body.name;
-      var id = games.length + 1;
-        var newGame = new Games({
-          gameId: id, 
-          name: gameName,
-          gameBoard: gameBoardData,
-          users: [],
-          availablePokemon: availablePokemonData,
-          availableItemCards: [],
-          gameCreator: {
-            email: email,
-            name: name
-          },
-          gameStarted: false,
-          gameTurn: {
-            email: email,
-            name: name
-          },
-          gameCounter: 0,
-          currentPage: 'lobbyView',
-          availableSprites: availableSpritesData
-        });
-
-        newGame.save(function (err) {
-          if (err) throw err;
-          res.send(newGame);
-        });
+      id = games.length + 1;
+      var newGame = new Games({
+        gameId: id, 
+        name: gameName,
+        gameBoard: gameBoardData,
+        users: [],
+        availablePokemon: availablePokemonData,
+        availableItemCards: [],
+        gameCreator: {
+          email: email,
+          name: name
+        },
+        gameStarted: false,
+        gameTurn: {
+          email: email,
+          name: name
+        },
+        gameCounter: 0,
+        currentPage: 'lobbyView',
+        availableSprites: availableSpritesData
+      });
+      return newGame.save();
+    })
+    .then( () => {
+      return findGames();
+    })
+    .then( games => {
+      const results = [];
+      for( let i = 0; i < games.length; i++) {
+        const playersInGame = [];
+        for( let j= 0; j < games[i].users.length; j++ ) {
+          playersInGame.push({
+            email: games[i].users[j].email,
+            name:  games[i].users[j].name
+          });
+        }
+        const resObj = {
+          gameId: games[i].gameId,
+          gameName: games[i].name,
+          gameStarted:  games[i].gameStarted,
+          gamePlayers: playersInGame,
+          gameCreator:  games[i].gameCreator
+        };
+        results.push(resObj);
+      }
+      res.send(results);
+      io.emit( 'updateAvailGames', results );
+      res.send({ message: 'new game created', id: id, result: true });
     })
   },
 

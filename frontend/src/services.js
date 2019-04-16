@@ -116,9 +116,8 @@ angular.module('services', [])
   var addGame = function (gameId, gameName, gameCreator, playerName) {
     return $http({
       method: 'POST',
-      url: 'api/games/addgame',
+      url: 'game',
       data: {
-        gameId: gameId,
         gameName: gameName,
         email: gameCreator,
         name: playerName

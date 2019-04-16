@@ -10,10 +10,11 @@ require('./db/db.js'); // sets up db
 const router = require('./routes.js');
 const Users = require( './users/userController' );
 const { keyGen } = require( './utils' );
+const gameController = require('./game/gameController.js');
 
 const dev = process.env.NODE_ENV === 'development';
 
-const debug = true;
+const debug = false;
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
@@ -81,6 +82,8 @@ const selectionPokemon = {};
 const winners = {};
 const io = IO( server );
 
+gameController.setIoHandle( io );
+
 if ( debug ) {
   setInterval( () => {
     console.log( '\n UsersInGames: ', JSON.stringify( usersInGames ) );
@@ -96,14 +99,12 @@ io.on( 'error', error => {
 });
 
 
-io.on('connection', function(socket) {
+
+io.on('connection', socket => {
   console.log('a user connected');
+
   socket.on('disconnect', function() {
     console.log('a user disconnected');
-  });
-
-  socket.on('newGame', function(newGame) {
-    io.emit('updateAvailGames', newGame);
   });
 
   socket.on('joinLobby', function(data) {

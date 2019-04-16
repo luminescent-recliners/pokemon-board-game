@@ -9,7 +9,7 @@ const tempEventsController = require('./tempEvents/tempEventsController.js');
 const tempCityController = require('./tempCity/tempCityController.js');
 
 
-router.post('/api/games/addGame', gameController.addGame);
+router.post('/game', gameController.addGame);
 
 router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
