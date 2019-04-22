@@ -7,6 +7,7 @@ const availableSpritesData = require('../data/availableSpritesData.js');
 
 const findGame = Q.nbind(Games.findOne, Games);
 const findGames = Q.nbind(Games.find, Games);
+const countGames = Q.nbind( Games.countDocuments, Games);
 
 const pokemonController = require('../pokemon/pokemonController.js');
 
@@ -37,7 +38,7 @@ module.exports = {
       return game.save();
     })
     .then(() => {
-      res.send(gameFound.currentPage); 
+      res.send({ currentPage: gameFound.currentPage}); 
     })
     .catch( error =>  {
       debug && console.log( 'updateCurrentPage error', error )
@@ -187,7 +188,7 @@ module.exports = {
     findGame({ gameId: gameId })
     .then(function (game) {
       var users = [];
-      for(var i = 0;i < game.users.length; i++) {
+      for( let i = 0; i < game.users.length; i++ ) {
         users.push({
           email: game.users[i].email,
           name: game.users[i].name
@@ -207,16 +208,19 @@ module.exports = {
   },
 
   addUser: function (req, res, next) {
-    var gameId = req.body.gameId;
-    var users = req.body.users || [];
+    const gameId = req.body.gameId;
+    const users = req.body.users || [];
     let gameTurn;
 
     findGame({gameId: gameId})
-      .then(function (game) {
-        for(var i=0;i<users.length;i++) {
+    .then( game => {
+      for ( let i=0; i < users.length; i++ ) {
+        const user = users[i];
+        const userAlreadyInGame = game.users.find( v => (v.email == user.email) );
+        if ( !userAlreadyInGame ) {
           game.users.push({
-            email: users[i].email,
-            name: users[i].name,
+            email: user.email,
+            name: user.name,
             playerIndex: 0,
             badges: [],
             party: [],
@@ -234,18 +238,19 @@ module.exports = {
             sprite:''
           });
         }
-        game.gameStarted = true;
-        game.currentPage = 'starterView';
-        game.markModified('users');
-        gameTurn = game.gameTurn;
-        return game.save();
-      })
-      .then( () => {
-        res.send(gameTurn);
-      })
-      .fail(function (error) {
-        next(error);
-      });
+      }
+      game.gameStarted = true;
+      game.currentPage = 'starterView';
+      game.markModified('users');
+      gameTurn = game.gameTurn;
+      return game.save();
+    })
+    .then( () => {
+      res.send(gameTurn);
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   findTurn: function (req, res, next) {
@@ -337,13 +342,11 @@ module.exports = {
     // we are finding all the games first so we can count how many and use
     // that count to create the next id
     let id;
-    findGames()
-    .then(function(games) {
-      var gameName = req.body.gameName;
-      var email = req.body.email;
-      var name = req.body.name;
-      id = games.length + 1;
-      var newGame = new Games({
+    const { gameName, email, name } = req.body;
+    countGames()
+    .then( count => {
+      id = count + 1;
+      const newGame = new Games({
         gameId: id, 
         name: gameName,
         gameBoard: gameBoardData,
@@ -387,7 +390,6 @@ module.exports = {
         };
         results.push(resObj);
       }
-      res.send(results);
       io.emit( 'updateAvailGames', results );
       res.send({ message: 'new game created', id: id, result: true });
     })
@@ -437,7 +439,7 @@ module.exports = {
       .then(function (game) {
         // check if roll captures poekmon
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
-          result = "Success!! Pokemon Captured";
+          result = { message: "Success!! Pokemon Captured" };
           for(var i = 0; i < game.users.length; i++) {
             if(game.users[i].email === userId) {
               game.users[i].party.push(pokemon);
@@ -451,7 +453,7 @@ module.exports = {
           }
         // if not change visibility of pokemon on game board  
         } else {
-          result = "Sorry!! Pokemon Got Away";
+          result = { message: "Sorry!! Pokemon Got Away" };
           // figure out board spot
           for(var i = 0; i < game.users.length; i++) {
             if(game.users[i].email === userId) {
@@ -597,11 +599,12 @@ module.exports = {
   },
 
   updatePlayerCounter: function(req, res, next) {
+    // TODO: make this so that repeated calls from same person does not affect count
     var gameId = req.body.gameId;
     if(playerCounter[gameId]) {
       playerCounter[gameId] = playerCounter[gameId] - 1;
     }
-    res.send("updated!");
+    res.send({ result: true, message: `updated game counter` });
   },
   trainerInit: function(req, res, next) {
     var gameId = req.query.gameId;

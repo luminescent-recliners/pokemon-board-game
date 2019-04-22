@@ -87,6 +87,9 @@ module.exports = {
     const cookie = req.signedCookies['pokemon.session'];
     if ( cookie ) {
       const user = await findUser({ _id: cookie } );
+      if ( !user.email ) {
+        res.clearCookie( 'pokemon.session' /*, { signed: true }*/);
+      }
       res.send( JSON.stringify({ name: user.name, email: user.email, result: true }) );
     }
     else {

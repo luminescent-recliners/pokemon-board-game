@@ -65,7 +65,7 @@ async function resetDatabase() {
   }
   catch( e ) {
     console.error( 'Error reseting database:', e.message || e );
-    return new Error( e.message || e );
+    throw new Error( e.message || e );
   }
 }
 

@@ -9,7 +9,7 @@ const tempEventsController = require('./tempEvents/tempEventsController.js');
 const tempCityController = require('./tempCity/tempCityController.js');
 
 
-router.post('/game', gameController.addGame);
+router.post('/api/game', gameController.addGame);
 
 router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
@@ -38,10 +38,10 @@ router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
 router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
 
-router.post( '/login', userController.sendVerificationCode );
-router.post( '/login/verify', userController.verifyCode );
+router.post( '/api/login', userController.sendVerificationCode );
+router.post( '/api/login/verify', userController.verifyCode );
 
-router.get( '/user', userController.loggedInUser );
+router.get( '/api/user', userController.loggedInUser );
 
 
 

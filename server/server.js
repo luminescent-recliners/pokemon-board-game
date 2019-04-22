@@ -14,7 +14,7 @@ const gameController = require('./game/gameController.js');
 
 const dev = process.env.NODE_ENV === 'development';
 
-const debug = false;
+const debug = true;
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
@@ -84,7 +84,7 @@ const io = IO( server );
 
 gameController.setIoHandle( io );
 
-if ( debug ) {
+if ( debug && false ) {
   setInterval( () => {
     console.log( '\n UsersInGames: ', JSON.stringify( usersInGames ) );
     console.log( '\n UsersInREsumeGameLobby:\n', JSON.stringify( usersInResumeGameLobby ) );
@@ -120,7 +120,12 @@ io.on('connection', socket => {
   socket.on('join resume lobby', function(data) {
     socket.join(data.gameId);
     usersInResumeGameLobby[data.gameId] = usersInResumeGameLobby[data.gameId] || [];
-    usersInResumeGameLobby[data.gameId].push(data.user);
+
+    const alreadyjoined = usersInResumeGameLobby[data.gameId].filter( u => u.email === data.user.email );
+    if ( alreadyjoined.length === 0 ) {
+      usersInResumeGameLobby[data.gameId].push(data.user);
+    }
+    
     io.to(data.gameId).emit('join resume lobby', usersInResumeGameLobby[data.gameId]);
   });
 
@@ -220,6 +225,10 @@ io.on('connection', socket => {
 
 });
 
+/*
+let count = 0;
+setInterval( () => io.emit( 'hello-world', `testing -- ${count++}`), 10000 );
+*/
 
 server.listen( port, () => {
   console.log('Server listening on..', port);
