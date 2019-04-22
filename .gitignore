@@ -15,5 +15,7 @@ node_modules/
 config.json
 config.prod.json
 ignore*
+frontend-old
+
 
 

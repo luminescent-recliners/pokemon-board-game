@@ -1,0 +1,47 @@
+<div *ngIf="winner && winner.name">
+  <div>
+    <span class="winnerHeading"> {{ winner.name }} won the Game! </span>
+    <button class="home" (click)="goHome()"> Go Home </button>
+  </div>
+
+  <div class="gameWon">
+    <svg class="winner" width="500" height="305" viewBox= "200 5 155 300">
+      <svg:g>
+        <svg:image class="player" x="115%" y="35%" [attr.xlink:href]="winner.sprite" width="80px" height="85px"  />
+        
+        <svg:circle [attr.class]="point.class" *ngFor="let point of circleData" [attr.cx]="point.row" [attr.cy]="point.col" r="25" />
+
+        <svg:image class="saturn" *ngFor="let point of circleData" [attr.x]="point.row -20" [attr.y]="point.col -20" [attr.xlink:href]="point.gifURL" width="40px" height="40px"/>
+      </svg:g>
+    </svg>
+    <div>
+      <p> Extra Pokemon"s of {{ winner.name }} : </p>
+      <span *ngFor="let extraPokemon of party"> 
+        <img [attr.src]="extraPokemon.gifURL" > 
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="user && user.email"> 
+    <div class="otherPlayers" *ngIf="user.email !== winner.email">
+      <ul *ngFor="let u of users" > 
+        <li> 
+          <div>
+              <span> Pokemon Count of {{ u.name }} : </span>
+              <span> Pink: {{ u.pokemonCount.pink }}</span>
+              <span> Green: {{ u.pokemonCount.green }} </span>
+              <span> Blue: {{ u.pokemonCount.blue }} </span>
+              <span> Red: {{ u.pokemonCount.red }} </span>
+              <img [attr.src]="u.sprite">
+              <span *ngFor="let pokemon of u.party"> 
+                <img [attr.src]="pokemon.gifURL" > 
+              </span>
+          </div>
+        </li> 
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

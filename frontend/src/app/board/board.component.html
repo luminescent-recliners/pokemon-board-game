@@ -1,0 +1,133 @@
+<div class="map-group">
+  <div class='map-panel'> <!-- TODO: this should be moved to its own component-->
+    <svg viewBox="0 0 896 600">    
+      <svg:image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="100%" />
+      <svg:path [attr.d]="pathString" stroke="LemonChiffon" stroke-width=3 fill="none" width="100%" height="100%"/>
+      
+      <svg:g *ngFor='let point of boardData'>
+        <svg:circle *ngIf="!point.pokemon"
+          [attr.cx]="point.col" 
+          [attr.cy]="point.row" 
+          r=8 
+          [attr.fill]="point.colorOfSpot" 
+          stroke="black" 
+          stroke-width="1"
+          fill-opacity="0.8" >
+        </svg:circle>
+  
+        <svg:circle *ngIf="point.pokemon"
+          [attr.cx]="point.col" 
+          [attr.cy]="point.row" 
+          r=27 
+          [attr.fill]="point.colorOfSpot"
+          stroke-width='1' 
+          stroke='grey' >
+        </svg:circle>
+  
+        <svg:image *ngIf="point.pokemon"
+          [attr.xlink:href]="point.pokemon.gifURL"
+          [attr.x]="point.col -20" 
+          [attr.y]="point.row -20" 
+          width='40px' 
+          height='40px'>
+        </svg:image>
+      </svg:g>
+  
+      <svg:g class='player' *ngFor="let player of allPlayers; index as i" >
+        <svg:ellipse class='player' 
+          *ngIf="boardData[playerPosition] && boardData[playerPosition].col && boardData[playerPosition].col !== null"
+          [attr.cx]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[i][1] : 
+            boardData[player.positionOnBoard -1].col + allPlayersBoard[i][1]" 
+          [attr.cy]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[i][0] : boardData[player.positionOnBoard -1].row + allPlayersBoard[i][0]"
+          rx="11" 
+          ry="28"
+          style="fill:beige;opacity:0.5">
+        </svg:ellipse>
+  
+        <svg:image class='player'
+          *ngIf="boardData[playerPosition] && boardData[playerPosition].col && boardData[playerPosition].col !== null"
+          [attr.x]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[i][1] + dx:      boardData[player.positionOnBoard -1].col + allPlayersBoard[i][1] + dx" 
+          [attr.y]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[i][0] + dy:      boardData[player.positionOnBoard -1].row + allPlayersBoard[i][0] + dy" 
+          r='9' 
+          [attr.xlink:href]="player.sprite"
+          width='40px'
+          height='40px'>
+        </svg:image>
+      </svg:g>
+    </svg>
+  </div>
+
+  <div class="control-panel" *ngIf="!userInfoPanel">
+    <div class="currentTurn">
+      <h3>Current Turn: {{cuname}}</h3>
+      <img [attr.src]="currentTurnSprite" alt="">
+      <h5 *ngIf="rollDisplay">{{cuname}} rolled a {{roll}}!</h5>
+    </div>
+  <hr>
+    <div *ngIf="continueGame">
+      <div class="game-status" *ngIf="user.email === currentTurnEmail && actionDisplay === false">
+        <button class="board-center" (click)="rollDice()" *ngIf="roll <= 0"> Roll Dice </button>
+        <p class='board-center' *ngIf="roll > 0">You rolled a {{roll}}</p>
+        <div class="player-options">
+          <ul>
+            <li *ngFor="let forwardOption of playerOptions[0]"><a href="javascript:void(0)" (click)="movePlayer(forwardOption)">{{forwardOption.description}}</a></li>
+          </ul>
+          <ul>
+            <li *ngFor="let backwardOption of playerOptions[1]"><a href="javascript:void(0)" (click)="movePlayer(backwardOption)">{{backwardOption.description}}</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="action-display board-center" *ngIf="actionDisplay">
+        <h4>{{actionDescription}}</h4>
+        <button class="tn-lg btn-primary" (click)="redirectAllUsers()" *ngIf="user.email === currentTurnEmail && actionDisplay"> Continue </button>
+      </div>
+    </div>
+    <div *ngIf="!continueGame" class='board-center'>
+      <p>{{pauseGameMessage}}</p>
+      <button class="board-center" (click)='goHome()'> Go Home </button>
+    </div>
+    <button class="board-center" (click)="togglePanel()"> Captured Pokemon </button>
+  
+    <p class='board-center space' *ngIf="showexitoptions">Check Box To Enable Exit Game Button: <input type='checkbox' (click)='toggleConfirm()'/> <button *ngIf="!confirmExit" (click)="exitGame()" > Exit Game </button></p>
+  </div>
+
+
+
+  <div class="control-panel" *ngIf="userInfoPanel">
+    <div class="user-info board-center">
+      <h3>{{user.name}}</h3>
+      <img [attr.src]="playerSprite" alt="">
+      <img [attr.src]="userParty.starter[0].gifURL" alt="">
+    </div>
+    <h5 class='board-center'> My Captured Pokemon: </h5>
+    <div class="scroll pink">
+      <ul>
+        <li *ngFor="let pokemon of userParty.pink"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
+      </ul>
+    </div> 
+
+    <div class="scroll green">
+      <ul>
+        <li *ngFor="let pokemon of userParty.green"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
+      </ul>
+    </div>
+
+    <div class="scroll blue">
+      <ul>
+        <li *ngFor="let pokemon of userParty.blue"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
+      </ul>
+    </div>
+
+    <div class="scroll red">
+      <ul>
+        <li *ngFor="let pokemon of userParty.red"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
+      </ul>
+    </div>
+      
+    <button class="tn-lg btn-primary board-center" (click)="togglePanel()"> Game Control </button>
+  </div>
+
+</div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

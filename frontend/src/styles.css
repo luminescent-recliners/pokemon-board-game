@@ -1,0 +1,37 @@
+
+.shared {
+  /* background-color: rgba(125,173,113, 1); */
+  background-color: rgba(121,201,250, 1 );
+  /* background-image: url('./assets/pokemonParty.png'),  
+                     linear-gradient(to bottom, rgba(121,201,250, 1 ) 40%, rgba(255,255,255,1), rgba(125,173,113, 1) 60%); */
+  /* background-image: linear-gradient(to bottom, rgba(121,201,250, 1 ) 40%, rgba(255,255,255,1), rgba(125,173,113, 1) 60%); */
+  /* background-image: linear-gradient(to bottom, rgba(121,201,250, 1 ) 30%,  rgba(125,173,113, 1) 70%); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.main-banner {
+  margin: 0;
+  padding: 0;
+  align-content: center;
+  width: 100%;
+}
+.main-banner h1 {
+  align-content: center;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+input {
+  color: #125986;
+  background-color: #D9E1E5;
+  border-radius: 5px;
+}
+
+button {
+  color: #125986;
+  background-color: #D9E1E5;
+  border-radius: 5px;
+}

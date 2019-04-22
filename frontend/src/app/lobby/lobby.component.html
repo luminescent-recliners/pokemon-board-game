@@ -1,0 +1,35 @@
+<div class="lobby">
+  <div class='row'>
+    <div class="lobby-text">
+      <p>Welcome to the lobby! Please patiently wait for {{ gameCreatorName }}, the game creator to start the game.</p>
+      <p>Rules: The first trainer to catch 4 Pink, 3 Green, 2 Blue and 2 Red Pokemon wins the game!</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <div class="lobby-list">
+        <p> Logged in As: {{ user.name }}</p>
+        <p> Game Name: {{ user.gameId }} {{ gameName }}</p>
+        <p> Game Creator: {{ gameCreatorName }}</p>
+        <p> People in Room: </p>
+        
+        <ul *ngFor="let user of users">
+          <li class="user-in-lobby">{{ user.name }}</li>
+        </ul>
+        
+        <input class="main-pokemon-btn" type='button' *ngIf="myGameCreator" (click)="getStarterView()" value='Start Game' />
+      </div>
+    </div>
+
+    <div>
+      <div class="lobby-image-container">
+        <img class="lobby-image" src="img/lobby.gif" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+    
+  
+
+<!-- <button (click)="printstate()"> Debug Print</button> -->

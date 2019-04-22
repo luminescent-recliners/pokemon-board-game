@@ -1,0 +1,18 @@
+<div class="trainer">
+  <div>
+    <h3>{{currentTurnPlayerName}} says hi to all the trainers.</h3>
+    <img [attr.src]="currentTrainer.sprite" alt="">
+  </div>
+
+  <div class="other-trainers">
+    <h3>Other Trainers at this Location</h3>
+    <div class="other-trainer" *ngFor="let trainer of otherTrainers">
+      <img class="sprite" [attr.src]="trainer.sprite" alt="">
+      <p class="other-trainer-name">{{trainer.name}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="currentTurnPlayerId===user.email">
+    <button (click)="updateTurn()">Continue</button>
+  </div>
+</div>

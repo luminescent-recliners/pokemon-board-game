@@ -1,0 +1,50 @@
+
+<div class='home'>
+  <div class="row">
+    <p class="home-text">
+      Create or join an existing game to play with other trainers. 
+      Explore the world map, catching various Pokemon and become a Pokemon Master amongst your peers!
+    </p>  
+  
+    <form name="myform">
+      <input class="create-game-input" type="text" placeholder="Enter name" [(ngModel)]="newGameName" name="game-name">
+      <input class="create-game-btn" type="button" value="Create Game" (click)="makeNewGame()">
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class='newGameSideBar'>
+    <h3>Logged in as <b>{{user.name}}</b></h3>
+    <button class="text-center" (click)="logout()"> Log Out </button>
+  </div>
+  
+  <div class='game-panel' >
+    <h3 class='panel-heading'><b>{{user.name}}'s Games</b></h3>
+    <div class='gameContent'>
+      <ul>
+        <li *ngFor="let game of myGames">
+          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"><b> {{game.gameName}} </b>- {{game.gameId}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class='game-panel' >
+    <h3 class='panel-heading' ><b>All Available Games</b></h3>
+    <div class='gameContent'>
+      <ul>
+        <li *ngFor="let game of availGames">
+          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"><b> {{game.gameName}} </b>- {{game.gameId}} -{{game.gameStarted}}</a>
+        </li>
+      </ul>
+    </div>  
+  </div>
+  
+</div>
+
+<div class="row">
+  <p *ngIf='message'>{{message}} - <span (click)="clearMessage()">close</span></p>
+</div>
+
+<!-- <button (click)="printstate()"> Debug Print</button> -->

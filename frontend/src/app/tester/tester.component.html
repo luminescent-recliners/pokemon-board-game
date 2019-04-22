@@ -1,0 +1,59 @@
+<div class='map-panel'>
+  <svg viewBox="0 0 896 600">    
+    <svg:image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="100%" />
+    <svg:path [attr.d]="pathString" stroke="LemonChiffon" stroke-width=3 fill="none" width="100%" height="100%"/>
+    
+    <svg:g *ngFor='let point of boardData'>
+      <svg:circle *ngIf="!point.pokemon"
+        [attr.cx]="point.col" 
+        [attr.cy]="point.row" 
+        r=8 
+        [attr.fill]="point.colorOfSpot" 
+        stroke="black" 
+        stroke-width="1"
+        fill-opacity="0.8" >
+      </svg:circle>
+
+      <svg:circle *ngIf="point.pokemon"
+        [attr.cx]="point.col" 
+        [attr.cy]="point.row" 
+        r=27 
+        [attr.fill]="point.colorOfSpot"
+        stroke-width='1' 
+        stroke='grey' >
+      </svg:circle>
+
+      <svg:image *ngIf="point.pokemon"
+        [attr.xlink:href]="point.pokemon.gifURL"
+        [attr.x]="point.col -20" 
+        [attr.y]="point.row -20" 
+        width='40px' 
+        height='40px'>
+      </svg:image>
+    </svg:g>
+
+    <svg:g class='player' *ngFor="let player of allPlayers" >
+      <svg:ellipse class='player' 
+        *ngIf="boardData[playerPosition].col == null"
+        [attr.cx]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] : 
+          boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1]" 
+        [attr.cy]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] : boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0]"
+        rx="11" 
+        ry="28"
+        style="fill:beige;opacity:0.5">
+      </svg:ellipse>
+
+      <svg:image class='player'
+        *ngIf="boardData[playerPosition].col == null"
+        [attr.x]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].col + allPlayersBoard2[$index][1] + dx:      boardData[player.positionOnBoard -1].col + allPlayersBoard[$index][1] + dx" 
+        [attr.y]="boardData[player.positionOnBoard -1].pokemon ? boardData[player.positionOnBoard -1].row + allPlayersBoard2[$index][0] + dy:      boardData[player.positionOnBoard -1].row + allPlayersBoard[$index][0] + dy" 
+        r='9' 
+        xlink:href="player.sprite"
+        width='40px'
+        height='40px'>
+      </svg:image>
+    </svg:g>
+  </svg>
+</div>
+
+<button (click)="printstate()"> Print State </button>

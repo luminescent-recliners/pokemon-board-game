@@ -1,0 +1,46 @@
+<div class="text-center">
+  <div>
+    <h3>{{currentTurnPlayerName}} was wandering in the wild!</h3>
+    <h3>A wild {{name}} appeared!</h3>
+  </div>  
+  <!-- POKEDEX -->  
+  <div class="pokemonCap">
+    <h4 class="panel-heading"><b>{{currentTurnPlayerName}}"s Pokedex</b></h4> 
+    <div>  
+      <img class="pokeMove" [attr.src]="imageUrl">
+    </div>
+    <div>
+      <span class="pokemonCap"><b>{{name}}</b></span>
+      <span *ngFor="let oneDice of dice">
+        <span> <img class="dice" [attr.src]="oneDice" ></span>
+      </span>
+    </div>  
+    <div>
+      Description:<span> {{description}}</span>
+    </div>
+<!--     <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{rollNeeded}}.</p>  -->  
+  </div>
+
+  <!-- Roll Dice Button -->  
+  <div *ngIf="diceRolled===false && currentTurnPlayerId===user.email" >
+    <button (click)="rollDice()" > Roll Dice & Catch</button>
+  </div>
+
+  <!-- MESSAGE (OPPONENTS)-->  
+  <div class="result-panel">
+    <p *ngIf="currentTurnPlayerId !== user.email && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
+    <div *ngIf="diceRolled && currentTurnPlayerId !== user.email">
+      <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+      <p>{{result}}</p>
+    </div>
+  </div>
+
+  <!-- MESSAGE (USER) -->  
+  <div *ngIf="diceRolled && currentTurnPlayerId===user.email">
+    <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+    <span>{{result}}</span>
+    <button (click)="updateTurn()">Continue</button>
+  </div>
+</div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

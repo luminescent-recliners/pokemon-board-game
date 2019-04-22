@@ -1,0 +1,36 @@
+<div class="lobby">
+  <div class='row'>
+    <div class="resume-text">
+      <p>
+        Welcome to the lobby! All players from the original game must be present 
+        before the game can be started. Once all players are here  {{ gameCreator }}, 
+        the game creator can resume the game.
+      </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div>
+      <div class="lobby-list">
+        <p> Logged in As: {{ user.name }}</p>
+        <p> Game Name: {{ user.gameId }} {{ gameName }}</p>
+        <p> Game Creator: {{ gameCreator }}</p>
+        <p> People in Game: </p>
+        <ul *ngFor="let user of users">
+          <li class="user-in-lobby">{{ user.name }}</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div>
+      <div class="lobby-list">
+        <p> People in Room: </p>
+        <ul *ngFor="let user of usersInRoom">
+          <li class="user-in-lobby">{{ user.name }}</li>
+        </ul>
+        <input class="main-pokemon-btn" type='button' *ngIf="(gameCreatorId === user.email) && (usersInRoom.length === users.length)" (click)="getBoardView()" value='Resume Game' />
+      </div>
+    </div>
+  </div>
+</div>
+  
