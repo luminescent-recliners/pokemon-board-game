@@ -18,7 +18,6 @@ import { CapturePokemonComponent } from './capture-pokemon/capture-pokemon.compo
 import { TrainerComponent } from './trainer/trainer.component';
 import { WinnerComponent } from './winner/winner.component';
 import { TesterComponent } from './tester/tester.component';
-import { SvgDDirective } from './svg-d.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { SvgDDirective } from './svg-d.directive';
     TrainerComponent,
     WinnerComponent,
     TesterComponent, // dev
-    SvgDDirective
   ],
   imports: [
     BrowserModule,
