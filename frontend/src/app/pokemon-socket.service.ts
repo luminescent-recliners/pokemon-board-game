@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
+import { socketUrl } from './config';
+
 const debug = false;
 
 @Injectable({
@@ -12,7 +14,7 @@ export class PokemonSocketService {
 
   private listeners = {};
 
-  private url = 'http://localhost:3000'; // TODO configure this dynamically
+  private url = socketUrl;
 
   constructor() {
     this.socket = io( this.url );
