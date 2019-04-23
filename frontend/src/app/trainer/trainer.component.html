@@ -1,4 +1,4 @@
-<div class="trainer">
+<div class="trainer" *ngIf="currentTrainer">
   <div>
     <h3>{{currentTurnPlayerName}} says hi to all the trainers.</h3>
     <img [attr.src]="currentTrainer.sprite" alt="">
@@ -16,3 +16,5 @@
     <button (click)="updateTurn()">Continue</button>
   </div>
 </div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

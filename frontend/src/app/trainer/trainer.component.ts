@@ -41,7 +41,7 @@ export class TrainerComponent implements OnInit {
   }
 
   setUp() {
-    if (!this.auth.isAuth('board')) {
+    if (!this.auth.isAuth('trainer')) {
       this.router.navigate(['/signin']);
     }
     else {
@@ -89,6 +89,16 @@ export class TrainerComponent implements OnInit {
         this.otherTrainers = resp2.otherTrainers;
       });
     });
+  }
+
+  printstate() {
+    console.log( 'currentTurnPlayerName:', this.currentTurnPlayerName );
+    console.log( 'currentTurnPlayerId:', this.currentTurnPlayerId );
+    console.log( 'gifDescrip:', this.gifDescrip );
+    console.log( 'gifURL:', this.gifURL );
+    console.log( 'user:', this.user );
+    console.log( 'currentTrainer:', this.currentTrainer );
+    console.log( 'otherTrainers:', this.otherTrainers );
   }
 
 }
