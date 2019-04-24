@@ -43,6 +43,9 @@ export class AuthService {
         return d;
       });
     }
+    else if ( this.getSession() ) {
+      this.socket.connect();
+    }
   }
   
   setUserInfo( d ) {

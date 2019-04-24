@@ -13,7 +13,7 @@ const gameController = require('./game/gameController.js');
 
 const dev = process.env.NODE_ENV === 'development';
 
-const debug = true;
+const debug = false;
 
 mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
 
@@ -229,10 +229,10 @@ io.on('connection', socket => {
 
 });
 
-// /*
-let count = 0;
-setInterval( () => io.emit( 'hello-world', `testing -- ${count++}`), 10000 );
-// */
+if ( dev ) {
+  let count = 0;
+  setInterval( () => io.emit( 'hello-world', `testing -- ${count++}`), 10000 );
+}
 
 server.listen( port, () => {
   console.log('Server listening on..', port);
