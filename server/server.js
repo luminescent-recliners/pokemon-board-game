@@ -5,7 +5,6 @@ const http = require('http');
 const IO = require('socket.io');
 const cookieParser = require('cookie-parser')
 
-
 require('./db/db.js'); // sets up db
 const router = require('./routes.js');
 const Users = require( './users/userController' );
@@ -59,6 +58,11 @@ app.use(express.static(__dirname + '/../frontend/dist/assets'));
 app.use(express.static(__dirname + '/../frontend/dist/assets/img'));
 
 app.use(router);
+
+//this catch all must be after all routes
+app.get( '*', ( req, res, next ) => {
+  res.redirect( '/' );
+})
 
 const server = http.createServer( app );
 server.on( 'error', error => {
@@ -225,10 +229,10 @@ io.on('connection', socket => {
 
 });
 
-/*
+// /*
 let count = 0;
 setInterval( () => io.emit( 'hello-world', `testing -- ${count++}`), 10000 );
-*/
+// */
 
 server.listen( port, () => {
   console.log('Server listening on..', port);
