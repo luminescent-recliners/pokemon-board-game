@@ -1,4 +1,4 @@
-<div class='map-panel'>
+<div class='map-panel' *ngIf="drawboard">
   <svg viewBox="0 0 896 600">    
     <svg:image xlink:href="assets/boardMap.png" x="0" y="0"  width="100%" height="100%" />
     <svg:path [attr.d]="pathString" stroke="LemonChiffon" stroke-width=3 fill="none" width="100%" height="100%"/>
@@ -57,3 +57,15 @@
 </div>
 
 <button (click)="printstate()"> Print State </button>
+
+
+<div *ngFor="let l of listeners; index as i">
+  <li (click)="select(i)">{{l}} {{i}} </li>
+</div>
+<div>{{selectlisten}}</div>
+
+<button (click)="deregister()"> Dergister </button>
+
+<button (click)="addlistener()"> Register </button>
+
+<a routerLink="/signin">sigin in</a>

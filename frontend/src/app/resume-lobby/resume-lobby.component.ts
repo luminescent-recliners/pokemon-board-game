@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -13,7 +13,7 @@ const debug = false;
   templateUrl: './resume-lobby.component.html',
   styleUrls: ['./resume-lobby.component.css']
 })
-export class ResumeLobbyComponent implements OnInit {
+export class ResumeLobbyComponent implements OnInit, OnDestroy {
 
   message = '';
   user = {
@@ -26,6 +26,7 @@ export class ResumeLobbyComponent implements OnInit {
   gameCreator = '';
   users = [];
   usersInRoom = [];
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -56,26 +57,38 @@ export class ResumeLobbyComponent implements OnInit {
 
       this.initialize();
 
-      this.pokeSocket.register( 'join resume lobby', data => {
-        if ( debug ) { console.log( 'resume-lobby [join resume lobby]', data ); }
-        this.usersInRoom = data || [];
-      });
-    
-      this.pokeSocket.register( 'users in resumegamelobby', resumeGameUserArray => {
-        if ( debug ) { console.log( 'resume-lobby [users in resumegamelobby]', resumeGameUserArray ); }
-        this.usersInRoom = resumeGameUserArray || [];
-      });
-    
-      this.pokeSocket.register( 'moveAllPlayersToBoard', () => {
-        if ( debug ) { console.log( 'resume-lobby [moveAllPlayersToBoard]' ); }
-        this.router.navigate([ '/board' ]);
-      });
-    
-      this.pokeSocket.register( 'update users in room', updatedusers => {
-        if ( debug ) { console.log( 'resume-lobby [update users in room]', updatedusers ); }
-        this.usersInRoom = updatedusers || [];
-      });
+      this.socketEvents = [
+        [ 'join resume lobby', this.joinResumeLobbyCB ],
+        [ 'users in resumegamelobby', this.usersInResumeGameLobbyCB ],
+        [ 'moveAllPlayersToBoard', this.moveAllPlayersToBoardCB ],
+        [ 'update users in room', this.updateUsersInRoomCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
     }
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  updateUsersInRoomCB = updatedusers => {
+    if ( debug ) { console.log( 'resume-lobby [update users in room]', updatedusers ); }
+    this.usersInRoom = updatedusers || [];
+  }
+
+  moveAllPlayersToBoardCB = () => {
+    if ( debug ) { console.log( 'resume-lobby [moveAllPlayersToBoard]' ); }
+    this.router.navigate([ '/board' ]);
+  }
+
+  usersInResumeGameLobbyCB = resumeGameUserArray => {
+    if ( debug ) { console.log( 'resume-lobby [users in resumegamelobby]', resumeGameUserArray ); }
+    this.usersInRoom = resumeGameUserArray || [];
+  }
+
+  joinResumeLobbyCB = data => {
+    if ( debug ) { console.log( 'resume-lobby [join resume lobby]', data ); }
+    this.usersInRoom = data || [];
   }
 
   initialize = () => {

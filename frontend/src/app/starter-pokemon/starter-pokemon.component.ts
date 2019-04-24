@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { concat  } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ const debug = false;
   templateUrl: './starter-pokemon.component.html',
   styleUrls: ['./starter-pokemon.component.css']
 })
-export class StarterPokemonComponent implements OnInit {
+export class StarterPokemonComponent implements OnInit, OnDestroy {
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -40,6 +40,7 @@ export class StarterPokemonComponent implements OnInit {
   message = '';
   spriteList = [];
   list = [];
+  socketEvents = [];
 
   ngOnInit() {
     setTimeout(() => this.setUp(), 0);
@@ -61,20 +62,28 @@ export class StarterPokemonComponent implements OnInit {
 
       this.initialize( 'setup' );
 
-      this.pokeSocket.register( 'refresh after pokemon selection', ( data: any ) => {
-        if ( debug ) { console.log('[refresh after pokemon selection]', data); }
-        if ( data.doneselection ) {
-          this.gameService.updateCurrentPage( this.user.gameId, 'boardView' )
-          .subscribe(() => {
-            if ( debug ) { console.log('[refresh after pokemon selection] subscribe'); }
-            this.router.navigate(['/board']).catch( console.error );
-          });
-        } 
-        else {
-          this.initialize( 'socket' );
-        }
-      });
+      this.socketEvents = [
+        [ 'refresh after pokemon selection', this.refreshAfterPokemonSelectionCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+    }
+  }
 
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  refreshAfterPokemonSelectionCB = ( data: any ) => {
+    if ( debug ) { console.log('[refresh after pokemon selection]', data); }
+    if ( data.doneselection ) {
+      this.gameService.updateCurrentPage( this.user.gameId, 'boardView' )
+      .subscribe(() => {
+        if ( debug ) { console.log('[refresh after pokemon selection] subscribe'); }
+        this.router.navigate(['/board']).catch( console.error );
+      });
+    } 
+    else {
+      this.initialize( 'socket' );
     }
   }
 

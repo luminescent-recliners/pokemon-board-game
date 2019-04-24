@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -12,7 +12,7 @@ const debug = false;
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.css']
 })
-export class CityComponent implements OnInit {
+export class CityComponent implements OnInit, OnDestroy {
 
   currentTurnPlayerName = '';
   currentTurnPlayerId = '';
@@ -23,6 +23,7 @@ export class CityComponent implements OnInit {
     name: '',
     gameId: -1
   };
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -34,6 +35,7 @@ export class CityComponent implements OnInit {
   }
 
   ngOnInit() {
+    if ( debug ) { console.log( '%cCityComponent ngOnInit()', 'color:green'); }
     setTimeout(() => this.setUp(), 0);
   }
 
@@ -53,14 +55,22 @@ export class CityComponent implements OnInit {
 
       this.initialize();
 
-      this.pokeSocket.register( 'redirect back to board', () => {
-        const audioRedir = new Audio('../assets/sounds/pop.mp3');
-        audioRedir.play();
-        this.router.navigate(['/board']).catch( console.error ) ;
-      });
-      
+      this.socketEvents = [
+        [ 'redirect back to board', this.redirectBackToBoardCB ],
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
       
     }
+  }
+  ngOnDestroy() {
+    if ( debug ) { console.log( '%cCityComponent ngOnDestroy()', 'color:green'); }
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  redirectBackToBoardCB = () => {
+    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
+    this.router.navigate(['/board']).catch( console.error ) ;
   }
 
   initialize = () => {

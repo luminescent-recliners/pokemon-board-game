@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -10,7 +10,7 @@ import { GameFactoryService } from '../game-factory.service';
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.css']
 })
-export class LobbyComponent implements OnInit {
+export class LobbyComponent implements OnInit, OnDestroy {
 
   message = '';
   user = {
@@ -23,6 +23,7 @@ export class LobbyComponent implements OnInit {
   gameCreatorName = '';
   myGameCreator = false;
   users = [];
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -53,25 +54,35 @@ export class LobbyComponent implements OnInit {
 
       this.initialize();
 
-      this.pokeSocket.register( 'join-Lobby', (currentUsers) => {
-        this.users = currentUsers;
-      });
-    
-      this.pokeSocket.register( 'currentUsers', (userArray) => {
-        this.users = userArray;
-      });
-    
-      this.pokeSocket.register( 'moveAllPlayersToSelectPokemon', ( ) => {
-        this.router.navigate([ '/starter' ])
-        .catch( console.error );
-      });
-    
-      // Updates players in room, if a player leaves lobby and goes to home page
-      this.pokeSocket.register( 'user update', (userArrayUpdated) => {
-        this.users = userArrayUpdated;
-      });
-
+      this.socketEvents = [
+        [ 'join-Lobby', this.joinLobbyCB ],
+        [ 'currentUsers', this.currentUsersCB ],
+        [ 'moveAllPlayersToSelectPokemon', this.moveAllPlayersToSelectPokemonCB ],
+        [ 'user update', this.userUpdateCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
     }
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  joinLobbyCB = (currentUsers) => {
+    this.users = currentUsers;
+  }
+
+  currentUsersCB = (userArray) => {
+    this.users = userArray;
+  }
+
+  moveAllPlayersToSelectPokemonCB = () => {
+    this.router.navigate([ '/starter' ])
+    .catch( console.error );
+  }
+
+  userUpdateCB = (userArrayUpdated) => {
+    this.users = userArrayUpdated;
   }
 
   initialize = () => {

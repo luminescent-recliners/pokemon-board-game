@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -13,7 +13,7 @@ const debug = false;
   templateUrl: './trainer.component.html',
   styleUrls: ['./trainer.component.css']
 })
-export class TrainerComponent implements OnInit {
+export class TrainerComponent implements OnInit, OnDestroy {
 
   currentTurnPlayerName = '';
   currentTurnPlayerId = '';
@@ -26,6 +26,7 @@ export class TrainerComponent implements OnInit {
   };
   currentTrainer;
   otherTrainers;
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -56,14 +57,21 @@ export class TrainerComponent implements OnInit {
 
       this.initialize();
 
-      this.pokeSocket.register( 'redirect back to board', () => {
-        const audioRedir = new Audio('../assets/sounds/pop.mp3');
-        audioRedir.play();
-        this.router.navigate(['/board']).catch( console.error ) ;
-      });
-      
-      
+      this.socketEvents = [
+        [ 'redirect back to board', this.redirectBackToBoardCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
     }
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  redirectBackToBoardCB = () => {
+    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
+    this.router.navigate(['/board']).catch( console.error ) ;
   }
 
   updateTurn = () => {

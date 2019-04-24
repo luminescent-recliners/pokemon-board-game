@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { BoardFactoryService } from '../board-factory.service';
 import { GameFactoryService } from '../game-factory.service';
+import { PokemonSocketService } from '../pokemon-socket.service';
 
 const debug = true;
 
@@ -10,7 +12,7 @@ const debug = true;
   templateUrl: './tester.component.html',
   styleUrls: ['./tester.component.css']
 })
-export class TesterComponent implements OnInit {
+export class TesterComponent implements OnInit, OnDestroy {
 
   pathString = '';
   pathData = [];
@@ -23,17 +25,33 @@ export class TesterComponent implements OnInit {
     name: 'a',
     email: 'aa@aa'
   };
+  drawboard = false;
+
+  listeners = [ 'hello-world' ];
+  selectlisten = '';
 
   constructor(
     private boardService: BoardFactoryService,
     private gameService: GameFactoryService,
+    private socket: PokemonSocketService,
+    private router: Router,
   ) { 
 
   }
 
   ngOnInit() {
-    this.initialize();
+    if ( this.drawboard ) { this.initialize(); }
+    this.socket.register( 'hello-world' , this.helloWorldCB );
+    console.log( '%ctester on init()', 'color:purple' );
+
   }
+
+  ngOnDestroy() {
+    console.log( '%ctester on destroy', 'color:purple' );
+    this.socket.deRegister([ 'hello-world', this.helloWorldCB ]);
+  }
+
+  helloWorldCB = v => console.log(v);
 
   initialize = () => {
     if ( debug ) { console.log( 'tester initialize' ); }
@@ -87,6 +105,25 @@ export class TesterComponent implements OnInit {
     console.log( 'pathString', this.pathString );
     console.log( 'pathData', this.pathData );
     console.log( 'boardData', this.boardData );
+  }
+
+  deregister() {
+    this.socket.deRegister( this.selectlisten );
+  }
+
+  addlistener() {
+    const listenername = `test ${Date.now()}`;
+    this.socket.register( listenername, (a) => console.log(a) );
+    this.listeners.push( listenername );
+
+  }
+
+  select( i ) {
+    console.log( 'select(i)', i );
+    this.selectlisten = this.listeners[i];
+    this.listeners = this.listeners.slice( 0, i ).concat( this.listeners.slice( i + 1 ) );
+    
+
   }
 
 }

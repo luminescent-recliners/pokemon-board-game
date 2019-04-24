@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -13,7 +13,7 @@ const debug = false;
   templateUrl: './capture-pokemon.component.html',
   styleUrls: ['./capture-pokemon.component.css']
 })
-export class CapturePokemonComponent implements OnInit {
+export class CapturePokemonComponent implements OnInit, OnDestroy {
 
   rollvalue;
   result;
@@ -33,6 +33,7 @@ export class CapturePokemonComponent implements OnInit {
     name: '',
     gameId: -1
   };
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -44,12 +45,8 @@ export class CapturePokemonComponent implements OnInit {
   }
 
   ngOnInit() {
-    if ( debug ) { console.log( 'capture-pokemon ngOnInit()'); }
+    if ( debug ) { console.log( '%ccapture-pokemon ngOnInit()', 'color:orange'); }
     setTimeout(() => this.setUp(), 0);
-  }
-
-  OnDestroy() {
-    if ( debug ) { console.log( 'capture-pokemon OnDestroy()'); }
   }
 
   setUp() {
@@ -68,29 +65,17 @@ export class CapturePokemonComponent implements OnInit {
 
       this.initialize();
 
-      this.pokeSocket.register('send response for capture page', (data: any) => {
-        this.result = data.result.message;
-        this.rollvalue = data.roll;
-        this.diceRolled = true;
-        const audioDice = new Audio('../assets/sounds/dice.mp3');
-        audioDice.play();
-        if (this.result === 'Sorry!! Pokemon Got Away' ) {
-          const audioDiceLost = new Audio('../assets/sounds/bloop.mp3');
-          audioDiceLost.play();
-        } 
-        else {
-          const audioDiceCaught = new Audio('../assets/sounds/caught.mp3');
-          audioDiceCaught.play();
-        }
-      });
-
-      this.pokeSocket.register('redirect back to board', () => {
-        const audioRedir = new Audio('../assets/sounds/pop.mp3');
-        audioRedir.play();
-        this.router.navigate(['/board']).catch( console.error ) ;
-      });
-      
+      this.socketEvents = [
+        [ 'send response for capture page', this.sendResponseForCapturePageCB ],
+        [ 'redirect back to board', this.redirectBackToBoardCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
     }
+  }
+
+  ngOnDestroy() {
+    if ( debug ) { console.log( '%ccapture-pokemon ngOnDestroy()', 'color:orange'); }
+    this.pokeSocket.deRegister( this.socketEvents );
   }
 
   initialize = () => {
@@ -110,6 +95,28 @@ export class CapturePokemonComponent implements OnInit {
         this.name = pokemon.name;
       });
     });
+  }
+
+  sendResponseForCapturePageCB = (data: any) => {
+    this.result = data.result.message;
+    this.rollvalue = data.roll;
+    this.diceRolled = true;
+    const audioDice = new Audio('../assets/sounds/dice.mp3');
+    audioDice.play();
+    if (this.result === 'Sorry!! Pokemon Got Away' ) {
+      const audioDiceLost = new Audio('../assets/sounds/bloop.mp3');
+      audioDiceLost.play();
+    } 
+    else {
+      const audioDiceCaught = new Audio('../assets/sounds/caught.mp3');
+      audioDiceCaught.play();
+    }
+  }
+
+  redirectBackToBoardCB = () => {
+    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
+    this.router.navigate(['/board']).catch( console.error ) ;
   }
 
   rollDice =  () => {

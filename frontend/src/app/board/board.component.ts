@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -15,7 +15,7 @@ const debug = false;
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   message = '';
   user = {
@@ -57,6 +57,8 @@ export class BoardComponent implements OnInit {
   playerSprite;
   playerParty;
 
+  socketEvents = [];
+
   constructor(
     private pokeSocket: PokemonSocketService,
     private auth: AuthService,
@@ -70,6 +72,7 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if ( debug ) { console.log( '%cBoard onInit', 'color:green' ); }
     setTimeout(() => this.setUp(), 0);
   }
 
@@ -89,45 +92,16 @@ export class BoardComponent implements OnInit {
 
       this.initialize();
 
+      this.socketEvents = [
+        [ 'send redirect path to users', this.sendRedirectToUserCB ],
+        [ 'player leaving game', this.playerLeavingGameCB ],
+        [ 'winner announcement', this.winnerAnnouncmentCB ],
+        [ 'send player roll to move', this.sendPlayerRollToMoveCB ],
+        [ 'send player to move', this.sendPlayerToMoveCB ],
+        [ 'send action description', this.sendActionDescriptionCB ]
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
 
-      this.pokeSocket.register('player leaving game', data => {
-        // hide play options and make visible a button to move to home
-        this.continueGame = false;
-        this.pauseGameMessage = data.message;
-        this.showexitoptions = false;
-      });
-
-      this.pokeSocket.register( 'winner announcement', data => {
-        this.gameService.updateCurrentPage( this.user.gameId, 'winnerView' )
-        .subscribe( (resp) => {
-          this.router.navigate(['/winner'])
-          .catch( console.error );
-        });
-      });
-
-      this.pokeSocket.register( 'send player roll to move', (roll) => {
-        const audio = new Audio('../assets/sounds/dice.mp3');
-        audio.play();
-        this.roll = roll;
-        this.rollDisplay = true;
-      });
-
-      this.pokeSocket.register('send player to move', (data) => {
-        this.initialize();
-        const audioMove = new Audio('../assets/sounds/swoosh.mp3');
-        audioMove.play();
-      });
-
-      this.pokeSocket.register( 'send action description', (description) => {
-        this.actionDescription = description;
-        this.actionDisplay = true;
-      });
-
-      this.pokeSocket.register( 'send redirect path to users', (action) => {
-        this.redirect(action);
-        const audioRedir = new Audio('../assets/sounds/pop.mp3');
-        audioRedir.play();
-      });
 
       // section used for placement of players on board --------->>>>>>
       // TODO: At some point this should go in its own component.
@@ -146,9 +120,51 @@ export class BoardComponent implements OnInit {
       ];
       // till here ---------------------------------------------<<<<<<<
 
-      
-      
     }
+  }
+
+  ngOnDestroy() {
+    if ( debug ) { console.log( '%cBoard onDestroy', 'color:green' ); }
+    this.pokeSocket.deRegister( this.socketEvents );
+  }
+
+  sendRedirectToUserCB = (action) => {
+    this.redirect(action);
+    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    audioRedir.play();
+  }
+
+  playerLeavingGameCB = data => {
+    // hide play options and make visible a button to move to home
+    this.continueGame = false;
+    this.pauseGameMessage = data.message;
+    this.showexitoptions = false;
+  }
+
+  winnerAnnouncmentCB = data => {
+    this.gameService.updateCurrentPage( this.user.gameId, 'winnerView' )
+    .subscribe( (resp) => {
+      this.router.navigate(['/winner'])
+      .catch( console.error );
+    });
+  }
+
+  sendPlayerRollToMoveCB = roll => {
+    const audio = new Audio('../assets/sounds/dice.mp3');
+    audio.play();
+    this.roll = roll;
+    this.rollDisplay = true;
+  }
+
+  sendPlayerToMoveCB = data => {
+    this.initialize();
+    const audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    audioMove.play();
+  }
+
+  sendActionDescriptionCB = description => {
+    this.actionDescription = description;
+    this.actionDisplay = true;
   }
 
   exitGame = () => {
@@ -176,9 +192,6 @@ export class BoardComponent implements OnInit {
 
   rollDice = () => {
     this.roll = Math.ceil( Math.random() * 6 );
-    // var arr = [1,2,3,4,5,6];
-    // $scope.roll = arr[$scope.counter % 6];
-    // $scope.counter ++;
     const audio = new Audio('../assets/sounds/dice.mp3');
     audio.play();
     this.pokeSocket.emit( 'player rolled dice to move', {gameId: this.user.gameId, roll: this.roll});
@@ -194,8 +207,8 @@ export class BoardComponent implements OnInit {
     this.playerOptions = [[], []];
   }
 
-  checkAction = (typeOfAction) => {
-    switch (typeOfAction) {
+  checkAction = typeOfAction => {
+    switch ( typeOfAction ) {
       case 'pokemon':
         this.action = 'pokemon';
         this.actionDescription = this.currentTurnPlayerName + ' is about to catch a wild Pokemon!';
@@ -247,7 +260,7 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  redirect = (action) => {
+  redirect = action => {
     switch (action) {
       case 'pokemon':
         this.router.navigate([ '/capture' ])
@@ -339,7 +352,7 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  sortPokemon = (pokemonArray) => {
+  sortPokemon = pokemonArray => {
     const pokemonByColor = {
       starter: [],
       pink: [],

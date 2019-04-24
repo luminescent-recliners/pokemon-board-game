@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../pokemon-socket.service';
@@ -13,23 +13,19 @@ const debug = false;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   message = '';
-
   user = {
     email: '',
     name: '',
     gameId: -1
   };
-
   games = [];
-
   availGames = [];
-
   myGames = [];
-
   newGameName = '';
+  socketEvents = [];
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -53,9 +49,12 @@ export class HomeComponent implements OnInit {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
       this.userGames();
-      
-      this.pokeSocket.register( 'updateAvailGames',  this.populateGamesAndMyGames );
 
+      this.socketEvents = [
+        [ 'updateAvailGames', this.populateGamesAndMyGames ],
+      ];
+      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+      
       if ( this.user.gameId !== -1 ) {
 
         this.pokeSocket.emit( 'a user left lobby', { 
@@ -75,6 +74,10 @@ export class HomeComponent implements OnInit {
       }
 
     }
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
   }
 
   populateGamesAndMyGames = ( games ) => {

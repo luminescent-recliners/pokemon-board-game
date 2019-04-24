@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import { socketUrl } from './config';
@@ -8,24 +8,49 @@ const debug = false;
 @Injectable({
   providedIn: 'root'
 })
-export class PokemonSocketService {
+export class PokemonSocketService implements OnDestroy {
   
   private socket;
-
-  private listeners = {};
 
   private url = socketUrl;
 
   constructor() {
+    if ( debug ) { console.log( '%cPokemonSocketService constructor()', 'color:green;' ); }
     this.socket = io( this.url );
   }
 
+  ngOnDestroy() {
+    if ( debug ) { console.log( '%CPokemonSocketService OnDestroy()', 'color:green;' ); }
+  }
+
   register( event, cb ) {
-    if ( this.listeners[ event ] !== cb ) {
+    const cblist = this.socket._callbacks[ `$${event}` ];
+    if ( cblist && Array.isArray( cblist ) ) {
+      const i = cblist.indexOf( cb );
+      if ( i === -1 ) {
+        this.socket.on( event. cb );
+      }
+    }
+    else {
       this.socket.on( event, cb );
-      this.listeners[ event ] = cb;
     }
     if ( debug ) { this.log(); }
+  }
+
+  deRegister( events ) {
+    for ( const [ event, cb ] of events ) {
+      let cblist = this.socket._callbacks[ `$${event}` ];
+      if ( cblist && Array.isArray( cblist ) ) {
+        const i = cblist.indexOf( cb );
+        cblist = cblist.slice( 0, i ).concat( cblist.slice( i + 1) );
+        if ( cblist.length === 0 ) {
+          delete this.socket._callbacks[ `$${event}` ];
+        }
+        else {
+          this.socket._callbacks[ `$${event}` ] = cblist;
+        }
+      }
+    }
   }
 
   get isConnected() {
@@ -43,9 +68,9 @@ export class PokemonSocketService {
   }
 
   log() {
-    const keys = Object.keys( this.listeners );
-    console.log( this.listeners );
-    console.log( 'Keys', keys.length, keys );
+    console.log( 'callbacks', this.socket._callbacks );
+    console.log( 'id:', this.socket.id );
+    console.dir( this.socket );
   }
 
 
