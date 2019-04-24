@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { PokemonSocketService } from '../pokemon-socket.service';
 
 @Component({
   selector: 'app-signin',
@@ -19,7 +19,7 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    // private location: Location,
+    private socket: PokemonSocketService,
     private router: Router
   ) { 
   }
@@ -58,7 +58,6 @@ export class SigninComponent implements OnInit {
         this.router.navigate([ '/home' ])
         .catch( console.error );
       }
-
     });
   }
 

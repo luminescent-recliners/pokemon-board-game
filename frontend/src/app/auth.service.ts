@@ -37,6 +37,9 @@ export class AuthService {
         if ( !d.result ) {
           this.cookieService.delete( 'pokemon.session' );
         }
+        else {
+          this.socket.connect();
+        }
         return d;
       });
     }
@@ -55,6 +58,7 @@ export class AuthService {
     this.user.name = '';
     this.user.gameId = -1;
     this.isLoggedIn = false;
+    this.socket.disconnect();
   }
 
   getSession() {
@@ -69,7 +73,6 @@ export class AuthService {
 
   sendCode( email: string ) {
     return this.http.post( 'api/login', { email } ); // add .pipe( CatchError(  our error handler ) );
-
   }
 
   // Could not figure out how to subscribe to two observables sequentially!!
@@ -78,9 +81,10 @@ export class AuthService {
     if ( debug ) { console.log( 'auth.service verifyCode()', email, code ); }
     let verify;
     return this.handleVerifyCode( email, code ).toPromise()
-    .then( v => {
+    .then( (v: any) => {
       if ( debug ) { console.log( 'verifyCode() handleVerifyCode()', v); }
       verify = v;
+      if ( v.result ) { this.socket.connect(); }
       return this.getUserInfo().toPromise();
     })
     .then( user => {

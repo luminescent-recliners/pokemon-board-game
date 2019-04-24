@@ -16,11 +16,14 @@ export class PokemonSocketService implements OnDestroy {
 
   constructor() {
     if ( debug ) { console.log( '%cPokemonSocketService constructor()', 'color:green;' ); }
-    this.socket = io( this.url );
+    this.socket = io( this.url, {
+      autoConnect: false
+    });
   }
 
   ngOnDestroy() {
     if ( debug ) { console.log( '%CPokemonSocketService OnDestroy()', 'color:green;' ); }
+    this.disconnect();
   }
 
   register( event, cb ) {
@@ -60,6 +63,12 @@ export class PokemonSocketService implements OnDestroy {
   disconnect() {
     if ( this.socket.connected ) {
       this.socket.disconnect();
+    }
+  }
+
+  connect() {
+    if ( !this.socket.connected ) {
+      this.socket.connect();
     }
   }
 

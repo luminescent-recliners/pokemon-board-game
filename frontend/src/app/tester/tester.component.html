@@ -59,13 +59,12 @@
 <button (click)="printstate()"> Print State </button>
 
 
-<div *ngFor="let l of listeners; index as i">
-  <li (click)="select(i)">{{l}} {{i}} </li>
-</div>
-<div>{{selectlisten}}</div>
+<p><button (click)="deregister()"> Dergister </button></p>
 
-<button (click)="deregister()"> Dergister </button>
+<p><button (click)="register()"> Register </button></p>
 
-<button (click)="addlistener()"> Register </button>
+<p><button (click)="connect()"> Connect </button></p>
 
-<a routerLink="/signin">sigin in</a>
+<p><button (click)="disconnect()"> Disconnect </button></p>
+
+<p><a routerLink="/signin">sigin in</a></p>

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BoardFactoryService } from '../board-factory.service';
 import { GameFactoryService } from '../game-factory.service';
 import { PokemonSocketService } from '../pokemon-socket.service';
+import { AuthService } from '../auth.service';
 
 const debug = true;
 
@@ -27,22 +28,20 @@ export class TesterComponent implements OnInit, OnDestroy {
   };
   drawboard = false;
 
-  listeners = [ 'hello-world' ];
-  selectlisten = '';
-
   constructor(
     private boardService: BoardFactoryService,
     private gameService: GameFactoryService,
     private socket: PokemonSocketService,
     private router: Router,
+    private auth: AuthService
   ) { 
 
   }
 
   ngOnInit() {
     if ( this.drawboard ) { this.initialize(); }
-    this.socket.register( 'hello-world' , this.helloWorldCB );
     console.log( '%ctester on init()', 'color:purple' );
+    this.socket.register( 'hello-world' , this.helloWorldCB );
 
   }
 
@@ -107,23 +106,23 @@ export class TesterComponent implements OnInit, OnDestroy {
     console.log( 'boardData', this.boardData );
   }
 
+  register() {
+    this.socket.register( 'hello-world' , this.helloWorldCB );
+  }
+
   deregister() {
-    this.socket.deRegister( this.selectlisten );
+    this.socket.deRegister([ 'hello-world', this.helloWorldCB ] );
   }
 
-  addlistener() {
-    const listenername = `test ${Date.now()}`;
-    this.socket.register( listenername, (a) => console.log(a) );
-    this.listeners.push( listenername );
-
+  connect() {
+    this.socket.connect();
   }
 
-  select( i ) {
-    console.log( 'select(i)', i );
-    this.selectlisten = this.listeners[i];
-    this.listeners = this.listeners.slice( 0, i ).concat( this.listeners.slice( i + 1 ) );
-    
-
+  disconnect() {
+    this.socket.disconnect();
   }
+
+
+  
 
 }
