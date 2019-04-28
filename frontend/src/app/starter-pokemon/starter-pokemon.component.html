@@ -1,44 +1,35 @@
-<div>
-  <div class="text-center">
+<div fxLayout="column" fxLayoutAlign="start center" >
+  <div class="message">
     <h3>Hey {{ gameTurnName }}! Choose Your Trainer And Starter Pokemon! </h3>
   </div>
-  <div class="vertical-center-row">
-    <div class="text-center">
-    <h3>Trainer:</h3>
-      <ul>
-        <li *ngFor="let sprite of spriteList" >
-          <div class="text-center">
-            <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 125px">
-              <img class="sprite" [attr.src]="sprite.imageURL" >
-            </div>
-            <div class="radio">
-              <label><input type="radio" name="optSprite" (click)="selectSprite(sprite)">{{ sprite.name }}</label>
-            </div>
-          </div>    
-        </li>
-      </ul>
-    </div>
 
-    <div class="text-center">
-    <h3>Starter Pokemon:</h3>
-      <ul>
-        <li *ngFor="let pokemon of list" >
-          <div class="text-center">
-            <div class="panel panel-primary pokemon-box" type='radio' info='pokemon' style="height: 125px">
-              <img class="pokemonGif" [attr.src]="pokemon.gifURL" >
-            </div>
-            <div class="radio">
-              <label><input type="radio" name="optradio" (click)="getStarter(pokemon)">{{ pokemon.name }}</label>
-            </div>
-          </div>    
-        </li>
-      </ul>
+  <div class="trainer-flex" >
+    <h3>Trainer:</h3>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div *ngFor="let sprite of spriteList" (click)="selectSprite(sprite)" >
+        <div class="{{ sprite.selected ? 'trainer-pokemon selected' : 'trainer-pokemon '}}">
+          <img [attr.src]="sprite.imageURL" >
+          <p>{{ sprite.name }}</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="text-center">
+  <div class="pokemon-flex">
+    <h3>Starter Pokemon:</h3>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div *ngFor="let pokemon of list" (click)="getStarter(pokemon)" >
+        <div class="{{ pokemon.selected ? 'trainer-pokemon selected' : 'trainer-pokemon '}}">
+          <img [attr.src]="pokemon.gifURL" >
+          <p>{{ pokemon.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button" >
     <p *ngIf="message">{{message}}</p>
-    <button class="text-center" *ngIf='user.email===gameTurnEmail' (click)="playerInit()"> Select </button>
+    <p><button class="text-center" *ngIf='user.email===gameTurnEmail' (click)="playerInit()"> Select </button></p>
   </div>
 </div>
 

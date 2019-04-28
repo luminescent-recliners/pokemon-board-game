@@ -87,12 +87,28 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
     }
   }
 
-  getStarter = (currpokemon) => {
-    this.selectedPokemon = currpokemon;
+  getStarter = currpokemon => {
+    this.list.forEach( i => {
+      if ( currpokemon.name === i.name ) {
+        i.selected = true;
+        this.selectedPokemon = currpokemon;
+      }
+      else {
+        i.selected = false;
+      }
+    });
   }
 
   selectSprite = currentSprite => { 
-    this.selectedSprite = currentSprite; 
+    this.spriteList.forEach( i => {
+      if ( currentSprite.spriteId === i.spriteId ) {
+        i.selected = true;
+        this.selectedSprite = currentSprite;
+      }
+      else {
+        i.selected = false;
+      }      
+    });
   }
 
   playerInit = () => {
