@@ -16,6 +16,7 @@ export class SigninComponent implements OnInit {
   email = '';
   phase: 'sendCode' | 'loggedIn' | 'verifyCode' | 'error' = 'sendCode';
   code = '';
+  year = new Date().getFullYear();
 
   constructor(
     private auth: AuthService,

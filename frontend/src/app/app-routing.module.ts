@@ -12,6 +12,8 @@ import { StarterPokemonComponent } from './starter-pokemon/starter-pokemon.compo
 import { CapturePokemonComponent } from './capture-pokemon/capture-pokemon.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { WinnerComponent } from './winner/winner.component';
+import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
+
 import { TesterComponent } from './tester/tester.component';
 
 const dev = false;
@@ -29,6 +31,7 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent  },
   { path: 'trainer', component: TrainerComponent  },
   { path: 'resumelobby', component: ResumeLobbyComponent  },
+  { path: 'acknowldedge', component: AcknowledgeComponent },
 ];
 
 if ( dev ) { routes.push( { path: 'tester', component: TesterComponent } ); }

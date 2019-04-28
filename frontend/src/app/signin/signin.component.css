@@ -1,19 +1,16 @@
+:root {
+  --height-of-navbar: 36px;
+}
 
-
-.login-box {
-  text-align: center;
-  width: 300px;
-  /* background-color: rgba(121,201,250, 0.9 ); */
-  background-color: rgba(125,173,113, 0.8);
-  color: white;
-  padding:5px;
-  border-radius: 5px;
-  margin: 0 auto;
-  margin-top: 20px;
+.flex-content {
+  height: calc( 100vh - 36px );
+  /* for some reason the calc( var ) is not working
+  height: calc( 100vh - var(--height-of-navbar, 36px) ); 
+  */
 }
 
 .pokeball-wrapper {
-  text-align: center;
+  width: 300px;
 }
 
 .pokeball {
@@ -22,22 +19,39 @@
   transform: rotate(19deg);
   width: 300px;
   height: 300px;
-  z-index: -1;
+}
 
+.login-box {
+  text-align: center;
+  width: 300px;
+  background-color: rgba(125,173,113, 0.8);
+  color: white;
+  padding:5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .credits {
-  position: fixed;
-  bottom:0;
-  border-top: 1px solid #125986;
   width: 100%;
+  margin-top: auto;
 }
+
 .credits p {
-  color: darkgreen;
+  color: white;
   text-align: center;
   font-size: 0.9em;
-  max-width: 600px;
+  max-width: 350px;
   margin: 0 auto;
-
-  /* font-weight: bold; */
+  padding: 10px;
 }
+
+.credits a {
+  color: white;
+  text-decoration: none;
+}
+
+.credits a:hover {
+  color: #125986;
+  text-decoration: none;
+}
+

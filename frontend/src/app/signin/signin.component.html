@@ -1,38 +1,32 @@
-<div>
+<div class="flex-content" fxLayout="column" fxLayoutAlign="start center">
   <div class="pokeball-wrapper">
     <img class="pokeball" src="assets/pokeball.png" />
   </div>
 
   <div class="login-box">
       <div *ngIf="phase=='sendCode'" >
-       <p> To play, enter a valid email address and a login token will be sent to you! </p>
-       <p> 
+      <p> To play, enter a valid email address and a login token will be sent to you! </p>
+      <p> 
           <input [(ngModel)]="email" placeholder="Enter email"/>
           <button (click)="sendCode()"> Send Code </button>
-       </p>
-     </div>
-     <div *ngIf="phase=='verifyCode'">
-       <p> Login token sent to <b>{{email}}</b> expires in 8 minutes...</p>
-       <p> 
+      </p>
+    </div>
+    <div *ngIf="phase=='verifyCode'">
+      <p> Login token sent to <b>{{email}}</b> expires in 8 minutes...</p>
+      <p> 
           <input [(ngModel)]="code" placeholder="Enter code"/>
           <button (click)="verifyCode()"> Login </button>
-       </p>
-     </div>
-     <p *ngIf="message">{{message}}</p>
+      </p>
+    </div>
+    <p *ngIf="message">{{message}}</p>
   </div>
-  
-</div>
-
-<!-- <button (click)="printstate()"> Debug Print </button> -->
       
-<div class="credits">
-  <p>
-    This application is a recreation of the Pokemon Master Trainer Board Game (which is no longer in production). 
-    The authors of this site take no credit for the board game made by Milton Bradley nor do they take credit 
-    for any of the artwork displayed on the page.
-  </p>
-  <p> Application creators: Linda Zou, Hitesh Lala, Arthi Palaniappan and Alex Chou. </p>
+  <div class="credits">
+    <p>
+      <a href="https://github.com/luminescent-recliners" > &copy;  {{year}} Luminescent Recliners</a> - <a routerLink="/acknowldedge">Acknowledgements</a>
+    </p>
+  </div>
+
+  <!-- <button (click)="printstate()"> Debug Print </button> -->
 </div>
-  
-    
   

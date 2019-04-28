@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { CapturePokemonComponent } from './capture-pokemon/capture-pokemon.compo
 import { TrainerComponent } from './trainer/trainer.component';
 import { WinnerComponent } from './winner/winner.component';
 import { TesterComponent } from './tester/tester.component';
+import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,14 @@ import { TesterComponent } from './tester/tester.component';
     CapturePokemonComponent,
     TrainerComponent,
     WinnerComponent,
-    TesterComponent, // dev
+    TesterComponent,
+    AcknowledgeComponent, // dev
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    FlexLayoutModule,
     AppRoutingModule,
   ],
   providers: [

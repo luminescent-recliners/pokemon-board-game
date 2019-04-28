@@ -1,0 +1,19 @@
+.message {
+  max-width: 400px;
+}
+
+.nav-back img {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #125986;
+  text-decoration: none;
+}
