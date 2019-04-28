@@ -1,50 +1,45 @@
 
-<div class='home'>
-  <div class="row">
-    <p class="home-text">
+<div class="home" fxLayout="column" fxLayoutAlign="start center">
+  <div class="newGameSideBar item">
+    <p>Logged in as <b><i> {{user.name}} </i></b> <input class="create-game-btn" type="button" value=" Log Out " (click)="logout()"> </p>
+  </div>
+
+  <div class="item">
+    <p>
       Create or join an existing game to play with other trainers. 
       Explore the world map, catching various Pokemon and become a Pokemon Master amongst your peers!
     </p>  
-  
-    <form name="myform">
-      <input class="create-game-input" type="text" placeholder="Enter name" [(ngModel)]="newGameName" name="game-name">
-      <input class="create-game-btn" type="button" value="Create Game" (click)="makeNewGame()">
-    </form>
-  </div>
-</div>
-
-<div class="row">
-  <div class='newGameSideBar'>
-    <h3>Logged in as <b>{{user.name}}</b></h3>
-    <button class="text-center" (click)="logout()"> Log Out </button>
   </div>
   
-  <div class='game-panel' >
-    <h3 class='panel-heading'><b>{{user.name}}'s Games</b></h3>
-    <div class='gameContent'>
-      <ul>
-        <li *ngFor="let game of myGames">
-          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name">{{game.gameName}}</a>
-        </li>
-      </ul>
+  <form class="item">
+    <input class="create-game-input" type="text" placeholder="Enter new game name" [(ngModel)]="newGameName" name="game-name"> 
+    <input class="create-game-btn" type="button" value=" Create Game " (click)="makeNewGame()">
+  </form>
+  
+  <div fxLayout="row wrap" fxLayoutAlign="start center">
+    <div class="game-panel item">
+      <p><b>{{user.name}}'s Games</b> ({{myGames.length}})</p>
+      <div class="game-content">
+        <p *ngFor="let game of myGames">
+          <a (click)="joinLobby( game.gameId, game.gameStarted )" class="game-name">{{game.gameName}}</a>
+        </p>
+      </div>
+    </div>
+    
+    <div class="game-panel item" >
+      <p><b> Waiting For Players </b> ({{availGames.length}})</p>
+      <div class="game-content">
+        <p *ngFor="let game of availGames">
+          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"> {{game.gameName}} </a>
+        </p>
+      </div>  
     </div>
   </div>
   
-  <div class='game-panel' >
-    <h3 class='panel-heading' ><b>All Available Games</b></h3>
-    <div class='gameContent'>
-      <ul>
-        <li *ngFor="let game of availGames">
-          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"> {{game.gameName}} </a>
-        </li>
-      </ul>
-    </div>  
+  <div>
+    <p *ngIf="message">{{message}} - <span (click)="clearMessage()">close</span></p>
   </div>
   
 </div>
-
-<div class="row">
-  <p *ngIf='message'>{{message}} - <span (click)="clearMessage()">close</span></p>
-</div>
-
-<!-- <button (click)="printstate()"> Debug Print</button> -->
+  
+  <!-- <button (click)="printstate()"> Debug Print</button> -->
