@@ -119,12 +119,6 @@ export class GameFactoryService {
     });
   }
 
-  updatePlayerCounter( gameId ) {
-    return this.http.put( '/api/games/updateplayercounter', {
-        gameId
-    });
-  }
-
   getEventGif() {
     return this.http.get( '/api/tempEvents/getURL' );
   }

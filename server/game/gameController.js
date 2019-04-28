@@ -14,7 +14,7 @@ const pokemonController = require('../pokemon/pokemonController.js');
 
 const spriteController = require('../sprites/spriteController.js');
 
-const playerCounter = {};
+let playerCounter = {};
 
 const debug = false;
 
@@ -26,6 +26,8 @@ module.exports = {
   findGames: findGames,
 
   setIoHandle: inio => io = inio,
+
+  setUsersInGames: usersIngame => playerCounter = usersIngame,
 
   updateCurrentPage: function(req, res, next) {
     const gameId = req.body.gameId;
@@ -192,7 +194,8 @@ module.exports = {
       for( let i = 0; i < game.users.length; i++ ) {
         users.push({
           email: game.users[i].email,
-          name: game.users[i].name
+          name: game.users[i].name,
+          sprite: game.users[i].sprite
         });
       }
       var result = {
@@ -581,27 +584,18 @@ module.exports = {
   },
 
   requestLobbyEntry: function(req, res, next) {
-    var gameId = req.body.gameId;
-    var requestAccepted;
-
-    playerCounter[gameId] = playerCounter[gameId] || 0;
-    if(playerCounter[gameId] === 6) {
+    const gameId = req.body.gameId;
+    let requestAccepted;
+    playerCounter[gameId] = playerCounter[gameId] || [];
+    if( playerCounter[gameId].length === 6 ) {
       requestAccepted = false;
-    } else {
-      playerCounter[gameId] = playerCounter[gameId] + 1;
+    } 
+    else {
       requestAccepted = true;
     }
     res.send({ requestAccepted: requestAccepted });
   },
 
-  updatePlayerCounter: function(req, res, next) {
-    // TODO: make this so that repeated calls from same person does not affect count
-    var gameId = req.body.gameId;
-    if(playerCounter[gameId]) {
-      playerCounter[gameId] = playerCounter[gameId] - 1;
-    }
-    res.send({ result: true, message: `updated game counter` });
-  },
   trainerInit: function(req, res, next) {
     var gameId = req.query.gameId;
     var currentTurnUserId = req.query.currentTurnUserId;

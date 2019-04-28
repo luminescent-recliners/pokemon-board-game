@@ -87,8 +87,9 @@ const winners = {};
 const io = IO( server );
 
 gameController.setIoHandle( io );
+gameController.setUsersInGames( usersInGames );
 
-if ( debug && false ) {
+if ( dev ) {
   setInterval( () => {
     console.log( '\n UsersInGames: ', JSON.stringify( usersInGames ) );
     console.log( '\n UsersInREsumeGameLobby:\n', JSON.stringify( usersInResumeGameLobby ) );
@@ -157,7 +158,7 @@ io.on('connection', socket => {
     }
     if(usersInResumeGameLobby[data.gameId]) {
       for(var j = 0; j < usersInResumeGameLobby[data.gameId].length; j++) {
-        if(usersInResumeGameLobby[data.gameId].email === data.user.email) {
+        if(usersInResumeGameLobby[data.gameId][j].email === data.user.email) {
           var userIndex = j;
         }
       }

@@ -18,7 +18,6 @@ router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 router.put('/api/games/updateturn', gameController.updateTurn);
 router.put('/api/games/currentPage', gameController.updateCurrentPage);
 router.put('/api/games/requestlobbyentry', gameController.requestLobbyEntry);
-router.put('/api/games/updateplayercounter', gameController.updatePlayerCounter);
 
 router.get('/api/games/currentPage', gameController.getCurrentPage);
 router.get('/api/games/gameturn', gameController.findTurn);
@@ -43,6 +42,15 @@ router.post( '/api/login/verify', userController.verifyCode );
 
 router.get( '/api/user', userController.loggedInUser );
 
+/* this is the arrangement I want to move towards
+router.get( '/api/game/:id/thing', ( req, res, next ) => {
+  console.log( '\n\ngot to my cool api endpoint' );
+  console.log( 'req.params', req.params );
+  console.log( 'req.query', req.query );
+  console.log();
+  res.send({ message: 'yay', params: req.params, query: req.query });
+})
+*/
 
 
 

@@ -64,10 +64,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             name: this.user.name 
           } 
         });
-        this.gameService.updatePlayerCounter( this.user.gameId )
-        .subscribe( v => {
-          if ( debug ) { console.log( 'from updatePlayerCounter', v); }
-        });
 
         this.auth.delGameId();
         this.user.gameId = -1;
