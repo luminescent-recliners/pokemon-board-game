@@ -1,6 +1,6 @@
 
 .trainer-pokemon {
-  border: 1px solid darkcyan;
+  border: 1px solid var(--green-background);
   border-radius: 5px;
   margin: 3px;
   min-width: 100px;
@@ -10,10 +10,10 @@
 }
 
 .trainer-pokemon:hover {
-  background-color: darkcyan;
+  background-color: var(--green-background);
 }
 
 .selected {
-  background-color: darkcyan;
+  background-color: var(--green-background);
 }
 

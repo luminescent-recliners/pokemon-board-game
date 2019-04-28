@@ -1,44 +1,31 @@
+
 .lobby {
   text-align: center;
+  font-size: 1.15em;
+}
+
+.item {
+  max-width: var(--max-content-width);
 }
 
 .lobby-text {
   margin: 1%;
-  font-size: 1em;
-}
-
-.lobby p {
-  font-size: 1.5em;
 }
 
 .user-in-lobby {
   list-style: none;
-  font-size: 1.3em;
 }
 
-.lobby-image-container{
-  /* position: absolute; */
+.lobby-image-container {
   z-index: -1;
-  position: fixed;
-  /* right: 30%; */
-  /* align-content: center; */
-  /* justify-content: center; */
-  width: 100%;
-  top: 10%;
-  
-}
-.lobby-image {
-  opacity: .6;
-  border-radius: 30%;
+  position: relative;
+  top: calc( 310px - 100vh );
+  max-width: var(--max-content-width);
   margin: 0 auto;
+  opacity: .6;
 }
 
-.main-pokemon-btn {
-  font-size: 1.5em;
-
-}
-
-.resume-text {
-  text-align: left;
-  margin: 1%;
+.lobby-image {
+  border-radius: 30%;
+  width: 100%;
 }

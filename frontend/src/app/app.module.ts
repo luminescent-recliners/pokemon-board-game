@@ -20,6 +20,7 @@ import { TrainerComponent } from './trainer/trainer.component';
 import { WinnerComponent } from './winner/winner.component';
 import { TesterComponent } from './tester/tester.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
+import { DiceComponent } from './dice/dice.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
     CapturePokemonComponent,
     TrainerComponent,
     WinnerComponent,
-    TesterComponent,
-    AcknowledgeComponent, // dev
+    AcknowledgeComponent,
+    DiceComponent,
+    TesterComponent,  // dev
   ],
   imports: [
     BrowserModule,

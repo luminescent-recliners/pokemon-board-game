@@ -58,13 +58,34 @@
 
 <button (click)="printstate()"> Print State </button>
 
+<div *ngIf="renderConnection">
+  <p><button (click)="deregister()"> Dergister </button></p>
 
-<p><button (click)="deregister()"> Dergister </button></p>
+  <p><button (click)="register()"> Register </button></p>
 
-<p><button (click)="register()"> Register </button></p>
+  <p><button (click)="connect()"> Connect </button></p>
 
-<p><button (click)="connect()"> Connect </button></p>
+  <p><button (click)="disconnect()"> Disconnect </button></p>
 
-<p><button (click)="disconnect()"> Disconnect </button></p>
+  <p><a routerLink="/signin">sigin in</a></p>
+</div>
 
-<p><a routerLink="/signin">sigin in</a></p>
+<div>
+  <p>{{pips}}</p>
+  <button (click)="rollDice()"> Roll </button>
+  <div class="face-wrapper"*ngIf="pips > 0">
+    <div class="dice">
+      <div class="face" *ngFor="let thing of ' '.repeat(pips).split(''); let idx = index">
+        <div class="pip pips-{{pips}} pip-{{idx+1}}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <p>You rolled: {{rollval}}</p>
+  <button (click)="toggleRollMe()"> Roll Dice </button>
+  <app-dice pips=4 roll={{rollme}} (rolled)="rolldone($event)"></app-dice>
+
+  <app-dice pips=5></app-dice>
+</div>

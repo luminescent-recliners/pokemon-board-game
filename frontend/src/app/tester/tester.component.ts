@@ -27,6 +27,11 @@ export class TesterComponent implements OnInit, OnDestroy {
     email: 'aa@aa'
   };
   drawboard = false;
+  renderConnection = false;
+
+  pips = 0;
+  rollme = 1;
+  rollval = 0;
 
   constructor(
     private boardService: BoardFactoryService,
@@ -122,7 +127,27 @@ export class TesterComponent implements OnInit, OnDestroy {
     this.socket.disconnect();
   }
 
+  animateRoll( n ) {
+    return new Promise<number>( resolve => {
+      setTimeout( () => resolve(n), 50 );
+    });  
+  }
+  async rollDice() {
+    for ( let i = 0; i < 30; i++ ) {
+      this.pips = await this.animateRoll( (i % 6)  );
+    }
+    this.pips = Math.ceil(Math.random() * 6 );
+  }
 
+  toggleRollMe() {
+    this.rollme += 1;
+  }
+
+  rolldone( res ) {
+    console.log( res );
+
+    this.rollval = res;
+  }
   
 
 }

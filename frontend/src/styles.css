@@ -1,13 +1,14 @@
 :root {
   --highlight-color: #125986;
   --green-background: rgba(125,173,113, 0.8);
+  --max-content-width: 600px;
 }
 
 /*
 Selected some normalize rules from:
   normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css
 
-Our globally applied rule follows after
+Our globally applied rules follows after
 */
 
 html {
