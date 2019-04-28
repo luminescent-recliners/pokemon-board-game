@@ -74,6 +74,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
   updateUsersInRoomCB = updatedusers => {
     if ( debug ) { console.log( 'resume-lobby [update users in room]', updatedusers ); }
     this.usersInRoom = updatedusers || [];
+    this.decorateUsers();
   }
 
   moveAllPlayersToBoardCB = () => {
@@ -84,11 +85,20 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
   usersInResumeGameLobbyCB = resumeGameUserArray => {
     if ( debug ) { console.log( 'resume-lobby [users in resumegamelobby]', resumeGameUserArray ); }
     this.usersInRoom = resumeGameUserArray || [];
+    this.decorateUsers();
   }
 
   joinResumeLobbyCB = data => {
     if ( debug ) { console.log( 'resume-lobby [join resume lobby]', data ); }
     this.usersInRoom = data || [];
+    this.decorateUsers();
+  }
+
+  decorateUsers = () => {
+    this.users.forEach( u => {
+      u.ready = !!this.usersInRoom.find( uir => uir.email === u.email );
+    });
+
   }
 
   initialize = () => {
@@ -114,6 +124,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
     console.log( 'gameCreator:', this.gameCreator );
     console.log( 'gameCreatorId:', this.gameCreatorId );
     console.log( 'users:', this.users );
+    console.log( 'usersInRoom:', this.usersInRoom );
   }
 
 }
