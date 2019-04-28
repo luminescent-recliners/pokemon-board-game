@@ -1,5 +1,6 @@
-const Games = require('./gameModel.js');
 const Q = require('q');
+const mongoose = require('mongoose');
+const Games = require('./gameModel.js');
 const gameHelperFn = require('./gameHelperFunctions.js');
 const gameBoardData = require('../data/gameBoardData.js');
 const availablePokemonData = require('../data/availablePokemonData.js');
@@ -339,35 +340,30 @@ module.exports = {
 
   // creates a new game with game name, game Id, gameCreator object and initial static data
   addGame: function(req, res, next) {
-    // we are finding all the games first so we can count how many and use
-    // that count to create the next id
-    let id;
     const { gameName, email, name } = req.body;
-    countGames()
-    .then( count => {
-      id = count + 1;
-      const newGame = new Games({
-        gameId: id, 
-        name: gameName,
-        gameBoard: gameBoardData,
-        users: [],
-        availablePokemon: availablePokemonData,
-        availableItemCards: [],
-        gameCreator: {
-          email: email,
-          name: name
-        },
-        gameStarted: false,
-        gameTurn: {
-          email: email,
-          name: name
-        },
-        gameCounter: 0,
-        currentPage: 'lobbyView',
-        availableSprites: availableSpritesData
-      });
-      return newGame.save();
-    })
+    const id = new mongoose.mongo.ObjectId();
+    const newGame = new Games({
+      __id: id,
+      gameId: id.toString(), 
+      name: gameName,
+      gameBoard: gameBoardData,
+      users: [],
+      availablePokemon: availablePokemonData,
+      availableItemCards: [],
+      gameCreator: {
+        email: email,
+        name: name
+      },
+      gameStarted: false,
+      gameTurn: {
+        email: email,
+        name: name
+      },
+      gameCounter: 0,
+      currentPage: 'lobbyView',
+      availableSprites: availableSpritesData
+    });
+    newGame.save()
     .then( () => {
       return findGames();
     })

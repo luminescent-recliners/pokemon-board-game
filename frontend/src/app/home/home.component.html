@@ -24,7 +24,7 @@
     <div class='gameContent'>
       <ul>
         <li *ngFor="let game of myGames">
-          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"><b> {{game.gameName}} </b>- {{game.gameId}}</a>
+          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name">{{game.gameName}}</a>
         </li>
       </ul>
     </div>
@@ -35,7 +35,7 @@
     <div class='gameContent'>
       <ul>
         <li *ngFor="let game of availGames">
-          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"><b> {{game.gameName}} </b>- {{game.gameId}} -{{game.gameStarted}}</a>
+          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"> {{game.gameName}} </a>
         </li>
       </ul>
     </div>  
