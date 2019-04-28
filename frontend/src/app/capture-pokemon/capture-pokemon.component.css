@@ -1,4 +1,15 @@
-.dice {
-  width: 50px;
-  height: auto;
+.capture {
+  text-align: center;
+}
+
+.item {
+  /* max-width: var( --max-content-width ); */
+  max-width: 300px;
+}
+.to-capture-box {
+  border: 1px solid var( --highlight-color );
+  max-width: 300px;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 3px;
 }

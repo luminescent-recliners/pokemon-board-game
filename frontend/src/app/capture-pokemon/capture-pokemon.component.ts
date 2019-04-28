@@ -15,9 +15,11 @@ const debug = false;
 })
 export class CapturePokemonComponent implements OnInit, OnDestroy {
 
+  rollmydice = 1;
+
   rollvalue;
   result;
-  rollNeeded = '';
+  rollNeeded = [];
   diceRolled = false;
   dice = '';
   imageUrl = '';
@@ -85,7 +87,7 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
       this.currentTurnPlayerId = resp.email;
       this.gameService.getAvailablePokemon(this.user.gameId, this.currentTurnPlayerId)
       .subscribe((pokemon: any ) => {
-        this.rollNeeded = pokemon.capture.join(', ');
+        this.rollNeeded = pokemon.capture;
         this.dice = pokemon.diceImg;
         this.imageUrl = pokemon.gifURL;
         this.pokemonColor = pokemon.color;
@@ -119,10 +121,10 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
     this.router.navigate(['/board']).catch( console.error ) ;
   }
 
-  rollDice =  () => {
-    const audioDice = new Audio('../assets/sounds/dice.mp3');
-    audioDice.play();
-    this.rollvalue = Math.ceil(Math.random() * 6);
+  startroll = () => {
+    this.rollmydice += 1;
+  }
+  processRoll =  ( rollnum ) => {
     this.gameService.catchPokemon(this.user.gameId, this.user.email, this.rollvalue, this.pokemonColor, this.pokemon)
     .subscribe( (resp: any) => {
       this.result = resp.message;
@@ -148,6 +150,11 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
       this.pokeSocket.emit('emit users back to board', {gameId: this.user.gameId});
       this.router.navigate(['/board']).catch( console.error );
     });
+  }
+
+  dicerollresult = ( num ) => {
+    this.rollvalue = num;
+    this.processRoll( num );
   }
 
   printstate() {

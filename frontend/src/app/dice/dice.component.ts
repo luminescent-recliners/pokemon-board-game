@@ -17,7 +17,7 @@ export class DiceComponent implements OnInit, OnChanges {
     else {
       this.pipsInternal = p;
     }
-    this.rolled.emit( this.pipsInternal );
+    // this.rolled.emit( this.pipsInternal );
   }
 
   @Input() roll: number;
@@ -42,6 +42,13 @@ export class DiceComponent implements OnInit, OnChanges {
   }
 
   async rollDice() {
+    try {
+      const audioDice = new Audio('../../assets/sounds/dice.mp3');
+      audioDice.play();
+    }
+    catch ( e ) {
+      console.error( 'couldnot play sound', e );
+    }
     for ( let i = 0; i < 30; i++ ) {
       this.pipsInternal = await this.animateRoll( (i % 6) + 1 );
     }

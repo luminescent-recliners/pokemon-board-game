@@ -1,46 +1,47 @@
-<div class="text-center">
-  <div>
+<div class="capture" fxLayout="column" fxLayoutAlign="start center">
+  <div class="item">
     <h3>{{currentTurnPlayerName}} was wandering in the wild!</h3>
     <h3>A wild {{name}} appeared!</h3>
+    <p> {{description}} </p>
   </div>  
+
   <!-- POKEDEX -->  
-  <div class="pokemonCap">
-    <h4 class="panel-heading"><b>{{currentTurnPlayerName}}"s Pokedex</b></h4> 
-    <div>  
-      <img class="pokeMove" [attr.src]="imageUrl">
-    </div>
-    <div>
-      <span class="pokemonCap"><b>{{name}}</b></span>
-      <span *ngFor="let oneDice of dice">
-        <span> <img class="dice" [attr.src]="oneDice" ></span>
-      </span>
-    </div>  
-    <div>
-      Description:<span> {{description}}</span>
-    </div>
-<!--     <p>To capture {{name}} {{currentTurnPlayerName}} must roll a {{rollNeeded}}.</p>  -->  
+  <div class="item to-capture-box">
+    <h4><b>{{currentTurnPlayerName}}'s Pokedex</b></h4> 
+    <img class="pokeMove" [attr.src]="imageUrl">
+    <p class="pokemonCap"><b>{{name}}</b></p>
+
+    <div class="">
+      <p>To capture {{name}} {{currentTurnPlayerName}} must roll:</p>  
+      <div class="to-capture-images" fxLayout="row wrap" fxLayoutAlign="center center" >
+        <app-dice *ngFor="let roll of rollNeeded" pips={{roll}}></app-dice>
+      </div>
+    </div> 
   </div>
+    
 
   <!-- Roll Dice Button -->  
-  <div *ngIf="diceRolled===false && currentTurnPlayerId===user.email" >
-    <button (click)="rollDice()" > Roll Dice & Catch</button>
+  <app-dice *ngIf="currentTurnPlayerId===user.email" class="item" pips=1 roll={{rollmydice}} (rolled)="dicerollresult($event)"></app-dice>
+  <div class="item" *ngIf="diceRolled===false && currentTurnPlayerId===user.email" >
+    <button (click)="startroll()" > Roll Dice & Catch</button>
   </div>
 
   <!-- MESSAGE (OPPONENTS)-->  
-  <div class="result-panel">
+  <div class="item">
     <p *ngIf="currentTurnPlayerId !== user.email && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
     <div *ngIf="diceRolled && currentTurnPlayerId !== user.email">
-      <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+      <p class="pokemonCap">{{currentTurnPlayerName}} rolled a <app-dice pips={{rollvalue}}></app-dice></p>
       <p>{{result}}</p>
     </div>
   </div>
 
   <!-- MESSAGE (USER) -->  
-  <div *ngIf="diceRolled && currentTurnPlayerId===user.email">
-    <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}} </p>
+  <div class="item" *ngIf="diceRolled && currentTurnPlayerId===user.email">
+    <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}}</p>
     <span>{{result}}</span>
     <button (click)="updateTurn()">Continue</button>
   </div>
+
 </div>
 
 <!-- <button (click)="printstate()">Debug State</button> -->
