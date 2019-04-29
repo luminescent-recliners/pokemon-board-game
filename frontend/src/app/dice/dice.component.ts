@@ -8,7 +8,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 })
 export class DiceComponent implements OnInit, OnChanges {
 
-  private pipsInternal = 1;
+  pipsInternal = 1;
 
   @Input() set pips( p: number ) {
     if ( p < 1 || p > 6 ) {
