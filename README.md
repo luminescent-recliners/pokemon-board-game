@@ -1,4 +1,4 @@
-# <img src="./frontend/src/game.png" alt="Logo" style="width:25px;"/> Pokemon Master Trainer
+# <img src="./frontend/src/game.png" alt="Logo" style="width:25px;" width="25px" height="25px"/> Pokemon Master Trainer
 
 > A re-creation of the Pokemon Master Trainer Board game
 
