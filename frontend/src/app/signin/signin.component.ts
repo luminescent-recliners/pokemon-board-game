@@ -4,6 +4,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { PokemonSocketService } from '../pokemon-socket.service';
 
+import version from './version';
+
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -17,6 +19,7 @@ export class SigninComponent implements OnInit {
   phase: 'sendCode' | 'loggedIn' | 'verifyCode' | 'error' = 'sendCode';
   code = '';
   year = new Date().getFullYear();
+  ver = version;
 
   constructor(
     private auth: AuthService,
