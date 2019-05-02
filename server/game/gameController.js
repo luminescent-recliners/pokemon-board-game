@@ -293,7 +293,7 @@ module.exports = {
           sprite: user.sprite
         });
 
-        winner = gameHelperFn.checkWinner( user. pokemonCount ) ? user : winner;
+        winner = gameHelperFn.checkWinner( user.pokemonCount ) ? user : winner;
         thisUser = user.email === userId ? user : thisUser;
       }
       res.send({
@@ -439,12 +439,13 @@ module.exports = {
         // check if roll captures poekmon
         if(gameHelperFn.checkRoll(roll, pokemonColor)) {
           result = { message: "Success!! Pokemon Captured" };
-          for(var i = 0; i < game.users.length; i++) {
+          for( let i = 0; i < game.users.length; i++) {
             if(game.users[i].email === userId) {
               game.users[i].party.push(pokemon);
               currentPosition = game.users[i].positionOnBoard;
               game.gameBoard[currentPosition].pokemon = null;
               game.users[i].pokemonCount[pokemonColor] = game.users[i].pokemonCount[pokemonColor] + 1;
+              game.gameEnded = gameHelperFn.checkWinner( game.users[i].pokemonCount );
               game.markModified('gameBoard');
               game.markModified('users');
               return game.save();
