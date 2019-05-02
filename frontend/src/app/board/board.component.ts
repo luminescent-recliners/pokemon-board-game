@@ -402,7 +402,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.allPlayers = data.allUsers;
       this.winner = data.winner;
       if (this.winner !== null) {
-        this.pokeSocket.emit('player won', { gameId: this.user.gameId, winner: this.winner});
+        this.router.navigate(['/winner']);
       }
 
       this.playerSprite = data.user.sprite;

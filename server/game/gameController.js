@@ -8,7 +8,6 @@ const availableSpritesData = require('../data/availableSpritesData.js');
 
 const findGame = Q.nbind(Games.findOne, Games);
 const findGames = Q.nbind(Games.find, Games);
-const countGames = Q.nbind( Games.countDocuments, Games);
 
 const pokemonController = require('../pokemon/pokemonController.js');
 
@@ -277,33 +276,33 @@ module.exports = {
   },
 
   boardInit: function(req, res, next) {
-    var gameId = req.query.gameId;
-    var userId = req.query.userId;
+    const gameId = req.query.gameId;
+    const userId = req.query.userId;
 
     findGame({ gameId: gameId })
     .then(function(game) {
       debug && console.log( 'boardInit findGame game.users', game.users );
-      var allUsers = [];
-      for(var i=0;i<game.users.length;i++) {
+      let allUsers = [];
+      let winner = null;
+      let thisUser = null;
+      for ( const user of game.users ) {
         allUsers.push({
-          email: game.users[i].email,
-          name: game.users[i].name,
-          positionOnBoard: game.users[i].positionOnBoard,
-          sprite: game.users[i].sprite
+          email: user.email,
+          name: user.name,
+          positionOnBoard: user.positionOnBoard,
+          sprite: user.sprite
         });
+
+        winner = gameHelperFn.checkWinner( user. pokemonCount ) ? user : winner;
+        thisUser = user.email === userId ? user : thisUser;
       }
-      var user  = gameHelperFn.findUser(game, userId);
-      var pokemonCount = user.pokemonCount;
-      var won = gameHelperFn.checkWinner(pokemonCount);
-      var winner = won ? user : null;
-      var gameData = {
+      res.send({
         board: game.gameBoard,
-        user: user,
+        user: thisUser,
         currentTurn: game.gameTurn,
         allUsers: allUsers,
         winner: winner
-      };
-      res.send(gameData);
+      });
     })
     .fail(function(error) {
       next(error);
@@ -527,27 +526,29 @@ module.exports = {
   },
 
   updateTurn: function (req, res, next) {
-    var gameId = req.body.gameId;
-    var currentPage = req.body.currentPage;
+    const gameId = req.body.gameId;
+    const currentPage = req.body.currentPage;
 
     findGame({ gameId: gameId })
-      .then(function (game) {
-        game.gameCounter = game.gameCounter + 1;
-        var userObject = game.users[ game.gameCounter % game.users.length ];
+    .then(function (game) {
+      game.gameCounter = game.gameCounter + 1;
+      const userObject = game.users[ game.gameCounter % game.users.length ];
 
-        game.currentPage = currentPage;
-        game.gameTurn = {
-          email: userObject.email,
-          name: userObject.name
-        };
-        game.markModified('gameTurn');
-        game.markModified('gameCounter');
-        game.save();
-        res.send(game.gameTurn);
-      })
-      .fail(function (error) {
-        next(error);
-      });
+      game.currentPage = currentPage;
+      game.gameTurn = {
+        email: userObject.email,
+        name: userObject.name
+      };
+      game.markModified( 'gameTurn' );
+      game.markModified( 'gameCounter' );
+      game.save();
+
+      io.to( gameId ).emit( 'redirect back to board' );
+      res.send(game.gameTurn);
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   getRemainingStarterPokemon: function(req, res, next) {

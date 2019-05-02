@@ -83,7 +83,6 @@ app.on( 'error', error => {
 const usersInGames = {}; 
 const usersInResumeGameLobby = {};
 const selectionPokemon = {};
-const winners = {};
 const io = IO( server );
 
 gameController.setIoHandle( io );
@@ -209,19 +208,6 @@ io.on('connection', socket => {
 
   socket.on('roll die for capture', function(data) {
     socket.broadcast.to(data.gameId).emit('send response for capture page', {result: data.result, roll: data.roll});
-  });
-
-  socket.on('emit users back to board', function(data) {
-    socket.broadcast.to(data.gameId).emit('redirect back to board');
-  });
-
-  socket.on('player won', function(data) {
-    winners[data.gameId] = data.winner;
-    io.to(data.gameId).emit('winner announcement', { winner: data.winner });
-  });
-
-  socket.on('get winner', function(data) {
-    io.to(data.gameId).emit('display winner', { winner: winners[data.gameId] });
   });
 
   socket.on('player wants to pause game', function(data) {

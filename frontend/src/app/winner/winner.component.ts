@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { UserService } from '../user.service';
+import { BoardFactoryService } from '../board-factory.service';
 
 const debug = false;
 
@@ -40,7 +41,7 @@ export class WinnerComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private userService: UserService
+    private boardService: BoardFactoryService
   ) { 
 
   }
@@ -80,17 +81,10 @@ export class WinnerComponent implements OnInit {
   }
 
   initialize = () => {
-    this.userService.getUsers(this.user.gameId)
+    this.boardService.boardInit(this.user.gameId, this.user.email)
     .subscribe( (resp: any) => {
-      this.users = resp;
-
-      for ( const luser of this.users ) {
-        if ( this.checkWinner( luser.pokemonCount)) {
-          this.winner = luser;
-          break;
-        }
-      }
-
+      this.users = resp.users;
+      this.winner = resp.winner;
       this.party = this.winner.party;
       this.circleData[0].gifURL = this.party.shift().gifURL;
       
