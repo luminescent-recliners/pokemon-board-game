@@ -79,8 +79,7 @@ export class TrainerComponent implements OnInit, OnDestroy {
     audioRedir.play();
     this.gameService.updateTurn(this.user.gameId, 'boardView')
     .subscribe( (resp) => {
-      this.pokeSocket.emit('emit users back to board', {gameId: this.user.gameId});
-      this.router.navigate(['/board']).catch( console.error ) ;
+      // redirect from socket
     });
   }
 
