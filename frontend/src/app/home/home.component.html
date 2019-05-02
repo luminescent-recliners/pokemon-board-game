@@ -21,7 +21,7 @@
       <p><b>{{user.name}}'s Games</b> ({{myGames.length}})</p>
       <div class="game-content">
         <p *ngFor="let game of myGames">
-          <a (click)="joinLobby( game.gameId, game.gameStarted )" class="game-name">{{game.gameName}}</a>
+          <a (click)="joinLobby( game.gameId, game.gameStarted, game.gameEnded )" class="game-name">{{game.gameName}}</a>
         </p>
       </div>
     </div>
@@ -30,7 +30,7 @@
       <p><b> Waiting For Players </b> ({{availGames.length}})</p>
       <div class="game-content">
         <p *ngFor="let game of availGames">
-          <a (click)='joinLobby( game.gameId, game.gameStarted )' class="game-name"> {{game.gameName}} </a>
+          <a (click)='joinLobby( game.gameId, game.gameStarted, game.gameEnded )' class="game-name"> {{game.gameName}} </a>
         </p>
       </div>  
     </div>

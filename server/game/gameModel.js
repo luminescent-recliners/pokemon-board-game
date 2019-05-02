@@ -13,6 +13,10 @@ var gameSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  gameEnded: {
+    type: Boolean,
+    default: false
+  },
   gameCounter: Number,
   currentPage: String,
   availableSprites: []

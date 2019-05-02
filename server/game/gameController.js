@@ -361,6 +361,7 @@ module.exports = {
         email: email,
         name: name
       },
+      gameEnded: false,
       gameCounter: 0,
       currentPage: 'lobbyView',
       availableSprites: availableSpritesData
@@ -384,7 +385,8 @@ module.exports = {
           gameName: games[i].name,
           gameStarted:  games[i].gameStarted,
           gamePlayers: playersInGame,
-          gameCreator:  games[i].gameCreator
+          gameCreator:  games[i].gameCreator,
+          gameEnded: games[i].gameEnded
         };
         results.push(resObj);
       }
@@ -395,33 +397,32 @@ module.exports = {
 
   getGames: function(req, res, next) {
     findGames({})
-      .then(function(games){
-        var results = [];
-        for(var i = 0; i < games.length; i++) {
-
-          // extract the names of the players in game
-          var playersInGame = [];
-          for(var j= 0; j < games[i].users.length; j++) {
-            playersInGame.push({
-              email: games[i].users[j].email,
-              name:  games[i].users[j].name
-            });
-          }
-          
-          var resObj = {
-            gameId: games[i].gameId,
-            gameName: games[i].name,
-            gameStarted:  games[i].gameStarted,
-            gamePlayers: playersInGame,
-            gameCreator:  games[i].gameCreator
-          };
-          results.push(resObj);
+    .then(function(games){
+      const results = [];
+      for( const game of games ) {
+        // extract the names of the players in game
+        const playersInGame = [];
+        for( let j= 0; j < game.users.length; j++) {
+          playersInGame.push({
+            email: game.users[j].email,
+            name:  game.users[j].name
+          });
         }
-          res.send(results);
-      })
-      .fail(function(error){
-        next(error);
-      });
+        const resObj = {
+          gameId: game.gameId,
+          gameName: game.name,
+          gameStarted:  game.gameStarted,
+          gamePlayers: playersInGame,
+          gameCreator:  game.gameCreator,
+          gameEnded: game.gameEnded
+        };
+        results.push(resObj);
+      }
+        res.send(results);
+    })
+    .fail(function(error){
+      next(error);
+    });
   },
 
   catchPokemon: function (req, res, next) {

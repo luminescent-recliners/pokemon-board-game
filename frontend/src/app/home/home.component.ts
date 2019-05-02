@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   clearMessage = () => this.message = '';
 
-  joinLobby = ( id, gameStarted ) => {
+  joinLobby = ( id, gameStarted, gameEnded ) => {
     const data = {
       gameId: id,
       user: {
@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         email: this.user.email
       }
     };
-    if ( gameStarted === false) {
+    if ( gameStarted === false && !gameEnded ) {
       this.gameService.requestLobbyEntry(id)
       .subscribe( (resp: any) => {
         if ( resp.requestAccepted ) {
@@ -147,6 +147,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       });
     } 
+    else if ( gameEnded ) {
+      // dont have to wait for players etc
+      this.auth.setGameId( id );
+      this.router.navigate([ '/winner' ]).catch( console.error );
+    }
     else {
       this.auth.setGameId( id );
       this.pokeSocket.emit('join resume lobby', data );
