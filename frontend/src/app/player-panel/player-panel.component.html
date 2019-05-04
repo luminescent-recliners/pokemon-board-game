@@ -50,9 +50,22 @@
       class="win-circle" 
       [attr.style]="p.relpos"
     >
-      <img class="win-circle-img" src="{{p.gifURL}}" width="30px" height="30px" (mouseover)="p.showinfo=true" (mouseleave)="p.showinfo=false">
-      <div *ngIf="p.showinfo" class="pokemon-info">hello</div>
+      <img class="win-circle-img" src="{{p.gifURL}}" width="30px" height="30px">
     </div>
   </div>
   <div class="win-name"><p>{{user.name}}</p></div>
+</div>
+
+<!-- Other circle -->
+<div *ngIf="user && circlepanelother" class="player-circle-win other" >
+  <img src="{{user.sprite}}" width="50" height="50" class="player-img other">
+  <div class="win-circle-wrapper other">
+    <div *ngFor="let p of pokemon.all" 
+      class="win-circle other" 
+      [attr.style]="p.relpos"
+    >
+      <img class="win-circle-img other" src="{{p.gifURL}}" width="18px" height="18px">
+    </div>
+  </div>
+  <div class="win-name other"><p>{{user.name}}</p></div>
 </div>

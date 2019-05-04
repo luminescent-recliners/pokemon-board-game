@@ -185,7 +185,7 @@
   position: absolute;
   top: 65%;
   left: 50%;
-  margin-left: -50px;
+  margin-left: -40px;
   width: 80px;
   color: var(--highlight-color );
   background-color: ivory;
@@ -240,4 +240,38 @@
   margin-left: -15px;
   margin-top: -15px;
   animation: spin-image 10s linear infinite;
+}
+
+
+/* The other players circles inherit from above */
+
+.player-circle-win.other {
+  width: 160px;
+  height: 160px;
+  padding: 1px;
+}
+
+.player-img.other {
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+.win-name.other {
+  margin-left: -20px;
+  width: 40px;
+  border-radius: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+  font-size: 10px;
+}
+
+.win-circle-wrapper.other {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+}
+
+.win-circle-img {
+  margin-left: -9px; /* chane me */
+  margin-top: -9px;
 }

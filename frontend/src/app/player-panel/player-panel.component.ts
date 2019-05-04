@@ -40,7 +40,7 @@ export class PlayerPanelComponent implements OnInit {
 
   @Input() circlepanelwin = false;
 
-  @Input() circlepanel = false;
+  @Input() circlepanelother = false;
 
   constructor(
     private santizer: DomSanitizer
@@ -80,16 +80,20 @@ export class PlayerPanelComponent implements OnInit {
         margin-top:-${this.pokemonPartySize / 2}px;
       `);
 
-
-      p.relpos = this.santizer.bypassSecurityTrustStyle(`
-        top:${Math.sin( angle * i * Math.PI / 180) * 120}px;
-        left:${ Math.cos( angle * i * Math.PI / 180) * 120}px;
-        transform-origin: ${-Math.cos( angle * i * Math.PI / 180) * 120}px ${-Math.sin( angle * i * Math.PI / 180) * 120}px;
-        
-        transform-origin-cool-sosaving: ${Math.cos( angle * i * Math.PI / 180) * 100}px ${Math.sin( angle * i * Math.PI / 180) * 100}px;
-        transform-origin-strange-sosaving: ${Math.sin( angle * i * Math.PI / 180) * 150}px ${Math.cos( angle * i * Math.PI / 180) * 150}px;
-
-      `);
+      if ( this.circlepanelwin ) {
+        p.relpos = this.santizer.bypassSecurityTrustStyle(`
+          top:${Math.sin( angle * i * Math.PI / 180) * 120}px;
+          left:${ Math.cos( angle * i * Math.PI / 180) * 120}px;
+          transform-origin: ${-Math.cos( angle * i * Math.PI / 180) * 120}px ${-Math.sin( angle * i * Math.PI / 180) * 120}px;
+        `);
+      }
+      if ( this.circlepanelother ) {
+        p.relpos = this.santizer.bypassSecurityTrustStyle(`
+          top:${Math.sin( angle * i * Math.PI / 180) * 60}px;
+          left:${ Math.cos( angle * i * Math.PI / 180) * 60}px;
+          transform-origin: ${-Math.cos( angle * i * Math.PI / 180) * 60}px ${-Math.sin( angle * i * Math.PI / 180) * 60}px;
+        `);
+      }
 
       if ( p.color === 'starter' ) {
         this.pokemon.all.push( p );
@@ -179,3 +183,8 @@ export class PlayerPanelComponent implements OnInit {
   }
 
 }
+
+/* some cool effects we can investigate later
+transform-origin: ${Math.cos( angle * i * Math.PI / 180) * 100}px ${Math.sin( angle * i * Math.PI / 180) * 100}px;
+transform-origin: ${Math.sin( angle * i * Math.PI / 180) * 150}px ${Math.cos( angle * i * Math.PI / 180) * 150}px;
+*/

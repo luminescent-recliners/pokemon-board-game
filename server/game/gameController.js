@@ -290,7 +290,8 @@ module.exports = {
           email: user.email,
           name: user.name,
           positionOnBoard: user.positionOnBoard,
-          sprite: user.sprite
+          sprite: user.sprite,
+          party: user.party,
         });
 
         winner = gameHelperFn.checkWinner( user.pokemonCount ) ? user : winner;

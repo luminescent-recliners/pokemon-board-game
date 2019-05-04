@@ -572,6 +572,7 @@ export class TesterComponent implements OnInit, OnDestroy {
   renderConnection = true;
 
   user = USER;
+  user2 = JSON.parse( JSON.stringify( USER ) );
 
   
 
