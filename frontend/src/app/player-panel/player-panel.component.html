@@ -1,0 +1,58 @@
+
+<button *ngIf="debug" (click)="printstate()">State</button>
+<p *ngIf="debug"> <button (click)="removeone()">remove one</button> Pokemon: {{user.party.length}} <button (click)="addone()">add one</button> Circle Size: {{sizeofcircle}}</p>
+
+
+<!-- Main player card -->
+<div *ngIf="user && minipanel" class="player-card" >
+  <img class="sprite-img" src="{{user.sprite}}" width="80" height="80">
+  <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2px">
+    <div *ngFor="let p of pokemon.all" 
+      class="{{p.color === 'starter' ? 'white': p.color}}" 
+      [style]="p.style">
+      <img class="pokemon-party" src="{{p.gifURL}}" width="{{pokemonPartySize}}" height="{{pokemonPartySize}}" [style]="p.imgstyle" (mouseover)="p.showinfo=true" (mouseleave)="p.showinfo=false">
+      <div *ngIf="p.showinfo" class="pokemon-info">hello</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Other player cards, I like the last one -->
+<div *ngIf="user && micropanel && false" class="other-player-card" [attr.style]="this.micropanelbacground">
+  <img src="{{user.sprite}}" width="60" height="60">
+  <div>{{user.name}}</div>
+</div>
+
+<div *ngIf="user && micropanel && false" class="other-player-card-two" [attr.style]="this.micropanelbacground">
+  <img src="{{user.sprite}}" width="60" height="60">
+  <div>{{user.name}}</div>
+</div>
+
+<div *ngIf="user && micropanel" class="other-player-card-three">
+  <div class="user-info">
+    <img src="{{user.sprite}}" width="60" height="60">
+    <div class="user-name">{{user.name}}</div>
+  </div>
+  <div class="bar-graph">
+    <div class="pink bars" [attr.style]="this.barGraphWidth.pink"></div>
+    <div class="green bars" [attr.style]="this.barGraphWidth.green"></div>
+    <div class="blue bars" [attr.style]="this.barGraphWidth.blue"></div>
+    <div class="red bars" [attr.style]="this.barGraphWidth.red"></div>
+  </div>
+</div>
+
+
+<!-- Winner circle -->
+<div *ngIf="user && circlepanelwin" class="player-circle-win" >
+  <img src="{{user.sprite}}" width="100" height="100" class="player-img">
+  <div class="win-circle-wrapper">
+    <div *ngFor="let p of pokemon.all" 
+      class="win-circle" 
+      [attr.style]="p.relpos"
+    >
+      <img class="win-circle-img" src="{{p.gifURL}}" width="30px" height="30px" (mouseover)="p.showinfo=true" (mouseleave)="p.showinfo=false">
+      <div *ngIf="p.showinfo" class="pokemon-info">hello</div>
+    </div>
+  </div>
+  <div class="win-name"><p>{{user.name}}</p></div>
+</div>

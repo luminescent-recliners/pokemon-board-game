@@ -1,0 +1,243 @@
+
+
+.blue {
+  background: blue;
+}
+.red {
+  background: red;
+}
+.green {
+  background: green;
+}
+.pink {
+  background: pink;
+}
+.white {
+  background: white;
+}
+
+.player-card {
+  border: 1px solid var( --highlight-color);
+  border-radius: 8px;
+  background-color: var(--player-panel-background);
+  overflow: hidden;
+  padding: 1px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  width:200px;
+  height:88px;
+}
+
+.sprite-img {
+  flex: 0 0 80px;
+  height: 80px;
+}
+
+.pokemon-info {
+  color: black;
+}
+
+
+
+
+.other-player-card {
+  border: 1px solid var( --highlight-color);
+  border-radius: 8px;
+  background-color: white;
+  overflow: hidden;
+  padding: 1px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  width:88px;
+  height:88px;
+}
+
+.other-player-card div {
+  color: var(--highlight-color );
+  background-color: ivory;
+  border-radius: 5px;
+  padding-left:2px;
+  padding-right: 2px;
+}
+
+
+
+
+
+.other-player-card-two {
+  box-sizing:border-box;
+  border: 1px solid var( --highlight-color);
+  border-radius: 50%;
+  /* border-width: 22px; */
+  overflow: hidden;
+  padding: 1px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  width:88px;
+  height:88px;
+}
+
+.other-player-card-two div {
+  color: var(--highlight-color );
+  background-color: ivory;
+  border-radius: 5px;
+  padding-left:2px;
+  padding-right: 2px;
+}
+
+
+
+
+
+.other-player-card-three {
+  box-sizing:border-box;
+  border: 1px solid var( --highlight-color);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1px;
+  background-color: var(--player-panel-background);
+
+  position: relative;
+
+  width:80px;
+  height:88px;
+
+  z-index: 100;
+}
+
+.other-player-card-three div.user-info {
+  box-sizing:border-box;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  width:80px;
+  height:88px;
+
+  z-index: 200;
+}
+.other-player-card-three div.user-name {
+  color: var(--highlight-color );
+  background-color: ivory;
+  border-radius: 5px;
+  padding-left:2px;
+  padding-right: 2px;
+}
+
+.other-player-card-three div.bar-graph {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.other-player-card-three div.bars {
+  position: absolute;
+  height: 5px;
+  /* width: 88px; */
+  left: 0;
+}
+
+.other-player-card-three div.bars.pink {
+  top: 19px;
+}
+.other-player-card-three div.bars.green {
+  top: 34px;
+}
+.other-player-card-three div.bars.blue {
+  top: 49px;
+}
+.other-player-card-three div.bars.red {
+  top: 64px;
+}
+
+
+
+
+
+
+.player-circle-win {
+  width: 320px;
+  height: 320px;
+  padding: 2px;
+  border: 1px solid var( --highlight-color);
+  position: relative;
+  border-radius: 8px;
+  background-color: var(--player-panel-background);
+}
+
+.win-name {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  margin-left: -50px;
+  width: 80px;
+  color: var(--highlight-color );
+  background-color: ivory;
+  border-radius: 5px;
+  padding-left:2px;
+  padding-right: 2px;
+}
+.win-name p {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.player-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+
+.win-circle-wrapper {
+  position: absolute;
+  top: 160px;
+  left: 160px;
+}
+
+.win-circle {
+  position:absolute;
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate( 0deg ); }
+  25% { transform: rotate( 90deg ); }
+  50% { transform: rotate( 180deg ); }
+  75% { transform: rotate( 270deg ); }
+  100% { transform: rotate( 360deg ); }
+}
+
+@keyframes spin-image {
+  0% { transform: rotate( 360deg ); }
+  25% { transform: rotate( 270deg ); }
+  50% { transform: rotate( 180deg ); }
+  75% { transform: rotate( 90deg ); }
+  100% { transform: rotate( 0deg ); }
+}
+
+.win-circle-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  animation: spin-image 10s linear infinite;
+}
