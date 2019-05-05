@@ -16,6 +16,10 @@
   background: white;
 }
 
+.player-card-wrapper {
+  position: relative;
+}
+
 .player-card {
   border: 1px solid var( --highlight-color);
   border-radius: 8px;
@@ -38,6 +42,9 @@
 
 .pokemon-info {
   color: black;
+  position: absolute;
+  bottom: 94px;
+  left: 0px;
 }
 
 

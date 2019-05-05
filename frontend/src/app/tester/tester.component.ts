@@ -573,6 +573,8 @@ export class TesterComponent implements OnInit, OnDestroy {
 
   user = USER;
   user2 = JSON.parse( JSON.stringify( USER ) );
+  dice = true;
+  small = false;
 
   
 
@@ -585,6 +587,13 @@ export class TesterComponent implements OnInit, OnDestroy {
     private santizer: DomSanitizer
   ) { 
 
+  }
+
+  toggleDice() {
+    this.dice = !this.dice;
+  }
+  toggleSmall() {
+    this.small = !this.small;
   }
 
   ngOnInit() {
@@ -621,5 +630,6 @@ export class TesterComponent implements OnInit, OnDestroy {
   disconnect() {
     this.socket.disconnect();
   }
+
 
 }

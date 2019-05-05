@@ -4,18 +4,19 @@
 
 
 <!-- Main player card -->
-<div *ngIf="user && minipanel" class="player-card" >
-  <img class="sprite-img" src="{{user.sprite}}" width="80" height="80">
-  <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2px">
-    <div *ngFor="let p of pokemon.all" 
-      class="{{p.color === 'starter' ? 'white': p.color}}" 
-      [style]="p.style">
-      <img class="pokemon-party" src="{{p.gifURL}}" width="{{pokemonPartySize}}" height="{{pokemonPartySize}}" [style]="p.imgstyle" (mouseover)="p.showinfo=true" (mouseleave)="p.showinfo=false">
-      <div *ngIf="p.showinfo" class="pokemon-info">hello</div>
+<div class="player-card-wrapper">
+  <div *ngIf="user && minipanel" class="player-card" >
+    <img class="sprite-img" src="{{user.sprite}}" width="80" height="80">
+    <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2px">
+      <div *ngFor="let p of pokemon.all" 
+        class="{{p.color === 'starter' ? 'white': p.color}}" 
+        [style]="p.style">
+        <img class="pokemon-party" src="{{p.gifURL}}" width="{{pokemonPartySize}}" height="{{pokemonPartySize}}" [style]="p.imgstyle" (mouseover)="showInfo(p)" (mouseleave)="showInfo()">
+      </div>
     </div>
   </div>
+  <div *ngIf="infoPokemon" class="pokemon-info"><app-pokemon-panel [small]="true" [pokemon]="infoPokemon"></app-pokemon-panel></div>
 </div>
-
 
 <!-- Other player cards, I like the last one -->
 <div *ngIf="user && micropanel && false" class="other-player-card" [attr.style]="this.micropanelbacground">

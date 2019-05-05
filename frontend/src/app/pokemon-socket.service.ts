@@ -19,6 +19,8 @@ export class PokemonSocketService implements OnDestroy {
     this.socket = io( this.url, {
       autoConnect: false
     });
+    this.socket.on( 'connect', s => { console.log( 'Connected Socket.io.id', this.socket.id ); });
+    this.socket.on( 'disconnect', s => { console.log( 'Disconnected Socket.io' ); });
   }
 
   ngOnDestroy() {
@@ -43,6 +45,11 @@ export class PokemonSocketService implements OnDestroy {
   deRegister( events ) {
     for ( const [ event, cb ] of events ) {
       let cblist = this.socket._callbacks[ `$${event}` ];
+
+      // I think I can replace this with something like:
+      //    this.socket.off( event, cb );
+      // test it and change if so.
+
       if ( cblist && Array.isArray( cblist ) ) {
         const i = cblist.indexOf( cb );
         cblist = cblist.slice( 0, i ).concat( cblist.slice( i + 1) );

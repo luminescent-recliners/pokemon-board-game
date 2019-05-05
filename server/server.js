@@ -105,10 +105,10 @@ io.on( 'error', error => {
 
 
 io.on('connection', socket => {
-  console.log('a user connected');
-
+  console.log('Connected:   ', socket.id );
+  
   socket.on('disconnect', function() {
-    console.log('a user disconnected');
+    console.log('Disconnected:', this.id );
   });
 
   socket.on('joinLobby', function(data) {

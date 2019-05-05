@@ -7,9 +7,7 @@
   max-width: 300px;
 }
 .to-capture-box {
-  border: 1px solid var( --highlight-color );
   max-width: 300px;
-  border-radius: 5px;
   margin: 5px;
   padding: 3px;
 }

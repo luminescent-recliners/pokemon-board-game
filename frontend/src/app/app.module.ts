@@ -22,6 +22,7 @@ import { TesterComponent } from './tester/tester.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { DiceComponent } from './dice/dice.component';
 import { PlayerPanelComponent } from './player-panel/player-panel.component';
+import { PokemonPanelComponent } from './pokemon-panel/pokemon-panel.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PlayerPanelComponent } from './player-panel/player-panel.component';
     AcknowledgeComponent,
     DiceComponent,
     PlayerPanelComponent,
+    PokemonPanelComponent,
     TesterComponent,
   ],
   imports: [

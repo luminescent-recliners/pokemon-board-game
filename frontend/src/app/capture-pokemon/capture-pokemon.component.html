@@ -2,21 +2,12 @@
   <div class="item">
     <h3>{{currentTurnPlayerName}} was wandering in the wild!</h3>
     <h3>A wild {{name}} appeared!</h3>
-    <p> {{description}} </p>
   </div>  
 
   <!-- POKEDEX -->  
   <div class="item to-capture-box">
     <h4><b>{{currentTurnPlayerName}}'s Pokedex</b></h4> 
-    <img class="pokeMove" [attr.src]="imageUrl">
-    <p class="pokemonCap"><b>{{name}}</b></p>
-
-    <div class="">
-      <p>To capture {{name}} {{currentTurnPlayerName}} must roll:</p>  
-      <div class="to-capture-images" fxLayout="row wrap" fxLayoutAlign="center center" >
-        <app-dice *ngFor="let roll of rollNeeded" pips={{roll}}></app-dice>
-      </div>
-    </div> 
+    <app-pokemon-panel [pokemon]="pokemon" [showDice]=true></app-pokemon-panel>
   </div>
     
 

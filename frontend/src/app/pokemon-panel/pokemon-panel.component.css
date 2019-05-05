@@ -1,0 +1,38 @@
+.panel {
+  width: 300px;
+  border-radius: 8px;
+  color: var( --highlight-color );
+  box-sizing: border-box;
+  padding: 3px;
+}
+.panel > p {
+  max-width: 90%;
+}
+
+.small {
+  width: 200px;
+}
+
+.blue {
+  border: 1px solid blue;
+  background: rgba( 0, 0, 255, 0.6 );
+  color: white;
+}
+.red {
+  border: 1px solid red;
+  background: rgba( 255, 0, 0, 0.6 );
+  color: white;
+}
+.green {
+  border: 1px solid green;
+  background: rgba( 0, 128, 0, 0.6 );
+  color: white;
+}
+.pink {
+  border: 1px solid pink;
+  background: rgba( 255, 192, 203, 0.6 );
+}
+.white {
+  border: 1px solid white;
+  background: rgba( 255, 255, 255, 0.6 );
+}

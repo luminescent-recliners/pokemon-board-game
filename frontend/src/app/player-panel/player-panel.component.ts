@@ -23,6 +23,8 @@ export class PlayerPanelComponent implements OnInit {
 
   trySize = 20;
 
+  infoPokemon;
+
   @Input() micropanel = false;
   micropanelbacground;
   barGraphWidth = {
@@ -181,6 +183,11 @@ export class PlayerPanelComponent implements OnInit {
     console.log( 'minipanel', this.minipanel );
     console.log( 'pokemon', this.pokemon );
   }
+
+  showInfo( p ) {
+    this.infoPokemon = p;
+  }
+  
 
 }
 
