@@ -1,6 +1,6 @@
 {
   "name": "pokemon-board-game",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Pokemon Master Trainer",
   "main": "server/server.js",
   "directories": {
@@ -13,7 +13,8 @@
     "dev": "NODE_ENV=development node server/server.js",
     "build": "cd frontend && npm run build && cd ..",
     "bs": "npm run build && npm run dev",
-    "getAuthors": "git log --format='%aN <%aE>' | sort -f | uniq"
+    "getAuthors": "git log --format='%aN <%aE>' | sort -f | uniq",
+    "bump": "node setVersion.js"
   },
   "repository": {
     "type": "git",
