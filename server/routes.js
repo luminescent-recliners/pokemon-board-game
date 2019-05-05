@@ -3,6 +3,7 @@ const router = require('express').Router();
 const gymLeader = require('./gymLeader/gymLeaderController.js');
 const gameController = require('./game/gameController.js');
 const userController = require('./users/userController.js');
+const pokemonController = require( './pokemon/pokemonController.js' );
 
 // temp event and city logic
 const tempEventsController = require('./tempEvents/tempEventsController.js');
@@ -41,6 +42,8 @@ router.post( '/api/login', userController.sendVerificationCode );
 router.post( '/api/login/verify', userController.verifyCode );
 
 router.get( '/api/user', userController.loggedInUser );
+
+router.get( '/api/pokemon', pokemonController.getPokemon );
 
 /* this is the arrangement I want to move towards
 router.get( '/api/game/:id/thing', ( req, res, next ) => {

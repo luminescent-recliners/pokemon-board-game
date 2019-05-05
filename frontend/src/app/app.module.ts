@@ -23,6 +23,7 @@ import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { DiceComponent } from './dice/dice.component';
 import { PlayerPanelComponent } from './player-panel/player-panel.component';
 import { PokemonPanelComponent } from './pokemon-panel/pokemon-panel.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PokemonPanelComponent } from './pokemon-panel/pokemon-panel.component';
     PlayerPanelComponent,
     PokemonPanelComponent,
     TesterComponent,
+    PokedexComponent,
   ],
   imports: [
     BrowserModule,

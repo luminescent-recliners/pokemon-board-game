@@ -36,3 +36,7 @@
   border: 1px solid white;
   background: rgba( 255, 255, 255, 0.6 );
 }
+.gold {
+  border: 1px solid gold;
+  background: rgba( 255, 215, 0, 0.6 );
+}

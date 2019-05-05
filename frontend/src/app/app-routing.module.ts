@@ -13,6 +13,7 @@ import { CapturePokemonComponent } from './capture-pokemon/capture-pokemon.compo
 import { TrainerComponent } from './trainer/trainer.component';
 import { WinnerComponent } from './winner/winner.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 import { TesterComponent } from './tester/tester.component';
 
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'trainer', component: TrainerComponent  },
   { path: 'resumelobby', component: ResumeLobbyComponent  },
   { path: 'acknowldedge', component: AcknowledgeComponent },
+  { path: 'pokedex', component: PokedexComponent }
 ];
 
 if ( dev ) { routes.push( { path: 'tester', component: TesterComponent } ); }

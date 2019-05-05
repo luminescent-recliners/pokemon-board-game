@@ -1,0 +1,5 @@
+<div *ngIf="pokemons" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <div *ngFor="let p of pokemons" style="margin:5px;">
+    <app-pokemon-panel [pokemon]="p" [showDice]="true"></app-pokemon-panel>
+  </div>
+</div>
