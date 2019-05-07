@@ -17,8 +17,9 @@
 
 <div class="infocard">
   <p> Main player info card: </p>
-  <app-player-panel  [user]="user" [minipanel]="true"></app-player-panel>
+  <app-player-panel  [user]="user" [minipanel]="true" [top]="top"></app-player-panel>
 </div>
+
 
 <div class="infocard">
   <p> Pokemon info card: </p>
@@ -47,6 +48,7 @@
 
 <button (click)="toggleDice()">Dice</button>
 <button (click)="toggleSmall()">Small</button>
+<button (click)="toggleTop()">Top/Bottom</button>
       
 <div *ngIf="false">
 

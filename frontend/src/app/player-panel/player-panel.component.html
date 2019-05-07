@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="infoPokemon" class="pokemon-info"><app-pokemon-panel [small]="true" [pokemon]="infoPokemon"></app-pokemon-panel></div>
+  <div *ngIf="infoPokemon" class="pokemon-info {{top? 'top': 'bottom'}}"><app-pokemon-panel [small]="true" [pokemon]="infoPokemon"></app-pokemon-panel></div>
 </div>
 
 <!-- Other player cards, I like the last one -->

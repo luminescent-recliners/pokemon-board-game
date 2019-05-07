@@ -575,7 +575,7 @@ export class TesterComponent implements OnInit, OnDestroy {
   user2 = JSON.parse( JSON.stringify( USER ) );
   dice = true;
   small = false;
-
+  top = true;
   
 
   constructor(
@@ -594,6 +594,9 @@ export class TesterComponent implements OnInit, OnDestroy {
   }
   toggleSmall() {
     this.small = !this.small;
+  }
+  toggleTop() {
+    this.top = !this.top;
   }
 
   ngOnInit() {

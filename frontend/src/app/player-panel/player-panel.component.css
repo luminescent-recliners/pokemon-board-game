@@ -43,7 +43,15 @@
 .pokemon-info {
   color: black;
   position: absolute;
+}
+
+.top {
   bottom: 94px;
+  left: 0px;
+}
+
+.bottom {
+  top: 94px;
   left: 0px;
 }
 

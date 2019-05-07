@@ -44,6 +44,9 @@ export class PlayerPanelComponent implements OnInit {
 
   @Input() circlepanelother = false;
 
+  @Input() top = true;
+  @Input() bottom = !this.top;
+
   constructor(
     private santizer: DomSanitizer
   ) { 
