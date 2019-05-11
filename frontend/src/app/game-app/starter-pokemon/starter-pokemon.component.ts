@@ -3,10 +3,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { concat  } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PokemonSocketService } from '../pokemon-socket.service';
-import { AuthService } from '../auth.service';
-import { GameFactoryService } from '../game-factory.service';
-import { UserService } from '../user.service';
+import { PokemonSocketService } from '../../pokemon-socket.service';
+import { AuthService } from '../../auth.service';
+import { GameFactoryService } from '../../game-factory.service';
+import { UserService } from '../../user.service';
 
 const debug = false;
 
@@ -30,7 +30,7 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
 
   selectedPokemon = null;
@@ -55,7 +55,7 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
 
-      if (this.user.gameId === -1) {
+      if (this.user.gameId === '' ) {
         this.router.navigate(['/home']);
         return;
       }
@@ -79,7 +79,7 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
       this.gameService.updateCurrentPage( this.user.gameId, 'boardView' )
       .subscribe(() => {
         if ( debug ) { console.log('[refresh after pokemon selection] subscribe'); }
-        this.router.navigate(['/board']).catch( console.error );
+        this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error );
       });
     } 
     else {

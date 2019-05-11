@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
   games = [];
   availGames = [];
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       ];
       this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
       
-      if ( this.user.gameId !== -1 ) {
+      if ( this.user.gameId !== '' ) {
 
         this.pokeSocket.emit( 'a user left lobby', { 
           gameId: this.user.gameId, 
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
 
         this.auth.delGameId();
-        this.user.gameId = -1;
+        this.user.gameId = '';
       }
 
     }
@@ -132,15 +132,19 @@ export class HomeComponent implements OnInit, OnDestroy {
         email: this.user.email
       }
     };
+
+    // TODO off load this logic onto game-app base page
+
     if ( gameStarted === false && !gameEnded ) {
       this.gameService.requestLobbyEntry(id)
       .subscribe( (resp: any) => {
         if ( resp.requestAccepted ) {
           this.auth.setGameId( id );
           this.pokeSocket.emit( 'joinLobby', data );
-
-          this.router.navigate([ '/lobby' ])
-          .catch( console.error );
+          this.user.gameId = id;
+          this.router.navigate([ `game/${id}/lobby` ], { state: this.user }).catch( console.error );
+          // this.router.navigate([ '/lobby' ]).catch( console.error );
+          
         } 
         else {
           this.message = 'Sorry, This game already has 6 players! Pls select another game.';
@@ -150,13 +154,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     else if ( gameEnded ) {
       // dont have to wait for players etc
       this.auth.setGameId( id );
-      this.router.navigate([ '/winner' ]).catch( console.error );
+      this.router.navigate([ `/game/${id}/winner` ]).catch( console.error );
+      // this.router.navigate([ '/winner' ]).catch( console.error );
     }
     else {
       this.auth.setGameId( id );
       this.pokeSocket.emit('join resume lobby', data );
-      this.router.navigate([ '/resumelobby' ])
-      .catch( console.error ); 
+      this.router.navigate([ `/game/${id}/resumelobby` ]).catch( console.error );
+      // this.router.navigate([ '/resumelobby' ]).catch( console.error );
     } 
   }
 

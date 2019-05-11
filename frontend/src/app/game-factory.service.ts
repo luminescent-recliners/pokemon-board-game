@@ -126,6 +126,17 @@ export class GameFactoryService {
   getCityGif() {
     return this.http.get( 'api/tempCity/getURL' );
   }
+
+  getPlayerOptions( roll, userPosition, gameId, userId ) {
+    return this.http.get( '/api/games/playerOptions', {
+      params: {
+        roll,
+        gameId,
+        userId,
+        userPosition
+      }
+    });
+  }
 }
 
 

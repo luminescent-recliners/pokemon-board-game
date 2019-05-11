@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { PokemonSocketService } from '../pokemon-socket.service';
-import { AuthService } from '../auth.service';
-import { GameFactoryService } from '../game-factory.service';
+import { PokemonSocketService } from '../../pokemon-socket.service';
+import { AuthService } from '../../auth.service';
+import { GameFactoryService } from '../../game-factory.service';
 
 const debug = false;
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  selector: 'app-city',
+  templateUrl: './city.component.html',
+  styleUrls: ['./city.component.css']
 })
-export class EventComponent implements OnInit, OnDestroy {
+export class CityComponent implements OnInit, OnDestroy {
 
   currentTurnPlayerName = '';
   currentTurnPlayerId = '';
@@ -21,7 +21,7 @@ export class EventComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
   socketEvents = [];
 
@@ -35,6 +35,7 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if ( debug ) { console.log( '%cCityComponent ngOnInit()', 'color:green'); }
     setTimeout(() => this.setUp(), 0);
   }
 
@@ -47,7 +48,7 @@ export class EventComponent implements OnInit, OnDestroy {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
 
-      if (this.user.gameId === -1) {
+      if (this.user.gameId === '') {
         this.router.navigate(['/home']);
         return;
       }
@@ -61,24 +62,15 @@ export class EventComponent implements OnInit, OnDestroy {
       
     }
   }
-
   ngOnDestroy() {
+    if ( debug ) { console.log( '%cCityComponent ngOnDestroy()', 'color:green'); }
     this.pokeSocket.deRegister( this.socketEvents );
   }
 
   redirectBackToBoardCB = () => {
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
-    this.router.navigate(['/board']).catch( console.error ) ;
-  }
-
-  getGif = () => {
-    this.gameService.getEventGif()
-    .subscribe( (resp: any) => {
-      if ( debug ) { console.log( 'getGif() getEventGif()', resp ); }
-      this.gifDescrip = resp.descriptions;
-      this.gifURL = resp.eventURL;
-    });
+    this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error ) ;
   }
 
   initialize = () => {
@@ -90,12 +82,21 @@ export class EventComponent implements OnInit, OnDestroy {
     });
   }
 
+  getGif = () => {
+    this.gameService.getCityGif()
+    .subscribe( (resp: any) => {
+      if ( debug ) { console.log( 'getGif() getCityGif()', resp ); }
+      this.gifDescrip = resp.descriptions;
+      this.gifURL = resp.cityURL;
+    });
+  }
+
   updateTurn = () => {
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
     this.gameService.updateTurn(this.user.gameId, 'boardView')
     .subscribe( (resp) => {
-     // redirect from socket
+      // redirect from socket.
     });
   }
 

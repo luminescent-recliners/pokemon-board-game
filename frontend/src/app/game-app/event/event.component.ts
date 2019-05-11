@@ -1,19 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { PokemonSocketService } from '../pokemon-socket.service';
-import { AuthService } from '../auth.service';
-import { GameFactoryService } from '../game-factory.service';
+import { PokemonSocketService } from '../../pokemon-socket.service';
+import { AuthService } from '../../auth.service';
+import { GameFactoryService } from '../../game-factory.service';
 
 const debug = false;
 
-
 @Component({
-  selector: 'app-trainer',
-  templateUrl: './trainer.component.html',
-  styleUrls: ['./trainer.component.css']
+  selector: 'app-event',
+  templateUrl: './event.component.html',
+  styleUrls: ['./event.component.css']
 })
-export class TrainerComponent implements OnInit, OnDestroy {
+export class EventComponent implements OnInit, OnDestroy {
 
   currentTurnPlayerName = '';
   currentTurnPlayerId = '';
@@ -22,10 +21,8 @@ export class TrainerComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
-  currentTrainer;
-  otherTrainers;
   socketEvents = [];
 
   constructor(
@@ -42,7 +39,7 @@ export class TrainerComponent implements OnInit, OnDestroy {
   }
 
   setUp() {
-    if (!this.auth.isAuth('trainer')) {
+    if (!this.auth.isAuth('board')) {
       this.router.navigate(['/signin']);
     }
     else {
@@ -50,7 +47,7 @@ export class TrainerComponent implements OnInit, OnDestroy {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
 
-      if (this.user.gameId === -1) {
+      if (this.user.gameId === '') {
         this.router.navigate(['/home']);
         return;
       }
@@ -58,9 +55,10 @@ export class TrainerComponent implements OnInit, OnDestroy {
       this.initialize();
 
       this.socketEvents = [
-        [ 'redirect back to board', this.redirectBackToBoardCB ]
+        [ 'redirect back to board', this.redirectBackToBoardCB ],
       ];
       this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+      
     }
   }
 
@@ -69,32 +67,35 @@ export class TrainerComponent implements OnInit, OnDestroy {
   }
 
   redirectBackToBoardCB = () => {
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
-    this.router.navigate(['/board']).catch( console.error ) ;
+    this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error ) ;
   }
 
-  updateTurn = () => {
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
-    audioRedir.play();
-    this.gameService.updateTurn(this.user.gameId, 'boardView')
-    .subscribe( (resp) => {
-      // redirect from socket
+  getGif = () => {
+    this.gameService.getEventGif()
+    .subscribe( (resp: any) => {
+      if ( debug ) { console.log( 'getGif() getEventGif()', resp ); }
+      this.gifDescrip = resp.descriptions;
+      this.gifURL = resp.eventURL;
     });
   }
 
   initialize = () => {
     this.gameService.getGameTurn(this.user.gameId)
     .subscribe( (resp: any) => {
-      if ( debug ) { console.log( 'initialize() getGameTurn()', resp ); }
       this.currentTurnPlayerName = resp.name;
       this.currentTurnPlayerId = resp.email;
-      this.gameService.trainerInit(this.user.gameId, this.currentTurnPlayerId)
-      .subscribe( (resp2: any) => {
-        if ( debug ) { console.log( 'initialize() trainerInit()', resp2 ); }
-        this.currentTrainer = resp2.currentTrainer;
-        this.otherTrainers = resp2.otherTrainers;
-      });
+      this.getGif();
+    });
+  }
+
+  updateTurn = () => {
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
+    audioRedir.play();
+    this.gameService.updateTurn(this.user.gameId, 'boardView')
+    .subscribe( (resp) => {
+     // redirect from socket
     });
   }
 
@@ -104,8 +105,7 @@ export class TrainerComponent implements OnInit, OnDestroy {
     console.log( 'gifDescrip:', this.gifDescrip );
     console.log( 'gifURL:', this.gifURL );
     console.log( 'user:', this.user );
-    console.log( 'currentTrainer:', this.currentTrainer );
-    console.log( 'otherTrainers:', this.otherTrainers );
+
   }
 
 }

@@ -3,7 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { map, withLatestFrom, switchMap, concatMap } from 'rxjs/operators';
-import { from, observable, Observable, concat, of } from 'rxjs';
+import { from, observable, Observable, concat, of, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from './pokemon-socket.service';
@@ -18,10 +18,16 @@ export class AuthService {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
 
   isLoggedIn = false;
+
+  email = new BehaviorSubject( '' );
+  name = new BehaviorSubject( '' );
+  gameId = new BehaviorSubject( '' );
+  loggedIn = new BehaviorSubject( false );
+  dummy = new BehaviorSubject( '' );
 
   constructor( 
     private cookieService: CookieService,
@@ -46,6 +52,8 @@ export class AuthService {
     else if ( this.getSession() ) {
       this.socket.connect();
     }
+
+    setInterval( () => this.dummy.next( Date.now().toString()), 3000 );
   }
   
   setUserInfo( d ) {
@@ -53,14 +61,25 @@ export class AuthService {
     this.user.email = d.email;
     this.user.name = d.name;
     this.isLoggedIn = d.result;
+    
+    this.email.next( d.email );
+    this.name.next( d.name );
+    this.loggedIn.next( true );
+
     if ( debug ) { console.log( 'setuserinfo() after', this.user ); }
   }
 
   reset() {
     this.user.email = '';
     this.user.name = '';
-    this.user.gameId = -1;
+    this.user.gameId = '';
     this.isLoggedIn = false;
+    
+    this.email.next( '' );
+    this.name.next( '' );
+    this.loggedIn.next( false );
+    this.gameId.next( '' );
+
     this.socket.disconnect();
   }
 
@@ -131,12 +150,14 @@ export class AuthService {
     return this.user.gameId;
   }
 
-  setGameId( id ) {
+  setGameId( id: string ) {
     this.user.gameId = id;
+    this.gameId.next( id );
   }
 
   delGameId() {
-    this.user.gameId = -1;
+    this.user.gameId = '';
+    this.gameId.next( '' );
   }
 
 }

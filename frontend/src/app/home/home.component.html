@@ -1,7 +1,9 @@
 
 <div class="home" fxLayout="column" fxLayoutAlign="start center">
-  <div class="newGameSideBar item">
-    <p>Logged in as <b><i> {{user.name}} </i></b> <input class="create-game-btn" type="button" value=" Log Out " (click)="logout()"> </p>
+
+  <div class="item" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <div>Logged in as <b><i> {{user.name}} </i></b></div>
+    <div><input class="create-game-btn" type="button" value=" Log Out " (click)="logout()"></div>
   </div>
 
   <div class="item">

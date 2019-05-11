@@ -302,7 +302,8 @@ module.exports = {
         user: thisUser,
         currentTurn: game.gameTurn,
         allUsers: allUsers,
-        winner: winner
+        winner: winner,
+        gameStarted: game.gameStarted
       });
     })
     .fail(function(error) {
@@ -346,7 +347,7 @@ module.exports = {
     const { gameName, email, name } = req.body;
     const id = new mongoose.mongo.ObjectId();
     const newGame = new Games({
-      __id: id,
+      _id: id,
       gameId: id.toString(), 
       name: gameName,
       gameBoard: gameBoardData,

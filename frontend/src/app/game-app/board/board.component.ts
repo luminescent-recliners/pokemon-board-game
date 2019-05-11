@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { PokemonSocketService } from '../pokemon-socket.service';
-import { AuthService } from '../auth.service';
-import { GameFactoryService } from '../game-factory.service';
-import { GameDashboardService } from '../game-dashboard.service';
-import { UserService } from '../user.service';
-import { BoardFactoryService } from '../board-factory.service';
+import { PokemonSocketService } from '../../pokemon-socket.service';
+import { AuthService } from '../../auth.service';
+import { GameFactoryService } from '../../game-factory.service';
+import { UserService } from '../../user.service';
+import { BoardFactoryService } from '../../board-factory.service';
+import { GameStoreService } from '../../game-store.service';
 
 const debug = false;
 
@@ -21,7 +21,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
   gameName = '';
   gameCreator = '';
@@ -31,9 +31,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   playerOptions = [[], []];
   userPosition;
   continueGame = true;
-  confirmExit = true;
   pauseGameMessage = '';
-  showexitoptions = true;
   roll = 0;
   rollDisplay = false;
   actionDisplay = false;
@@ -47,7 +45,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   currentTurnPlayerName;
   allPlayers;
   playerPosition;
-  userInfoPanel = false;
   boardData;
   pathData;
   pathString = '';
@@ -64,9 +61,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private gameService: GameFactoryService,
-    private gameDashboard: GameDashboardService,
     private userService: UserService,
-    private boardService: BoardFactoryService
+    private boardService: BoardFactoryService,
+    private gameStore: GameStoreService,
   ) {
 
   }
@@ -85,7 +82,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
 
-      if (this.user.gameId === -1) {
+      if (this.user.gameId === '') {
         this.router.navigate(['/home']);
         return;
       }
@@ -130,7 +127,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   sendRedirectToUserCB = (action) => {
     this.redirect(action);
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
   }
 
@@ -138,19 +135,19 @@ export class BoardComponent implements OnInit, OnDestroy {
     // hide play options and make visible a button to move to home
     this.continueGame = false;
     this.pauseGameMessage = data.message;
-    this.showexitoptions = false;
+    this.gameStore.showExitGame( false );
   }
 
   winnerAnnouncmentCB = data => {
     this.gameService.updateCurrentPage( this.user.gameId, 'winnerView' )
     .subscribe( (resp) => {
-      this.router.navigate(['/winner'])
+      this.router.navigate([`game/${this.user.gameId}/winner`])
       .catch( console.error );
     });
   }
 
   sendPlayerRollToMoveCB = roll => {
-    const audio = new Audio('../assets/sounds/dice.mp3');
+    const audio = new Audio('../../assets/sounds/dice.mp3');
     audio.play();
     this.roll = roll;
     this.rollDisplay = true;
@@ -158,7 +155,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   sendPlayerToMoveCB = data => {
     this.initialize();
-    const audioMove = new Audio('../assets/sounds/swoosh.mp3');
+    const audioMove = new Audio('../../assets/sounds/swoosh.mp3');
     audioMove.play();
   }
 
@@ -167,35 +164,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.actionDisplay = true;
   }
 
-  exitGame = () => {
-    // emit a message to all in game that someone has left game
-    const data = {
-      gameId: this.user.gameId,
-      user: { email: this.user.email, name: this.user.name },
-      message: `${this.user.name} is leaving game!  Resume game from Lobby Page after everyone is back.`,
-      continueGame: false
-    };
-    this.pokeSocket.emit('player wants to pause game', data);
-  }
-
-  toggleConfirm = () => {
-    if ( debug ) { console.log( 'toggleConfirm() before', this.confirmExit ); }
-    this.confirmExit = !this.confirmExit;
-    if ( debug ) { console.log( 'toggleConfirm() after', this.confirmExit ); }
-  }
-
-  goHome = () => {
-    this.auth.delGameId();
-    this.router.navigate(['/home'])
-    .catch(console.error);
-  }
-
   rollDice = () => {
     this.roll = Math.ceil( Math.random() * 6 );
-    const audio = new Audio('../assets/sounds/dice.mp3');
+    const audio = new Audio('../../assets/sounds/dice.mp3');
     audio.play();
     this.pokeSocket.emit( 'player rolled dice to move', {gameId: this.user.gameId, roll: this.roll});
-    this.gameDashboard.getPlayerOptions( this.roll, this.userPosition, this.user.gameId, this.user.email)
+    this.gameService.getPlayerOptions( this.roll, this.userPosition, this.user.gameId, this.user.email)
     .subscribe(( options: any ) => {
       this.playerOptions[0] = options.forwardOptions;
       this.playerOptions[1] = options.backwardOptions;
@@ -263,30 +237,30 @@ export class BoardComponent implements OnInit, OnDestroy {
   redirect = action => {
     switch (action) {
       case 'pokemon':
-        this.router.navigate([ '/capture' ])
+        this.router.navigate([ `game/${this.user.gameId}/capture` ])
         .catch( console.error );
         break;
       case 'city':
-        this.router.navigate([ '/city' ])
+        this.router.navigate([ `game/${this.user.gameId}/city` ])
         .catch( console.error );
         break;
       case 'event':
-        this.router.navigate([ '/event' ])
+        this.router.navigate([ `game/${this.user.gameId}/event` ])
         .catch( console.error );
         break;
       case 'trainer':
-        this.router.navigate([ '/trainer' ])
+        this.router.navigate([ `game/${this.user.gameId}/trainer` ])
         .catch( console.error );
         break;
       case 'winner':
-        this.router.navigate([ '/winner' ])
+        this.router.navigate([ `game/${this.user.gameId}/winner` ])
         .catch( console.error );
         break;
     }
   }
 
   redirectAllUsers = () => {
-    const audioRedir = new Audio('../assets/sounds/pop.mp3');
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
     switch (this.action) {
       case 'pokemon':
@@ -324,27 +298,27 @@ export class BoardComponent implements OnInit, OnDestroy {
       else {
         switch (currentPage) {
           case 'starterView':
-            this.router.navigate(['/starter' ])
+            this.router.navigate([`game/${this.user.gameId}/starter` ])
             .catch( console.error );
             break;
           case 'cityView':
-            this.router.navigate(['/city' ])
+            this.router.navigate([`game/${this.user.gameId}/city` ])
             .catch( console.error );
             break;
           case 'captureView':
-            this.router.navigate(['/capture' ])
+            this.router.navigate([`game/${this.user.gameId}/capture` ])
             .catch( console.error );
             break;
           case 'eventView':
-            this.router.navigate(['/event' ])
+            this.router.navigate([`game/${this.user.gameId}/event` ])
             .catch( console.error );
             break;
           case 'trainerView':
-            this.router.navigate(['/trainer' ])
+            this.router.navigate([`game/${this.user.gameId}/trainer` ])
             .catch( console.error );
             break;
           case 'winnerView':
-            this.router.navigate(['/winner' ])
+            this.router.navigate([`game/${this.user.gameId}/winner` ])
             .catch( console.error );
             break;
         }
@@ -369,16 +343,15 @@ export class BoardComponent implements OnInit, OnDestroy {
     return pokemonByColor;
   }
 
-  togglePanel = () => {
-    const audioPop = new Audio('../assets/sounds/pop.mp3');
-    audioPop.play();
-    this.userInfoPanel = !this.userInfoPanel;
-  }
-
   initialize = () => {
     if ( debug ) { console.log( 'boardController initialize', this.user ); }
     this.boardService.boardInit(this.user.gameId, this.user.email)
     .subscribe((data: any) => {
+      
+      this.gameStore.setAllUsers( data.allUsers );
+      this.gameStore.setShowPlayerPanel( true );
+      this.gameStore.showExitGame( true );
+
       if ( debug ) { console.log( 'boardController initialize boardInit data', this.user.gameId, data ); }
       // get board data from database
       // preprocessed to be an array 
@@ -402,7 +375,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.allPlayers = data.allUsers;
       this.winner = data.winner;
       if (this.winner !== null) {
-        this.router.navigate(['/winner']);
+        this.router.navigate([`game/${this.user.gameId}/winner`]);
       }
 
       this.playerSprite = data.user.sprite;
@@ -424,9 +397,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log( 'playerOptions', this.playerOptions );
     console.log( 'userPosition', this.userPosition );
     console.log( 'continueGame', this.continueGame );
-    console.log( 'confirmExit', this.confirmExit );
     console.log( 'pauseGameMessage', this.pauseGameMessage );
-    console.log( 'showexitoptions', this.showexitoptions );
     console.log( 'roll', this.roll );
     console.log( 'rollDisplay', this.rollDisplay );
     console.log( 'actionDisplay', this.actionDisplay );
@@ -440,7 +411,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log( 'currentTurnPlayerName', this.currentTurnPlayerName );
     console.log( 'allPlayers', this.allPlayers );
     console.log( 'playerPosition', this.playerPosition );
-    console.log( 'userInfoPanel', this.userInfoPanel );
     console.log( 'boardData', this.boardData );
     console.log( 'pathData', this.pathData );
     console.log( 'pathString', this.pathString );

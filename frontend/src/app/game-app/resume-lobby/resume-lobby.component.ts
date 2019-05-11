@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { PokemonSocketService } from '../pokemon-socket.service';
-import { AuthService } from '../auth.service';
-import { GameFactoryService } from '../game-factory.service';
-import { UserService } from '../user.service';
+import { PokemonSocketService } from '../../pokemon-socket.service';
+import { AuthService } from '../../auth.service';
+import { GameFactoryService } from '../../game-factory.service';
+import { UserService } from '../../user.service';
 
 const debug = false;
 
@@ -19,7 +19,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
   user = {
     email: '',
     name: '',
-    gameId: -1
+    gameId: ''
   };
   gameName = '';
   gameCreatorId = '';
@@ -27,6 +27,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
   users = [];
   usersInRoom = [];
   socketEvents = [];
+  dummy = '';
 
   constructor(
     private pokeSocket: PokemonSocketService,
@@ -34,7 +35,9 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private gameService: GameFactoryService
-  ) { }
+  ) { 
+    this.auth.dummy.subscribe({ next: v => this.dummy = v });
+  }
 
   ngOnInit() {
     setTimeout( () => this.setUp(), 0);
@@ -50,7 +53,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
       const user = this.auth.getCurrentUser();
       this.user = { ...this.user, ...user };
 
-      if ( this.user.gameId === -1 ) {
+      if ( this.user.gameId === '' ) {
         this.router.navigate([ '/home' ]);
         return;
       }
@@ -79,7 +82,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
 
   moveAllPlayersToBoardCB = () => {
     if ( debug ) { console.log( 'resume-lobby [moveAllPlayersToBoard]' ); }
-    this.router.navigate([ '/board' ]);
+    this.router.navigate([ `game/${this.user.gameId}/board` ]);
   }
 
   usersInResumeGameLobbyCB = resumeGameUserArray => {

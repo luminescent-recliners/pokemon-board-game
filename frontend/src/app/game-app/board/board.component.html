@@ -85,48 +85,12 @@
     </div>
     <div *ngIf="!continueGame" class='board-center'>
       <p>{{pauseGameMessage}}</p>
-      <button class="board-center" (click)='goHome()'> Go Home </button>
     </div>
-    <button class="board-center" (click)="togglePanel()"> Captured Pokemon </button>
-  
-    <p class='board-center space' *ngIf="showexitoptions">Check Box To Enable Exit Game Button: <input type='checkbox' (click)='toggleConfirm()'/> <button *ngIf="!confirmExit" (click)="exitGame()" > Exit Game </button></p>
+
   </div>
 
 
 
-  <div class="control-panel" *ngIf="userInfoPanel">
-    <div class="user-info board-center">
-      <h3>{{user.name}}</h3>
-      <img [attr.src]="playerSprite" alt="">
-      <img [attr.src]="userParty.starter[0].gifURL" alt="">
-    </div>
-    <h5 class='board-center'> My Captured Pokemon: </h5>
-    <div class="scroll pink">
-      <ul>
-        <li *ngFor="let pokemon of userParty.pink"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
-      </ul>
-    </div> 
-
-    <div class="scroll green">
-      <ul>
-        <li *ngFor="let pokemon of userParty.green"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
-      </ul>
-    </div>
-
-    <div class="scroll blue">
-      <ul>
-        <li *ngFor="let pokemon of userParty.blue"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
-      </ul>
-    </div>
-
-    <div class="scroll red">
-      <ul>
-        <li *ngFor="let pokemon of userParty.red"><img [attr.src]="pokemon.gifURL" alt=""><span>{{pokemon.name}}</span></li>
-      </ul>
-    </div>
-      
-    <button class="tn-lg btn-primary board-center" (click)="togglePanel()"> Game Control </button>
-  </div>
 
 </div>
 
