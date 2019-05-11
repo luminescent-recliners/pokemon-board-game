@@ -57,11 +57,11 @@
     </svg>
   </div>
 
-  <div class="control-panel" *ngIf="!userInfoPanel">
+  <div class="control-panel">
     <div class="currentTurn">
-      <h3>Current Turn: {{cuname}}</h3>
+      <h3>Current Turn: {{currentTurnPlayerName}}</h3>
       <img [attr.src]="currentTurnSprite" alt="">
-      <h5 *ngIf="rollDisplay">{{cuname}} rolled a {{roll}}!</h5>
+      <h5 *ngIf="rollDisplay">{{currentTurnPlayerName}} rolled a {{roll}}!</h5>
     </div>
   <hr>
     <div *ngIf="continueGame">
