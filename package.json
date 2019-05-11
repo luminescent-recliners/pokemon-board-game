@@ -14,7 +14,9 @@
     "build": "cd frontend && npm run build && cd ..",
     "bs": "npm run build && npm run dev",
     "getAuthors": "git log --format='%aN <%aE>' | sort -f | uniq",
-    "bump": "node setVersion.js"
+    "bump": "node setVersion.js",
+    "getHash": "git log -n 1 --pretty=format:'%H'",
+    "dbinit": "node server/db/db.js reset"
   },
   "repository": {
     "type": "git",

@@ -112,7 +112,7 @@ View the project roadmap [here](https://github.com/luminescent-recliners/pokemon
   <ul>
     <li><a href="https://github.com/Lindayezou">Linda Zou (Zoubat) </a></li>
     <li><a href="https://github.com/aarti156">Arthi Palaniappan (Arthicuno)</a></li>
-    <li><a href="https://github.com/chououtside">Alex Chou (Choumander)</a></li>
+    <li><a href="http://chououtside.com/">Alex Chou (Choumander)</a></li>
     <li><a href="https://hiteshlala.com">Hitesh Lala (Hiteshmonlee)</a></li>
 </ul>
   
