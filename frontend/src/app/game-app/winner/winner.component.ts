@@ -70,6 +70,8 @@ export class WinnerComponent implements OnInit {
       console.log( 'response', resp );
       this.users = resp.allUsers;
       this.winner = resp.allUsers.find( v => v.email === resp.winner.email );
+      this.gameStore.setShowPlayerPanel( false );
+      this.gameStore.showExitGame( false );
     });
   }
 
