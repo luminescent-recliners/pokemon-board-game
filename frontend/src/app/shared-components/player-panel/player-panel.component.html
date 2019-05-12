@@ -4,9 +4,19 @@
 
 
 <!-- Main player card -->
-<div class="player-card-wrapper">
-  <div *ngIf="user && minipanel" class="player-card" >
-    <img class="sprite-img" src="{{user.sprite}}" width="80" height="80">
+<div *ngIf="user && minipanel" class="player-card-wrapper">
+  <div class="player-card" >
+    <div class="player-sprite-bar-box">
+      <div class="sprite-img-wrapper">
+        <img class="sprite-img" src="{{user.sprite}}">
+      </div>
+      <div class="bar-graph">
+        <div class="pink bars" [attr.style]="this.barGraphWidth.pink"></div>
+        <div class="green bars" [attr.style]="this.barGraphWidth.green"></div>
+        <div class="blue bars" [attr.style]="this.barGraphWidth.blue"></div>
+        <div class="red bars" [attr.style]="this.barGraphWidth.red"></div>
+      </div>
+    </div>
     <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2px">
       <div *ngFor="let p of pokemon.all" 
         class="{{p.color === 'starter' ? 'white': p.color}}" 
@@ -31,7 +41,7 @@
 
 <div *ngIf="user && micropanel" class="other-player-card-three">
   <div class="user-info">
-    <img src="{{user.sprite}}" width="60" height="60">
+    <img class="sprite-img-other" src="{{user.sprite}}">
     <div class="user-name">{{user.name}}</div>
   </div>
   <div class="bar-graph">
@@ -45,7 +55,7 @@
 
 <!-- Winner circle -->
 <div *ngIf="user && circlepanelwin" class="player-circle-win" >
-  <img src="{{user.sprite}}" width="100" height="100" class="player-img">
+  <img src="{{user.sprite}}" class="player-img">
   <div class="win-circle-wrapper">
     <div *ngFor="let p of pokemon.all" 
       class="win-circle" 
@@ -59,7 +69,7 @@
 
 <!-- Other circle -->
 <div *ngIf="user && circlepanelother" class="player-circle-win other" >
-  <img src="{{user.sprite}}" width="50" height="50" class="player-img other">
+  <img src="{{user.sprite}}" class="player-img-other">
   <div class="win-circle-wrapper other">
     <div *ngFor="let p of pokemon.all" 
       class="win-circle other" 

@@ -35,14 +35,35 @@
   height:88px;
 }
 
-.sprite-img {
+.player-sprite-bar-box {
   flex: 0 0 80px;
-  height: 80px;
+  box-sizing:border-box;
+  overflow: hidden;
+  position: relative;
+  width:80px;
+  height:88px;
+  z-index: 100;
+}
+
+.sprite-img-wrapper {
+  flex: 0 0 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.sprite-graph-wrapper {
+  position: relative;
+}
+
+.sprite-img {
+  max-width: 80px;
+  max-height: 80px;
 }
 
 .pokemon-info {
   color: black;
   position: absolute;
+  z-index: 300;
 }
 
 .top {
@@ -155,29 +176,37 @@
   padding-right: 2px;
 }
 
-.other-player-card-three div.bar-graph {
+.sprite-img-other {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+div.bar-graph {
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
 }
-.other-player-card-three div.bars {
+
+div.bars {
   position: absolute;
   height: 5px;
-  /* width: 88px; */
   left: 0;
 }
 
-.other-player-card-three div.bars.pink {
+div.bars.pink {
   top: 19px;
 }
-.other-player-card-three div.bars.green {
+
+div.bars.green {
   top: 34px;
+
 }
-.other-player-card-three div.bars.blue {
+div.bars.blue {
   top: 49px;
 }
-.other-player-card-three div.bars.red {
+
+div.bars.red {
   top: 64px;
 }
 
@@ -217,8 +246,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
+  max-width: 130px;
+  max-height: 100px;
+  height: 130px;
+  width: auto;
+  margin-left: -45px;
+  margin-top: -65px;
 }
 
 .win-circle-wrapper {
@@ -258,17 +291,25 @@
 }
 
 
-/* The other players circles inherit from above */
+
+
+
+.player-img-other {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 60px;
+  max-height: 60px;
+  height: 60px;
+  width: auto;
+  margin-left: -18px;
+  margin-top: -37px;
+}
 
 .player-circle-win.other {
   width: 160px;
   height: 160px;
   padding: 1px;
-}
-
-.player-img.other {
-  margin-left: -25px;
-  margin-top: -25px;
 }
 
 .win-name.other {
