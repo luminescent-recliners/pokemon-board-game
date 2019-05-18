@@ -10,8 +10,8 @@ export class GeneralService {
     private http: HttpClient
   ) { }
 
-  getPokemon() {
-    return this.http.get( 'api/pokemon' );
+  getPokemon( start, count, search ) {
+    return this.http.get( `api/pokemon?start=${start}&count=${count}&search=${search}` );
   }
 
 

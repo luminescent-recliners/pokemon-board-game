@@ -1,8 +1,20 @@
-<div *ngIf="pokemons" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
-  <div *ngFor="let p of pokemons" style="margin:5px;">
-    <app-pokemon-panel [pokemon]="p" [showDice]="true"></app-pokemon-panel>
+<div class="pokedex-wrapper">
+    <!-- <div> <button (click)="printstate()"> Print State </button></div> -->
+  <div class="pager" fxLayout="row" fxLayoutAlign="space-evenly center">
+      <input class="search-input" type="text" placeholder="Search..." [(ngModel)]="search" (ngModelChange)="searchInput()"> 
+      <div> Found {{total}} Pokemon</div>
+      <div>
+        <div class="arrow line" (click)="back()"> < </div>
+        <div class="line"> {{ page + 1 }} / {{ pages }} </div>
+        <div class="arrow line" (click)="forward()"> > </div>
+      </div>
   </div>
-</div>
-<div class="nav-back" fxLayout="column" fxLayoutAlign="center center">
-  <p> <a routerLink="/signin"><img src="game.png"> Home </a></p>
+  <div *ngIf="pokemons" fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="pokedex-content">
+    <div *ngFor="let p of pokemons" style="margin:5px;">
+      <app-pokemon-panel [pokemon]="p" [showDice]="true"></app-pokemon-panel>
+    </div>
+  </div>
+  <div class="nav-back" fxLayout="column" fxLayoutAlign="center center">
+    <p> <a routerLink="/signin"><img src="game.png"> Home </a></p>
+  </div>
 </div>
