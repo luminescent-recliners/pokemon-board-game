@@ -64,9 +64,9 @@ module.exports = {
   findPokemon: findPokemon,
   
   getPokemon: async ( req, res, next ) => {
-    const start = req.query.start;
-    const count = req.query.count;
-    const search = req.query.search;
+    const start = parseInt( req.query.start || "0");
+    const count = parseInt( req.query.count || "9" );
+    const search = req.query.search || '';
     const result = {
       pokemon: [],
       result: false,
