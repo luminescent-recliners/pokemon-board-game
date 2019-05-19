@@ -2,7 +2,7 @@
   <img src="{{pokemon.gifURL}}">
   <p><b>{{pokemon.name}}</b></p>
   <p>{{pokemon.description}}</p>
-  <div *ngIf="showDice && pokemon.capture.length > 0">
+  <div *ngIf="showDice && pokemon.capture && pokemon.capture.length > 0">
     <p>To capture you must roll:</p>  
     <div fxLayout="row wrap" fxLayoutAlign="center center" >
       <app-dice *ngFor="let roll of pokemon.capture" pips={{roll}}></app-dice>

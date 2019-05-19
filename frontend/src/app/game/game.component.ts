@@ -33,14 +33,14 @@ export class GameComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if ( !this.auth.isAuth('home') ) {
+    if ( !this.auth.isAuth('game') ) {
       this.router.navigate([ '/signin' ]).catch( console.error );
       return;
     }
     const cu = this.auth.getCurrentUser();
     this.user = cu;
     
-    console.log( 'Game Component', this.user );
+    // console.log( 'Game Component', this.user );
     // console.log( this.route.snapshot.paramMap );
     // console.log( window.history.state );
 

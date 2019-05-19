@@ -503,10 +503,8 @@ module.exports = {
         // get color array of avail pokemon ids
         var pokemons = game.availablePokemon[color];
         var randomPokemonsId = getRandomId(pokemons.length);
-        
         // pop id off avail pokemon array
         var pokemonId = pokemons.splice(randomPokemonsId, 1)[0];
-
         // save modified pokemons array to game
         game.availablePokemon[color] = pokemons;
         game.markModified('availablePokemon');
@@ -517,14 +515,15 @@ module.exports = {
         })
         .then(function(pokemonObject){
           // add pokemon to the spot on game board
-          game.gameBoard[playerPosition].pokemon = pokemonObject;
+          game.gameBoard[playerPosition].pokemon = pokemonObject[0];
           game.markModified('gameBoard');
           game.save()
           .then( () => {
           // send pokemon client
-          res.send(pokemonObject);
+          res.send(pokemonObject[0]);
           });
-        });
+        })
+        .catch( e => console.log( 'Error in getAvailablePokemon()', e.message || e));
       }
     });
   },
@@ -562,10 +561,11 @@ module.exports = {
     .then(function(game) {
       availPokemonIds = game.availablePokemon.starter;
 
-      pokemonController.findPokemons({ pokemonId: { $in: availPokemonIds}})
+      pokemonController.findPokemon({ pokemonId: { $in: availPokemonIds}})
       .then(function(availPokemon) {
         res.send(availPokemon);
-      });
+      })
+      .catch( e => console.log( 'Error in getRemainingStarterPokemon()', e.message || e));
     });
   },
 
