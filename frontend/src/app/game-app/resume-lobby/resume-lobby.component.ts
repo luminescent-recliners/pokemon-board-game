@@ -1,12 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PokemonSocketService } from '../../pokemon-socket.service';
 import { AuthService } from '../../auth.service';
 import { GameFactoryService } from '../../game-factory.service';
-import { UserService } from '../../user.service';
-
-const debug = false;
 
 @Component({
   selector: 'app-resume-lobby',
@@ -69,13 +65,7 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
     });
   }
 
-  initialize = () => {
-    if ( debug ) { console.log( 'resume-lobby initialzie()' ); }
-    
-  }
-
   getBoardView = () => {
-    if ( debug ) { console.log( 'resume-lobby getBoardView()' ); }
     this.pokeSocket.emit('creater enters board', { gameId: this.gameId });
   }
 
