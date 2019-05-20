@@ -118,7 +118,7 @@ io.on('connection', socket => {
     if ( alreadyjoined.length === 0 ) {
       usersInGames[data.gameId].push(data.user);
     }
-    io.to(data.gameId).emit('join-Lobby', usersInGames[data.gameId]);
+    io.to(data.gameId).emit('lobby-users', usersInGames[data.gameId]);
   });
 
   socket.on('join resume lobby', function(data) {
@@ -130,12 +130,11 @@ io.on('connection', socket => {
       usersInResumeGameLobby[data.gameId].push(data.user);
     }
     
-    io.to(data.gameId).emit('join resume lobby', usersInResumeGameLobby[data.gameId]);
+    io.to(data.gameId).emit('update-users-in-resume-lobby', usersInResumeGameLobby[data.gameId]);
   });
 
   socket.on('entered resume lobby', function(data) {
-    var resumeGameUserArray = usersInResumeGameLobby[data.gameId];
-    io.to(data.gameId).emit('users in resumegamelobby', resumeGameUserArray);
+    io.to(data.gameId).emit('update-users-in-resume-lobby', usersInResumeGameLobby[data.gameId] );
   });
 
   socket.on('creater enters board', function(data) {
@@ -153,7 +152,7 @@ io.on('connection', socket => {
         }
       }
       usersInGames[data.gameId].splice(index, 1);
-      io.to(data.gameId).emit('user update', usersInGames[data.gameId]);
+      io.to(data.gameId).emit('lobby-users', usersInGames[data.gameId]);
     }
     if(usersInResumeGameLobby[data.gameId]) {
       for(var j = 0; j < usersInResumeGameLobby[data.gameId].length; j++) {
@@ -162,13 +161,12 @@ io.on('connection', socket => {
         }
       }
       usersInResumeGameLobby[data.gameId].splice(userIndex, 1);
-      io.to(data.gameId).emit('update users in room', usersInResumeGameLobby[data.gameId]);
+      io.to(data.gameId).emit('update-users-in-resume-lobby', usersInResumeGameLobby[data.gameId]);
     }
   });
 
   socket.on('enteredLobby', function(data) {
-    var userArray = usersInGames[data.gameId];
-    io.to(data.gameId).emit('currentUsers', userArray);
+    io.to(data.gameId).emit('lobby-users', usersInGames[data.gameId] );
   });
 
   socket.on('creatorStartsGame', function(data) {

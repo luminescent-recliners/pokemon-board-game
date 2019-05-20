@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { GameAppRoutingModule } from './game-app-routing.module';
-// import { GameComponent } from '../game/game.component';
 import { BoardComponent } from './board/board.component';
 import { CityComponent } from './city/city.component';
 import { EventComponent } from './event/event.component';
@@ -15,7 +14,6 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
 
 @NgModule({
   declarations: [
-    // GameComponent,
     BoardComponent,
     CityComponent,
     EventComponent,

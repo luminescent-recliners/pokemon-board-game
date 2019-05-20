@@ -27,16 +27,14 @@ export class AuthService {
   name = new BehaviorSubject( '' );
   gameId = new BehaviorSubject( '' );
   loggedIn = new BehaviorSubject( false );
-  dummy = new BehaviorSubject( '' );
 
   constructor( 
     private cookieService: CookieService,
-    // private location: Location,
     private http: HttpClient,
     private socket: PokemonSocketService,
     private router: Router
   ) { 
-    if ( this.getSession() && !this.user.email ) {
+    if ( this.getSession() && !( this.email.getValue() ) ) {
       this.getUserInfo()
       .subscribe( (d: any) => {
         this.setUserInfo(d);
@@ -52,8 +50,6 @@ export class AuthService {
     else if ( this.getSession() ) {
       this.socket.connect();
     }
-
-    setInterval( () => this.dummy.next( Date.now().toString()), 3000 );
   }
   
   setUserInfo( d ) {
@@ -64,7 +60,7 @@ export class AuthService {
     
     this.email.next( d.email );
     this.name.next( d.name );
-    this.loggedIn.next( true );
+    this.loggedIn.next( d.result );
 
     if ( debug ) { console.log( 'setuserinfo() after', this.user ); }
   }
@@ -88,8 +84,8 @@ export class AuthService {
   }
 
   isAuth( a: string ) {
-    if ( debug ) { console.log( 'isAuth() from', a, this.isLoggedIn); }
-    return this.isLoggedIn;
+    if ( debug ) { console.log( 'isAuth() from', a, this.loggedIn.getValue() ); }
+    return this.loggedIn.getValue();
   }
 
 
@@ -131,7 +127,7 @@ export class AuthService {
 
   getCurrentUser() {
     if ( debug ) { console.log( 'authFactory getCurrentUser', this.user ); }
-    if ( this.isLoggedIn ) { 
+    if ( this.loggedIn.getValue() ) { 
       return this.user;
     }
     else {
@@ -147,7 +143,7 @@ export class AuthService {
   }
 
   getGameId() {
-    return this.user.gameId;
+    return this.gameId.getValue();
   }
 
   setGameId( id: string ) {

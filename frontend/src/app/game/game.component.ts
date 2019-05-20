@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { GameStoreService } from '../game-store.service';
@@ -17,15 +17,9 @@ export class GameComponent implements OnInit, OnDestroy {
   allUsers = [];
   showPlayerPanel = false;
   showExitGame = false;
-
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
+  socketEvents = [];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
     private gameStore: GameStoreService,
@@ -37,24 +31,31 @@ export class GameComponent implements OnInit, OnDestroy {
       this.router.navigate([ '/signin' ]).catch( console.error );
       return;
     }
-    const cu = this.auth.getCurrentUser();
-    this.user = cu;
-    
-    // console.log( 'Game Component', this.user );
-    // console.log( this.route.snapshot.paramMap );
-    // console.log( window.history.state );
 
-    this.auth.gameId.subscribe({ next: ( v => this.gameId = v ) });
+    this.auth.gameId.subscribe({ 
+      next:  v => {
+        this.gameId = v; 
+        if ( !v ) { this.router.navigate([ '/home' ]).catch( console.error ); }
+      } 
+    });
     this.auth.email.subscribe({ next: ( v => this.email = v ) });
     this.auth.name.subscribe({ next: ( v => this.name = v ) });
+
     this.gameStore.allUsers.subscribe({ next: ( v => this.allUsers = v ) });
     this.gameStore.showPlayerPanel.subscribe({ next: v => this.showPlayerPanel = v });
     this.gameStore.showExitGameButton.subscribe({ next: v => this.showExitGame = v });
 
     this.gameStore.setupPlayers( this.gameId, this.email );
+
+    this.socketEvents = [
+      [ 'moveAllPlayersToSelectPokemon', this.moveAllPlayersToSelectPokemonCB ],
+      [ 'moveAllPlayersToBoard', this.moveAllPlayersToBoardCB ],
+    ];
+    this.socketEvents.forEach( e => this.socket.register( e[0], e[1] ) );
   }
 
   ngOnDestroy() {
+    this.socket.deRegister( this.socketEvents );
   }
 
   logout() {
@@ -74,6 +75,16 @@ export class GameComponent implements OnInit, OnDestroy {
       continueGame: false
     };
     this.socket.emit('player wants to pause game', data );
+  }
+
+  moveAllPlayersToSelectPokemonCB = () => {
+    this.router.navigate([ `game/${this.gameId}/starter` ])
+    .catch( console.error );
+  }
+
+  moveAllPlayersToBoardCB = () => {
+    this.router.navigate([ `game/${this.gameId}/board` ])
+    .catch( console.error );
   }
 
 }

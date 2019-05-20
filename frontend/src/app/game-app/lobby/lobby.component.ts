@@ -12,12 +12,10 @@ import { GameFactoryService } from '../../game-factory.service';
 })
 export class LobbyComponent implements OnInit, OnDestroy {
 
+  email = '';
+  name = '';
+  gameId = '';
   message = '';
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
   gameName = '';
   gameCreator = '';
   gameCreatorName = '';
@@ -28,86 +26,51 @@ export class LobbyComponent implements OnInit, OnDestroy {
   constructor(
     private pokeSocket: PokemonSocketService,
     private auth: AuthService,
-    private router: Router,
-    private gameService: GameFactoryService
+    private gameService: GameFactoryService,
   ) { 
 
   }
 
   ngOnInit() {
-    setTimeout( () => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if ( !this.auth.isAuth( 'lobby' ) ) {
-      this.router.navigate([ `/signin` ]);
-    }
-    else {
-      
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if ( this.user.gameId === '' ) {
-        this.router.navigate([ '/home' ]);
-        return;
-      }
-
-      this.initialize();
-
-      this.socketEvents = [
-        [ 'join-Lobby', this.joinLobbyCB ],
-        [ 'currentUsers', this.currentUsersCB ],
-        [ 'moveAllPlayersToSelectPokemon', this.moveAllPlayersToSelectPokemonCB ],
-        [ 'user update', this.userUpdateCB ]
-      ];
-      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
-    }
-  }
-
-  ngOnDestroy() {
-    this.pokeSocket.deRegister( this.socketEvents );
-  }
-
-  joinLobbyCB = (currentUsers) => {
-    this.users = currentUsers;
-  }
-
-  currentUsersCB = (userArray) => {
-    this.users = userArray;
-  }
-
-  moveAllPlayersToSelectPokemonCB = () => {
-    this.router.navigate([ `game/${this.user.gameId}/starter` ])
-    .catch( console.error );
-  }
-
-  userUpdateCB = (userArrayUpdated) => {
-    this.users = userArrayUpdated;
-  }
-
-  initialize = () => {
-    this.gameService.lobbyInit( this.user.gameId )
+    this.gameService.lobbyInit( this.gameId )
     .subscribe( (resp: any) => {
       this.gameName = resp.gameName;
       this.gameCreator = resp.gameCreator;
       this.gameCreatorName = resp.creatorName;
-      if ( this.gameCreator === this.user.email ) {
+      if ( this.gameCreator === this.email ) {
         this.myGameCreator = true;
       } 
-      this.pokeSocket.emit( 'enteredLobby', { gameId: this.user.gameId } );
-
+      this.pokeSocket.emit( 'enteredLobby', { gameId: this.gameId } );
     });
+
+    this.socketEvents = [
+      [ 'lobby-users', this.usersInLobbyCB ],
+    ];
+    this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
+    this.pokeSocket.emit( 'a user left lobby', { gameId: this.gameId, user: { email: this.email, name: this.name } } );
+  }
+
+  usersInLobbyCB = (currentUsers) => {
+    this.users = currentUsers;
   }
 
   getStarterView = () => {
-    this.gameService.addUsers( this.user.gameId, this.users )
+    this.gameService.addUsers( this.gameId, this.users )
     .subscribe( (resp: any) => {
-      this.pokeSocket.emit( 'creatorStartsGame', { gameId: this.user.gameId } );
+      this.pokeSocket.emit( 'creatorStartsGame', { gameId: this.gameId } );
     });
   }
 
   printstate() {
-    console.log( '\nuser:', this.user );
+    console.log( '\nuser:', this.name, this.email, this.gameId );
     console.log( 'message:', this.message );
     console.log( 'gameCreator:', this.gameCreator );
     console.log( 'gameCreatorName:', this.gameCreatorName );
