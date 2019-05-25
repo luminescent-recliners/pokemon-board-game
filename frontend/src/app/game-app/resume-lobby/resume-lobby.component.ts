@@ -51,7 +51,6 @@ export class ResumeLobbyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.pokeSocket.deRegister( this.socketEvents );
-    this.pokeSocket.emit( 'a user left lobby', { gameId: this.gameId, user: { email: this.email, name: this.name } } );
   }
 
   usersInResumeLobbyCB = data => {

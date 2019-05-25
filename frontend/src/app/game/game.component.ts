@@ -63,7 +63,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
+    const gameId = this.gameId;
     this.auth.delGameId();
+    this.socket.emit( 'a user left lobby', { gameId, email: this.email } );
     this.router.navigate([ '/signin' ]).catch( console.error );
   }
 

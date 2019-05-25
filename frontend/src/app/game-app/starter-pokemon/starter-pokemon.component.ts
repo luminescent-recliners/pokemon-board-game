@@ -8,8 +8,6 @@ import { AuthService } from '../../auth.service';
 import { GameFactoryService } from '../../game-factory.service';
 import { UserService } from '../../user.service';
 
-const debug = false;
-
 @Component({
   selector: 'app-starter-pokemon',
   templateUrl: './starter-pokemon.component.html',
@@ -27,12 +25,9 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
 
   }
   
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
-
+  email = '';
+  name = '';
+  gameId = '';
   selectedPokemon = null;
   gameTurnEmail = '';
   selectedSprite = null;
@@ -43,30 +38,16 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
   socketEvents = [];
 
   ngOnInit() {
-    setTimeout(() => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if (!this.auth.isAuth('board')) {
-      this.router.navigate(['/signin']);
-    }
-    else {
+    this.initialize( 'setup' );
 
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if (this.user.gameId === '' ) {
-        this.router.navigate(['/home']);
-        return;
-      }
-
-      this.initialize( 'setup' );
-
-      this.socketEvents = [
-        [ 'refresh after pokemon selection', this.refreshAfterPokemonSelectionCB ]
-      ];
-      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
-    }
+    this.socketEvents = [
+      [ 'refresh after pokemon selection', this.refreshAfterPokemonSelectionCB ]
+    ];
+    this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
   }
 
   ngOnDestroy() {
@@ -74,12 +55,10 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
   }
 
   refreshAfterPokemonSelectionCB = ( data: any ) => {
-    if ( debug ) { console.log('[refresh after pokemon selection]', data); }
     if ( data.doneselection ) {
-      this.gameService.updateCurrentPage( this.user.gameId, 'boardView' )
+      this.gameService.updateCurrentPage( this.gameId, 'boardView' )
       .subscribe(() => {
-        if ( debug ) { console.log('[refresh after pokemon selection] subscribe'); }
-        this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error );
+        this.router.navigate([`game/${this.gameId}/board`]).catch( console.error );
       });
     } 
     else {
@@ -113,11 +92,11 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
 
   playerInit = () => {
     if ( this.selectedPokemon !== null && this.selectedSprite !== null )  {
-      this.userService.playerInit(this.user.gameId, this.user.email, this.selectedPokemon, this.selectedSprite)
+      this.userService.playerInit(this.gameId, this.email, this.selectedPokemon, this.selectedSprite)
       .subscribe( (resp: any) => {
         this.gameTurnName = resp.name;
         this.gameTurnEmail = resp.email;
-        this.pokeSocket.emit('a pokemon was selected', {gameId: this.user.gameId, pokemon: this.selectedPokemon});
+        this.pokeSocket.emit('a pokemon was selected', {gameId: this.gameId, pokemon: this.selectedPokemon});
       });
     } 
     else {
@@ -126,19 +105,17 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
   }
 
   initialize = (where) => {
-    if ( debug ) { console.log('initialize() from -', where); }
     let count = 0;
     // these are all independent of each other --I think -- so can do concurrently
     // TODO: there is likely a better way to do this investigate RxJs
     concat( 
-      this.gameService.getGameTurn( this.user.gameId),
-      this.gameService.getRemainingStarterPokemon(this.user.gameId),
-      this.gameService.getRemainingSprites(this.user.gameId)
+      this.gameService.getGameTurn( this.gameId),
+      this.gameService.getRemainingStarterPokemon(this.gameId),
+      this.gameService.getRemainingSprites(this.gameId)
     )
     .pipe(
       map( (results: any ) => {
         count++;
-        if ( debug ) { console.log( 'initialize map', count, results ); }
         switch ( count ) {
           case 1:
             this.gameTurnEmail = results.email;
@@ -157,7 +134,7 @@ export class StarterPokemonComponent implements OnInit, OnDestroy {
   }
 
   printstate() {
-    console.log( 'user', this.user );
+    console.log( 'user', this.email, this.name, this.gameId );
     console.log( 'selectedPokemon:', this.selectedPokemon );
     console.log( 'gameTurnEmail:', this.gameTurnEmail );
     console.log( 'selectedSprite:', this.selectedSprite );

@@ -40,9 +40,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
       this.gameName = resp.gameName;
       this.gameCreator = resp.gameCreator;
       this.gameCreatorName = resp.creatorName;
-      if ( this.gameCreator === this.email ) {
-        this.myGameCreator = true;
-      } 
+      this.myGameCreator = this.gameCreator === this.email;
       this.pokeSocket.emit( 'enteredLobby', { gameId: this.gameId } );
     });
 
@@ -54,7 +52,6 @@ export class LobbyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.pokeSocket.deRegister( this.socketEvents );
-    this.pokeSocket.emit( 'a user left lobby', { gameId: this.gameId, user: { email: this.email, name: this.name } } );
   }
 
   usersInLobbyCB = (currentUsers) => {

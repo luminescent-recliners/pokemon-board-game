@@ -90,8 +90,15 @@ gameController.setUsersInGames( usersInGames );
 
 if ( dev ) {
   setInterval( () => {
-    console.log( '\n UsersInGames: ', JSON.stringify( usersInGames ) );
+    console.log( '\n UsersInGames:\n', JSON.stringify( usersInGames ) );
     console.log( '\n UsersInREsumeGameLobby:\n', JSON.stringify( usersInResumeGameLobby ) );
+
+    const keys = Object.keys( selectionPokemon );
+    const display = keys.reduce( ( col, k ) => {
+      col[k] = selectionPokemon[k].map( p => p.name );
+      return col;
+    }, {});
+    console.log( '\n SelectionPokemon:\n', JSON.stringify( display ) );
   }, 10000 );
 }
 
@@ -147,7 +154,7 @@ io.on('connection', socket => {
     socket.join(data.gameId);
     if(usersInGames[data.gameId]) {
       for(var j = 0; j < usersInGames[data.gameId].length; j++) {
-        if(usersInGames[data.gameId][j].email === data.user.email) {
+        if(usersInGames[data.gameId][j].email === data.email) {
           var index = j;
         }
       }
@@ -156,7 +163,7 @@ io.on('connection', socket => {
     }
     if(usersInResumeGameLobby[data.gameId]) {
       for(var j = 0; j < usersInResumeGameLobby[data.gameId].length; j++) {
-        if(usersInResumeGameLobby[data.gameId][j].email === data.user.email) {
+        if(usersInResumeGameLobby[data.gameId][j].email === data.email) {
           var userIndex = j;
         }
       }
@@ -177,14 +184,11 @@ io.on('connection', socket => {
     //first add pokemon to selectionPokemon object
     selectionPokemon[data.gameId] = selectionPokemon[data.gameId] || [];
     selectionPokemon[data.gameId].push(data.pokemon);
-    var numPlayers = usersInGames[data.gameId].length;
-    var numStartPokemon = selectionPokemon[data.gameId].length;
+    const numPlayers = usersInGames[data.gameId].length;
+    const numStartPokemon = selectionPokemon[data.gameId].length;
 
-    var doneselection = false;
-    if(numStartPokemon === numPlayers) {
-      doneselection = true;
-    }
-    io.to(data.gameId).emit('refresh after pokemon selection',{doneselection: doneselection});
+    const doneselection = numStartPokemon === numPlayers;
+    io.to(data.gameId).emit('refresh after pokemon selection',{ doneselection });
 
   });
 

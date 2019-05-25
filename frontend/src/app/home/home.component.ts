@@ -59,10 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.pokeSocket.emit( 'a user left lobby', { 
           gameId: this.user.gameId, 
-          user: { 
-            email: this.user.email,
-            name: this.user.name 
-          } 
+          email: this.user.email,
         });
 
         this.auth.delGameId();
