@@ -1,4 +1,4 @@
-<div class="trainer" *ngIf="currentTrainer">
+<div fxLayout="column" fxLayoutAlign="start center" class="trainer" *ngIf="currentTrainer">
   <div>
     <h3>{{currentTurnPlayerName}} says hi to all the trainers.</h3>
     <img [attr.src]="currentTrainer.sprite" alt="">
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div *ngIf="currentTurnPlayerId===user.email">
+  <div *ngIf="currentTurnPlayerId===email">
     <button (click)="updateTurn()">Continue</button>
   </div>
 </div>

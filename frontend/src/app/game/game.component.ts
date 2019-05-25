@@ -85,8 +85,13 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   moveAllPlayersToBoardCB = () => {
+
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
+    audioRedir.play();
+
     this.router.navigate([ `game/${this.gameId}/board` ])
     .catch( console.error );
   }
+
 
 }

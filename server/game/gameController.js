@@ -546,7 +546,7 @@ module.exports = {
       game.markModified( 'gameCounter' );
       game.save();
 
-      io.to( gameId ).emit( 'redirect back to board' );
+      io.to( gameId ).emit( 'moveAllPlayersToBoard' );
       res.send(game.gameTurn);
     })
     .fail(function (error) {
