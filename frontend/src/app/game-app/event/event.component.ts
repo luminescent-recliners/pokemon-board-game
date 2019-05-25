@@ -5,8 +5,6 @@ import { PokemonSocketService } from '../../pokemon-socket.service';
 import { AuthService } from '../../auth.service';
 import { GameFactoryService } from '../../game-factory.service';
 
-const debug = false;
-
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
@@ -18,11 +16,9 @@ export class EventComponent implements OnInit, OnDestroy {
   currentTurnPlayerId = '';
   gifDescrip = '';
   gifURL = '';
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
+  email = '';
+  name = '';
+  gameId = '';
   socketEvents = [];
 
   constructor(
@@ -35,65 +31,37 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout(() => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if (!this.auth.isAuth('board')) {
-      this.router.navigate(['/signin']);
-    }
-    else {
+    this.gameService.getGameTurn( this.gameId )
+    .subscribe( (resp: any) => {
+      this.currentTurnPlayerName = resp.name;
+      this.currentTurnPlayerId = resp.email;
+      this.getGif();
+    });
 
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if (this.user.gameId === '') {
-        this.router.navigate(['/home']);
-        return;
-      }
-
-      this.initialize();
-
-      this.socketEvents = [
-        [ 'redirect back to board', this.redirectBackToBoardCB ],
-      ];
-      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
-      
-    }
+    this.socketEvents = [];
+    this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
   }
 
   ngOnDestroy() {
     this.pokeSocket.deRegister( this.socketEvents );
   }
 
-  redirectBackToBoardCB = () => {
-    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
-    audioRedir.play();
-    this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error ) ;
-  }
-
   getGif = () => {
     this.gameService.getEventGif()
     .subscribe( (resp: any) => {
-      if ( debug ) { console.log( 'getGif() getEventGif()', resp ); }
       this.gifDescrip = resp.descriptions;
       this.gifURL = resp.eventURL;
-    });
-  }
-
-  initialize = () => {
-    this.gameService.getGameTurn(this.user.gameId)
-    .subscribe( (resp: any) => {
-      this.currentTurnPlayerName = resp.name;
-      this.currentTurnPlayerId = resp.email;
-      this.getGif();
     });
   }
 
   updateTurn = () => {
     const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
-    this.gameService.updateTurn(this.user.gameId, 'boardView')
+    this.gameService.updateTurn(this.gameId, 'boardView')
     .subscribe( (resp) => {
      // redirect from socket
     });
@@ -104,8 +72,7 @@ export class EventComponent implements OnInit, OnDestroy {
     console.log( 'currentTurnPlayerId:', this.currentTurnPlayerId );
     console.log( 'gifDescrip:', this.gifDescrip );
     console.log( 'gifURL:', this.gifURL );
-    console.log( 'user:', this.user );
-
+    console.log( 'user:', this.name, this.email, this.gameId );
   }
 
 }
