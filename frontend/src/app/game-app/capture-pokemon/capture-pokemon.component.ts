@@ -5,9 +5,6 @@ import { PokemonSocketService } from '../../pokemon-socket.service';
 import { AuthService } from '../../auth.service';
 import { GameFactoryService } from '../../game-factory.service';
 
-
-const debug = false;
-
 @Component({
   selector: 'app-capture-pokemon',
   templateUrl: './capture-pokemon.component.html',
@@ -19,22 +16,14 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
 
   rollvalue;
   result;
-  rollNeeded = [];
   diceRolled = false;
-  dice = '';
-  imageUrl = '';
-  pokemonColor = '';
   pokemon;
   message = 'ready';
-  description = '';
-  name = '';
   currentTurnPlayerName = '';
   currentTurnPlayerId = '';
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
+  email = '';
+  name = '';
+  gameId =  '';
   socketEvents = [];
 
   constructor(
@@ -47,56 +36,29 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if ( debug ) { console.log( '%ccapture-pokemon ngOnInit()', 'color:orange'); }
-    setTimeout(() => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if (!this.auth.isAuth('board')) {
-      this.router.navigate(['/signin']);
-    }
-    else {
-
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if (this.user.gameId === '') {
-        this.router.navigate(['/home']);
-        return;
-      }
-
-      this.initialize();
-
-      this.socketEvents = [
-        [ 'send response for capture page', this.sendResponseForCapturePageCB ],
-        [ 'redirect back to board', this.redirectBackToBoardCB ]
-      ];
-      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
-    }
-  }
-
-  ngOnDestroy() {
-    if ( debug ) { console.log( '%ccapture-pokemon ngOnDestroy()', 'color:orange'); }
-    this.pokeSocket.deRegister( this.socketEvents );
-  }
-
-  initialize = () => {
-    this.gameService.getGameTurn(this.user.gameId)
+    this.gameService.getGameTurn( this.gameId )
     .subscribe( (resp: any) => {
       this.currentTurnPlayerName = resp.name;
       this.currentTurnPlayerId = resp.email;
-      this.gameService.getAvailablePokemon(this.user.gameId, this.currentTurnPlayerId)
+      this.gameService.getAvailablePokemon(this.gameId, this.currentTurnPlayerId)
       .subscribe((pokemon: any ) => {
-        this.rollNeeded = pokemon.capture;
-        this.dice = pokemon.diceImg;
-        this.imageUrl = pokemon.gifURL;
-        this.pokemonColor = pokemon.color;
         this.pokemon = pokemon;
         this.message = 'ready';
-        this.description = pokemon.description;
-        this.name = pokemon.name;
       });
     });
+
+    this.socketEvents = [
+      [ 'send response for capture page', this.sendResponseForCapturePageCB ],
+    ];
+    this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+  }
+
+  ngOnDestroy() {
+    this.pokeSocket.deRegister( this.socketEvents );
   }
 
   sendResponseForCapturePageCB = (data: any) => {
@@ -115,17 +77,12 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
     }
   }
 
-  redirectBackToBoardCB = () => {
-    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
-    audioRedir.play();
-    this.router.navigate([`game/${this.user.gameId}/board`]).catch( console.error ) ;
-  }
-
   startroll = () => {
     this.rollmydice += 1;
   }
+
   processRoll =  ( rollnum ) => {
-    this.gameService.catchPokemon(this.user.gameId, this.user.email, this.rollvalue, this.pokemonColor, this.pokemon)
+    this.gameService.catchPokemon(this.gameId, this.email, this.rollvalue, this.pokemon.color, this.pokemon)
     .subscribe( (resp: any) => {
       this.result = resp.message;
       if (this.result === 'Sorry!! Pokemon Got Away' ) {
@@ -136,7 +93,7 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
         const audioDiceCaught = new Audio('../../assets/sounds/caught.mp3');
         audioDiceCaught.play();
       }
-      this.pokeSocket.emit('roll die for capture', {gameId: this.user.gameId, result: this.result, roll: this.rollvalue});
+      this.pokeSocket.emit('roll die for capture', {gameId: this.gameId, result: this.result, roll: this.rollvalue});
     });
     this.message = '';
     this.diceRolled = true;
@@ -145,7 +102,7 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
   updateTurn = () => {
     const audioRedir = new Audio('../../assets/sounds/pop.mp3');
     audioRedir.play();
-    this.gameService.updateTurn(this.user.gameId, 'boardView')
+    this.gameService.updateTurn(this.gameId, 'boardView')
     .subscribe( (resp) =>  {
       // gets redirected by socket emit.
     });
@@ -159,19 +116,12 @@ export class CapturePokemonComponent implements OnInit, OnDestroy {
   printstate() {
     console.log( 'rollvalue:', this.rollvalue );
     console.log( 'result:', this.result );
-    console.log( 'rollNeeded:', this.rollNeeded );
     console.log( 'diceRolled:', this.diceRolled );
-    console.log( 'dice:', this.dice );
-    console.log( 'imageUrl:', this.imageUrl );
-    console.log( 'pokemonColor:', this.pokemonColor );
     console.log( 'pokemon:', this.pokemon );
     console.log( 'message:', this.message );
-    console.log( 'description:', this.description );
-    console.log( 'name:', this.name );
     console.log( 'currentTurnPlayerName:', this.currentTurnPlayerName );
     console.log( 'currentTurnPlayerId:', this.currentTurnPlayerId );
-    console.log( 'user:', this.user );
-
+    console.log( 'user:', this.name, this.email, this.gameId );
   }
 
 }
