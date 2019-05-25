@@ -12,13 +12,11 @@ import { GameStoreService } from '../../game-store.service';
 })
 export class WinnerComponent implements OnInit {
 
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
   users = [];
   winner;
+  email = '';
+  name = '';
+  gameId = '';
 
   constructor(
     private auth: AuthService,
@@ -31,58 +29,24 @@ export class WinnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if (!this.auth.isAuth('board')) {
-      this.router.navigate(['/signin']);
-    }
-    else {
-      
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if (this.user.gameId === '') {
-        this.router.navigate(['/home']);
-        return;
-      }
-      else {
-        this.initialize();
-      }
-
-    }
-  }
-
-  checkWinner = (pokemonCount) => {
-    if (  pokemonCount.pink >= 4 && pokemonCount.green >= 3 &&
-          pokemonCount.blue >= 2 && pokemonCount.red >= 2) {
-      return true;
-    } 
-    else {
-      return false;
-    }
-  }
-
-  initialize = () => {
-    this.boardService.boardInit(this.user.gameId, this.user.email)
+    this.boardService.boardInit( this.gameId, this.email )
     .subscribe( (resp: any) => {
-      console.log( 'response', resp );
       this.users = resp.allUsers;
       this.winner = resp.allUsers.find( v => v.email === resp.winner.email );
       this.gameStore.setShowPlayerPanel( false );
       this.gameStore.showExitGame( false );
     });
-  }
 
-  goHome = () => {
-    this.router.navigate(['/home']).catch( console.error ) ;
   }
 
   printstate() {
     console.log( 'users', this.users );
     console.log( 'winner', this.winner );
-    console.log( 'user', this.user );
+    console.log( 'user', this.name, this.email, this.gameId );
   }
 
 }
