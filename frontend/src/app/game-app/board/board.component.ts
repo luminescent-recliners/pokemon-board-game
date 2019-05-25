@@ -8,8 +8,6 @@ import { UserService } from '../../user.service';
 import { BoardFactoryService } from '../../board-factory.service';
 import { GameStoreService } from '../../game-store.service';
 
-const debug = false;
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -18,11 +16,9 @@ const debug = false;
 export class BoardComponent implements OnInit, OnDestroy {
 
   message = '';
-  user = {
-    email: '',
-    name: '',
-    gameId: ''
-  };
+  email = '';
+  name = '';
+  gameId =  '';
   gameName = '';
   gameCreator = '';
   gameCreatorName = '';
@@ -69,66 +65,42 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if ( debug ) { console.log( '%cBoard onInit', 'color:green' ); }
-    setTimeout(() => this.setUp(), 0);
-  }
+    this.email = this.auth.email.getValue();
+    this.name = this.auth.name.getValue();
+    this.gameId = this.auth.gameId.getValue();
 
-  setUp() {
-    if (!this.auth.isAuth('board')) {
-      this.router.navigate(['/signin']);
-    }
-    else {
+    this.initialize();
 
-      const user = this.auth.getCurrentUser();
-      this.user = { ...this.user, ...user };
-
-      if (this.user.gameId === '') {
-        this.router.navigate(['/home']);
-        return;
-      }
-
-      this.initialize();
-
-      this.socketEvents = [
-        [ 'send redirect path to users', this.sendRedirectToUserCB ],
-        [ 'player leaving game', this.playerLeavingGameCB ],
-        [ 'winner announcement', this.winnerAnnouncmentCB ],
-        [ 'send player roll to move', this.sendPlayerRollToMoveCB ],
-        [ 'send player to move', this.sendPlayerToMoveCB ],
-        [ 'send action description', this.sendActionDescriptionCB ]
-      ];
-      this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
+    this.socketEvents = [
+      [ 'player leaving game', this.playerLeavingGameCB ],
+      [ 'send player roll to move', this.sendPlayerRollToMoveCB ],
+      [ 'send player to move', this.sendPlayerToMoveCB ],
+      [ 'send action description', this.sendActionDescriptionCB ]
+    ];
+    this.socketEvents.forEach( e => this.pokeSocket.register( e[0], e[1] ) );
 
 
-      // section used for placement of players on board --------->>>>>>
-      // TODO: At some point this should go in its own component.
-      const distFromSpot = 28;
-      const distFromSpot2 = 37;    // for small spot dist 28, dx -22, dy - 22
-      this.dx = -22;           // for large spot dist 37, dx -22, dy - 22
-      this.dy = -22;
-      this.allPlayersBoard = [
-        [0, distFromSpot], [distFromSpot * 0.866, distFromSpot / 2], [distFromSpot * 0.866, - distFromSpot / 2],
-        [0, - distFromSpot], [- distFromSpot * 0.866, - distFromSpot / 2], [- distFromSpot * 0.866, distFromSpot / 2]
-      ];
+    // section used for placement of players on board --------->>>>>>
+    // TODO: At some point this should go in its own component.
+    const distFromSpot = 28;
+    const distFromSpot2 = 37;    // for small spot dist 28, dx -22, dy - 22
+    this.dx = -22;           // for large spot dist 37, dx -22, dy - 22
+    this.dy = -22;
+    this.allPlayersBoard = [
+      [0, distFromSpot], [distFromSpot * 0.866, distFromSpot / 2], [distFromSpot * 0.866, - distFromSpot / 2],
+      [0, - distFromSpot], [- distFromSpot * 0.866, - distFromSpot / 2], [- distFromSpot * 0.866, distFromSpot / 2]
+    ];
 
-      this.allPlayersBoard2 = [
-        [0, distFromSpot2], [distFromSpot2 * 0.866, distFromSpot2 / 2], [distFromSpot2 * 0.866, - distFromSpot2 / 2],
-        [0, - distFromSpot2], [- distFromSpot2 * 0.866, - distFromSpot2 / 2], [- distFromSpot2 * 0.866, distFromSpot2 / 2]
-      ];
-      // till here ---------------------------------------------<<<<<<<
+    this.allPlayersBoard2 = [
+      [0, distFromSpot2], [distFromSpot2 * 0.866, distFromSpot2 / 2], [distFromSpot2 * 0.866, - distFromSpot2 / 2],
+      [0, - distFromSpot2], [- distFromSpot2 * 0.866, - distFromSpot2 / 2], [- distFromSpot2 * 0.866, distFromSpot2 / 2]
+    ];
+    // till here ---------------------------------------------<<<<<<<
 
-    }
   }
 
   ngOnDestroy() {
-    if ( debug ) { console.log( '%cBoard onDestroy', 'color:green' ); }
     this.pokeSocket.deRegister( this.socketEvents );
-  }
-
-  sendRedirectToUserCB = (action) => {
-    this.redirect(action);
-    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
-    audioRedir.play();
   }
 
   playerLeavingGameCB = data => {
@@ -136,14 +108,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.continueGame = false;
     this.pauseGameMessage = data.message;
     this.gameStore.showExitGame( false );
-  }
-
-  winnerAnnouncmentCB = data => {
-    this.gameService.updateCurrentPage( this.user.gameId, 'winnerView' )
-    .subscribe( (resp) => {
-      this.router.navigate([`game/${this.user.gameId}/winner`])
-      .catch( console.error );
-    });
   }
 
   sendPlayerRollToMoveCB = roll => {
@@ -168,8 +132,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.roll = Math.ceil( Math.random() * 6 );
     const audio = new Audio('../../assets/sounds/dice.mp3');
     audio.play();
-    this.pokeSocket.emit( 'player rolled dice to move', {gameId: this.user.gameId, roll: this.roll});
-    this.gameService.getPlayerOptions( this.roll, this.userPosition, this.user.gameId, this.user.email)
+    this.pokeSocket.emit( 'player rolled dice to move', {gameId: this.gameId, roll: this.roll});
+    this.gameService.getPlayerOptions( this.roll, this.userPosition, this.gameId, this.email)
     .subscribe(( options: any ) => {
       this.playerOptions[0] = options.forwardOptions;
       this.playerOptions[1] = options.backwardOptions;
@@ -208,13 +172,13 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   movePlayer = (newSpot, userId) => {
     const userObject = {
-      email: this.user.email,
-      name: this.user.name
+      email: this.email,
+      name: this.name
     };
 
-    this.userService.movePlayer( newSpot.id, userObject, this.userPosition, this.user.gameId)
+    this.userService.movePlayer( newSpot.id, userObject, this.userPosition, this.gameId)
     .subscribe((position: any) => {
-      this.pokeSocket.emit( 'a player moved', {gameId: this.user.gameId, allUsers: this.allPlayers});
+      this.pokeSocket.emit( 'a player moved', {gameId: this.gameId, allUsers: this.allPlayers});
       this.userPosition = position.id;
       this.playerPosition = this.userPosition - 1;
       this.checkAction(newSpot.action);
@@ -224,11 +188,11 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.actionDisplay = true;
         this.playerOptions = [[], []];
 
-        this.gameService.getAvailablePokemon(this.user.gameId, this.user.email);
+        this.gameService.getAvailablePokemon(this.gameId, this.email);
       }
 
       this.pokeSocket.emit('update action description', {
-        gameId: this.user.gameId,
+        gameId: this.gameId,
         description: this.actionDescription
       });
     });
@@ -237,23 +201,23 @@ export class BoardComponent implements OnInit, OnDestroy {
   redirect = action => {
     switch (action) {
       case 'pokemon':
-        this.router.navigate([ `game/${this.user.gameId}/capture` ])
+        this.router.navigate([ `game/${this.gameId}/capture` ])
         .catch( console.error );
         break;
       case 'city':
-        this.router.navigate([ `game/${this.user.gameId}/city` ])
+        this.router.navigate([ `game/${this.gameId}/city` ])
         .catch( console.error );
         break;
       case 'event':
-        this.router.navigate([ `game/${this.user.gameId}/event` ])
+        this.router.navigate([ `game/${this.gameId}/event` ])
         .catch( console.error );
         break;
       case 'trainer':
-        this.router.navigate([ `game/${this.user.gameId}/trainer` ])
+        this.router.navigate([ `game/${this.gameId}/trainer` ])
         .catch( console.error );
         break;
       case 'winner':
-        this.router.navigate([ `game/${this.user.gameId}/winner` ])
+        this.router.navigate([ `game/${this.gameId}/winner` ])
         .catch( console.error );
         break;
     }
@@ -279,50 +243,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   updateCurrentPage = currentPage => {
-    this.gameService.updateCurrentPage(this.user.gameId, currentPage )
+    this.gameService.updateCurrentPage(this.gameId, currentPage )
     .subscribe(() => {
-      this.pokeSocket.emit('redirect users to action', {gameId: this.user.gameId, action: this.action});
+      this.pokeSocket.emit('redirect users to action', {gameId: this.gameId, action: this.action});
       this.redirect( this.action );
-    });
-  }
-
-  
-  confirmCurrentPage = () => {
-    if ( debug ) { console.log( 'boardController confirmCurrentPage', this.user ); }
-    this.gameService.getCurrentPage( this.user.gameId )
-    .subscribe((currentPage) => {
-      if ( debug ) { console.log( 'boardController confirmCurrentPage getCurrentPage currentPage:', currentPage ); }
-      if (currentPage === 'boardView') {
-        this.initialize();
-      }
-      else {
-        switch (currentPage) {
-          case 'starterView':
-            this.router.navigate([`game/${this.user.gameId}/starter` ])
-            .catch( console.error );
-            break;
-          case 'cityView':
-            this.router.navigate([`game/${this.user.gameId}/city` ])
-            .catch( console.error );
-            break;
-          case 'captureView':
-            this.router.navigate([`game/${this.user.gameId}/capture` ])
-            .catch( console.error );
-            break;
-          case 'eventView':
-            this.router.navigate([`game/${this.user.gameId}/event` ])
-            .catch( console.error );
-            break;
-          case 'trainerView':
-            this.router.navigate([`game/${this.user.gameId}/trainer` ])
-            .catch( console.error );
-            break;
-          case 'winnerView':
-            this.router.navigate([`game/${this.user.gameId}/winner` ])
-            .catch( console.error );
-            break;
-        }
-      }
     });
   }
 
@@ -344,15 +268,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   initialize = () => {
-    if ( debug ) { console.log( 'boardController initialize', this.user ); }
-    this.boardService.boardInit(this.user.gameId, this.user.email)
+    this.boardService.boardInit(this.gameId, this.email)
     .subscribe((data: any) => {
       
       this.gameStore.setAllUsers( data.allUsers );
       this.gameStore.setShowPlayerPanel( true );
       this.gameStore.showExitGame( true );
 
-      if ( debug ) { console.log( 'boardController initialize boardInit data', this.user.gameId, data ); }
       // get board data from database
       // preprocessed to be an array 
       // calculate path data and path string
@@ -375,19 +297,17 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.allPlayers = data.allUsers;
       this.winner = data.winner;
       if (this.winner !== null) {
-        this.router.navigate([`game/${this.user.gameId}/winner`]);
+        this.router.navigate([`game/${this.gameId}/winner`]);
       }
 
       this.playerSprite = data.user.sprite;
       this.playerParty = data.user.party;
-     
-      // confirmCurrentPage();
     });
   }
   
 
   printstate() {
-    console.log('\nuser:', this.user);
+    console.log('\nuser:', this.name, this.email, this.gameId );
     console.log('message:', this.message);
     console.log( 'gameName', this.gameName );
     console.log( 'gameCreator', this.gameCreator );

@@ -65,7 +65,7 @@
     </div>
   <hr>
     <div *ngIf="continueGame">
-      <div class="game-status" *ngIf="user.email === currentTurnEmail && actionDisplay === false">
+      <div class="game-status" *ngIf="email === currentTurnEmail && actionDisplay === false">
         <button class="board-center" (click)="rollDice()" *ngIf="roll <= 0"> Roll Dice </button>
         <p class='board-center' *ngIf="roll > 0">You rolled a {{roll}}</p>
         <div class="player-options">
@@ -80,7 +80,7 @@
       
       <div class="action-display board-center" *ngIf="actionDisplay">
         <h4>{{actionDescription}}</h4>
-        <button class="tn-lg btn-primary" (click)="redirectAllUsers()" *ngIf="user.email === currentTurnEmail && actionDisplay"> Continue </button>
+        <button class="tn-lg btn-primary" (click)="redirectAllUsers()" *ngIf="email === currentTurnEmail && actionDisplay"> Continue </button>
       </div>
     </div>
     <div *ngIf="!continueGame" class='board-center'>

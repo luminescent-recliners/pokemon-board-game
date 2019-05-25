@@ -50,6 +50,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.socketEvents = [
       [ 'moveAllPlayersToSelectPokemon', this.moveAllPlayersToSelectPokemonCB ],
       [ 'moveAllPlayersToBoard', this.moveAllPlayersToBoardCB ],
+      [ 'send redirect path to users', this.sendRedirectToUserCB ],
     ];
     this.socketEvents.forEach( e => this.socket.register( e[0], e[1] ) );
   }
@@ -93,5 +94,31 @@ export class GameComponent implements OnInit, OnDestroy {
     .catch( console.error );
   }
 
+  sendRedirectToUserCB = (action) => {
+    switch (action) {
+      case 'pokemon':
+        this.router.navigate([ `game/${this.gameId}/capture` ])
+        .catch( console.error );
+        break;
+      case 'city':
+        this.router.navigate([ `game/${this.gameId}/city` ])
+        .catch( console.error );
+        break;
+      case 'event':
+        this.router.navigate([ `game/${this.gameId}/event` ])
+        .catch( console.error );
+        break;
+      case 'trainer':
+        this.router.navigate([ `game/${this.gameId}/trainer` ])
+        .catch( console.error );
+        break;
+      case 'winner':
+        this.router.navigate([ `game/${this.gameId}/winner` ])
+        .catch( console.error );
+        break;
+    }
+    const audioRedir = new Audio('../../assets/sounds/pop.mp3');
+    audioRedir.play();
+  }
 
 }
