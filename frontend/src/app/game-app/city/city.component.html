@@ -1,4 +1,4 @@
-<div>
+<div fxLayout="column" fxLayoutAlign="start center">
   <div class="city">
     <h3>{{currentTurnPlayerName}} is chilling in the city.</h3>
       <h3>{{gifDescrip}}</h3>
@@ -6,7 +6,7 @@
   <div class="city">
     <img [attr.src]="gifURL" alt="City image">
   </div>
-  <div class="city" *ngIf="currentTurnPlayerId===user.email">
+  <div class="city" *ngIf="currentTurnPlayerId === email">
     <button (click)="updateTurn()">Continue</button>
   </div>
   <h6 class="city">The full functionalities of this page are still under development. Thank you for your understanding.</h6>
