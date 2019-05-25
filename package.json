@@ -1,6 +1,6 @@
 {
   "name": "pokemon-board-game",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Pokemon Master Trainer",
   "main": "server/server.js",
   "directories": {
