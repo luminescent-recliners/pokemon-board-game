@@ -20,9 +20,13 @@
     </div>
     <p *ngIf="message">{{message}}</p>
   </div>
+
+  <div class="other-contents">
+    <p> Meet the Pokemon featured in this game <a routerLink="/pokedex">Pokedex</a> </p>
+    <p><a routerLink="/acknowldedge">Acknowledgements</a> </p>
+  </div>
       
   <div class="credits">
-    <p><a routerLink="/acknowldedge">Acknowledgements</a> - <a routerLink="/pokedex">Pokedex</a> </p>
     <p>
       <a href="https://github.com/luminescent-recliners" > &copy; 2016 - {{year}} Luminescent Recliners</a> - v{{ver}}
     </p>

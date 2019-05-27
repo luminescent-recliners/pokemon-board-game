@@ -161,3 +161,12 @@ button:hover {
   background-color: thistle;
 }
 
+a {
+  color: #b84ed8;
+  text-decoration: none;
+}
+a:hover {
+  color: #125986;
+  text-decoration: none;
+}
+

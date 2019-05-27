@@ -45,13 +45,8 @@
   padding: 10px;
 }
 
-.credits a {
-  color: white;
-  text-decoration: none;
+.other-contents p {
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
 }
-
-.credits a:hover {
-  color: #125986;
-  text-decoration: none;
-}
-
