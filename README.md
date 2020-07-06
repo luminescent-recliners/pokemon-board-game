@@ -1,14 +1,11 @@
-# Pokemon Master Trainer
+# <img src="./frontend/src/game.png" alt="Logo" style="width:25px;" width="25px" height="25px"/> Pokemon Master Trainer
 
 > A re-creation of the Pokemon Master Trainer Board game
 
 > __Status:__ in development
 
-## Team
+> Latest deployment: [ Pokemon Master Trainer ]( http://chobek.com) A valid email is required to play.
 
-  - __Product Owner__: Alex Chou (Choumander)
-  - __Scrum Master__: Hitesh Lala (Hiteshmonlee)
-  - __Development Team Members__: Arthi Palaniappan (Arthicuno), Linda Zou (Zoubat)
 
 ## Table of Contents
 
@@ -17,55 +14,35 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Project Details](#project-details)
-      * [Server Design](#server-design)
-      * [Client Design](#client-design)
-      * [Database Design](#database-design)
+        * [Server Design](#server-design)
+        * [Client Design](#client-design)
+        * [Database Design](#database-design)
     1. [Roadmap](#roadmap)
 1. [Team](#team)
-1. [Contributing](#contributing)
+1. [Acknowledgements](#acknowledgements)
 
 
 ## Game Play
 
+A user can create a game or join a game.  Only the game creator can start the game.
+Single player games are permitted.
+
 1. Roll the dice
 1. Check the number of positions in both direction and offer player options:
-  * If spot has a pokemon then try to catch pokemon - implemented
-  * If other players on spot, can battle or trade - not implemented yet
-  * If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
-  * If spot is event pick an event card and do what it says - not impelemented yet
+    * If spot has a pokemon then try to catch pokemon - implemented
+    * If other players on spot, can battle or trade - not implemented yet
+    * If spot is city, can exchange pokemon in box, battle gym leader or heal - not implemented yet
+    * If spot is event pick an event card and do what it says - not impelemented yet
 
 
 ## Requirements
 
-### Server Side
-  - Body-parser  1.15.0
-  - Chai  3.5.0
-  - Chai-http  2.0.1
-  - Express  4.13.4
-  - Express-routes  0.0.2
-  - Express-session  1.13.0
-  - Mocha  2.4.5
-  - Mongoose  4.4.6
-  - Morgan  1.7.0
-  - Passport  0.3.2
-  - Passport-facebook  2.1.0
-  - Q  1.4.1
-  - Socket.io  1.4.5
-  - Sinon  1.17.3
-  - Sinon-chai  2.8.0
+Node >= 8.0
 
-### Client Side
-  - Bootstrap  3.3.6
-  - Jquery  2.2.2
-  - Angular-bootstrap  1.2.4
-  - Angular  1.5.1
-  - Angular-cookies  1.5.2
-  - Angular-animate  1.5.1
-  - Angular-route  1.5.1
-  - Angular-socket-io  0.7.0
-  - Socket.io  1.4.5
-  - Socket.io-client  1.4.5
-  - Angular-audio  1.7.1
+Angular 7 & Angular CLI 
+
+MongoDB 
+
 
 ## Development
 
@@ -74,64 +51,43 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
+cd frontend
+npm install
 ```
+
+### Running Dev Environment
+
+Make sure MongoDB is up and running.
+
+Frontend: in the frontend folder we run the Angular dev environment:
+```sh
+ng serve
+```
+This serves the frontend on localhost:4200
+
+Server: in the main folder we start the dev server:
+```sh
+npm run dev
+```
+This serves requests on localhost:3000 ( watch not implemneted yet ).
+
+The dev login is not secure, a valid email will work with any string as a token.
+
+
 
 ### Project Details
 
-A single page application using Angular front end, Express server, and MongoDB database.  Five data items are stored on the players machine.  Two cookies for Facebook authentication - containing the player name, and Facebook ID.  Three local storage items, the playe name, Facebook ID, and the current game.
+A single page application using Angular 7 front end, Express server, Socket.io, and MongoDB database.  A single session cookie is stored on users machine.
 
 #### Server Design
 
-A RESTful API was built using Node and Express.  A table with the endpoints can be found below and a more detailed description of the routes can be found [here](serverRoutes.md).
-
-|  URL | HTTP Verb |  Controller Function |
-|:----:|:---------:|:--------------------:|
-| /api/games/addGame | POST | gameController.addGame | 
-| /api/games/addPokemon | PUT | gameController.playerInit | 
-| /api/games/user/movePlayer | PUT | gameController.movePlayer | 
-| /api/games/user | PUT | gameController.addUser | 
-| /api/games/user/catchPokemon | PUT | gameController.catchPokemon | 
-| /api/games/updateturn | PUT | gameController.updateTurn | 
-| /api/games/currentPage | PUT | gameController.updateCurrentPage | 
-| /api/games/requestlobbyentry | PUT | gameController.requestLobbyEntry | 
-| /api/games/updateplayercounter | PUT | gameController.updatePlayerCounter | 
-| /api/games/currentPage | GET | gameController.getCurrentPage | 
-| /api/games/gameturn | GET | gameController.findTurn | 
-| /api/games/playerOptions | GET | gameController.getPlayerOptions | 
-| /api/games/availablePokemon | GET | gameController.getAvailablePokemon | 
-| /api/games/getGames | GET | gameController.getGames | 
-| /api/games/lobbyinit | GET | gameController.lobbyInit | 
-| /api/games/remainingStarterPokemon | GET | gameController.getRemainingStarterPokemon | 
-| /api/games/boardInit | GET | gameController.boardInit | 
-| /api/games/remainingSprites | GET | gameController.getAvailableSprites | 
-| /api/games/getusers | GET | gameController.getUsers | 
-| /api/games/resumegamelobbyinit | GET | gameController.resumeGameLobbyInit |
-| /api/games/trainerInit | GET | gameController.trainerInit |
-| /api/tempEvents/getURL | GET | tempEventsController.getRandomURL |
-| /api/tempCity/getURL | GET | tempCityController.getRandomURL |
-| /signin/facebook | GET | passport.authenticate('facebook') | 
-| /signin/facebook/callback | GET | redirect to /#/home | 
+A RESTful API was built using Node and Express.  In addition to this API we have implemented a Socket.io interface which integrates closely with the frontend in supplying real time data to players in a game.
 
 
 #### Client Design
 
-Angular was used as the front end framework.
-
-|  URL      | Controller            | Template            | Authenticate |
-|:---------:|:---------------------:|:-------------------:|:------------:|
-| /home |  homeController | home/home.html | true |
-| /board | boardController | board/board.html | true |
-| /starter | starterController | starterPokemon/starterPokemon.html | true |
-| /lobby | lobbyController | lobby/lobby.html | true |
-| /capture | captureController | capturePokemon/capturePokemon.html | true |
-| /city | cityController | city/city.html | true |
-| /event | eventController | event/event.html | true |
-| /winner | winnerController | winner/winner.html | true |
-| /signin | authController | auth/signin.html | false |
-| /resumelobby |resumeLobbyController | resumelobby/resumeLobby.html | true |
+The front end was built using the Angular CLI tools and conforms to Angulars expected design.  There is essentially one main module with a number of individual components mounted on specific routes.  Services are used as well.
 
 #### Database Design
 
@@ -152,6 +108,23 @@ There are seven tables in the database as listed below.  The Users and Games tab
 View the project roadmap [here](https://github.com/luminescent-recliners/pokemon-board-game/issues)
 
 
-## Contributing
+## Team
+  <ul>
+    <li><a href="https://github.com/Lindayezou">Linda Zou (Zoubat) </a></li>
+    <li><a href="https://github.com/aarti156">Arthi Palaniappan (Arthicuno)</a></li>
+    <li><a href="http://chououtside.com/">Alex Chou (Choumander)</a></li>
+    <li><a href="https://hiteshlala.com">Hitesh Lala (Hiteshmonlee)</a></li>
+</ul>
+  
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+## Acknowledgements
+Thanks to the following for the artwork and sound:
+<ul>
+    <li><a href="http://sprites.pokecheck.org">Pokécheck</a></li>
+    <li><a href="http://pokeapi.co">PokéAPI</a></li>
+    <li><a href="http://www.pokestadium.com">Pokestadium</a></li>
+    <li><a href="http://clipart-library.co">Clipart Library</a></li>
+    <li><a href="https://www.flaticon.com">Flaticon</a></li>
+    <li><a href="https://www.shutterstock.com">Shutterstock</a></li>
+    <li><a href="https://roundicons.com">Roundicons</a></li>
+</ul>

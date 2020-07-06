@@ -1,0 +1,32 @@
+<div *ngIf="pokemon" class="capture" fxLayout="column" fxLayoutAlign="start center">
+  <div class="item">
+    <h3>{{currentTurnPlayerName}} was wandering in the wild!</h3>
+    <h3>A wild {{pokemon.name}} appeared!</h3>
+  </div>  
+  <!-- POKEDEX -->  
+  <div class="item to-capture-box">
+    <app-pokemon-panel [pokemon]="pokemon" [showDice]=true></app-pokemon-panel>
+  </div>
+  <!-- Roll Dice Button -->  
+  <app-dice *ngIf="currentTurnPlayerId=== email" class="item" pips=1 roll={{rollmydice}} (rolled)="dicerollresult($event)"></app-dice>
+  <div class="item" *ngIf="diceRolled===false && currentTurnPlayerId=== email" >
+    <button (click)="startroll()" > Roll Dice & Catch</button>
+  </div>
+  <!-- MESSAGE (OPPONENTS)-->  
+  <div class="item">
+    <p *ngIf="currentTurnPlayerId !== email && diceRolled === false">Waiting for {{currentTurnPlayerName}} to roll</p>
+    <div *ngIf="diceRolled && currentTurnPlayerId !== email">
+      <p class="pokemonCap">{{currentTurnPlayerName}} rolled a <app-dice pips={{rollvalue}}></app-dice></p>
+      <p>{{result}}</p>
+    </div>
+  </div>
+  <!-- MESSAGE (USER) -->  
+  <div class="item" *ngIf="diceRolled && currentTurnPlayerId=== email">
+    <p class="pokemonCap">{{currentTurnPlayerName}} rolled a {{rollvalue}}</p>
+    <span>{{result}}</span>
+    <button (click)="updateTurn()">Continue</button>
+  </div>
+
+</div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

@@ -1,0 +1,81 @@
+
+
+<div *ngIf="renderConnection" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+  <div><button (click)="printstate()"> Print State </button></div>
+
+  <div><button (click)="deregister()"> Dergister </button></div>
+
+  <div><button (click)="register()"> Register </button></div>
+
+  <div><button (click)="connect()"> Connect </button></div>
+
+  <div><button (click)="disconnect()"> Disconnect </button></div>
+
+  <div><a routerLink="/signin">sigin in</a></div>
+</div>
+<hr>
+
+<div *ngIf="true">
+  <div class="infocard">
+    <p> Main player info card: </p>
+    <app-player-panel *ngFor="let u of usersprites" [user]="u" [minipanel]="true" [top]="false"></app-player-panel>
+  </div>
+
+  <div class="infocard">
+    <p> Other player info card: </p>
+    <app-player-panel *ngFor="let u of usersprites" [user]="u" [micropanel]="true" [top]="top"></app-player-panel>
+  </div>
+</div>
+
+<div *ngIf="false">
+  <div class="infocard">
+    <p> Pokemon info card: </p>
+    <app-pokemon-panel [pokemon]="user.party[0]" [showDice]="dice" [small]="small"></app-pokemon-panel>
+  </div>
+
+  <div class="infocard">
+    <p> Pokemon info card: </p>
+    <app-pokemon-panel [pokemon]="user.party[2]" [showDice]="dice" [small]="small"></app-pokemon-panel>
+  </div>
+
+  <div class="infocard">
+    <p> Pokemon info card: </p>
+    <app-pokemon-panel [pokemon]="user.party[5]" [showDice]="dice" [small]="small"></app-pokemon-panel>
+  </div>
+
+  <div class="infocard">
+    <p> Pokemon info card: </p>
+    <app-pokemon-panel [pokemon]="user.party[7]" [showDice]="dice" [small]="small"></app-pokemon-panel>
+  </div>
+
+  <div class="infocard">
+    <p> Pokemon info card: </p>
+    <app-pokemon-panel [pokemon]="user.party[13]" [showDice]="dice" [small]="small"></app-pokemon-panel>
+  </div>
+
+  <button (click)="toggleDice()">Dice</button>
+  <button (click)="toggleSmall()">Small</button>
+  <button (click)="toggleTop()">Top/Bottom</button>
+      
+</div>
+
+<div *ngIf="false">
+
+  <div class="infocard">
+    <p> Winner circle: </p>
+    <app-player-panel *ngFor="let u of usersprites" [user]="u" [circlepanelwin]="true" [debug]="false"></app-player-panel>
+  </div>
+</div>
+
+<div *ngIf="false">
+  <div class="infocard">
+    <p> Other circle: </p>
+    <app-player-panel *ngFor="let u of usersprites" [user]="u" [circlepanelother]="true" [debug]="false"></app-player-panel>
+  </div>
+
+</div>
+
+
+
+
+

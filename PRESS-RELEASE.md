@@ -21,4 +21,4 @@
   "Thanks for letting my kids experience something from my childhood!"
 
 ### Where do I Go to Play ###
-  visit www. still to come .com and start playing.
+  visit chobek.com and start playing.

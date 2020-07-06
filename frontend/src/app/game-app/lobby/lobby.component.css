@@ -1,0 +1,31 @@
+
+.lobby {
+  text-align: center;
+  font-size: 1.15em;
+}
+
+.item {
+  max-width: var(--max-content-width);
+}
+
+.lobby-text {
+  margin: 1%;
+}
+
+.user-in-lobby {
+  list-style: none;
+}
+
+.lobby-image-container {
+  z-index: -1;
+  position: relative;
+  top: calc( 310px - 100vh );
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  opacity: .6;
+}
+
+.lobby-image {
+  border-radius: 30%;
+  width: 100%;
+}

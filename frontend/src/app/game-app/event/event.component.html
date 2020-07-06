@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <div class="city">
+    <h3>{{currentTurnPlayerName}} has triggered an event!</h3>
+      <h3>{{gifDescrip}}</h3>
+  </div>
+  <div class="city">
+    <img [attr.src]="gifURL" alt="Your brower does not support this functionality">
+  </div>
+  <div class="city" *ngIf="currentTurnPlayerId === email">
+    <button (click)="updateTurn()">Continue</button>
+  </div>
+  <h6 class="city">The full functionalities of this page are still under development. Thank you for your understanding.</h6>
+</div>
+
+<!-- <button (click)="printstate()">Debug State</button> -->

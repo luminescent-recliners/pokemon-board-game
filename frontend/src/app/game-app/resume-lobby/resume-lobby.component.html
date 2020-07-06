@@ -1,0 +1,21 @@
+<div class="lobby" fxLayout="column" fxLayoutAlign="start center">
+
+  <div class="resume-text item">
+    <p>Welcome to the <b>{{ gameName }}</b> lobby! Please wait for <b><i>{{ gameCreator }}</i></b>, the game creator to start the game.</p>
+    <p> All players from the original game must be present before the game can be started. </p>
+  </div>
+  
+  <div class="lobby-list">
+    <p> {{ gameName }} owned by {{ gameCreator }}</p>
+    <p> {{users.length }} {{users.length === 1 ? 'player': 'players' }} in Game and {{ usersInRoom.length}} in Lobby: </p>
+    <p *ngFor="let user of users; let i = index">
+      <span>{{i + 1}}.</span> <img class="sprite" [attr.src]="user.sprite"> <b>{{ user.name }}</b> {{user.ready? 'Ready!': 'Missing!'}}
+    </p>
+  </div>
+
+  <input class="main-pokemon-btn" type='button' *ngIf="(gameCreatorId === email) && (usersInRoom.length === users.length)" (click)="getBoardView()" value='Resume Game' />
+
+</div>
+
+<!-- <button (click)="printstate()"> Debug Print</button> -->
+  

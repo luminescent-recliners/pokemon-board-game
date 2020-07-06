@@ -1,23 +1,30 @@
 {
   "name": "pokemon-board-game",
-  "version": "1.0.0",
+  "version": "2.2.0",
   "description": "Pokemon Master Trainer",
-  "main": "index.js",
+  "main": "server/server.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha test/backend-tests.js"
+    "test": "mocha test/backend-tests.js",
+    "startMongo": "mongod  --dbpath ~/data/db",
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "cross-env NODE_ENV=development node server/server.js",
+    "build": "cd frontend && npm run build && cd ..",
+    "bs": "npm run build && npm run dev",
+    "getAuthors": "git log --format='%aN <%aE>' | sort -f | uniq",
+    "bump": "node setVersion.js",
+    "getHash": "git log -n 1 --pretty=format:'%H'",
+    "dbinit": "node server/db/db.js reset"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luminescent-recliners/pokemon-board-game.git"
+    "url": "https://github.com/luminescent-recliners/pokemon-board-game.git"
   },
   "keywords": [
     "Pokemon",
-    "Hack",
-    "Reactor",
-    "Thesis"
+    "Boardgame"
   ],
   "author": "Arthi, Alex, Hitesh, Linda",
   "license": "ISC",
@@ -26,20 +33,20 @@
   },
   "homepage": "https://github.com/luminescent-recliners/pokemon-board-game#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
-    "express": "^4.13.4",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "cookie-parser": "^1.4.4",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
     "express-routes": "0.0.2",
-    "express-session": "^1.13.0",
-    "mocha": "^2.4.5",
-    "mongoose": "^4.4.6",
-    "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.0",
-    "q": "^1.4.1",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
-    "socket.io": "^1.4.5"
+    "mailgun-js": "^0.22.0",
+    "mocha": "^6.1.3",
+    "mongoose": "^5.5.1",
+    "morgan": "^1.9.1",
+    "q": "^1.5.1",
+    "sinon": "^7.3.1",
+    "sinon-chai": "^3.3.0",
+    "socket.io": "^2.2.0"
   }
 }

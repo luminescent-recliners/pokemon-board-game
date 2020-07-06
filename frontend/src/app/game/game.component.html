@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div>Logged in as <b><i> {{name}} </i></b></div>
+  <div><input type="button" value=" Log Out " (click)="logout()"> </div>
+  <div *ngIf="!showExitGame"> <input type="button" value=" Home " (click)="goHome()"> </div>
+  <div *ngIf="showExitGame"> <input type="button" value=" Exit Game " (click)="exitGame()"> </div>
+</div>
+
+<div *ngIf="showPlayerPanel" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div *ngFor="let u of allUsers">
+    <app-player-panel  [user]="u" [minipanel]="u.email === email" [micropanel]="u.email!== email" [top]="bottom"></app-player-panel>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+

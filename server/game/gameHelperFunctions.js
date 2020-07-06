@@ -26,9 +26,9 @@ module.exports = {
     return spot;
   },
 
-  findUser: function(game, userId) {
+  findUser: function(game, email) {
     for (var i = 0; i < game.users.length; i++) {
-      if (game.users[i].facebookId === userId) {
+      if (game.users[i].email === email) {
         return game.users[i];
       }
     }

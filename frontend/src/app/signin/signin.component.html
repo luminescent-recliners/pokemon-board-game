@@ -1,0 +1,33 @@
+<div class="flex-content" fxLayout="column" fxLayoutAlign="start center">
+  <div class="pokeball-wrapper">
+    <img class="pokeball" src="assets/pokeball.png" />
+  </div>
+
+  <div class="login-box">
+      <div *ngIf="phase=='sendCode'" >
+      <p> To play, enter a valid email address and a login token will be sent to you! </p>
+      <p> 
+          <input [(ngModel)]="email" placeholder="Enter email"/>
+          <button (click)="sendCode()"> Send Code </button>
+      </p>
+    </div>
+    <div *ngIf="phase=='verifyCode'">
+      <p> Login token sent to <b>{{email}}</b> expires in 8 minutes...</p>
+      <p> 
+          <input [(ngModel)]="code" placeholder="Enter code"/>
+          <button (click)="verifyCode()"> Login </button>
+      </p>
+    </div>
+    <p *ngIf="message">{{message}}</p>
+  </div>
+      
+  <div class="credits">
+    <p><a routerLink="/acknowldedge">Acknowledgements</a> - <a routerLink="/pokedex">Pokedex</a> </p>
+    <p>
+      <a href="https://github.com/luminescent-recliners" > &copy; 2016 - {{year}} Luminescent Recliners</a> - v{{ver}}
+    </p>
+  </div>
+
+  <!-- <button (click)="printstate()"> Debug Print </button> -->
+</div>
+  

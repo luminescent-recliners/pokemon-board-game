@@ -1,0 +1,7 @@
+<div class="face-wrapper"*ngIf="pipsInternal > 0">
+  <div class="dice">
+    <div class="face" *ngFor="let thing of ' '.repeat(pipsInternal).split(''); let idx = index">
+      <div class="pip pips-{{pipsInternal}} pip-{{idx+1}}"></div>
+    </div>
+  </div>
+</div>

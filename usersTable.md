@@ -5,8 +5,8 @@
 
 ```javascript
   {
-    facebookId: "Facebook123H",
-    playerName: "Henry",
+    email: "henry@yahoo.com",
+    name: "henry",
     gamesParticipating: [1],
     numGameWon: 3
   }

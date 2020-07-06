@@ -1,17 +1,16 @@
-var router = require('express').Router();
-var gymLeader = require('./gymLeader/gymLeaderController.js');
-var gameController = require('./game/gameController.js');
+const router = require('express').Router();
+
+const gymLeader = require('./gymLeader/gymLeaderController.js');
+const gameController = require('./game/gameController.js');
+const userController = require('./users/userController.js');
+const pokemonController = require( './pokemon/pokemonController.js' );
 
 // temp event and city logic
-var tempEventsController = require('./tempEvents/tempEventsController.js');
-var tempCityController = require('./tempCity/tempCityController.js');
+const tempEventsController = require('./tempEvents/tempEventsController.js');
+const tempCityController = require('./tempCity/tempCityController.js');
 
 
-var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
-
-
-router.post('/api/games/addGame', gameController.addGame);
+router.post('/api/game', gameController.addGame);
 
 router.put('/api/games/addPokemon', gameController.playerInit);
 router.put('/api/games/user/movePlayer', gameController.movePlayer);
@@ -20,7 +19,6 @@ router.put('/api/games/user/catchPokemon', gameController.catchPokemon);
 router.put('/api/games/updateturn', gameController.updateTurn);
 router.put('/api/games/currentPage', gameController.updateCurrentPage);
 router.put('/api/games/requestlobbyentry', gameController.requestLobbyEntry);
-router.put('/api/games/updateplayercounter', gameController.updatePlayerCounter);
 
 router.get('/api/games/currentPage', gameController.getCurrentPage);
 router.get('/api/games/gameturn', gameController.findTurn);
@@ -39,19 +37,24 @@ router.get('/api/games/trainerInit', gameController.trainerInit);
 router.get('/api/tempEvents/getURL', tempEventsController.getRandomURL);
 router.get('/api/tempCity/getURL', tempCityController.getRandomURL);
 
-router.get('/signin/facebook', passport.authenticate('facebook'));
 
-router.get('/signin/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.cookie('playerName',req.user.displayName);
-    res.cookie('facebookId',req.user.id);
-    res.redirect('/#/home');
-  });
+router.post( '/api/login', userController.sendVerificationCode );
+router.post( '/api/login/verify', userController.verifyCode );
+
+router.get( '/api/user', userController.loggedInUser );
+
+router.get( '/api/pokemon', pokemonController.getPokemon );
+
+/* this is the arrangement I want to move towards
+router.get( '/api/game/:id/thing', ( req, res, next ) => {
+  console.log( '\n\ngot to my cool api endpoint' );
+  console.log( 'req.params', req.params );
+  console.log( 'req.query', req.query );
+  console.log();
+  res.send({ message: 'yay', params: req.params, query: req.query });
+})
+*/
 
 
-
-// a quick add to play with board object
 
 module.exports = router;

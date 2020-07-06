@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutAlign="start center" >
+  <div class="message">
+    <h3>Hey {{ gameTurnName }}! Choose Your Trainer And Starter Pokemon! </h3>
+  </div>
+
+  <div class="trainer-flex" >
+    <h3>Trainer:</h3>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div *ngFor="let sprite of spriteList" (click)="selectSprite(sprite)" >
+        <div class="{{ sprite.selected ? 'trainer-pokemon selected' : 'trainer-pokemon '}}">
+          <img [attr.src]="sprite.imageURL" >
+          <p>{{ sprite.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokemon-flex">
+    <h3>Starter Pokemon:</h3>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div *ngFor="let pokemon of list" (click)="getStarter(pokemon)" >
+        <div class="{{ pokemon.selected ? 'trainer-pokemon selected' : 'trainer-pokemon '}}">
+          <img [attr.src]="pokemon.gifURL" >
+          <p>{{ pokemon.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button" >
+    <p *ngIf="message">{{message}}</p>
+    <p><button class="text-center" *ngIf='email===gameTurnEmail' (click)="playerInit()"> Select </button></p>
+  </div>
+</div>
+
+
+<!-- <button (click)="printstate()">Debug State</button> -->

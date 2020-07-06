@@ -1,151 +1,149 @@
-var mongoose = require('mongoose');
-var gameBoardData = require('../data/gameBoardData.js');
-var gymLeaderData = require('../data/gymLeaderData.js');
-var pokemonData = require('../data/pokemonData.js');
-var usersData = require('../data/usersData.js');
-var availablePokemonData = require('../data/availablePokemonData.js');
-var spriteData = require('../data/spriteData.js');
+const mongoose = require('mongoose');
 
-var Games = require('../game/gameModel.js');
-var GymLeaders = require('../gymLeader/gymLeaderModel.js');
-var Pokemons = require('../pokemon/pokemonModel.js');
-var Users = require('../users/userModel.js');
-var Sprites = require('../sprites/spriteModel.js');
+// data
+const gameBoardData = require('../data/gameBoardData.js');
+const availablePokemonData = require('../data/availablePokemonData.js');
+const gymLeaderData = require('../data/gymLeaderData.js');
+const pokemonData = require('../data/pokemonData.js');
+const usersData = require('../data/usersData.js');
+const spriteData = require('../data/spriteData.js');
+const gamesFake = require( '../data/gamesFake' );
 
-//All these functions are only for testing purposes
-//===========Create Table functions===========
+// models
+const Games = require('../game/gameModel.js');
+const GymLeaders = require('../gymLeader/gymLeaderModel.js');
+const Pokemons = require('../pokemon/pokemonModel.js');
+const Users = require('../users/userModel.js');
+const Sprites = require('../sprites/spriteModel.js');
 
-var createUsers = function() {
-  Users.find({}, function(err, users) {
-    if (!users.length) {
-      var newUsers = new Users({
-        facebookId: 'Facebook123',
-        playerName: 'Bob',
-        gamesParticipating: [1],
-        numGameWon: 0
-      });
-      newUsers.save(function(err) {
-        if (!err) {
-          console.log('createUser WORKS');
-        }
-      });
-    }
+// flags
+const debug = process.env.NODE_ENV === 'development';
+const reset = debug && true;
+
+
+function cbToPromise( binding, operation, data ) {
+  const fn = binding? operation.bind( binding ): operation;
+  return new Promise(( resolve, reject ) => {
+    fn( data , ( err, res ) => {
+      if ( err ) reject( err );
+      else resolve( res );
+    })
   });
-};
+}
 
-var createGymLeader = function() {
-  GymLeaders.find({}, function(err, gymLeader) {
-    if (!gymLeader.length) {
-      GymLeaders.create(gymLeaderData, function (err) {
-        if (!err) {
-          console.log('createPokemon WORKS');
-        }
-      });
-    }
-  });
-};
+async function deleteDatabaseEntries() {
+  try {
+    console.log( 'Deleting all database entries...');
+    await cbToPromise( Games, Games.deleteMany, {} );
+    await cbToPromise( GymLeaders, GymLeaders.deleteMany, {} );
+    await cbToPromise( Pokemons, Pokemons.deleteMany, {} );
+    await cbToPromise( Users, Users.deleteMany, {} );
+    await cbToPromise( Sprites, Sprites.deleteMany, {} );
 
-var createPokemons = function() {
-  Pokemons.find({}, function(err, pokemon) {
-    if (!pokemon.length) {
-      Pokemons.create(pokemonData, function (err) {
-        if (!err) {
-          console.log('createPokemon WORKS');
-        }
-      });
-    }
-  });
-};
+    console.log( 'Database collections dumped.')
+  }
+  catch( e ) {
+    console.error( 'Error deleting database collections:', e.message || e );
+    throw new Error( e.message || e );
+  }
+}
 
-var createGame = function() {
-  Games.find({}, function(err, games) {
-    if (!games.length){
-      var newGame = new Games({
-        gameId: 1,
-        name: 'Hoooli Dungeon',
-        users: [{
-          facebookId: 'Facebook123',
-          playerName: 'Bob'
-        }],
-        gameBoard: gameBoardData,
-        availablePokemon: availablePokemonData,
-        availableItemCards: [],
-        gameCreator: {
-          facebookId: 'Facebook123',
-          playerName: 'Bob'
-        },
-        gameTurn: {
-          facebookId: 'Facebook123',
-          playerName: 'Bob'
-        },
-        gameStarted: true,
-        gameCounter: 0
-      });
-      newGame.save(function(err) {
-        if (!err) {
-          console.log('createGames WORKS in db.js');
-        }
-      });
-    }
-  });
-};
+async function resetDatabase() {
+  try {
+    await deleteDatabaseEntries();
 
-var createSprite = function() {
-  Sprites.find({}, function(err, sprite) {
-    if(!sprite.length) {
-      Sprites.create(spriteData, function(err) {
-        if(!err) {
-          console.log('Created Sprites');
-        }
-      });
-    }
-  });
-};
+    console.log( 'Adding default database entries...');
+    await cbToPromise( Games, Games.create, gamesFake );
+    await cbToPromise( GymLeaders, GymLeaders.create, gymLeaderData );
+    await cbToPromise( Pokemons, Pokemons.create, pokemonData );
+    await cbToPromise( Users, Users.create, usersData );
+    await cbToPromise( Sprites, Sprites.create, spriteData );
 
+    console.log( 'Database initilization complete.')
+  }
+  catch( e ) {
+    console.error( 'Error reseting database:', e.message || e );
+    throw new Error( e.message || e );
+  }
+}
 
+async function resetDatabaseProduction() {
+  try {
+    await deleteDatabaseEntries();
 
+    console.log( 'Adding default database entries...');
+    await cbToPromise( GymLeaders, GymLeaders.create, gymLeaderData );
+    await cbToPromise( Pokemons, Pokemons.create, pokemonData );
+    await cbToPromise( Sprites, Sprites.create, spriteData );
+    await cbToPromise( Users, Users.create, usersData );
 
-//===========Remove contents of the tables in the database===========
-//===========Then Run Populate Table functions===========
-Games.remove({}, function(err) {
-   console.log('Games collection removed');
-})
-.then(function(){
-  createGame();
-});
+    fakeGameProd();
+    await cbToPromise( Games, Games.create, gamesFake );
 
-GymLeaders.remove({}, function(err) {
-   console.log('GymLeaders collection removed');
-})
-// .then(function(){
-//   createGymLeader();
-// });
+    console.log( 'Database initilization complete.')
+  }
+  catch( e ) {
+    console.error( 'Error reseting database:', e.message || e );
+    throw new Error( e.message || e );
+  }
+}
 
-Pokemons.remove({}, function(err) {
-   console.log('Pokemons collection removed');
-})
-// .then(function(){
-//   createPokemons();
-// });
+function fakeGameProd() {
+  const p1 = usersData[3];
+  const p2 = usersData[4];
+  const p3 = usersData[5];
 
-Users.remove({}, function(err) {
-   console.log('Users collection removed');
-})
-.then(function(){
-  createUsers();
-});
+  gamesFake[0].gameCreator.email = p1.email;
+  gamesFake[0].gameCreator.name = p1.name;
+  gamesFake[0].gameTurn.email = p1.email;
+  gamesFake[0].gameTurn.name = p1.name;
+  gamesFake[0].users[0].email = p1.email;
+  gamesFake[0].users[0].name = p1.name;
+  gamesFake[0].users[1].email = p2.email;
+  gamesFake[0].users[1].name = p2.name;
+  gamesFake[0].users[2].email = p3.email;
+  gamesFake[0].users[2].name = p3.name;
 
-Sprites.remove({}, function(err) {
-   console.log('Sprites collection removed');
-})
-// .then(function(){
-//   createSprite();
-// });
+  gamesFake[1].gameCreator.email = p1.email;
+  gamesFake[1].gameCreator.name = p1.name;
+  gamesFake[1].gameTurn.email = p1.email;
+  gamesFake[1].gameTurn.name = p1.name;
+  gamesFake[1].users[0].email = p1.email;
+  gamesFake[1].users[0].name = p1.name;
+
+  gamesFake[2].gameCreator.email = p1.email;
+  gamesFake[2].gameCreator.name = p1.name;
+  gamesFake[2].gameTurn.email = p1.email;
+  gamesFake[2].gameTurn.name = p1.name;
+  gamesFake[2].users[0].email = p1.email;
+  gamesFake[2].users[0].name = p1.name;
+  gamesFake[2].users[1].email = p3.email;
+  gamesFake[2].users[1].name = p3.name;
+
+  gamesFake[3].gameCreator.email = p3.email;
+  gamesFake[3].gameCreator.name = p3.name;
+  gamesFake[3].gameTurn.email = p3.email;
+  gamesFake[3].gameTurn.name = p3.name;
+  gamesFake[3].users[0].email = p3.email;
+  gamesFake[3].users[0].name = p3.name;
+
+}
 
 
-// initalize static database tables if they do not exist
-var dbInit = function() {
-  createGymLeader();
-  createPokemons();
-  createSprite();
-}();
+
+if ( reset ) {
+  resetDatabase()
+  .catch( console.error );
+}
+
+if ( process.argv[2] === 'reset' ) {
+  console.log( 'Clearing DB and resetting with default users and games' );
+  mongoose.connect('mongodb://localhost/pokemon', { useNewUrlParser: true });
+  resetDatabaseProduction()
+  .then(() => {
+    console.log( 'Initialization complete' );
+    mongoose.disconnect();
+  })
+  .catch( console.error );
+}
+
