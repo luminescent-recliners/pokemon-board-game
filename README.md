@@ -2,24 +2,26 @@
 
 > A re-creation of the Pokemon Master Trainer Board game
 
-> __Status:__ in development
+> __Status:__ abandoned
 
-> Latest deployment: [ Pokemon Master Trainer ]( http://chobek.com) A valid email is required to play.
 
 
 ## Table of Contents
 
-1. [Game Play](#game-play)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Project Details](#project-details)
-        * [Server Design](#server-design)
-        * [Client Design](#client-design)
-        * [Database Design](#database-design)
-    1. [Roadmap](#roadmap)
-1. [Team](#team)
-1. [Acknowledgements](#acknowledgements)
+- [<img src="./frontend/src/game.png" alt="Logo" style="width:25px;" width="25px" height="25px"/> Pokemon Master Trainer](#img-srcfrontendsrcgamepng-altlogo-stylewidth25px-width25px-height25px-pokemon-master-trainer)
+  - [Table of Contents](#table-of-contents)
+  - [Game Play](#game-play)
+  - [Requirements](#requirements)
+  - [Development](#development)
+    - [Installing Dependencies](#installing-dependencies)
+    - [Running Dev Environment](#running-dev-environment)
+    - [Project Details](#project-details)
+      - [Server Design](#server-design)
+      - [Client Design](#client-design)
+      - [Database Design](#database-design)
+    - [Roadmap](#roadmap)
+  - [Team](#team)
+  - [Acknowledgements](#acknowledgements)
 
 
 ## Game Play
