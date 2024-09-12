@@ -1,0 +1,19 @@
+
+.trainer-pokemon {
+  border: 1px solid var(--green-background);
+  border-radius: 5px;
+  margin: 3px;
+  min-width: 100px;
+  min-height: 125px;
+  padding: 5px;
+  text-align: center;
+}
+
+.trainer-pokemon:hover {
+  background-color: var(--green-background);
+}
+
+.selected {
+  background-color: var(--green-background);
+}
+

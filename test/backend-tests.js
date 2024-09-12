@@ -74,7 +74,7 @@ describe('Server Integration Tests', function() {
 
   // deletes the sample game that was entered in the data base after all the tests are run
   after(function(done) {
-    game.remove({gameId: { $in: gameIdAdded } }, function(err, data) {
+    game.deleteOne({gameId: { $in: gameIdAdded } }, function(err, data) {
       if(err) { console.error(err);}
       else { console.log('Test Data Deleted');}
     });

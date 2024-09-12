@@ -1,0 +1,32 @@
+
+<div class="lobby" fxLayout="column" fxLayoutAlign="start center">
+
+  <div class="lobby-text item">
+    <p>Welcome to the <b>{{ gameName }}</b> lobby! Please wait for <b><i>{{ gameCreatorName }}</i></b>, the game creator to start the game.</p>
+    <p>Win the game by being the first to capture:</p>
+    <li>4 Pink Pokemon</li>
+    <li>3 Green Pokemon</li>
+    <li>2 Blue Pokemon</li>
+    <li>2 Red Pokemon</li>
+  </div>
+
+  <div class="item">
+    <div>
+      <div class="lobby-list">
+        <p> {{ gameName }} owned by {{ gameCreatorName }}</p>
+        <p> Players in Lobby: </p>
+        <ul *ngFor="let user of users">
+          <li class="user-in-lobby">{{ user.name }}</li>
+        </ul>
+        <input class="main-pokemon-btn" type='button' *ngIf="myGameCreator" (click)="getStarterView()" value='Start Game' />
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lobby-image-container" >
+  <img id="lobby-image" class="lobby-image" src="img/lobby.gif" alt="">
+</div>
+
+<!-- <button (click)="printstate()"> Debug Print</button> -->

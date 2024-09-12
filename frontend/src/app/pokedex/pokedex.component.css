@@ -1,0 +1,37 @@
+.nav-back img {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+.pokedex-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pokedex-wrapper {
+  width: 100%;
+}
+
+.pager {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: burlywood;
+  text-align: center;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.arrow:hover {
+  color: var( --highlight-color );
+  cursor: pointer;
+}
+
+.line {
+  display: inline-block;
+}

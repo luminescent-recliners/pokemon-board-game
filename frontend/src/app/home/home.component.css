@@ -1,0 +1,47 @@
+
+.home {
+  text-align: center;
+  font-size: 1.15em;
+}
+
+.item {
+  max-width: var(--max-content-width);
+}
+
+.game-panel {
+  text-align: left;
+  width: 195px;
+  min-height: 95px;
+  margin: 5px;
+  padding: 3px;
+  background-color: var( --green-background );
+  border-radius: 5px;
+  /* border: 1px solid green; */
+}
+
+.game-panel p {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.game-content {
+  text-align: left;
+  margin: 5px;
+  padding: 3px;
+  max-height: 80px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.game-content p {
+  margin: 1px;
+}
+
+.game-name:hover {
+  color: var( --highlight-color );
+  cursor: pointer;
+}
+
+form {
+  margin-bottom: 5px;
+}

@@ -1,0 +1,19 @@
+
+.lobby {
+  text-align: center;
+  font-size: 1.15em;
+}
+
+.user-in-lobby {
+  text-align: left;
+}
+
+.resume-text {
+  margin: 1%;
+}
+
+.sprite {
+  max-height: 20px;
+  width: auto;
+  margin-right: 5px;
+}
